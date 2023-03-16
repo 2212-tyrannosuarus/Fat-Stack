@@ -5,6 +5,11 @@
 /.pnp
 .pnp.js
 
+dist/
+
+public/bundle.js
+public/bundle.js.map
+
 # testing
 /coverage
 
