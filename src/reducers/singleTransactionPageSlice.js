@@ -2,7 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const singleTransactionPageSlice = createSlice({
   name: "homePage",
-  initialState: {},
+  initialState: {
+    singleTransaction: {},
+  },
   reducers: {},
   extraReducers: (builder) => {},
 });
