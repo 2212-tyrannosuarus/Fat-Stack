@@ -23,7 +23,6 @@ const Transaction = db.define("transaction", {
   //via relationships?
   category: {
     type: Sequelize.STRING,
-    allowNull: false,
   },
   sub_category: {
     type: Sequelize.STRING,

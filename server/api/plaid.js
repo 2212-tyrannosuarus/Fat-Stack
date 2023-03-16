@@ -49,11 +49,11 @@ router.post("/exchange_public_token", async (req, res, next) => {
     const plaidResponse = await plaidClient.itemPublicTokenExchange({
       public_token: publicToken,
     });
-    // console.log("plaidResponse", plaidResponse);
     // These values should be saved to a persistent database and
     // associated with the currently signed-in user
     const accessToken = plaidResponse.data.access_token;
     const itemID = plaidResponse.data.item_id;
+
     res.json({ accessToken: accessToken, data: itemID });
   } catch (error) {
     // handle error
