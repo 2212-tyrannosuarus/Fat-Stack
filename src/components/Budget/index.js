@@ -5,7 +5,8 @@ import AreaChart from "../AreaChart";
 
 const Budget = () => {
   return (
-    <div class="container py-4 px-3 mx-auto">
+    <div class="container">
+        <div>Hello From Budget</div>
       <AreaChart />
     </div>
   );
