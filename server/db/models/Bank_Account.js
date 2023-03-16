@@ -8,6 +8,9 @@ const Bank_Account = db.define("bankaccount", {
     unique: true,
     allowNull: false,
   },
+  available_balance: {
+    type: Sequelize.FLOAT,
+  },
   account_number: {
     type: Sequelize.STRING,
     unique: true,
@@ -18,7 +21,6 @@ const Bank_Account = db.define("bankaccount", {
   },
   account_name: {
     type: Sequelize.STRING,
-    unique: true,
     allowNull: false,
   },
 });

@@ -1,5 +1,8 @@
 const router = require("express").Router();
 require("dotenv").config();
+const {
+  models: { Bank_Account, Transaction },
+} = require("../db");
 const { Configuration, PlaidApi, PlaidEnvironments } = require("plaid");
 
 const configuration = new Configuration({
@@ -101,12 +104,44 @@ router.post("/accountInfo", async function (req, res, next) {
       numbers: numbers,
       trans: transactions,
     });
+
+    //saving Bank_account into DB
+    for (let i = 0; i < accountData.length; i++) {
+      const bankAccount = await Bank_Account.create({
+        account_id: accountData[i].account_id,
+        account_number: numbers.ach[i].account,
+        account_type: accountData[i].name,
+        account_name: accountData[i].official_name,
+        available_balance: accountData[i].balances.available,
+        //using account_id, look up user with such account_id and assign userId to that user's ID
+      });
+      console.log("seeding user success");
+    }
+
+    //saving transactions into DB
+    for (let i = 0; i < transactions.length; i++) {
+      let credit = "debit";
+      if (transactions[i].amount < 0) {
+        credit = "credit";
+      }
+      console.log(credit);
+
+      const transaction = await Transaction.create({
+        account_id: transactions[i].account_id,
+        merchant: transactions[i].name,
+        date: transactions[i].date,
+        amount: transactions[i].amount,
+        category: transactions[i].category[0],
+        sub_category:
+          transactions[i].category[transactions[i].category.length - 1],
+        hide_from_budget: false,
+        credit_debt: credit,
+        //somehow do category
+      });
+    }
   } catch (error) {
     next(error);
   }
 });
 
-// const {
-//   models: {  },
-// } = require("../db");
 module.exports = router;
