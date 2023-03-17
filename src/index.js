@@ -14,7 +14,7 @@ root.render(
     <Auth0Provider
       domain="2212capstone.us.auth0.com"
       clientId="p8klZZBfHPuGZzqQqMnYlGYb7KUFvxE3"
-      redirect_uri={window.location.origin}
+      redirectUri={window.location.origin}
     >
       <Provider store={store}>
         <Router>
