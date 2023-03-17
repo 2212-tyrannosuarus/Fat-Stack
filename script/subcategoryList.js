@@ -111,5 +111,6 @@ const subcategoryArr = [
   "Check",
   "Credit Card",
   "Debit Card",
+  "Uncategorized",
 ];
 module.exports = subcategoryArr;

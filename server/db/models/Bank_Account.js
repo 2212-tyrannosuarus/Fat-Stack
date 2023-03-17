@@ -9,7 +9,7 @@ const Bank_Account = db.define("bankaccount", {
     allowNull: false,
   },
   available_balance: {
-    type: Sequelize.FLOAT,
+    type: Sequelize.DECIMAL(12, 2),
   },
   account_number: {
     type: Sequelize.STRING,
