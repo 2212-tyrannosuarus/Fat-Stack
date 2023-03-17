@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { createChart, isBusinessDay } from "lightweight-charts";
+import './AreaChart.css'
 
 
 const AreaChart = () => {
