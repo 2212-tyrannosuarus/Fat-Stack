@@ -69,6 +69,7 @@ router.post("/accountInfo", async function (req, res, next) {
   try {
     const access_token = req.body.access_token;
     const userId = req.body.userId;
+    console.log(userId);
     const authReq = {
       access_token: access_token,
     };
@@ -108,7 +109,7 @@ router.post("/accountInfo", async function (req, res, next) {
     });
 
     //saving Bank_account/Transactions into DB
-    await accountToDB(accountData, numbers);
+    await accountToDB(accountData, numbers, userId);
     transactionToDB(transactions, userId, accountData);
   } catch (error) {
     next(error);
