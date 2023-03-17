@@ -9,8 +9,6 @@ const subcategoryArrObj = subcategoryArr.map((subCategory) => {
   };
 });
 
-console.log("subact", subcategoryArr);
-
 const {
   db,
   models: {

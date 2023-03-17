@@ -26,7 +26,7 @@ const Transaction = db.define("transaction", {
   credit_debit: {
     type: Sequelize.ENUM,
     values: ["credit", "debit"],
-    defaultValue: "credit",
+    defaultValue: "debit",
   },
 });
 
