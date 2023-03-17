@@ -14,6 +14,7 @@
     "dotenv": "^16.0.3",
     "lightweight-charts": "^4.0.0",
     "morgan": "^1.10.0",
+    "node-fetch": "^2.6.9",
     "pg": "^8.10.0",
     "plaid": "^12.5.0",
     "react": "^18.2.0",
