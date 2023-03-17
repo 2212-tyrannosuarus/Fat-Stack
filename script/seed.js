@@ -45,6 +45,7 @@ async function seed() {
     subcategoryArrObj
   );
 
+  // creating three bank a/cs for csv transaction data
   const bankAccountOne = await Bank_Account.create({
     account_id: "GD5JC6GNBB2SBRZ9W8Z1JB95IGWBSWT13EST0",
     available_balance: 10000.0,
@@ -67,6 +68,7 @@ async function seed() {
     account_name: "Silver Card",
   });
 
+  // creating user for csv transaction data
   const userTasneem = await User.create({
     username: "tasneemp",
     password: "tasneemPass",
@@ -77,11 +79,12 @@ async function seed() {
   bankAccountTwo.setUser(userTasneem);
   bankAccountThree.setUser(userTasneem);
 
+  // Reading csv transaciton data and adding transactions to db
   const csvDataArr = await convertCsv();
   let transactionsArr = [];
   csvDataArr.forEach(async (transaction) => {
     let bankAccount = "";
-    console.log("transaction ", transaction);
+    // console.log("transaction ", transaction);
     let accountId = "";
     if (transaction.accountName.includes("Checking")) {
       accountId = "GD5JC6GNBB2SBRZ9W8Z1JB95IGWBSWT13EST0";
@@ -126,6 +129,27 @@ async function seed() {
     }
     transactionsArr.push(newTransaction);
   });
+
+  //creating budget schemes
+  const budgetScheme1 = await Budget_Scheme.create({scheme_name: "Every Month"});
+  const budgetScheme2 = await Budget_Scheme.create({scheme_name: "Once"});
+  for (let i = 3; i <= 12; i++) {
+    await Budget_Scheme.create({scheme_name: `Every Few Months ${i}`});
+  }
+
+  //creating budget items for user tasneem
+  const budgetItem1 = await Budget.create({budget_name: "Travel", amount: 500.00, date_started: "2023-01-01"});
+  budgetItem1.setBudgetscheme(budgetScheme1);
+  budgetItem1.setUser(userTasneem);
+  let travel = await Sub_Category.findOne({where: {sub_category_name: "Travel"}});
+  budgetItem1.setSubcategory(travel);
+
+  const budgetItem2 = await Budget.create({budget_name: "Mortgage", amount: 1500.00, date_started: "2023-01-01"});
+  budgetItem2.setBudgetscheme(budgetScheme1);
+  budgetItem2.setUser(userTasneem);
+  let mortgage = await Sub_Category.findOne({where: {sub_category_name: "Mortgage & Rent"}});
+  budgetItem2.setSubcategory(mortgage);
+
   console.log(`seeded successfully`);
   return;
 }

@@ -3,7 +3,6 @@ import "./Budget.css";
 import "./Budget.scss";
 import AreaChart from "../AreaChart";
 import {
-  readTransactionCsv,
   selectUserTransactions,
 } from "../../reducers/budgetPageSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,7 +16,7 @@ const Budget = () => {
 
   useEffect(() => {
     async function getTransactions() {
-      await dispatch(readTransactionCsv({ userId: userId }));
+    //   await dispatch(readTransactionCsv({ userId: userId }));
     }
     getTransactions();
   }, []);
