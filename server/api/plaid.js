@@ -68,6 +68,7 @@ router.post("/exchange_public_token", async (req, res, next) => {
 router.post("/accountInfo", async function (req, res, next) {
   try {
     const access_token = req.body.access_token;
+    const userId = req.body.userId;
     const authReq = {
       access_token: access_token,
     };
@@ -107,8 +108,8 @@ router.post("/accountInfo", async function (req, res, next) {
     });
 
     //saving Bank_account/Transactions into DB
-    accountToDB(accountData, numbers);
-    transactionToDB(transactions);
+    await accountToDB(accountData, numbers);
+    transactionToDB(transactions, userId, accountData);
   } catch (error) {
     next(error);
   }
