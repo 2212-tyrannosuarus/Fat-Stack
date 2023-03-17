@@ -1,7 +1,16 @@
 //transactions
-//overcview, alltrasn, signle trans, budget
-const bulkTransactions = require("./transactionGenerator");
 ("use strict");
+//overcview, alltrasn, signle trans, budget
+const subcategoryArr = require("./subcategoryList");
+const bulkTransactions = require("./transactionGenerator");
+console.log("subact", subcategoryArr);
+const subcategoryArrObj = subcategoryArr.map((subCategory) => {
+  return {
+    sub_category_name: subCategory,
+  };
+});
+
+console.log("subact", subcategoryArr);
 
 const {
   db,
@@ -28,57 +37,9 @@ async function seed() {
   console.log("db synced!");
   //*******START OF DEMO DATA */
   const bulkSeedTransactions = await Transaction.bulkCreate(bulkTransactions);
-  const seededTransactions = await Promise.all([
-    Transaction.create({
-      account_id: "1234567",
-      merchant: "Amazon",
-      date: "2023-02-25",
-      amount: 12.5,
-      sub_category: "Electronics",
-      credit_debit: "credit",
-    }),
-    Transaction.create({
-      account_id: "1234567",
-      merchant: "Taco Bell",
-      date: "2023-02-26",
-      amount: 5.57,
-      sub_category: "Food",
-      credit_debit: "credit",
-    }),
-    Transaction.create({
-      account_id: "1234567",
-      merchant: "Taco Bell",
-      date: "2023-02-27",
-      amount: 8.44,
-      sub_category: "Food",
-      credit_debit: "credit",
-    }),
-    Transaction.create({
-      account_id: "1234567",
-      merchant: "Amazon",
-      date: "2023-02-27",
-      amount: 240.75,
-      sub_category: "Electronics",
-      credit_debit: "credit",
-    }),
-    Transaction.create({
-      account_id: "1234567",
-      merchant: "STRIIDE",
-      date: "2023-02-28",
-      amount: 820.5,
-      sub_category: "Clothing",
-      credit_debit: "credit",
-    }),
-    Transaction.create({
-      account_id: "1234567",
-      merchant: "STRIIDE",
-      date: "2023-03-01",
-      amount: 240.9,
-      sub_category: "Clothing",
-      credit_debit: "credit",
-    }),
-  ]);
-
+  const bulkSeedSubCategories = await Sub_Category.bulkCreate(
+    subcategoryArrObj
+  );
   console.log(`seeded successfully`);
   return;
 }

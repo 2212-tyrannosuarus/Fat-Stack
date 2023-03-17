@@ -14,13 +14,38 @@ const User_Category = require("./models/User_Category");
 const User = require("./models/User");
 
 //associations could go here!
+User.hasMany(Goal);
+Goal.belongsTo(User);
 
-// Product.belongsToMany(Size, {
-//   through: "product_size",
-//   foreignKey: Product.id,
-// });
+User.hasMany(Bank_Account);
+Bank_Account.belongsTo(User);
 
-// Size.belongsToMany(Product, { through: "product_size", foreignKey: Size.id });
+User.hasMany(Transaction);
+Transaction.belongsTo(User);
+
+Bank_Account.hasMany(Transaction);
+Transaction.belongsTo(Bank_Account);
+
+Transaction.hasMany(Note);
+Note.belongsTo(Transaction);
+
+Transaction.hasOne(Sub_Category);
+Sub_Category.hasMany(Transaction);
+
+Sub_Category.belongsTo(Category);
+Category.hasMany(Sub_Category);
+
+Category.hasMany(User_Category);
+User_Category.belongsTo(Category);
+
+Budget.belongsTo(Sub_Category);
+Sub_Category.hasMany(Budget);
+
+Budget.belongsTo(User_Category);
+User_Category.hasMany(Budget);
+
+Budget.hasOne(Budget_Scheme);
+Budget_Scheme.hasMany(Budget);
 
 module.exports = {
   db,

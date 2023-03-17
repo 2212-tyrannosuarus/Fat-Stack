@@ -127,12 +127,10 @@ const generateTransactions = (
     });
   };
   attachAmount(250);
-  console.log(transactionArr);
 
   //   const attachUser = (userId) => {
   //     transactionArr.map((transaction) => {});
   //   };
-  console.log(transactionArr);
   return transactionArr;
 };
 
