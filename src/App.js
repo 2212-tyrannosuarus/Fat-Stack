@@ -9,9 +9,9 @@ import * as bootstrap from "bootstrap";
 const App = () => {
   return (
     <>
-      <div class="container py-4 px-3 mx-auto">
+      <div className="container py-4 px-3 mx-auto">
         <h1 className="text-bg-dark">Hello, Bootstrap and Webpack!</h1>
-        <button class="btn btn-primary">Primary button</button>
+        <button className="btn btn-primary">Primary button</button>
       </div>
       <Routes />
     </>
