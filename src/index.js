@@ -10,15 +10,17 @@ const container = document.getElementById("root");
 const root = createRoot(container);
 
 root.render(
-  <Auth0Provider
-    domain="2212capstone.us.auth0.com"
-    clientId="p8klZZBfHPuGZzqQqMnYlGYb7KUFvxE3"
-    redirectUrl={window.location.origin}
-  >
-    <Provider store={store}>
-      <Router>
-        <App />
-      </Router>
-    </Provider>
-  </Auth0Provider>
+  <React.StrictMode>
+    <Auth0Provider
+      domain="2212capstone.us.auth0.com"
+      clientId="p8klZZBfHPuGZzqQqMnYlGYb7KUFvxE3"
+      redirectUrl={window.location.origin}
+    >
+      <Provider store={store}>
+        <Router>
+          <App />
+        </Router>
+      </Provider>
+    </Auth0Provider>
+  </React.StrictMode>
 );
