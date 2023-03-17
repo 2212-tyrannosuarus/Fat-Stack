@@ -19,15 +19,6 @@ const Transaction = db.define("transaction", {
     type: Sequelize.DECIMAL(12, 2),
     allowNull: false,
   },
-  //should these category fields be left off? Will they be defined
-  //via relationships?
-  category: {
-    type: Sequelize.STRING,
-  },
-  sub_category: {
-    type: Sequelize.STRING,
-    allowNull: false,
-  },
   hide_from_budget: {
     type: Sequelize.BOOLEAN,
     defaultValue: false,
@@ -35,6 +26,7 @@ const Transaction = db.define("transaction", {
   credit_debit: {
     type: Sequelize.ENUM,
     values: ["credit", "debit"],
+    defaultValue: "credit",
   },
 });
 
