@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useAuth0 } from "@auth0/auth0-react";
 import { usePlaidLink } from "react-plaid-link";
 
-export function PlaidAuth({ publicToken }) {
+export function PlaidAuth({ publicToken, user }) {
   useEffect(() => {
     async function fetchData() {
       let accessToken = await axios.post("/api/plaid/exchange_public_token", {
@@ -21,7 +22,8 @@ export function PlaidAuth({ publicToken }) {
   return <span>{publicToken}</span>;
 }
 
-export default function Placid() {
+export default function Plaid() {
+  const { isAuthenticated, loginWithRedirect, logout, user } = useAuth0();
   const [linkToken, setLinkToken] = useState(null);
   const [bankInfo, setBankInfo] = useState(null);
   const [public_token, setPublic_token] = useState(null);
@@ -46,16 +48,18 @@ export default function Placid() {
 
   return (
     <div>
-      {public_token ? (
-        <PlaidAuth publicToken={public_token} />
-      ) : (
-        <div>
-          {" "}
-          <button onClick={() => open()} disabled={!ready}>
-            Connect a bank account
-          </button>
-        </div>
-      )}
+      {isAuthenticated ? (
+        public_token ? (
+          <PlaidAuth publicToken={public_token} user={user} />
+        ) : (
+          <div>
+            {" "}
+            <button onClick={() => open()} disabled={!ready}>
+              Connect a bank account
+            </button>
+          </div>
+        )
+      ) : null}
     </div>
   );
 }

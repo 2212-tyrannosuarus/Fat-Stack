@@ -162,7 +162,7 @@ const plaidMap = {
   "Equipment Rental": 107,
 };
 
-const accountToDB = async (arr, arr2) => {
+const accountToDB = async (arr, arr2, userId) => {
   for (let i = 0; i < arr.length; i++) {
     const bankAccount = await Bank_Account.create({
       account_id: arr[i].account_id,
@@ -170,6 +170,7 @@ const accountToDB = async (arr, arr2) => {
       account_type: arr[i].name,
       account_name: arr[i].official_name,
       available_balance: arr[i].balances.available,
+      userId: userId,
       //using account_id, look up user with such account_id and assign userId to that user's ID
     });
   }
@@ -215,7 +216,7 @@ const transactionToDB = async (arr, userId, accounts) => {
       credit_debit: credit,
       subcategoryId: catId,
       bankaccountId: accountId,
-      // userId: userId,
+      userId: userId,
       //somehow do category
     });
   }

@@ -10,7 +10,7 @@ import Homepage from "./components/HomePage";
 export const NavigationRoutes = () => {
   return (
     <Routes>
-      <Route path="/homepage" element={<Homepage />} />
+      <Route path="/" element={<Homepage />} />
       <Route path="/overview" element={<Overview />} />
       <Route path="/transactions" element={<AllTransactions />} />
       <Route path="/transactions/:id" element={<SingleTransaction />} />
