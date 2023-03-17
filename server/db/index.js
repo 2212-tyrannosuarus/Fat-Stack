@@ -29,7 +29,7 @@ Transaction.belongsTo(Bank_Account);
 Transaction.hasMany(Note);
 Note.belongsTo(Transaction);
 
-Transaction.hasOne(Sub_Category);
+Transaction.belongsTo(Sub_Category);
 Sub_Category.hasMany(Transaction);
 
 Sub_Category.belongsTo(Category);

@@ -1,14 +1,21 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from 'axios';
+import axios from "axios";
 
 export const readTransactionCsv = createAsyncThunk(
   "transactions/readCsv",
-  async ({userId}) => {
+  async ({ userId }) => {
     const res = await fetch("/Tranactions_Mar_15.csv");
     const resp = await res.text();
     // console.log("resp", resp);
     const csvData = resp.split("\n").map((row) => {
-      const [date, description, amount, tranactionType, subCategory, accountName] = row.split(",");
+      const [
+        date,
+        description,
+        amount,
+        tranactionType,
+        subCategory,
+        accountName,
+      ] = row.split(",");
       return {
         date: date.toString(),
         description: description,
@@ -29,10 +36,10 @@ export const readTransactionCsv = createAsyncThunk(
       csvData2.push(csvData[i]);
     }
     let transactions = csvData1;
-    const {data1} = await axios.post(`/api/budget/${userId}`, transactions);
+    const { data1 } = await axios.post(`/api/budget/${userId}`, transactions);
 
     transactions = csvData2;
-    const {data2} = await axios.post(`/api/budget/${userId}`, transactions);
+    const { data2 } = await axios.post(`/api/budget/${userId}`, transactions);
 
     let resultData = [];
     for (let i = 0; i < data1; i++) {
@@ -49,14 +56,13 @@ export const readTransactionCsv = createAsyncThunk(
 export const budgetPageSlice = createSlice({
   name: "BudgetPage",
   initialState: {
-    transactions: []
+    transactions: [],
   },
   reducers: {},
   extraReducers: (build) => {
-    build
-      .addCase(readTransactionCsv.fulfilled, (state, action) => {
-        state.transactions = action.payload;
-      });
+    build.addCase(readTransactionCsv.fulfilled, (state, action) => {
+      state.transactions = action.payload;
+    });
   },
 });
 
