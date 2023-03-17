@@ -1,6 +1,7 @@
 //transactions
 //overcview, alltrasn, signle trans, budget
-"use strict";
+const bulkTransactions = require("./transactionGenerator");
+("use strict");
 
 const {
   db,
@@ -26,14 +27,13 @@ async function seed() {
   await db.sync({ force: true }); // clears db and matches models to tables
   console.log("db synced!");
   //*******START OF DEMO DATA */
-
+  const bulkSeedTransactions = await Transaction.bulkCreate(bulkTransactions);
   const seededTransactions = await Promise.all([
     Transaction.create({
       account_id: "1234567",
       merchant: "Amazon",
       date: "2023-02-25",
       amount: 12.5,
-      category: "Shopping",
       sub_category: "Electronics",
       credit_debit: "credit",
     }),
@@ -42,7 +42,6 @@ async function seed() {
       merchant: "Taco Bell",
       date: "2023-02-26",
       amount: 5.57,
-      category: "Groceries",
       sub_category: "Food",
       credit_debit: "credit",
     }),
@@ -51,7 +50,6 @@ async function seed() {
       merchant: "Taco Bell",
       date: "2023-02-27",
       amount: 8.44,
-      category: "Groceries",
       sub_category: "Food",
       credit_debit: "credit",
     }),
@@ -60,7 +58,6 @@ async function seed() {
       merchant: "Amazon",
       date: "2023-02-27",
       amount: 240.75,
-      category: "Shopping",
       sub_category: "Electronics",
       credit_debit: "credit",
     }),
@@ -69,7 +66,6 @@ async function seed() {
       merchant: "STRIIDE",
       date: "2023-02-28",
       amount: 820.5,
-      category: "Shopping",
       sub_category: "Clothing",
       credit_debit: "credit",
     }),
@@ -78,7 +74,6 @@ async function seed() {
       merchant: "STRIIDE",
       date: "2023-03-01",
       amount: 240.9,
-      category: "Shopping",
       sub_category: "Clothing",
       credit_debit: "credit",
     }),
