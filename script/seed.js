@@ -3,7 +3,6 @@
 //overcview, alltrasn, signle trans, budget
 const subcategoryArr = require("./subcategoryList");
 const bulkTransactions = require("./transactionGenerator");
-console.log("subact", subcategoryArr);
 const subcategoryArrObj = subcategoryArr.map((subCategory) => {
   return {
     sub_category_name: subCategory,
@@ -27,7 +26,7 @@ const {
     User,
   },
 } = require("../server/db");
-
+console.log("test");
 /**
  * seed - this function clears the database, updates tables to
  *      match the models, and populates the database.
