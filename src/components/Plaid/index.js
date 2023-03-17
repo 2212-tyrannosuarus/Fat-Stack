@@ -11,6 +11,7 @@ export function PlaidAuth({ publicToken }) {
 
       const auth = await axios.post("/api/plaid/accountInfo", {
         access_token: accessToken.data.accessToken,
+        userId: 1,
       });
       console.log("auth", auth);
     }

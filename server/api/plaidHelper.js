@@ -176,13 +176,25 @@ const accountToDB = async (arr, arr2) => {
   console.log("seeding user success");
 };
 
-const transactionToDB = async (arr) => {
+const transactionToDB = async (arr, userId, accounts) => {
+  let accountIdMap = {};
+  //converts accounts array into a Map;
+
+  for (let j = 0; j < accounts.length; j++) {
+    let bankId = accounts[j]["account_id"];
+    const bank = await Bank_Account.findOne({ where: { account_id: bankId } });
+    accountIdMap[bankId] = bank.id;
+  }
+
   for (let i = 0; i < arr.length; i++) {
+    let transAccountId = arr[i].account_id;
+    let accountId = accountIdMap[transAccountId];
     let credit = "debit";
     let catId = 113;
     if (arr[i].amount < 0) {
       credit = "credit";
     }
+
     if (plaidMap.hasOwnProperty(arr[i].category[arr[i].category.length - 1])) {
       let str = arr[i].category[arr[i].category.length - 1];
       catId = plaidMap[str];
@@ -194,7 +206,7 @@ const transactionToDB = async (arr) => {
     }
 
     const transaction = await Transaction.create({
-      account_id: arr[i].account_id,
+      account_id: transAccountId,
       merchant: arr[i].name,
       date: arr[i].date,
       amount: arr[i].amount,
@@ -202,6 +214,8 @@ const transactionToDB = async (arr) => {
       hide_from_budget: false,
       credit_debit: credit,
       subcategoryId: catId,
+      bankaccountId: accountId,
+      // userId: userId,
       //somehow do category
     });
   }
