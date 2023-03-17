@@ -66,7 +66,6 @@ const subcategoryArr = [
   "Deposit",
   "Dividend & Cap Gains",
   "Sell",
-  "Withdrawal",
   "Allowance",
   "Baby Supplies",
   "Baby Sitter & Daycare",
