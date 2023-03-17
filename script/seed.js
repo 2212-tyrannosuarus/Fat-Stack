@@ -27,7 +27,7 @@ const {
     User,
   },
 } = require("../server/db");
-
+console.log("test");
 /**
  * seed - this function clears the database, updates tables to
  *      match the models, and populates the database.
