@@ -217,7 +217,6 @@ const transactionToDB = async (arr, userId, accounts) => {
       subcategoryId: catId,
       bankaccountId: accountId,
       userId: userId,
-      //somehow do category
     });
   }
 };
