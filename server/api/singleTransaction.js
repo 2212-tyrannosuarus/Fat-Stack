@@ -2,6 +2,7 @@ const router = require("express").Router();
 const {
   models: { Transaction },
 } = require("../db");
+
 module.exports = router;
 
 // GET api/transactions/#transactionId
