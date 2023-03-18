@@ -128,7 +128,6 @@ async function seed() {
       where: { sub_category_name: transaction.subCategory },
     });
 
-    // const currentCategory = await Category.findOne({where: {id: currentSubCategory.}})
     if (!currentSubCategory || currentSubCategory === null) {
       let uncategorized = await Sub_Category.findOne({
         where: { sub_category_name: "Uncategorized" },

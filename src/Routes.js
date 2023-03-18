@@ -15,7 +15,7 @@ export const NavigationRoutes = () => {
       <Route path="/transactions" element={<AllTransactions />} />
       <Route path="/transactions/:id" element={<SingleTransaction />} />
       <Route path="/profile" element={<Profile />} />
-      <Route exact path="/budget/:id" element={<Budget />} />
+      <Route exact path="/budget/:userId" element={<Budget />} />
     </Routes>
   );
 };
