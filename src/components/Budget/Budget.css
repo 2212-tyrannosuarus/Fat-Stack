@@ -107,5 +107,6 @@
   }
 
   .selected-month {
-    background-color: #6a6cfe;
+    background-color: #6a6cfe !important;
+    color: white;
   }

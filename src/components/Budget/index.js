@@ -10,6 +10,9 @@ import {
 } from "../../reducers/budgetPageSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import SelectDropDown from "./SelectDropDown";
+import { handleThisMonth, handleLastMonth, handleLastThreeMonths } from "./handleMonths"; 
+import MonthsToDisplay from "./MonthsToDisplay";
 
 const MONTHS = [
   "Jan",
@@ -52,10 +55,6 @@ const Budget = () => {
     monthsToDisplay.push(`${MONTHS[i]} '${parseInt(currYear)}`);
   }
 
-  function handleThisMonth () {
-    alert("hi");
-  }
-
   useEffect(() => {
     async function getTransactions() {
       await dispatch(fetchAllUserTransactions(userId));
@@ -72,55 +71,18 @@ const Budget = () => {
             {currMonth} {dateToday.toString().split(" ")[3]}
           </h2>
         </div>
-        <div className="col">
-        <div class="card-body">
-            <div class="text-center">
-              <div class="dropdown">
-                <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" id="growthReportId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Selected Month
-                </button>
-                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="growthReportId">
-                  <button id="this-month-button" class="dropdown-item selected-month" onClick={(e) => handleThisMonth(e)}>This month</button>
-                  <a class="dropdown-item" href="javascript:void(0);">Last month</a>
-                  <a class="dropdown-item" href="javascript:void(0);">Last 3 months</a>
-                  <a class="dropdown-item" href="javascript:void(0);">Last 6 months</a>
-                  <a class="dropdown-item" href="javascript:void(0);">This year</a>
-                  <a class="dropdown-item" href="javascript:void(0);">Last year</a>
-                  <a class="dropdown-item" href="javascript:void(0);">All Time</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+       
+       <SelectDropDown handleThisMonth={handleThisMonth} handleLastMonth={handleLastMonth} 
+       handleLastThreeMonths={handleLastThreeMonths} currMonth={currMonth} MONTHS={MONTHS} 
+       indexOfCurrMonth={indexOfCurrMonth}
+       />
         </div>
       </div>
       {/* <AreaChart /> */}
-      <div className="row">
-        <div className="row col-9">
-          {monthsToDisplay && monthsToDisplay.length
-            ? monthsToDisplay.map((month) => {
-                return (
-                  <div class="card col-1 m-1">
-                    <div class="card-body p-0 m-0 text-center">
-                      {/* <div class="card-title d-flex align-items-start justify-content-between">
-              <div class="avatar flex-shrink-0">
-                <img src="{{asset('assets/img/icons/unicons/chart-success.png')}}" alt="chart success" class="rounded" />
-              </div>
+      <MonthsToDisplay monthsToDisplay={monthsToDisplay}/>
 
-            </div> */}
-                      <span class="fw-semibold d-block mb-1">
-                        {month.split(" ")[0]}
-                      </span>
-                      <span class="fw-semibold d-block mb-1">
-                        {month.split(" ")[1]}
-                      </span>
-                    </div>
-                  </div>
-                );
-              })
-            : "Loading"}
-        </div>
-      </div>
+
+      
 
       {/* template */}
       <>
