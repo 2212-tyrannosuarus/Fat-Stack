@@ -111,11 +111,8 @@ const categoryMap = {
   Hotel: 106,
   "Rental Car & taxi": 107,
   Vacation: 108,
-  "Cash & ATM": 109,
-  Check: 110,
-  "Credit Card": 111,
-  "Debit Card": 112,
-  Uncategorized: 113,
+  Uncategorized: 109,
+  "Investment Withdrawal": 110,
 };
 
 const plaidMap = {
@@ -217,7 +214,6 @@ const transactionToDB = async (arr, userId, accounts) => {
       subcategoryId: catId,
       bankaccountId: accountId,
       userId: userId,
-      //somehow do category
     });
   }
 };
