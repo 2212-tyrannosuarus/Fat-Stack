@@ -4,6 +4,9 @@
 const convertCsv = require("./transactionSeed");
 const subcategoryArr = require("./subcategoryList");
 const bulkTransactions = require("./transactionGenerator");
+const categoriesArr = require("./categoryList");
+const assignCategoryToSubCategory = require("./assignCategoryToSubCategory");
+
 const subcategoryArrObj = subcategoryArr.map((subCategory) => {
   return {
     sub_category_name: subCategory,
@@ -25,6 +28,7 @@ const {
     User,
   },
 } = require("../server/db");
+
 console.log("test");
 /**
  * seed - this function clears the database, updates tables to
@@ -79,6 +83,14 @@ async function seed() {
   bankAccountTwo.setUser(userTasneem);
   bankAccountThree.setUser(userTasneem);
 
+  // Create categories
+  categoriesArr.forEach(async(category) => {
+    await Category.create({category_name: category});
+  })
+
+  // assign category to sub category
+  assignCategoryToSubCategory();
+
   // Reading csv transaciton data and adding transactions to db
   const csvDataArr = await convertCsv();
   let transactionsArr = [];
@@ -115,6 +127,7 @@ async function seed() {
     let currentSubCategory = await Sub_Category.findOne({
       where: { sub_category_name: transaction.subCategory },
     });
+
     if (!currentSubCategory || currentSubCategory === null) {
       let uncategorized = await Sub_Category.findOne({
         where: { sub_category_name: "Uncategorized" },
@@ -149,6 +162,12 @@ async function seed() {
   budgetItem2.setUser(userTasneem);
   let mortgage = await Sub_Category.findOne({where: {sub_category_name: "Mortgage & Rent"}});
   budgetItem2.setSubcategory(mortgage);
+
+  const budgetItem3 = await Budget.create({budget_name: "Paycheck", amount: 2000.00, date_started: "2023-01-01"});
+  budgetItem3.setBudgetscheme(budgetScheme1);
+  budgetItem3.setUser(userTasneem);
+  let paycheck = await Sub_Category.findOne({where: {sub_category_name: "Paycheck"}});
+  budgetItem3.setSubcategory(paycheck);
 
   console.log(`seeded successfully`);
   return;
