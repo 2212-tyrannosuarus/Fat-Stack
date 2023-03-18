@@ -188,7 +188,7 @@ const transactionToDB = async (arr, userId, accounts) => {
     let transAccountId = arr[i].account_id;
     let accountId = accountIdMap[transAccountId];
     let credit = "debit";
-    let catId = 113;
+    let catId = 109;
     if (arr[i].amount < 0) {
       credit = "credit";
     }
