@@ -99,6 +99,7 @@ const subcategoryArr = [
   "Sales tax",
   "State tax",
   "Credit Card Payment",
+  "Investment Withdrawal",
   "Withdrawal",
   "Debit",
   "Transfer For Cash Spending",

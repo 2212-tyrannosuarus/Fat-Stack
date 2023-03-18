@@ -2,10 +2,10 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const fetchAllUserTransactions = createAsyncThunk(
-  "courses_sub_category/fetchAll",
+  "userTransactions/fetchAll",
   async (userId) => {
     userId = parseInt(userId);
-    const { data } = await axios.get(`/api/subCategories/${userId}`);
+    const { data } = await axios.get(`/api/budget/${userId}`);
     return data;
   }
 );
