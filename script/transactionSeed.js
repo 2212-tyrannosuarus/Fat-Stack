@@ -2,7 +2,7 @@ const fs = require("fs/promises");
 const path = require("path");
 const convertCsv = async () => {
   const data = await fs.readFile(
-    path.resolve(__dirname, "Tranactions_Mar_15.csv"),
+    path.resolve(__dirname, "Transactions_Mar_15.csv"),
     { encoding: "utf8" }
   );
   const csvData = data.split("\n").map((row) => {

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 import Plaid from "../Plaid";
 import {
   fetchSingleTransaction,
@@ -8,6 +9,7 @@ import {
 } from "../../reducers/singleTransactionPageSlice";
 
 const SingleTransction = () => {
+  const { isAuthenticated, loginWithRedirect, logout, user } = useAuth0();
   const dispatch = useDispatch();
   const { id } = useParams();
   const singleTransaction = useSelector(selectSingleTransaction);

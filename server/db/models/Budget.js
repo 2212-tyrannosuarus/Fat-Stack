@@ -2,6 +2,10 @@ const Sequelize = require("sequelize");
 const db = require("../db");
 
 const Budget = db.define("budget", {
+  budget_name: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
   amount: {
     type: Sequelize.DECIMAL(12, 2),
     allowNull: false,
