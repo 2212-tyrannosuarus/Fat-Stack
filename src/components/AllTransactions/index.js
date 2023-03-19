@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   fetchAllTransactions,
   selectAllTransactions,
@@ -12,20 +12,48 @@ const AllTransactions = () => {
   const allTransactions = useSelector(selectAllTransactions);
   const bankAccounts = useSelector(selectAllBankAccounts);
 
+  const [selectedAccount, setSelectedAccount] = useState("all");
+
   useEffect(() => {
     dispatch(fetchAllTransactions());
     dispatch(fetchAllBankAccounts());
   }, [dispatch]);
 
+  let totalAccountBalance = bankAccounts.reduce((accum, account) => {
+    accum += Number(account.available_balance);
+    return accum;
+  }, 0);
+
+  const handleAccountClick = (e) => {
+    setSelectedAccount(e.target.value);
+  };
+
   return (
     <>
       <div>
-        Your accounts:
+        <div>Your accounts:</div>
         <ul>
+          <li>
+            <button
+              value={"all"}
+              onClick={(e) => {
+                handleAccountClick(e);
+              }}
+            >
+              {"All Accounts"}|{totalAccountBalance}
+            </button>
+          </li>
           {bankAccounts.map((account) => {
             return (
-              <li>
-                {account.account_name}|{account.available_balance}
+              <li key={account.account_id}>
+                <button
+                  value={account.id}
+                  onClick={(e) => {
+                    handleAccountClick(e);
+                  }}
+                >
+                  {account.account_name}|{account.available_balance}
+                </button>
               </li>
             );
           })}
@@ -39,16 +67,21 @@ const AllTransactions = () => {
       <ul>
         {allTransactions.map((transaction, idx) => {
           if (idx < 50) {
-            return (
-              <li>
-                <div>
-                  {transaction.date}............
-                  {transaction.merchant}............
-                  {transaction.category}............
-                  {transaction.amount}
-                </div>
-              </li>
-            );
+            if (
+              selectedAccount === "all" ||
+              transaction.bankaccountId === Number(selectedAccount)
+            ) {
+              return (
+                <li>
+                  <div>
+                    {transaction.date}............
+                    {transaction.merchant}............
+                    {transaction.category}............
+                    {transaction.amount}
+                  </div>
+                </li>
+              );
+            }
           }
         })}
       </ul>
