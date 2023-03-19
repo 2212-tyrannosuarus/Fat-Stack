@@ -4,19 +4,25 @@ import {
   selectAllTransactions,
   selectAllBankAccounts,
   fetchAllBankAccounts,
+  selectSubCategories,
+  fetchAllSubCategories,
 } from "../../reducers/allTransactionsPageSlice";
+
 import { useDispatch, useSelector } from "react-redux";
 
 const AllTransactions = () => {
   const dispatch = useDispatch();
   const allTransactions = useSelector(selectAllTransactions);
   const bankAccounts = useSelector(selectAllBankAccounts);
+  const subCategories = useSelector(selectSubCategories);
 
   const [selectedAccount, setSelectedAccount] = useState("all");
+  const [selectedCategory, setSelectedCategory] = useState("none");
 
   useEffect(() => {
     dispatch(fetchAllTransactions());
     dispatch(fetchAllBankAccounts());
+    dispatch(fetchAllSubCategories());
   }, [dispatch]);
 
   let totalAccountBalance = bankAccounts.reduce((accum, account) => {
@@ -28,7 +34,12 @@ const AllTransactions = () => {
     setSelectedAccount(e.target.value);
   };
 
-  return (
+  const handleCategoryChange = (e) => {
+    setSelectedCategory(e.target.value);
+    console.log("category", selectedCategory);
+  };
+
+  return subCategories.length > 0 ? (
     <>
       <div>
         <div>Your accounts:</div>
@@ -58,6 +69,21 @@ const AllTransactions = () => {
             );
           })}
         </ul>
+        <div>filters</div>
+        <label for="category">Category</label>
+        <select
+          id="category"
+          onChange={(e) => {
+            handleCategoryChange(e);
+          }}
+        >
+          {subCategories.map((category) => {
+            return (
+              <option value={category.id}>{category.sub_category_name}</option>
+            );
+          })}
+        </select>
+        <label>Date</label>
       </div>
 
       <div>Transactions:</div>
@@ -66,10 +92,14 @@ const AllTransactions = () => {
       </div>
       <ul>
         {allTransactions.map((transaction, idx) => {
+          console.log("cat id ", selectedCategory);
+          console.log("trans cat id", transaction.subcategoryId);
           if (idx < 50) {
             if (
-              selectedAccount === "all" ||
-              transaction.bankaccountId === Number(selectedAccount)
+              (selectedAccount === "all" ||
+                transaction.bankaccountId === Number(selectedAccount)) &&
+              (selectedCategory === "none" ||
+                Number(selectedCategory) === Number(transaction.subcategoryId))
             ) {
               return (
                 <li>
@@ -86,6 +116,8 @@ const AllTransactions = () => {
         })}
       </ul>
     </>
+  ) : (
+    <>LOADING</>
   );
 };
 
