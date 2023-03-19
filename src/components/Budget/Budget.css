@@ -110,3 +110,7 @@
     background-color: #6a6cfe !important;
     color: white;
   }
+
+  .income-progress-bar {
+    list-style: none;
+  }

@@ -1,31 +1,33 @@
-function handleThisMonth (e, currMonth) {
-    // alert("hi");
-    let selectedMonthDivs = document.querySelectorAll('.selected-month');
-    selectedMonthDivs.forEach(div => {
-        div.classList.remove("selected-month");
-    })
-    let thisMonthDiv = document.querySelector(`#${currMonth}`);
-    thisMonthDiv.classList.add("selected-month");
-  }
 
-  function handleLastMonth (e, MONTHS, indexOfCurrMonth) {
-    // alert("hi");
-    let selectedMonthDivs = document.querySelectorAll('.selected-month');
-    selectedMonthDivs.forEach(div => {
-        div.classList.remove("selected-month");
-    })
-    let lastMonth = ""
-    if (indexOfCurrMonth === 0) {
-        lastMonth = MONTHS[MONTHS.length - 1];
-    }
-    else {
-        lastMonth = MONTHS[indexOfCurrMonth - 1];
-    }
-    let lastMonthDiv = document.querySelector(`#${lastMonth}`);
-    lastMonthDiv.classList.add("selected-month");
-  }
+// function handleThisMonth (currMonth) {
+//     // alert("hi");
+    
+//     let selectedMonthDivs = document.querySelectorAll('.selected-month');
+//     selectedMonthDivs.forEach(div => {
+//         div.classList.remove("selected-month");
+//     })
+//     let thisMonthDiv = document.querySelector(`#${currMonth}`);
+//     thisMonthDiv.classList.add("selected-month");
+//   }
 
-  function handleLastThreeMonths (e, MONTHS, indexOfCurrMonth) {
+//   function handleLastMonth (MONTHS, indexOfCurrMonth) {
+//     // alert("hi");
+//     let selectedMonthDivs = document.querySelectorAll('.selected-month');
+//     selectedMonthDivs.forEach(div => {
+//         div.classList.remove("selected-month");
+//     })
+//     let lastMonth = ""
+//     if (indexOfCurrMonth === 0) {
+//         lastMonth = MONTHS[MONTHS.length - 1];
+//     }
+//     else {
+//         lastMonth = MONTHS[indexOfCurrMonth - 1];
+//     }
+//     let lastMonthDiv = document.querySelector(`#${lastMonth}`);
+//     lastMonthDiv.classList.add("selected-month");
+//   }
+
+  function handleLastThreeMonths (MONTHS, indexOfCurrMonth) {
     let selectedMonthDivs = document.querySelectorAll('.selected-month');
     selectedMonthDivs.forEach(div => {
         div.classList.remove("selected-month");
@@ -64,4 +66,4 @@ function handleThisMonth (e, currMonth) {
 
   }
 
-  module.exports = {handleThisMonth, handleLastMonth, handleLastThreeMonths}
+  module.exports = {handleLastThreeMonths}

@@ -4,6 +4,8 @@ import "./Budget.scss";
 import AreaChart from "../AreaChart";
 import {
   fetchAllUserTransactions,
+  filterThisMonthsTransactions,
+  selectThisMonthTransactions,
   selectUserAccounts,
   selectUserBudget,
   selectUserTransactions,
@@ -11,8 +13,11 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import SelectDropDown from "./SelectDropDown";
-import { handleThisMonth, handleLastMonth, handleLastThreeMonths } from "./handleMonths"; 
+import { handleLastMonth, handleLastThreeMonths } from "./handleMonths";
 import MonthsToDisplay from "./MonthsToDisplay";
+import Income from "./Income";
+import Spending from "./Spending";
+import Other from "./Other";
 
 const MONTHS = [
   "Jan",
@@ -35,10 +40,14 @@ const Budget = () => {
   const accounts = useSelector(selectUserAccounts);
   const budget = useSelector(selectUserBudget);
   const transactions = useSelector(selectUserTransactions);
+  const thisMonthsTransactions = useSelector(selectThisMonthTransactions);
+  const [thisMonth, setThisMonth] = useState(true);
+  const [lastMonth, setLastMonth] = useState(false);
 
   console.log("budget ", budget);
   console.log("accounts ", accounts);
   console.log("transactions ", transactions);
+  console.log("this months transactions by budget ", thisMonthsTransactions);
 
   const [dateToday, setDateToday] = useState(new Date());
   console.log("date today ", dateToday);
@@ -58,31 +67,104 @@ const Budget = () => {
   useEffect(() => {
     async function getTransactions() {
       await dispatch(fetchAllUserTransactions(userId));
+      await handleThisMonth(currMonth, `20${currYear}`);
     }
     getTransactions();
   }, []);
+
+  // filter data for this month
+  async function handleThisMonth(month, year) {
+    setLastMonth(false);
+    setThisMonth(true);
+
+    let dateToday = new Date();
+    let currMonth = dateToday.toString().split(" ")[1];
+    let currYear = dateToday.toString().split(" ")[3];
+    await dispatch(
+      filterThisMonthsTransactions({ currMonth: month, currYear: year })
+    );
+    let selectedMonthDivs = document.querySelectorAll(".selected-month");
+    selectedMonthDivs.forEach((div) => {
+      div.classList.remove("selected-month");
+    });
+    let thisMonthDiv = document.querySelector(`#${currMonth}`);
+    thisMonthDiv.classList.add("selected-month");
+  }
+
+  // filter data for last month
+  async function handleLastMonth() {
+    setLastMonth(true);
+    setThisMonth(false);
+    let lastMonth = "";
+    let currYearToSend = "";
+    if (indexOfCurrMonth === 0) {
+      lastMonth = MONTHS[MONTHS.length - 1];
+      currYearToSend = parseInt(currYear) - 1;
+    } else {
+      lastMonth = MONTHS[indexOfCurrMonth - 1];
+      currYearToSend = parseInt(currYear);
+    }
+
+    await dispatch(
+      filterThisMonthsTransactions({
+        currMonth: lastMonth,
+        currYear: `20${currYearToSend}`,
+      })
+    );
+    let selectedMonthDivs = document.querySelectorAll(".selected-month");
+    selectedMonthDivs.forEach((div) => {
+      div.classList.remove("selected-month");
+    });
+    let lastMonthDiv = document.querySelector(`#${lastMonth}`);
+    lastMonthDiv.classList.add("selected-month");
+  }
 
   return (
     <div class="container">
       <div className="row">
         <div className="row col-9">
-        <div className="col-9">
-          <h2 class="mb-2">
-            {currMonth} {dateToday.toString().split(" ")[3]}
-          </h2>
-        </div>
-       
-       <SelectDropDown handleThisMonth={handleThisMonth} handleLastMonth={handleLastMonth} 
-       handleLastThreeMonths={handleLastThreeMonths} currMonth={currMonth} MONTHS={MONTHS} 
-       indexOfCurrMonth={indexOfCurrMonth}
-       />
+          <div className="col-9">
+            <h2 class="mb-2">
+              {currMonth} {dateToday.toString().split(" ")[3]}
+            </h2>
+          </div>
+
+          <SelectDropDown
+            handleThisMonth={handleThisMonth}
+            handleLastMonth={handleLastMonth}
+            handleLastThreeMonths={handleLastThreeMonths}
+            currMonth={currMonth}
+            MONTHS={MONTHS}
+            indexOfCurrMonth={indexOfCurrMonth}
+            currYear={currYear}
+          />
         </div>
       </div>
-      {/* <AreaChart /> */}
-      <MonthsToDisplay monthsToDisplay={monthsToDisplay}/>
 
+      <MonthsToDisplay monthsToDisplay={monthsToDisplay} />
 
-      
+      <div className="row">
+        <button href="javascript:;" class="btn btn-sm btn-outline-primary">
+          View Badges
+        </button>
+      </div>
+
+      {/* Budget Income */}
+      {thisMonth ? (
+        <div className="row">
+          <Income income={thisMonthsTransactions.income} />
+          <Spending spending={thisMonthsTransactions.spending} />
+          <Other other={thisMonthsTransactions.other} />
+        </div>
+      ) : null}
+
+      {lastMonth ? (
+        <div className="row">
+          <Income income={thisMonthsTransactions.income} />
+          <Spending spending={thisMonthsTransactions.spending} />
+          <Other other={thisMonthsTransactions.other} />
+        </div>
+      ) : null}
 
       {/* template */}
       <>

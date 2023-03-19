@@ -34,7 +34,8 @@ router.get("/:userId", async (req, res, next) => {
         creditDebit: transaction.credit_debit,
         hideFromBudget: transaction.hide_from_budget,
         subCategory: transaction.subcategory.sub_category_name,
-        category: currentCategory.category_name
+        category: currentCategory.category_name,
+        subCategoryId: transaction.subcategory.id
       }
  
        transactionsArr.push(newTransaction);
@@ -58,8 +59,27 @@ router.get("/:userId", async (req, res, next) => {
       {userId: req.params.userId},
       include: [Budget_Scheme]
     });
+
+    let budgetArr = []
+    for (let i = 0; i < budget.length; i++) {
+      let currBudget = budget[i];
+      let currSubCategory = await Sub_Category.findByPk(currBudget.subcategoryId);
+      let currCategory = await Category.findByPk(currSubCategory.categoryId);
+      let budgetToSend = {
+        budgetName: currBudget.budget_name,
+        budgetAmount: currBudget.amount,
+        budgetSchemeName: currBudget.budgetscheme.scheme_name,
+        budgetSchemeId: currBudget.budgetschemeId,
+        budgetDateStarted: currBudget.date_started,
+        budgetCategory: currCategory.category_name,
+        budgetCategoryId: currCategory.id,
+        budgetSubCategory: currSubCategory.sub_category_name,
+        budgetSubCategoryId: currSubCategory.id
+      }
+      budgetArr.push(budgetToSend);
+    }
    
-    res.json({accounts: accountsArr, budget: budget, transactions: transactionsArr});
+    res.json({accounts: accountsArr, budget: budgetArr, transactions: transactionsArr});
   } catch (err) {
     next(err);
   }
