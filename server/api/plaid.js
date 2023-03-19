@@ -60,7 +60,6 @@ router.post("/exchange_public_token", async (req, res, next) => {
 
     res.json({ accessToken: accessToken, data: itemID });
   } catch (error) {
-    // handle error
     next(error);
   }
 });
@@ -69,7 +68,6 @@ router.post("/accountInfo", async function (req, res, next) {
   try {
     const access_token = req.body.access_token;
     const userId = req.body.userId;
-    console.log(userId);
     const authReq = {
       access_token: access_token,
     };

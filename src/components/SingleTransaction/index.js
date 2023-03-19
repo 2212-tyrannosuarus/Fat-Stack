@@ -6,17 +6,34 @@ import Plaid from "../Plaid";
 import {
   fetchSingleTransaction,
   selectSingleTransaction,
+  fetchSingleTransactionSubCat,
+  selectSingleTransactionSubCat,
 } from "../../reducers/singleTransactionPageSlice";
+import UpdateTransaction from "./UpdateTransaction";
 
 const SingleTransction = () => {
   const { isAuthenticated, loginWithRedirect, logout, user } = useAuth0();
+  const [transUpdated, setTransUpdated] = useState(false);
   const dispatch = useDispatch();
   const { id } = useParams();
   const singleTransaction = useSelector(selectSingleTransaction);
+  const subCategory = useSelector(selectSingleTransactionSubCat);
 
   useEffect(() => {
-    dispatch(fetchSingleTransaction(id));
+    const handleFetch = async () => {
+      await dispatch(fetchSingleTransaction(id));
+      setTransUpdated(true);
+    };
+    handleFetch();
   }, []);
+
+  useEffect(() => {
+    const handleSubFetch = async () => {
+      dispatch(fetchSingleTransactionSubCat(singleTransaction.subcategoryId));
+    };
+    handleSubFetch();
+  }, [transUpdated]);
+
   return (
     <div>
       {singleTransaction.id ? (
@@ -25,8 +42,7 @@ const SingleTransction = () => {
           <p> {singleTransaction.merchant}</p>
           <p> {singleTransaction.date}</p>
           <p> {singleTransaction.amount}</p>
-          <p> {singleTransaction.category}</p>
-          <p> {singleTransaction.sub_category}</p>
+          {subCategory ? <p>{subCategory.sub_category_name}</p> : null}
           <p> {singleTransaction.hide_from_budget ? "True" : "False"}</p>
           <p> {singleTransaction.credit_debt}</p>
           <p></p>
@@ -34,6 +50,7 @@ const SingleTransction = () => {
         </div>
       ) : null}
       <Plaid />
+      <UpdateTransaction />
     </div>
   );
 };
