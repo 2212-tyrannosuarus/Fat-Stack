@@ -2,7 +2,7 @@ const router = require("express").Router();
 module.exports = router;
 
 router.use("/overview", require("./overview"));
-router.use("/allTrasactions", require("./allTransactions"));
+router.use("/allTransactions", require("./allTransactions"));
 router.use("/singleTransaction", require("./singleTransaction"));
 router.use("/budget", require("./budget"));
 router.use("/plaid", require("./plaid"));
