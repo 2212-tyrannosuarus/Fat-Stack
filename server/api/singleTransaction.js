@@ -8,6 +8,15 @@ module.exports = router;
 
 // GET api/transactions/#transactionId
 
+router.get("/subcategory", async (req, res, next) => {
+  try {
+    const subCategory = await Sub_Category.findAll();
+    res.json(subCategory);
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.get("/subcategory/:id", async (req, res, next) => {
   try {
     const subCategory = await Sub_Category.findByPk(req.params.id);

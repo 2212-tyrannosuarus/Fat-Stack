@@ -1,12 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { updateSingleTransaction } from "../../reducers/singleTransactionPageSlice";
+import {
+  updateSingleTransaction,
+  selectAllSubCat,
+  fetchAllSubCat,
+} from "../../reducers/singleTransactionPageSlice";
 
 export default function UpdateTransaction() {
-  const [subcategoryId, setCategoryId] = useState(0);
+  const [subcategoryId, setCategoryId] = useState(1);
+  const allSubCategories = useSelector(selectAllSubCat);
   const { id } = useParams();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchAllSubCat());
+  }, []);
 
   const handleUpdate = async (event) => {
     event.preventDefault();
@@ -21,23 +30,20 @@ export default function UpdateTransaction() {
   return (
     <div className="test-form-container">
       <form className="test-form" onSubmit={handleUpdate}>
-        <input
-          placeholder="Category"
-          name="categoryId"
-          value={subcategoryId}
-          onChange={(e) => setCategoryId(e.target.value)}
-        />
-        <br />
-
-        {/* <select
+        <input placeholder="Transaction Name" name="username" />
+        <input placeholder="Transaction Amount" name="username" />
+        <select
           id="color_category"
           name="color_category"
-          onChange={(e) => setColor_category(e.target.value)}
+          onChange={(e) => setCategoryId(e.target.value)}
         >
-          <option value="Black">Black</option>
-          <option value="White">White</option>
-          <option value="Blue">Blue</option>
-        </select> */}
+          {allSubCategories.map((option) => (
+            <option key={option.id} value={option.id}>
+              {" "}
+              {option.sub_category_name}
+            </option>
+          ))}
+        </select>
         <br />
         <button type="submit">Submit</button>
         <br />

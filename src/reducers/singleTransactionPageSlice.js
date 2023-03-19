@@ -12,11 +12,18 @@ export const fetchSingleTransaction = createAsyncThunk(
 export const fetchSingleTransactionSubCat = createAsyncThunk(
   "transaction/fetchSubCat",
   async (subCatId) => {
-    console.log(subCatId);
     if (subCatId === undefined) return;
     const { data } = await axios.get(
       `/api/singleTransaction/subcategory/${subCatId}`
     );
+    return data;
+  }
+);
+
+export const fetchAllSubCat = createAsyncThunk(
+  "transaction/fetchAllSubCat",
+  async () => {
+    const { data } = await axios.get(`/api/singleTransaction/subcategory`);
     return data;
   }
 );
@@ -34,6 +41,7 @@ export const singleTransactionPageSlice = createSlice({
   initialState: {
     singleTransaction: {},
     subCategory: {},
+    allSubCategories: [],
     category: {},
     errorMsg: "",
   },
@@ -48,6 +56,18 @@ export const singleTransactionPageSlice = createSlice({
       })
       .addCase(fetchSingleTransactionSubCat.fulfilled, (state, action) => {
         state.subCategory = action.payload;
+      })
+      .addCase(fetchAllSubCat.fulfilled, (state, action) => {
+        state.allSubCategories = action.payload;
+        state.allSubCategories = state.allSubCategories.sort(function (a, b) {
+          if (a.sub_category_name < b.sub_category_name) {
+            return -1;
+          }
+          if (a.sub_category_name > b.sub_category_name) {
+            return 1;
+          }
+          return 0;
+        });
       });
   },
 });
@@ -57,6 +77,9 @@ export const selectSingleTransaction = (state) => {
 };
 export const selectSingleTransactionSubCat = (state) => {
   return state.singleTransactionPage.subCategory;
+};
+export const selectAllSubCat = (state) => {
+  return state.singleTransactionPage.allSubCategories;
 };
 
 export default singleTransactionPageSlice.reducer;

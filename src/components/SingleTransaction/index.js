@@ -38,13 +38,18 @@ const SingleTransction = () => {
     <div>
       {singleTransaction.id ? (
         <div>
-          <p>{singleTransaction.account_id}</p>
-          <p> {singleTransaction.merchant}</p>
-          <p> {singleTransaction.date}</p>
-          <p> {singleTransaction.amount}</p>
-          {subCategory ? <p>{subCategory.sub_category_name}</p> : null}
-          <p> {singleTransaction.hide_from_budget ? "True" : "False"}</p>
-          <p> {singleTransaction.credit_debt}</p>
+          {/* <p>Transaction ID: {singleTransaction.account_id}</p> */}
+          <p>Merchant: {singleTransaction.merchant}</p>
+          <p>Transaction Date: {singleTransaction.date}</p>
+          <p>Amount: {singleTransaction.amount}</p>
+          {subCategory ? (
+            <p>Category: {subCategory.sub_category_name}</p>
+          ) : null}
+          <p>
+            Hide From Budget:{" "}
+            {singleTransaction.hide_from_budget ? "True" : "False"}
+          </p>
+          <p>Credit/Debit: {singleTransaction.credit_debit}</p>
           <p></p>
           <p></p>
         </div>
