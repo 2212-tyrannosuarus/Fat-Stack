@@ -1,17 +1,16 @@
 const router = require("express").Router();
 const {
-  models: { Transaction },
+  models: { Bank_Account },
 } = require("../db");
-// api/transactions
+// api/bankAccounts
 router.get("/", async (req, res, next) => {
-  //talk to Chance about getting logged in user info
   try {
-    const allTransactions = await Transaction.findAll({
+    const bankAccounts = await Bank_Account.findAll({
       where: {
         userId: 1,
       },
     });
-    res.status(200).json(allTransactions);
+    res.status(200).json(bankAccounts);
   } catch (e) {
     next(e);
   }
