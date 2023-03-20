@@ -32,7 +32,10 @@ export const Navbar = () => {
 
         <Box fontWeight="bold" mr="1rem">
           <Link href="/about" marginRight="2rem">
-            About Us
+            Home
+          </Link>
+          <Link href="/contact" marginRight="2rem">
+            Features
           </Link>
           <Link href="/contact" marginRight="2rem">
             Contact Us

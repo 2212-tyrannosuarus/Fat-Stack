@@ -17,6 +17,8 @@ import { FcDonate, FcDepartment, FcMoneyTransfer } from "react-icons/fc";
 import { useAuth0 } from "@auth0/auth0-react";
 
 export const Homepage = () => {
+  const { loginWithRedirect } = useAuth0();
+
   return (
     <>
       <Box marginX={36} marginY={42}>
@@ -70,6 +72,7 @@ export const Homepage = () => {
                   colorScheme={"red"}
                   bg={"purple.500"}
                   _hover={{ bg: "purple.300" }}
+                  onClick={() => loginWithRedirect()}
                 >
                   Get started
                 </Button>
@@ -145,7 +148,7 @@ export const Homepage = () => {
                 <Icon as={FcDonate} w={10} h={10} mb={4} />
                 <Box>
                   <Text fontWeight="bold" fontSize="xl" mb={2}>
-                    Budget Subscriptions
+                    Manage Subscriptions
                   </Text>
                   <Text fontSize="md">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -167,7 +170,7 @@ export const Homepage = () => {
                 <Icon as={FcMoneyTransfer} w={10} h={10} mb={4} />
                 <Box>
                   <Text fontWeight="bold" fontSize="xl" mb={2}>
-                    Set Goals
+                    Set New Goals
                   </Text>
                   <Text fontSize="md">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.

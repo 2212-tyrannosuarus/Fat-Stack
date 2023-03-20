@@ -13,7 +13,7 @@ root.render(
   <Auth0Provider
     domain="2212capstone.us.auth0.com"
     clientId="p8klZZBfHPuGZzqQqMnYlGYb7KUFvxE3"
-    redirectUri={window.location.origin}
+    redirectUri="http://localhost:8080/profile"
   >
     <Provider store={store}>
       <Router>
