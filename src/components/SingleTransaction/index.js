@@ -6,56 +6,80 @@ import Plaid from "../Plaid";
 import {
   fetchSingleTransaction,
   selectSingleTransaction,
-  fetchSingleTransactionSubCat,
-  selectSingleTransactionSubCat,
 } from "../../reducers/singleTransactionPageSlice";
 import UpdateTransaction from "./UpdateTransaction";
+import SubCatTag from "./subCatTag";
+import {
+  Stat,
+  StatLabel,
+  StatNumber,
+  StatHelpText,
+  StatArrow,
+  StatGroup,
+} from "@chakra-ui/react";
+import "./SingleTransaction.css";
+import Note from "../Note";
 
 const SingleTransction = () => {
-  const { isAuthenticated, loginWithRedirect, logout, user } = useAuth0();
-  const [transUpdated, setTransUpdated] = useState(false);
   const dispatch = useDispatch();
   const { id } = useParams();
   const singleTransaction = useSelector(selectSingleTransaction);
-  const subCategory = useSelector(selectSingleTransactionSubCat);
 
   useEffect(() => {
     const handleFetch = async () => {
       await dispatch(fetchSingleTransaction(id));
-      setTransUpdated(true);
     };
     handleFetch();
   }, []);
 
-  useEffect(() => {
-    const handleSubFetch = async () => {
-      dispatch(fetchSingleTransactionSubCat(singleTransaction.subcategoryId));
-    };
-    handleSubFetch();
-  }, [transUpdated]);
-
   return (
-    <div>
+    <div className="single-transaction-container">
       {singleTransaction.id ? (
         <div>
-          {/* <p>Transaction ID: {singleTransaction.account_id}</p> */}
-          <p>Merchant: {singleTransaction.merchant}</p>
-          <p>Transaction Date: {singleTransaction.date}</p>
-          <p>Amount: {singleTransaction.amount}</p>
-          {subCategory ? (
-            <p>Category: {subCategory.sub_category_name}</p>
-          ) : null}
-          <p>
-            Hide From Budget:{" "}
-            {singleTransaction.hide_from_budget ? "True" : "False"}
-          </p>
-          <p>Credit/Debit: {singleTransaction.credit_debit}</p>
-          <p></p>
-          <p></p>
+          <Stat>
+            <StatLabel>
+              Transaction <UpdateTransaction />
+            </StatLabel>
+            <StatNumber>${singleTransaction.amount} </StatNumber>
+            <StatHelpText textColor="teal">
+              Date: {singleTransaction.date}
+            </StatHelpText>
+          </Stat>
+          <StatGroup>
+            <Stat>
+              <StatLabel>Merchant:</StatLabel>
+              <StatNumber>{singleTransaction.merchant} </StatNumber>
+              <StatHelpText
+                textColor={
+                  singleTransaction.credit_debit === "credit" ? "green" : "red"
+                }
+              >
+                {" "}
+                {singleTransaction.credit_debit}
+              </StatHelpText>
+            </Stat>
+
+            <Stat>
+              <StatLabel>Category</StatLabel>
+              <StatNumber>
+                {" "}
+                <SubCatTag transaction={singleTransaction} />
+              </StatNumber>
+            </Stat>
+            <Stat>
+              <StatLabel>Hide from Budget</StatLabel>
+              <StatNumber>
+                {singleTransaction.hide_from_budget ? "True" : "False"}
+              </StatNumber>
+            </Stat>
+          </StatGroup>
+          <Note
+            notes={singleTransaction.notes}
+            transactionId={singleTransaction.id}
+          />
         </div>
       ) : null}
       <Plaid />
-      <UpdateTransaction />
     </div>
   );
 };

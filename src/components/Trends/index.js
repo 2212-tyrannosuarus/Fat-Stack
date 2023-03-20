@@ -8,6 +8,8 @@ import Accordion from 'react-bootstrap/Accordion';
 import Button from 'react-bootstrap/Button';
 import PieChartCategory from "../PieChartCategory";
 import PieChartMerchant from "../PieChartMerchant";
+import "../../scss/styles.scss";
+import * as bootstrap from "bootstrap";
 
 
 const Trends = () => {
@@ -105,7 +107,7 @@ const Trends = () => {
 
 
   return (
-    <div className="container">
+    <div className="container trends-container">
     <div className="row">
     {/* <aside
       id="layout-menu"

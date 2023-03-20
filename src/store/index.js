@@ -5,6 +5,7 @@ import goalPageSlice from "../reducers/goalPageSlice";
 import overviewPageSlice from "../reducers/overviewPageSlice";
 import singleTransactionPageSlice from "../reducers/singleTransactionPageSlice";
 import trendsPageSLice from "../reducers/trendsPageSLice";
+import noteSlice from "../reducers/noteSlice";
 
 export const store = configureStore({
   reducer: {
@@ -13,7 +14,8 @@ export const store = configureStore({
     budgetPage: budgetPageSlice,
     goalPage: goalPageSlice,
     overviewPage: overviewPageSlice,
-    trendsPage: trendsPageSLice
+    trendsPage: trendsPageSLice,
+    notePage: noteSlice,
   },
 });
 
