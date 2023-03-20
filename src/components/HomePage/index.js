@@ -38,7 +38,7 @@ export const Homepage = () => {
 
   return (
     <>
-      <Box marginX={24} marginTop={8}>
+      <Box marginX={36} marginY={42}>
         <Container maxW={"7xl"}>
           <Stack
             align={"center"}
@@ -62,14 +62,14 @@ export const Homepage = () => {
                     position: "absolute",
                     bottom: 1,
                     left: 0,
-                    bg: "red.400",
+                    bg: "purple.200",
                     zIndex: -1,
                   }}
                 >
                   We are the #1
                 </Text>
                 <br />
-                <Text as={"span"} color={"red.400"}>
+                <Text as={"span"} color={"purple.500"}>
                   Finance App
                 </Text>
               </Heading>
@@ -87,8 +87,8 @@ export const Homepage = () => {
                   fontWeight={"normal"}
                   px={6}
                   colorScheme={"red"}
-                  bg={"red.400"}
-                  _hover={{ bg: "red.500" }}
+                  bg={"purple.500"}
+                  _hover={{ bg: "purple.300" }}
                 >
                   Get started
                 </Button>
@@ -125,30 +125,34 @@ export const Homepage = () => {
           </Stack>
         </Container>
 
-        <Box p={4} marginTop={8} Flex>
-          <SimpleGrid columns={{ base: 2, md: 3 }} spacing={8}>
-            <Feature
-              icon={<Icon as={FcAssistant} w={10} h={10} />}
-              title={"Lifetime Support"}
-              text={
-                "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore..."
-              }
-            />
-            <Feature
-              icon={<Icon as={FcDonate} w={10} h={10} />}
-              title={"Unlimited Donations"}
-              text={
-                "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore..."
-              }
-            />
-            <Feature
-              icon={<Icon as={FcInTransit} w={10} h={10} />}
-              title={"Instant Delivery"}
-              text={
-                "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore..."
-              }
-            />
-          </SimpleGrid>
+        <Box bg="gray.100" py={8}>
+          <Container maxW="7xl">
+            <Box px={8}>
+              <SimpleGrid columns={{ base: 2, md: 3 }} spacing={8}>
+                <Feature
+                  icon={<Icon as={FcAssistant} w={10} h={10} />}
+                  title={"Track your Accounts"}
+                  text={
+                    "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore..."
+                  }
+                />
+                <Feature
+                  icon={<Icon as={FcDonate} w={10} h={10} />}
+                  title={"Set Goals"}
+                  text={
+                    "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore..."
+                  }
+                />
+                <Feature
+                  icon={<Icon as={FcInTransit} w={10} h={10} />}
+                  title={"Budget Subscriptions"}
+                  text={
+                    "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore..."
+                  }
+                />
+              </SimpleGrid>
+            </Box>
+          </Container>
         </Box>
       </Box>
     </>
