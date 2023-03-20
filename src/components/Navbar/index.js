@@ -3,7 +3,7 @@ import { Box, Flex, Link, Button } from "@chakra-ui/react";
 import { useAuth0 } from "@auth0/auth0-react";
 
 export const Navbar = () => {
-  const { loginWithRedirect } = useAuth0();
+  const { loginWithRedirect, isAuthenticated, user, logout } = useAuth0();
 
   return (
     <>
@@ -15,7 +15,7 @@ export const Navbar = () => {
         padding="1.0rem"
         bg="white"
         boxShadow="sm"
-        position="fixed"
+        // position="fixed"
         top="0"
         left="0"
         right="0"
@@ -30,29 +30,54 @@ export const Navbar = () => {
           </Box>
         </Box>
 
-        <Box fontWeight="bold" mr="1rem">
-          <Link href="/about" marginRight="2rem">
-            Home
-          </Link>
-          <Link href="/contact" marginRight="2rem">
-            Features
-          </Link>
-          <Link href="/contact" marginRight="2rem">
-            Contact Us
-          </Link>
-          <Button
-            fontWeight="bold"
-            mr="1rem"
-            bg="white"
-            colorScheme="gray"
-            variant="outline"
-            borderColor="gray.300"
-            _hover={{ bg: "gray.100" }}
-            onClick={() => loginWithRedirect()}
-          >
-            Sign In
-          </Button>
-        </Box>
+        {!isAuthenticated && (
+          <Box fontWeight="bold" mr="1rem">
+            <Link href="/about" marginRight="2rem">
+              Home
+            </Link>
+            <Link href="/contact" marginRight="2rem">
+              Features
+            </Link>
+            <Link href="/contact" marginRight="2rem">
+              Contact Us
+            </Link>
+            <Button
+              fontWeight="bold"
+              mr="1rem"
+              bg="white"
+              colorScheme="gray"
+              variant="outline"
+              borderColor="gray.300"
+              _hover={{ bg: "gray.100" }}
+              onClick={() => loginWithRedirect()}
+            >
+              Sign In
+            </Button>
+          </Box>
+        )}
+
+        {isAuthenticated && (
+          <Box fontWeight="bold" mr="1rem">
+            <Link href="/about" marginRight="2rem">
+              Home
+            </Link>
+            <Link href="/contact" marginRight="2rem">
+              Add Account
+            </Link>
+            <Button
+              fontWeight="bold"
+              mr="1rem"
+              bg="white"
+              colorScheme="gray"
+              variant="outline"
+              borderColor="gray.300"
+              _hover={{ bg: "gray.100" }}
+              onClick={() => logout()}
+            >
+              Logout
+            </Button>
+          </Box>
+        )}
       </Flex>
     </>
   );

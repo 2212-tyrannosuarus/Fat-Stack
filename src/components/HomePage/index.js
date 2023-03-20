@@ -111,8 +111,8 @@ export const Homepage = () => {
       </Box>
       <Box bg="gray.100" py={20}>
         <Container maxW="7xl">
-          <Box px={8}>
-            <SimpleGrid columns={{ base: 1, md: 3 }} spacing={12}>
+          <Box>
+            <SimpleGrid columns={{ base: 1, md: 3 }} spacing={16}>
               <Box
                 bg="white"
                 rounded="lg"

@@ -7,17 +7,72 @@ import Budget from "./components/Budget";
 import Profile from "./components/Profile";
 import Homepage from "./components/HomePage";
 import Trends from "./components/Trends";
+import { useAuth0 } from "@auth0/auth0-react";
+import SidebarLayout from "./layouts/sidebarlayout";
+import MainLayout from "./layouts/mainlayout";
 
 export const NavigationRoutes = () => {
   return (
     <Routes>
-      <Route path="/" element={<Homepage />} />
-      <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/transactions" element={<AllTransactions />} />
-      <Route path="/transactions/:id" element={<SingleTransaction />} />
-      <Route path="/profile" element={<Profile />} />
-      <Route exact path="/budget/:userId" element={<Budget />} />
-      <Route exact path="/trends/:userId" element={<Trends />} />
+      <Route
+        path="/"
+        element={
+          <MainLayout>
+            <Homepage />
+          </MainLayout>
+        }
+      />
+
+      <Route
+        path="/dashboard"
+        element={
+          <SidebarLayout>
+            <Dashboard />
+          </SidebarLayout>
+        }
+      />
+      <Route
+        path="/transactions"
+        element={
+          <SidebarLayout>
+            <AllTransactions />
+          </SidebarLayout>
+        }
+      />
+      <Route
+        path="/transactions/:id"
+        element={
+          <SidebarLayout>
+            <SingleTransaction />
+          </SidebarLayout>
+        }
+      />
+      <Route
+        path="/profile"
+        element={
+          <SidebarLayout>
+            <Profile />
+          </SidebarLayout>
+        }
+      />
+      <Route
+        exact
+        path="/budget/:userId"
+        element={
+          <SidebarLayout>
+            <Budget />{" "}
+          </SidebarLayout>
+        }
+      />
+      <Route
+        exact
+        path="/trends/:userId"
+        element={
+          <SidebarLayout>
+            <Trends />
+          </SidebarLayout>
+        }
+      />
     </Routes>
   );
 };
