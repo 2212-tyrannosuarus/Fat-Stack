@@ -1,19 +1,9 @@
 import React, { useState } from "react";
-import {
-  Flex,
-  Text,
-  IconButton,
-  Menu,
-  MenuButton,
-  Link,
-  Icon,
-} from "@chakra-ui/react";
+import { Flex, Text, IconButton, Link, Icon } from "@chakra-ui/react";
 
 import {
   FiHome,
-  FiCalendar,
   FiTrendingUp,
-  FiCreditCard,
   FiDollarSign,
   FiBriefcase,
   FiArrowRight,
@@ -21,66 +11,91 @@ import {
   FiLogOut,
 } from "react-icons/fi";
 
-const NavItem = ({ icon, title, active, navSize }) => {
+import { useAuth0 } from "@auth0/auth0-react";
+
+const NavLink = ({ icon, title, active, navSize, href }) => {
   return (
     <Flex
-      mt={30}
+      mt={2}
       flexDir="column"
       w="100%"
       alignItems={navSize == "small" ? "center" : "flex-start"}
     >
-      <Menu placement="right">
-        <Link
-          p={3}
-          borderRadius={8}
-          _hover={{ bg: "gray.100" }}
-          w={navSize == "large" && "100%"}
-        >
-          <MenuButton w="100%">
-            <Flex>
-              <Icon
-                as={icon}
-                fontSize="xl"
-                color={active ? "#82AAAD" : "gray.600"}
-              />
-              <Text ml={5} display={navSize == "small" ? "none" : "flex"}>
-                {title}
-              </Text>
-            </Flex>
-          </MenuButton>
-        </Link>
-      </Menu>
+      <Link
+        p={3}
+        borderRadius={8}
+        _hover={{ bg: "gray.50" }}
+        w={navSize == "large" && "100%"}
+        href={href}
+      >
+        <Flex>
+          <Icon
+            as={icon}
+            fontSize="xl"
+            color={active ? "#82AAAD" : "gray.600"}
+          />
+          <Text
+            ml={5}
+            display={navSize == "small" ? "none" : "flex"}
+            color="gray.600"
+          >
+            {title}
+          </Text>
+        </Flex>
+      </Link>
     </Flex>
   );
 };
 
 export default function Sidebar() {
+  const { logout } = useAuth0();
   const [navSize, changeNavSize] = useState("large");
   return (
     <Flex
-      pos="sticky"
       boxShadow="0 0px 12px 0 rgba(0, 0, 0, 0.05)"
-      w={navSize == "small" ? "75px" : "200px"}
+      minH="100vh"
       flexDir="column"
+      bg={"white"}
+      justifyContent="space-between"
     >
       <Flex
         px="5"
         py="16"
         flexDir="column"
-        w="100%"
+        minW={navSize == "small" ? "75px" : "250px"}
         alignItems={navSize == "small" ? "center" : "flex-start"}
         as="nav"
       >
-        <Link to="/dashboard">
-          <NavItem navSize={navSize} icon={FiHome} title="Dashboard" Link="/" />
-        </Link>
-        <Link to="/profile">
-          <NavItem navSize={navSize} icon={FiCreditCard} title="My Accounts" />
-        </Link>
-        <NavItem navSize={navSize} icon={FiCalendar} title="Calendar" />
-        <NavItem navSize={navSize} icon={FiBriefcase} title="My Goals" />
-        <NavItem navSize={navSize} icon={FiDollarSign} title="Transactions" />
-        <NavItem navSize={navSize} icon={FiTrendingUp} title="Trends" />
+        <NavLink
+          navSize={navSize}
+          icon={FiHome}
+          title="Home"
+          href="/dashboard"
+        />
+        <NavLink
+          navSize={navSize}
+          icon={FiBriefcase}
+          title="My Goals"
+          href="/goals"
+        />
+        <NavLink
+          navSize={navSize}
+          icon={FiDollarSign}
+          title="Transactions"
+          href="/transactions"
+        />
+        <NavLink
+          navSize={navSize}
+          icon={FiTrendingUp}
+          title="Trends"
+          href="#"
+        />
+        <NavLink
+          navSize={navSize}
+          icon={FiTrendingUp}
+          title="Budget"
+          href="#"
+        />
       </Flex>
 
       <Flex
@@ -90,7 +105,12 @@ export default function Sidebar() {
         alignItems={navSize == "small" ? "center" : "flex-start"}
         mb={4}
       >
-        <NavItem navSize={navSize} icon={FiLogOut} title="Logout" />
+        <NavLink
+          navSize={navSize}
+          icon={FiLogOut}
+          title="Logout"
+          onClick={logout}
+        />
         <IconButton
           background="none"
           _hover={{ background: "none" }}

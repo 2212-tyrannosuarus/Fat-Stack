@@ -10,15 +10,16 @@ const Profile = () => {
   return (
     <>
       {isAuthenticated && (
-        <Flex justifyContent="center" alignItems="center" height="100vh">
-          <Box width="400px" padding="24px" boxShadow="md" rounded="md">
-            <Flex justifyContent="center" marginBottom="24px">
+        <Flex alignItems="center">
+          <Box w={320} p={8} boxShadow="md" rounded="md" bg={"white"}>
+            <Flex justifyContent="center">
               <Image
                 src={user.picture}
                 alt="Profile picture"
                 rounded="full"
-                boxSize="150px"
+                boxSize="100px"
                 objectFit="cover"
+                mb={5}
               />
             </Flex>
             <Text
