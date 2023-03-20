@@ -151,11 +151,11 @@ async function seed() {
   }
 
   //creating budget items for user tasneem
-  const budgetItem1 = await Budget.create({budget_name: "Travel", amount: 500.00, date_started: "2023-01-01"});
+  const budgetItem1 = await Budget.create({budget_name: "Restaurants", amount: 200.00, date_started: "2023-01-01"});
   budgetItem1.setBudgetscheme(budgetScheme1);
   budgetItem1.setUser(userTasneem);
-  let travel = await Sub_Category.findOne({where: {sub_category_name: "Travel"}});
-  budgetItem1.setSubcategory(travel);
+  let restaurants = await Sub_Category.findOne({where: {sub_category_name: "Restaurants"}});
+  budgetItem1.setSubcategory(restaurants);
 
   const budgetItem2 = await Budget.create({budget_name: "Mortgage", amount: 1500.00, date_started: "2023-01-01"});
   budgetItem2.setBudgetscheme(budgetScheme1);
@@ -163,7 +163,7 @@ async function seed() {
   let mortgage = await Sub_Category.findOne({where: {sub_category_name: "Mortgage & Rent"}});
   budgetItem2.setSubcategory(mortgage);
 
-  const budgetItem3 = await Budget.create({budget_name: "Paycheck", amount: 2000.00, date_started: "2023-01-01"});
+  const budgetItem3 = await Budget.create({budget_name: "Paycheck", amount: 4000.00, date_started: "2023-01-01"});
   budgetItem3.setBudgetscheme(budgetScheme1);
   budgetItem3.setUser(userTasneem);
   let paycheck = await Sub_Category.findOne({where: {sub_category_name: "Paycheck"}});

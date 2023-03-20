@@ -6,6 +6,7 @@ router.use("/allTrasactions", require("./allTransactions"));
 router.use("/singleTransaction", require("./singleTransaction"));
 router.use("/budget", require("./budget"));
 router.use("/plaid", require("./plaid"));
+router.use("/trends", require("./trends"));
 
 router.use((req, res, next) => {
   const error = new Error("Not Found");
