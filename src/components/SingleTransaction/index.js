@@ -6,34 +6,56 @@ import Plaid from "../Plaid";
 import {
   fetchSingleTransaction,
   selectSingleTransaction,
+  fetchSingleTransactionSubCat,
+  selectSingleTransactionSubCat,
 } from "../../reducers/singleTransactionPageSlice";
+import UpdateTransaction from "./UpdateTransaction";
 
 const SingleTransction = () => {
   const { isAuthenticated, loginWithRedirect, logout, user } = useAuth0();
+  const [transUpdated, setTransUpdated] = useState(false);
   const dispatch = useDispatch();
   const { id } = useParams();
   const singleTransaction = useSelector(selectSingleTransaction);
+  const subCategory = useSelector(selectSingleTransactionSubCat);
 
   useEffect(() => {
-    dispatch(fetchSingleTransaction(id));
+    const handleFetch = async () => {
+      await dispatch(fetchSingleTransaction(id));
+      setTransUpdated(true);
+    };
+    handleFetch();
   }, []);
+
+  useEffect(() => {
+    const handleSubFetch = async () => {
+      dispatch(fetchSingleTransactionSubCat(singleTransaction.subcategoryId));
+    };
+    handleSubFetch();
+  }, [transUpdated]);
+
   return (
     <div>
       {singleTransaction.id ? (
         <div>
-          <p>{singleTransaction.account_id}</p>
-          <p> {singleTransaction.merchant}</p>
-          <p> {singleTransaction.date}</p>
-          <p> {singleTransaction.amount}</p>
-          <p> {singleTransaction.category}</p>
-          <p> {singleTransaction.sub_category}</p>
-          <p> {singleTransaction.hide_from_budget ? "True" : "False"}</p>
-          <p> {singleTransaction.credit_debt}</p>
+          {/* <p>Transaction ID: {singleTransaction.account_id}</p> */}
+          <p>Merchant: {singleTransaction.merchant}</p>
+          <p>Transaction Date: {singleTransaction.date}</p>
+          <p>Amount: {singleTransaction.amount}</p>
+          {subCategory ? (
+            <p>Category: {subCategory.sub_category_name}</p>
+          ) : null}
+          <p>
+            Hide From Budget:{" "}
+            {singleTransaction.hide_from_budget ? "True" : "False"}
+          </p>
+          <p>Credit/Debit: {singleTransaction.credit_debit}</p>
           <p></p>
           <p></p>
         </div>
       ) : null}
       <Plaid />
+      <UpdateTransaction />
     </div>
   );
 };

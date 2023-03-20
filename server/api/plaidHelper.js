@@ -168,7 +168,6 @@ const accountToDB = async (arr, arr2, userId) => {
       account_name: arr[i].official_name,
       available_balance: arr[i].balances.available,
       userId: userId,
-      //using account_id, look up user with such account_id and assign userId to that user's ID
     });
   }
   console.log("seeding user success");
@@ -177,13 +176,12 @@ const accountToDB = async (arr, arr2, userId) => {
 const transactionToDB = async (arr, userId, accounts) => {
   let accountIdMap = {};
   //converts accounts array into a Map;
-
   for (let j = 0; j < accounts.length; j++) {
     let bankId = accounts[j]["account_id"];
     const bank = await Bank_Account.findOne({ where: { account_id: bankId } });
     accountIdMap[bankId] = bank.id;
   }
-
+  //assigns transactions to appropriate category
   for (let i = 0; i < arr.length; i++) {
     let transAccountId = arr[i].account_id;
     let accountId = accountIdMap[transAccountId];
@@ -208,7 +206,6 @@ const transactionToDB = async (arr, userId, accounts) => {
       merchant: arr[i].name,
       date: arr[i].date,
       amount: arr[i].amount,
-      // category: arr[i].category[0],
       hide_from_budget: false,
       credit_debit: credit,
       subcategoryId: catId,
