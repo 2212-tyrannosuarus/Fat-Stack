@@ -9,6 +9,7 @@ router.use("/plaid", require("./plaid"));
 router.use("/bankAccounts", require("./bankAccounts"));
 router.use("/subCategories", require("./subCategories"));
 router.use("/trends", require("./trends"));
+router.use("/notes", require("./note"));
 
 router.use((req, res, next) => {
   const error = new Error("Not Found");
