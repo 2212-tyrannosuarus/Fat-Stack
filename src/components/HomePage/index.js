@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React from "react";
 import {
   Container,
   Stack,
@@ -10,32 +10,13 @@ import {
   SimpleGrid,
   Image,
   Icon,
-  Card,
+  Input,
+  Textarea,
 } from "@chakra-ui/react";
-import { FcAssistant, FcDonate, FcInTransit } from "react-icons/fc";
+import { FcDonate, FcDepartment, FcMoneyTransfer } from "react-icons/fc";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export const Homepage = () => {
-  const Feature = ({ title, text, icon }) => {
-    return (
-      <Stack>
-        <Flex
-          w={16}
-          h={16}
-          align={"center"}
-          justify={"center"}
-          color={"white"}
-          rounded={"full"}
-          bg={"gray.100"}
-          mb={1}
-        >
-          {icon}
-        </Flex>
-        <Text fontWeight={600}>{title}</Text>
-        <Text color={"gray.600"}>{text}</Text>
-      </Stack>
-    );
-  };
-
   return (
     <>
       <Box marginX={36} marginY={42}>
@@ -84,7 +65,7 @@ export const Homepage = () => {
                 <Button
                   rounded={"full"}
                   size={"lg"}
-                  fontWeight={"normal"}
+                  fontWeight="bold"
                   px={6}
                   colorScheme={"red"}
                   bg={"purple.500"}
@@ -124,35 +105,97 @@ export const Homepage = () => {
             </Flex>
           </Stack>
         </Container>
+      </Box>
+      <Box bg="gray.100" py={20}>
+        <Container maxW="7xl">
+          <Box px={8}>
+            <SimpleGrid columns={{ base: 1, md: 3 }} spacing={12}>
+              <Box
+                bg="white"
+                rounded="lg"
+                overflow="hidden"
+                px={6}
+                py={12}
+                display="flex"
+                flexDirection="column"
+                boxShadow="md"
+              >
+                <Icon as={FcDepartment} w={10} h={10} mb={4} />
+                <Box>
+                  <Text fontWeight="bold" fontSize="xl" mb={2}>
+                    Add Multiple Accounts
+                  </Text>
+                  <Text fontSize="md">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Etiam viverra justo odio, sit amet mollis massa porttitor
+                    id.
+                  </Text>
+                </Box>
+              </Box>
+              <Box
+                bg="white"
+                rounded="lg"
+                overflow="hidden"
+                px={6}
+                py={12}
+                display="flex"
+                flexDirection="column"
+                boxShadow="md"
+              >
+                <Icon as={FcDonate} w={10} h={10} mb={4} />
+                <Box>
+                  <Text fontWeight="bold" fontSize="xl" mb={2}>
+                    Budget Subscriptions
+                  </Text>
+                  <Text fontSize="md">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Etiam viverra justo odio, sit amet mollis massa porttitor
+                    id.
+                  </Text>
+                </Box>
+              </Box>
+              <Box
+                bg="white"
+                rounded="lg"
+                overflow="hidden"
+                px={6}
+                py={12}
+                display="flex"
+                flexDirection="column"
+                boxShadow="md"
+              >
+                <Icon as={FcMoneyTransfer} w={10} h={10} mb={4} />
+                <Box>
+                  <Text fontWeight="bold" fontSize="xl" mb={2}>
+                    Set Goals
+                  </Text>
+                  <Text fontSize="md">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Etiam viverra justo odio, sit amet mollis massa porttitor
+                    id.
+                  </Text>
+                </Box>
+              </Box>
+            </SimpleGrid>
+          </Box>
+        </Container>
+      </Box>
 
-        <Box bg="gray.100" py={8}>
-          <Container maxW="7xl">
-            <Box px={8}>
-              <SimpleGrid columns={{ base: 2, md: 3 }} spacing={8}>
-                <Feature
-                  icon={<Icon as={FcAssistant} w={10} h={10} />}
-                  title={"Track your Accounts"}
-                  text={
-                    "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore..."
-                  }
-                />
-                <Feature
-                  icon={<Icon as={FcDonate} w={10} h={10} />}
-                  title={"Set Goals"}
-                  text={
-                    "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore..."
-                  }
-                />
-                <Feature
-                  icon={<Icon as={FcInTransit} w={10} h={10} />}
-                  title={"Budget Subscriptions"}
-                  text={
-                    "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore..."
-                  }
-                />
-              </SimpleGrid>
-            </Box>
-          </Container>
+      <Box maxW="600px" mx="auto" textAlign="center" my={16}>
+        <Heading as="h2" fontSize="3xl" mb="6">
+          Contact Us
+        </Heading>
+        <Box as="form" mb="8">
+          <Input placeholder="Your email" mb="4" />
+          <Textarea placeholder="Your message" mb="4" />
+          <Button
+            colorScheme="blue"
+            type="submit"
+            bg={"purple.500"}
+            _hover={{ bg: "purple.300" }}
+          >
+            Submit
+          </Button>
         </Box>
       </Box>
     </>

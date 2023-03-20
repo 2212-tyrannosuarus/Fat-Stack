@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import Overview from "./components/Overview";
+import Dashboard from "./components/Dashboard";
 import AllTransactions from "./components/AllTransactions";
 import SingleTransaction from "./components/SingleTransaction";
 import Budget from "./components/Budget";
@@ -11,7 +11,7 @@ export const NavigationRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<Homepage />} />
-      <Route path="/overview" element={<Overview />} />
+      <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/transactions" element={<AllTransactions />} />
       <Route path="/transactions/:id" element={<SingleTransaction />} />
       <Route path="/profile" element={<Profile />} />

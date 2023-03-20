@@ -1,43 +1,39 @@
 import React from "react";
+import {
+  Box,
+  Container,
+  Stack,
+  Text,
+  Link,
+  useColorModeValue,
+} from "@chakra-ui/react";
 
-const Footer = () => {
+export const Footer = () => {
   return (
     <>
-      {/* <div className="container">
-        <footer className="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-          <p className="col-md-4 mb-0 text-muted">&copy; 2023 Finance, Inc</p>
-
-          <a
-            href="/"
-            className="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none"
-          >
-            <svg className="bi me-2" width="40" height="32"></svg>
-          </a>
-
-          <ul className="nav col-md-4 justify-content-end">
-            <li className="nav-item">
-              <a href="#" className="nav-link px-2 text-muted">
-                Home
-              </a>
-            </li>
-            <li className="nav-item">
-              <a href="#" className="nav-link px-2 text-muted">
-                About
-              </a>
-            </li>
-            <li className="nav-item">
-              <a href="#" className="nav-link px-2 text-muted">
-                Features
-              </a>
-            </li>
-            <li className="nav-item">
-              <a href="#" className="nav-link px-2 text-muted">
-                FAQs
-              </a>
-            </li>
-          </ul>
-        </footer>
-      </div> */}
+      <Box
+        as="footer"
+        bg={useColorModeValue("gray.50", "gray.900")}
+        color={useColorModeValue("gray.700", "gray.200")}
+        bottom={0}
+        width="100%"
+      >
+        <Container
+          as={Stack}
+          maxW={"6xl"}
+          py={4}
+          direction={{ base: "column", md: "row" }}
+          spacing={4}
+          justify={{ base: "center", md: "space-between" }}
+          align={{ base: "center", md: "center" }}
+        >
+          <Stack direction={"row"} spacing={6}>
+            <Link href={"#"}>Home</Link>
+            <Link href={"#"}>About</Link>
+          </Stack>
+          <Text>© 2023. All rights reserved</Text>
+        </Container>
+      </Box>
     </>
   );
 };
