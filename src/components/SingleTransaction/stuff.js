@@ -76,3 +76,53 @@
     </div>
   </div>
 </div>;
+
+<div className="test-form-container">
+  <form className="test-form" onSubmit={handleUpdate}>
+    <input placeholder="Description" name="merchant" />
+    <input placeholder="Transaction Amount" name="username" />
+    <div className="mb-3 row">
+      <label htmlFor="html5-date-input" className="col-md-2 col-form-label">
+        Date
+      </label>
+      <div className="col-md-10">
+        <input
+          className="form-control"
+          type="date"
+          // value="2023-03-20"
+          id="html5-date-input"
+        />
+      </div>
+    </div>
+    <div className="form-check mt-3">
+      <input
+        className="form-check-input"
+        type="checkbox"
+        value={changeAll}
+        id="defaultCheck1"
+        onChange={(e) => {
+          setChangeAll(!changeAll);
+        }}
+      />
+      <label className="form-check-label" htmlFor="defaultCheck1">
+        Change All
+      </label>
+    </div>
+
+    <select
+      id="color_category"
+      name="color_category"
+      onChange={(e) => setCategoryId(e.target.value)}
+    >
+      {allSubCategories.map((option) => (
+        <option key={option.id} value={option.id}>
+          {" "}
+          {option.sub_category_name}
+        </option>
+      ))}
+    </select>
+    <br />
+    <button type="submit">Submit</button>
+    <br />
+  </form>
+</div>;

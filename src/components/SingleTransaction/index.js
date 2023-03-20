@@ -38,6 +38,9 @@ const SingleTransction = () => {
     <div>
       {singleTransaction.id ? (
         <div>
+          <h1>SINGLE TRANSACTION:</h1>
+          <p>{"a"}</p>
+          <p>{"a"}</p>
           {/* <p>Transaction ID: {singleTransaction.account_id}</p> */}
           <p>Merchant: {singleTransaction.merchant}</p>
           <p>Transaction Date: {singleTransaction.date}</p>

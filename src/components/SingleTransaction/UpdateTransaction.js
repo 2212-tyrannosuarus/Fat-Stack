@@ -8,6 +8,22 @@ import {
   updateAllTransactionCat,
   selectSingleTransaction,
 } from "../../reducers/singleTransactionPageSlice";
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+  Button,
+  FormControl,
+  FormLabel,
+  Input,
+  Checkbox,
+  Select,
+} from "@chakra-ui/react";
 
 export default function UpdateTransaction() {
   const [subcategoryId, setCategoryId] = useState(27);
@@ -16,12 +32,16 @@ export default function UpdateTransaction() {
   const { id } = useParams();
   const transaction = useSelector(selectSingleTransaction);
   const dispatch = useDispatch();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const initialRef = React.useRef(null);
+  const finalRef = React.useRef(null);
 
   useEffect(() => {
     dispatch(fetchAllSubCat());
   }, []);
 
   const handleUpdate = async (event) => {
+    console.log("called");
     event.preventDefault();
     if (changeAll) {
       await dispatch(
@@ -40,54 +60,83 @@ export default function UpdateTransaction() {
   };
 
   return (
-    <div className="test-form-container">
-      <form className="test-form" onSubmit={handleUpdate}>
-        <input placeholder="Description" name="merchant" />
-        <input placeholder="Transaction Amount" name="username" />
-        <div className="mb-3 row">
-          <label htmlFor="html5-date-input" className="col-md-2 col-form-label">
-            Date
-          </label>
-          <div className="col-md-10">
-            <input
-              className="form-control"
-              type="date"
-              // value="2023-03-20"
-              id="html5-date-input"
-            />
-          </div>
-        </div>
-        <div className="form-check mt-3">
-          <input
-            className="form-check-input"
-            type="checkbox"
-            value={changeAll}
-            id="defaultCheck1"
-            onChange={(e) => {
-              setChangeAll(!changeAll);
-            }}
-          />
-          <label className="form-check-label" htmlFor="defaultCheck1">
-            Change All
-          </label>
-        </div>
+    <>
+      <Button onClick={onOpen}>Edit</Button>
 
-        <select
-          id="color_category"
-          name="color_category"
-          onChange={(e) => setCategoryId(e.target.value)}
-        >
-          {allSubCategories.map((option) => (
-            <option key={option.id} value={option.id}>
-              {" "}
-              {option.sub_category_name}
-            </option>
-          ))}
-        </select>
-        <br />
-        <button type="submit">Submit</button>
-        <br />
-      </form>
-    </div>
+      <Modal
+        initialFocusRef={initialRef}
+        finalFocusRef={finalRef}
+        isOpen={isOpen}
+        onClose={onClose}
+      >
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Update Transaction</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody pb={6}>
+            <FormControl>
+              <FormLabel>Merchant:</FormLabel>
+              <Input ref={initialRef} placeholder="Merchant" />
+            </FormControl>
+
+            <FormControl mt={4}>
+              <FormLabel>Date</FormLabel>
+              <Input
+                placeholder="Select Date and Time"
+                size="md"
+                type="datetime-local"
+              />
+            </FormControl>
+
+            <FormControl>
+              <FormLabel>Amount:</FormLabel>
+              <Input ref={initialRef} placeholder="Amount" />
+            </FormControl>
+
+            <FormControl>
+              <Checkbox
+                value={changeAll}
+                onChange={(e) => {
+                  setChangeAll(!changeAll);
+                }}
+              >
+                Apply to All
+              </Checkbox>
+            </FormControl>
+
+            <FormControl>
+              <Select
+                id="color_category"
+                name="color_category"
+                onChange={(e) => {
+                  setCategoryId(e.target.value);
+                  console.log(subcategoryId);
+                }}
+              >
+                {allSubCategories.map((option) => (
+                  <option key={option.id} value={option.id}>
+                    {" "}
+                    {option.sub_category_name}
+                  </option>
+                ))}
+              </Select>
+            </FormControl>
+          </ModalBody>
+
+          <ModalFooter>
+            <Button
+              mr={3}
+              onClick={(e) => {
+                handleUpdate(e);
+                onClose();
+              }}
+            >
+              Submit
+            </Button>
+            <Button onClick={onClose}>Cancel</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </>
   );
 }
