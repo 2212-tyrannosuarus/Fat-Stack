@@ -31,8 +31,8 @@ const Income = (props) => {
                         <h6 class="text-muted d-block mb-1">{incomeItem.categoryName}: <span className="text-dark">{incomeItem.subCategoryName}</span></h6>
                       </div>
                       <div class="user-progress d-flex align-items-center gap-1">
-                        <h6 class="mb-0">${incomeItem.transactionAmount}</h6>{" "}
-                        <span class="text-muted">of ${incomeItem.budgetedAmount}</span>
+                        <h6 class="mb-0">${parseInt(incomeItem.transactionAmount)}</h6>{" "}
+                        <span class="text-muted">of ${parseInt(incomeItem.budgetedAmount)}</span>
                       </div>
                     </div>
                   </li>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { fetchBudgetedSpendingFromDateToDate, fetchIncomeFromDateToDate, fetchUnbudgetedSpendingFromDateToDate, selectBudgetedSpendingFromDateToDate, selectIncomeFromDateToDate, selectUnudgetedSpendingFromDateToDate } from "../../reducers/budgetPageSlice";
+import { fetchBudgetedSpendingFromDateToDate, fetchIncomeFromDateToDate, fetchUnbudgetedSpendingFromDateToDate, selectBudgetedSpendingFromDateToDate, selectIncomeFromDateToDate, selectUnudgetedSpendingFromDateToDate, updateBudgetBySubCategory } from "../../reducers/budgetPageSlice";
 import SelectDropDown from "./SelectDropDown";
 import MonthsToDisplay from "./MonthsToDisplay";
 import Spending from "./Spending";
@@ -10,6 +10,8 @@ import Income from "./Income";
 import './Budget.css'
 import "../../scss/styles.scss";
 import * as bootstrap from "bootstrap";
+import Sidebar from "../Sidebar";
+
 
 const MONTHS = [
   "Jan",
@@ -35,7 +37,9 @@ const Budget = () => {
   let budgetedIncome = useSelector(selectIncomeFromDateToDate)
 
   const [dateToday, setDateToday] = useState(new Date());
-  // const [titleDate, setTitleDate] = useState(`$`)
+  let [newBudgetedAmount, setNewBudgetedAmount] = useState(null);
+
+  const [titleDate, setTitleDate] = useState(`${new Date().toString().split(' ')[1]} ${new Date().toString().split(' ')[3]}`)
   let currMonth = dateToday.toString().split(" ")[1];
   let currYear = dateToday.toString().split(" ")[3].slice(2);
 
@@ -48,6 +52,19 @@ const Budget = () => {
   for (let i = 0; i <= indexOfCurrMonth; i++) {
     monthsToDisplay.push(`${MONTHS[i]} '${parseInt(currYear)}`);
   }
+
+  const handleSubmit = async (evt, subCategory, newBudgetedAmount) => {
+    if(evt.keyCode === 13) return;
+    evt.preventDefault();
+    await dispatch(updateBudgetBySubCategory({userId: userId, subCategoryName: subCategory, newBudgetedAmount: newBudgetedAmount}));
+    handleThisMonth('this month');
+  };
+
+  const handleDeleteBudget = async (evt, subCategory) => {
+    evt.preventDefault();
+    await dispatch();
+  };
+
 
   useEffect(() => {
 
@@ -86,6 +103,7 @@ const Budget = () => {
 
     // handle this month
     if (timeRange === 'this month') {
+      
       if ((dateToday.getMonth() + 1).toString().length === 1) {
         currentMonth = `0${(dateToday.getMonth() + 1).toString()}`;
       }
@@ -98,10 +116,13 @@ const Budget = () => {
       console.log('current Month ', currMonth, currYear);
     let thisMonthDiv = document.querySelector(`#${currMonth}`);
     thisMonthDiv.classList.add("selected-month");
+
+    setTitleDate(`${new Date().toString().split(' ')[1]} ${new Date().toString().split(' ')[3]}`);
     }
 
     // handle last month
     else if (timeRange === 'last month') {
+
       if (dateToday.getMonth().toString().length === 1) {
         currentMonth = `0${dateToday.getMonth().toString()}`;
       }
@@ -119,6 +140,16 @@ const Budget = () => {
     }
     let lastMonthDiv = document.querySelector(`#${lastMonth}`);
     lastMonthDiv.classList.add("selected-month");
+
+    let monthToDisplay = MONTHS[dateToday.getMonth() - 1];
+    let yearToDisplay = todaysDate[3];
+
+    if (indexOfCurrMonth === 0) {
+      monthToDisplay = MONTHS[MONTHS.length - 1];
+      yearToDisplay = parseInt(todaysDate[3]) - 1;
+    }
+
+    setTitleDate(`${monthToDisplay} ${yearToDisplay}`)
     }
 
     // handle last three months
@@ -172,6 +203,14 @@ const Budget = () => {
         divToSelect.classList.add("selected-month");
     }
     
+    let monthToDisplay = MONTHS[dateToday.getMonth() - 2];
+    let yearToDisplay = todaysDate[3];
+
+    if (indexOfCurrMonth === 1) monthToDisplay = MONTHS[MONTHS.length - 1];
+    if (indexOfCurrMonth === 0) monthToDisplay = MONTHS[MONTHS.length - 2];
+    if (indexOfCurrMonth <= 1) yearToDisplay = parseInt(todaysDate[3]) - 1;
+
+    setTitleDate(`${monthToDisplay} ${yearToDisplay} - ${new Date().toString().split(' ')[1]} ${new Date().toString().split(' ')[3]}`)
     }
     
     await dispatch(fetchBudgetedSpendingFromDateToDate({userId: userId, fromDate: startingDate, toDate: endingDate}));
@@ -182,13 +221,13 @@ const Budget = () => {
 
 
   return (
+    
     <div className="container budget-container">
+      
       <div className="row">
         <div className="row col-9">
           <div className="col-9">
-            <h2 className="mb-2">
-              {new Date().toString().split(' ')[1]} {new Date().toString().split(' ')[3]}
-            </h2>
+            <h2 className="mb-2 title-date">{titleDate}</h2>
           </div>
 
           <SelectDropDown 
@@ -205,11 +244,13 @@ const Budget = () => {
         </button>
       </div>
 
-      {/* Budget Income */}
+      {/* Budget */}
       {budgetedSpendingFromSlice.length && unbudgetedSpending.length && budgetedIncome.length ? (
         <div className="row">
           <Income income={budgetedIncome} />
-          <Spending spending={budgetedSpendingFromSlice} />
+          <Spending spending={budgetedSpendingFromSlice} 
+          handleSubmit={handleSubmit} handleDeleteBudget={handleDeleteBudget}
+           newBudgetedAmount={newBudgetedAmount} setNewBudgetedAmount={setNewBudgetedAmount}/>
           <Other other={unbudgetedSpending} />
           
           

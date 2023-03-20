@@ -2,6 +2,7 @@ const router = require("express").Router();
 const {db,
   models: { Budget, Transaction },
 } = require("../db");
+const { ValidationError} = require("sequelize");
 const Bank_Account = require("../db/models/Bank_Account");
 const Budget_Scheme = require("../db/models/Budget_Scheme");
 const Category = require("../db/models/Category");
@@ -126,5 +127,40 @@ router.get("/income/:userId/:fromDate/:toDate", async (req, res, next) => {
   }
 });
 
-
+// PUT /api/budget/:userId
+router.put("/:userId", async (req, res, next) => {
+  try {
+    const subCategory = await Sub_Category.findOne({
+      where: {
+        sub_category_name: req.body.subCategoryName
+      }
+    })
+    console.log('sub category ', subCategory)
+    const budgetToUpdate = await Budget.findOne({
+      where: {
+        userId: req.params.userId,
+        subcategoryId: subCategory.id
+      }
+      
+    });
+    console.log('budget to update ', budgetToUpdate);
+    const updatedBudget = await budgetToUpdate.update({
+      amount: req.body.newBudgetedAmount
+    });
+    // const updatedBudget = await Budget.findOne({
+    //   where: {
+    //     userId: req.params.userId,
+    //     subcategoryId: subCategory.id
+    //   },
+    // });
+    console.log('updated budget ', updatedBudget);
+    res.json(updatedBudget);
+  } catch (error) {
+    if (error instanceof ValidationError) {
+      res.status(400).json(error.errors[0].message);
+    } else {
+      next(error);
+    }
+  }
+});
 
