@@ -6,6 +6,7 @@ import SingleTransaction from "./components/SingleTransaction";
 import Budget from "./components/Budget";
 import Profile from "./components/Profile";
 import Homepage from "./components/HomePage";
+import Trends from "./components/Trends";
 
 export const NavigationRoutes = () => {
   return (
@@ -15,7 +16,8 @@ export const NavigationRoutes = () => {
       <Route path="/transactions" element={<AllTransactions />} />
       <Route path="/transactions/:id" element={<SingleTransaction />} />
       <Route path="/profile" element={<Profile />} />
-      <Route exact path="/budget" element={<Budget />} />
+      <Route exact path="/budget/:userId" element={<Budget />} />
+      <Route exact path="/trends/:userId" element={<Trends />} />
     </Routes>
   );
 };

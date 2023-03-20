@@ -1,45 +1,132 @@
 const router = require("express").Router();
-const {
+const {db,
   models: { Budget, Transaction },
 } = require("../db");
+const Bank_Account = require("../db/models/Bank_Account");
+const Budget_Scheme = require("../db/models/Budget_Scheme");
+const Category = require("../db/models/Category");
+const Sub_Category = require("../db/models/Sub_Category");
 module.exports = router;
 
-// POST /api/budget/
-router.post("/:id", async (req, res, next) => {
+// GET /api/budget/budgeted/:userId/:fromDate/:toDate
+router.get("/budgeted/:userId/:fromDate/:toDate", async (req, res, next) => {
   try {
+    const budgetedSpending = await db.query(`select 
+    budgets.budget_name as "budgetName", 
+    budgets.amount as "budgetedAmount", 
+    budgets.date_started as "budgetStartDate",
+    subcategories.sub_category_name as "subCategoryName", 
+    subcategories.id as "subCategoryId",
+    categories.category_name as "categoryName", 
+    categories.id as "categoryId",
+    to_char(to_date(date,'YYYY-MM-DD'),'yyyymm') as "yearmonth",
+    sum(transactions.amount) as "transactionAmount"
+    from
+    budgets,
+    subcategories,
+    categories,
+    transactions
+    where
+    subcategories.id=budgets."subcategoryId"
+    and categories.id=subcategories."categoryId"
+    and transactions."subcategoryId"=subcategories.id
+    and transactions.credit_debit= 'debit'
+    and to_date(date,'YYYY-MM-DD') >= to_date(${req.params.fromDate},'YYYY-MM-DD')
+    and to_date(date,'YYYY-MM-DD') <= to_date(${req.params.toDate},'YYYY-MM-DD')
+    and transactions."userId"=${req.params.userId}
+    group by 
+    budgets.budget_name, 
+    budgets.amount, 
+    budgets.date_started,
+    subcategories.sub_category_name, 
+    subcategories.id,
+    categories.category_name, 
+    categories.id,
+    yearmonth`);
 
-    const transactions = req.body;
-    console.log('transactions ', req.body);
-    let transactionsArr = []
-    transactions.forEach(async (transaction) => {
-      // console.log('transaction ', transaction);
-      let accountId = '';
-      if (transaction.accountName.includes('Checking')) {
-        accountId = 'GD5JC6GNBB2SBRZ9W8Z1JB95IGWBSWT13EST0';
-      }
-      else if (transaction.accountName.includes('Platinum Card')) {
-        accountId = '73OYBP3ZRDKKJMC7CX66HJLFX72RFGUEHRYDM';
-      }
-      else if (transaction.accountName.includes('Silver Card')) {
-        accountId = 'D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P';
-      }
-      let transactionToCreate = {
-        account_id: accountId,
-        merchant: transaction.description,
-        date: transaction.date,
-        amount: transaction.amount,
-        category: transaction.subCategory,
-        sub_category: transaction.subCategory,
-        credit_debit: transaction.tranactionType
-      }
-      let newTransaction = await Transaction.create(transactionToCreate);
-      transactionsArr.push(newTransaction);
-    })
-    
-    res.json(transactionsArr);
+    res.json(budgetedSpending);
   } catch (err) {
     next(err);
   }
 });
+
+// GET /api/budget/unbudgeted/:userId/:fromDate/:toDate
+router.get("/unbudgeted/:userId/:fromDate/:toDate", async (req, res, next) => {
+  try {
+    const unbudgetedSpending = await db.query(`select 
+    subcategories.sub_category_name as "subCategoryName", 
+    subcategories.id as "subCategoryId",
+    categories.category_name as "categoryName", 
+    categories.id as "categoryId",
+    to_char(to_date(date,'YYYY-MM-DD'),'yyyymm') as "yearmonth",
+    sum(transactions.amount) as "transactionAmount"
+    from
+    transactions,
+    subcategories,
+    categories
+    where
+    to_date(date,'YYYY-MM-DD') >= to_date(${req.params.fromDate},'YYYY-MM-DD')
+    and to_date(date,'YYYY-MM-DD') <= to_date(${req.params.toDate},'YYYY-MM-DD')
+    and not exists (select 1 from budgets where budgets."subcategoryId" = subcategories.id)
+    and subcategories.id=transactions."subcategoryId"
+    and categories.id=subcategories."categoryId"
+    and transactions."userId"=${req.params.userId}
+    group by 
+    subcategories.sub_category_name, 
+    subcategories.id,
+    categories.category_name, 
+    categories.id,
+    yearmonth`);
+
+    res.json(unbudgetedSpending);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// GET /api/budget/unbudgeted/:userId/:fromDate/:toDate
+router.get("/income/:userId/:fromDate/:toDate", async (req, res, next) => {
+  try {
+    const budgetedIncome = await db.query(`select 
+    budgets.budget_name as "budgetName", 
+    budgets.amount as "budgetedAmount", 
+    budgets.date_started as "budgetStartDate",
+    subcategories.sub_category_name as "subCategoryName", 
+    subcategories.id as "subCategoryId",
+    categories.category_name as "categoryName", 
+    categories.id as "categoryId",
+    to_char(to_date(date,'YYYY-MM-DD'),'yyyymm') as "yearmonth",
+    sum(transactions.amount) as "transactionAmount"
+    from
+    budgets,
+    subcategories,
+    categories,
+    transactions
+    where
+    subcategories.id=budgets."subcategoryId"
+    and categories.id=subcategories."categoryId"
+    and transactions."subcategoryId"=subcategories.id
+    and transactions.credit_debit= 'credit'
+    and to_date(date,'YYYY-MM-DD') >= to_date(${req.params.fromDate},'YYYY-MM-DD')
+    and to_date(date,'YYYY-MM-DD') <= to_date(${req.params.toDate},'YYYY-MM-DD')
+    and transactions."userId"=${req.params.userId}
+    group by 
+    budgets.budget_name, 
+    budgets.amount, 
+    budgets.date_started,
+    subcategories.sub_category_name, 
+    subcategories.id,
+    categories.category_name, 
+    categories.id,
+    yearmonth`);
+
+    
+     
+    res.json(budgetedIncome);
+  } catch (err) {
+    next(err);
+  }
+});
+
 
 

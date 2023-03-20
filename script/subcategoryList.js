@@ -107,10 +107,7 @@ const subcategoryArr = [
   "Hotel",
   "Rental Car & taxi",
   "Vacation",
-  "Cash & ATM",
-  "Check",
-  "Credit Card",
-  "Debit Card",
   "Uncategorized",
+  "Investment Withdrawal",
 ];
 module.exports = subcategoryArr;

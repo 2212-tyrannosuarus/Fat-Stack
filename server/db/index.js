@@ -44,8 +44,11 @@ Sub_Category.hasMany(Budget);
 Budget.belongsTo(User_Category);
 User_Category.hasMany(Budget);
 
-Budget.hasOne(Budget_Scheme);
+Budget.belongsTo(Budget_Scheme);
 Budget_Scheme.hasMany(Budget);
+
+Budget.belongsTo(User);
+User.hasMany(Budget);
 
 module.exports = {
   db,

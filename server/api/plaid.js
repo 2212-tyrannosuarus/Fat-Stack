@@ -60,7 +60,6 @@ router.post("/exchange_public_token", async (req, res, next) => {
 
     res.json({ accessToken: accessToken, data: itemID });
   } catch (error) {
-    // handle error
     next(error);
   }
 });
@@ -108,7 +107,7 @@ router.post("/accountInfo", async function (req, res, next) {
     });
 
     //saving Bank_account/Transactions into DB
-    await accountToDB(accountData, numbers);
+    await accountToDB(accountData, numbers, userId);
     transactionToDB(transactions, userId, accountData);
   } catch (error) {
     next(error);

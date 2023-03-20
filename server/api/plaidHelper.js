@@ -111,11 +111,8 @@ const categoryMap = {
   Hotel: 106,
   "Rental Car & taxi": 107,
   Vacation: 108,
-  "Cash & ATM": 109,
-  Check: 110,
-  "Credit Card": 111,
-  "Debit Card": 112,
-  Uncategorized: 113,
+  Uncategorized: 109,
+  "Investment Withdrawal": 110,
 };
 
 const plaidMap = {
@@ -162,7 +159,7 @@ const plaidMap = {
   "Equipment Rental": 107,
 };
 
-const accountToDB = async (arr, arr2) => {
+const accountToDB = async (arr, arr2, userId) => {
   for (let i = 0; i < arr.length; i++) {
     const bankAccount = await Bank_Account.create({
       account_id: arr[i].account_id,
@@ -170,7 +167,7 @@ const accountToDB = async (arr, arr2) => {
       account_type: arr[i].name,
       account_name: arr[i].official_name,
       available_balance: arr[i].balances.available,
-      //using account_id, look up user with such account_id and assign userId to that user's ID
+      userId: userId,
     });
   }
   console.log("seeding user success");
@@ -179,18 +176,17 @@ const accountToDB = async (arr, arr2) => {
 const transactionToDB = async (arr, userId, accounts) => {
   let accountIdMap = {};
   //converts accounts array into a Map;
-
   for (let j = 0; j < accounts.length; j++) {
     let bankId = accounts[j]["account_id"];
     const bank = await Bank_Account.findOne({ where: { account_id: bankId } });
     accountIdMap[bankId] = bank.id;
   }
-
+  //assigns transactions to appropriate category
   for (let i = 0; i < arr.length; i++) {
     let transAccountId = arr[i].account_id;
     let accountId = accountIdMap[transAccountId];
     let credit = "debit";
-    let catId = 113;
+    let catId = 109;
     if (arr[i].amount < 0) {
       credit = "credit";
     }
@@ -210,13 +206,11 @@ const transactionToDB = async (arr, userId, accounts) => {
       merchant: arr[i].name,
       date: arr[i].date,
       amount: arr[i].amount,
-      // category: arr[i].category[0],
       hide_from_budget: false,
       credit_debit: credit,
       subcategoryId: catId,
       bankaccountId: accountId,
-      // userId: userId,
-      //somehow do category
+      userId: userId,
     });
   }
 };
