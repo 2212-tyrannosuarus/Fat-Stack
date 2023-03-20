@@ -1,9 +1,13 @@
 import React, {useEffect, useState} from "react";
 import BarChart from "../Bar Chart";
 import { useDispatch, useSelector } from "react-redux";
-import {fetchAllUserTransactions, fetchSpendingByCategoryPie, fetchSpendingOvertime, getMonthsTransactions, selectMonthsTransactions, selectSpendingByCategoryPie, selectSpendingOvertime } from "../../reducers/trendsPageSLice";
+import {fetchSpendingByCategoryPie, fetchSpendingByMerchantPie, fetchSpendingOvertime, selectSpendingByCategoryPie, selectSpendingByMerchantPie, selectSpendingOvertime } from "../../reducers/trendsPageSLice";
 import { useParams } from "react-router-dom";
-import PieChart from "../PieChart";
+import './Trends.css'
+import Accordion from 'react-bootstrap/Accordion';
+import Button from 'react-bootstrap/Button';
+import PieChartCategory from "../PieChartCategory";
+import PieChartMerchant from "../PieChartMerchant";
 
 
 const Trends = () => {
@@ -12,11 +16,18 @@ const Trends = () => {
     const dispatch = useDispatch();
     let spendingOvertime = useSelector(selectSpendingOvertime);
     let spendingByCategoryPie = useSelector(selectSpendingByCategoryPie);
+    let spendingByMerchantPie = useSelector(selectSpendingByMerchantPie);
+
     console.log('spending overtime ', spendingOvertime);
     console.log('spending by category ', spendingByCategoryPie);
+    console.log('spending by merchant ', spendingByMerchantPie);
+
     let [dataToChartOvertime, setDataToChartOvertime] = useState([]);
     let [dataToChartCategoryPie, setDataToChartCategoryPie] = useState([]);
-    console.log('dataToChartCategoryPie ', dataToChartCategoryPie);
+    let [dataToChartMerchantPie, setDataToChartMerchantPie] = useState([]);
+
+    console.log('dataToChartMerchantPie ', dataToChartMerchantPie);
+
     const [dateToday, setDateToday] = useState(new Date());
 
     useEffect(() => {
@@ -33,7 +44,8 @@ const Trends = () => {
         
     async function getSpendingOvertime() {
             await dispatch(fetchSpendingOvertime({userId: userId, fromDate: startingDate, toDate: endingDate}));
-            setDataToChartCategoryPie(null)
+            setDataToChartCategoryPie(null);
+            setDataToChartMerchantPie(null);
             setDataToChartOvertime(spendingOvertime);
         }
         getSpendingOvertime();
@@ -53,6 +65,7 @@ const Trends = () => {
     let endingDate = `${todaysDate[3]}-${currentMonth}-${todaysDate[2]}`
     await dispatch(fetchSpendingOvertime({userId: userId, fromDate: startingDate, toDate: endingDate}));
     setDataToChartCategoryPie(null)
+    setDataToChartMerchantPie(null);
     setDataToChartOvertime(spendingOvertime);
     }
 
@@ -69,13 +82,32 @@ const Trends = () => {
     let endingDate = `${todaysDate[3]}-${currentMonth}-${todaysDate[2]}`
     await dispatch(fetchSpendingByCategoryPie({userId: userId, fromDate: startingDate, toDate: endingDate}));
     setDataToChartOvertime(null);
+    setDataToChartMerchantPie(null);
     setDataToChartCategoryPie(spendingByCategoryPie);
+    }
+
+    async function handleMerchantPie () {
+      let todaysDate = (dateToday.toString() + 1).split(' ');
+    let currentMonth = '';
+    if ((dateToday.getMonth() + 1).toString().length === 1) {
+      currentMonth = `0${(dateToday.getMonth() + 1).toString()}`
+    }
+    else {
+      currentMonth = (dateToday.getMonth() + 1).toString()
+    }
+    let startingDate = `${todaysDate[3]}-${currentMonth}-01`;
+    let endingDate = `${todaysDate[3]}-${currentMonth}-${todaysDate[2]}`
+    await dispatch(fetchSpendingByMerchantPie({userId: userId, fromDate: startingDate, toDate: endingDate}));
+    setDataToChartOvertime(null);
+    setDataToChartCategoryPie(null);
+    setDataToChartMerchantPie(spendingByMerchantPie);
     }
 
 
   return (
+    <div className="container">
     <div className="row">
-    <aside
+    {/* <aside
       id="layout-menu"
       class="col-3 layout-menu menu-vertical menu bg-menu-theme"
       data-bg-class="bg-menu-theme"
@@ -84,7 +116,7 @@ const Trends = () => {
 
       <ul class="menu-inner py-1 ps ps--active-y">
 
-        {/* <!-- Layouts --> */}
+       
         <li class="menu-item">
           <div class="menu-link menu-toggle">
             <div data-i18n="Layouts">SPENDING GRAPHS</div>
@@ -109,7 +141,25 @@ const Trends = () => {
           </ul>
         </li>
       </ul>
-    </aside>
+    </aside> */}
+
+
+<Accordion className="col-3">
+      <Accordion.Item eventKey="0">
+        <Accordion.Header>Spending Graphs</Accordion.Header>
+        <Accordion.Body>
+        <div className="d-grid gap-2">
+        <Button variant="light" onClick={() => handleOvertime()}>Overtime</Button>
+        <Button variant="light" onClick={() => handleCategoryPie()} >By Category</Button>
+        <Button variant="light" onClick={() => handleMerchantPie()} >By Merchant</Button>
+        </div>
+        </Accordion.Body>
+      </Accordion.Item>
+    </Accordion>
+
+
+
+  
 
     <div className="col-7">
    
@@ -118,12 +168,19 @@ const Trends = () => {
         <BarChart chartData={spendingOvertime}/>: null}
 
 {dataToChartCategoryPie && dataToChartCategoryPie.length !== undefined ? 
-        <PieChart chartData={spendingByCategoryPie}/>: null}
+        <PieChartCategory chartData={spendingByCategoryPie}/>: null}
+
+{dataToChartMerchantPie && dataToChartMerchantPie.length !== undefined ? 
+        <PieChartMerchant chartData={spendingByMerchantPie}/>: null}
     </div>
     
+    </div>
     </div>
     </div>
   );
 };
 
 export default Trends;
+
+
+

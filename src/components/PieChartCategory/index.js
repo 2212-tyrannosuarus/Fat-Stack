@@ -24,7 +24,7 @@ const MONTHS = [
   "Dec",
 ];
 
-const PieChart = (props) => {
+const PieChartCategory = (props) => {
   const { chartData } = props;
   let [pieChart, setPieChart] = useState([]);
   let [legend, setLegend] = useState([]);
@@ -49,7 +49,7 @@ const PieChart = (props) => {
 
   return (
     <div className="row">
-        <div className="col-8">
+        <div className="col-8 border-svg">
       {pieChart && legend? (
         
           <svg width="500" height="500" viewBox="0 0 400 400" >
@@ -76,7 +76,7 @@ const PieChart = (props) => {
         "Loading in pie chart"
       )}
       </div>
-      <div className="col-4">
+      <div className="col-4 border-svg">
       <VictoryLegend 
           colorScale={["#ff7960", "#fec44d", "#54d4f1", "#9798fe", "#9ce775", "#a8b3bd", "#65717d"]}
           data={legend}
@@ -86,4 +86,4 @@ const PieChart = (props) => {
   );
 };
 
-export default PieChart;
+export default PieChartCategory;

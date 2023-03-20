@@ -19,11 +19,21 @@ export const fetchSpendingByCategoryPie = createAsyncThunk(
   }
 );
 
+export const fetchSpendingByMerchantPie = createAsyncThunk(
+  "userSpendingByMerchantPie/fetch",
+  async ({userId, fromDate, toDate}) => {
+    userId = parseInt(userId);
+    const { data } = await axios.get(`/api/trends/merchantPie/${userId}/'${fromDate}'/'${toDate}'`);
+    return data;
+  }
+);
+
 export const trendsPageSlice = createSlice({
   name: "TrendsPage",
   initialState: {
     spendingOvertime: [],
-    categoryPie: []
+    categoryPie: [],
+    merchantPie: []
   },
   reducers: {
   },
@@ -33,6 +43,9 @@ export const trendsPageSlice = createSlice({
     })
     build.addCase(fetchSpendingByCategoryPie.fulfilled, (state, action) => {
       state.categoryPie = action.payload;
+    })
+    build.addCase(fetchSpendingByMerchantPie.fulfilled, (state, action) => {
+      state.merchantPie = action.payload;
     });
   },
 });
@@ -45,6 +58,10 @@ export const selectSpendingOvertime = (state) => {
 
 export const selectSpendingByCategoryPie = (state) => {
   return state.trendsPage.categoryPie;
+};
+
+export const selectSpendingByMerchantPie = (state) => {
+  return state.trendsPage.merchantPie;
 };
 
 export default trendsPageSlice.reducer;
