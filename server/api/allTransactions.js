@@ -4,7 +4,6 @@ const {
 } = require("../db");
 // api/transactions
 router.get("/", async (req, res, next) => {
-  //talk to Chance about getting logged in user info
   try {
     const allTransactions = await Transaction.findAll({
       where: {
@@ -12,6 +11,22 @@ router.get("/", async (req, res, next) => {
       },
     });
     res.status(200).json(allTransactions);
+  } catch (e) {
+    next(e);
+  }
+});
+
+router.post("/", async (req, res, next) => {
+  try {
+    const postedTransaction = await Transaction.create({
+      account_id: req.body.transaction.account_id,
+      merchant: req.body.transaction.merchant,
+      date: req.body.transaction.date,
+      amount: req.body.transaction.amount,
+      credit_debit: req.body.transaction.credit_debit,
+    });
+
+    res.status(200).json(postedTransaction);
   } catch (e) {
     next(e);
   }
