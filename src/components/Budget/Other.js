@@ -7,7 +7,7 @@ const Other = (props) => {
 
 //   useEffect(() => {
     if (other !== undefined) {
-      console.log("spending ", other);
+      console.log("other ", other.flat().slice(0, -1));
     }
 //   });
 
@@ -23,31 +23,20 @@ const Other = (props) => {
               <div class="card-body">
                 
                     {other && other.length ? (
-                        other.map(otherItem => {
+                        other.flat().slice(0, -1).map(otherItem => {
                             return (
-                                <ul class="p-0 m-0" key={otherItem[0]}>
-                                <li class="d-flex mb-2 pb-1" key={otherItem[0]}>
-                    {/* <div class="avatar flex-shrink-0 me-3">
-                      <img
-                        src="{{asset('assets/img/icons/unicons/paypal.png')}}"
-                        alt="User"
-                        class="rounded"
-                      />
-                    </div> */}
+                                <ul class="p-0 m-0" key={otherItem.subCategoryId}>
+                                <li class="d-flex mb-2 pb-1" key={otherItem.subCategoryId}>
                     <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                       <div class="me-2">
-                        <h6 class="text-muted d-block mb-1">{otherItem.flat()[0].split(':')[0]}: <span className="text-dark">{otherItem.flat()[0].split(':')[1]}</span></h6>
+                        <h6 class="text-muted d-block mb-1">{otherItem.categoryName}: <span className="text-dark">{otherItem.subCategoryName}</span></h6>
                       </div>
                       <div class="user-progress d-flex align-items-center gap-1">
-                        <h6 class="mb-0">${parseInt(otherItem.flat()[1])}</h6>{" "}
-                        {/* <span class="text-muted">of ${otherItem.flat()[2]}</span> */}
+                        <h6 class="mb-0">${parseInt(otherItem.transactionAmount)}</h6>{" "}
                       </div>
                     </div>
                     
                   </li>
-                  {/* <li class="mb-2 pb-1 income-progress-bar">
-                  <ProgressBar animated variant={(otherItem.flat()[2]- otherItem.flat()[1]) >= 0 ? 'primary': 'warning'} now={(otherItem.flat()[1]/otherItem.flat()[2]) * 100} />
-                  </li> */}
                   </ul>
                             )
                         })
