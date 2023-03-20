@@ -1,18 +1,16 @@
 import React from "react";
 import Routes from "./Routes";
-import "./scss/styles.scss";
-import * as bootstrap from "bootstrap";
+import { ChakraProvider } from "@chakra-ui/react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import { useAuth0 } from "@auth0/auth0-react";
 
 const App = () => {
   return (
-    <>
+    <ChakraProvider>
       <Navbar />
       <Routes />
       <Footer />
-    </>
+    </ChakraProvider>
   );
 };
 

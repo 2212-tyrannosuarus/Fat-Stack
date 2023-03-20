@@ -1,13 +1,41 @@
 import React from "react";
-import { BsPerson } from "react-icons/bs";
+import {
+  Box,
+  Flex,
+  Text,
+  IconButton,
+  Button,
+  Stack,
+  Collapse,
+  Icon,
+  Link,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  useColorModeValue,
+  useBreakpointValue,
+  useDisclosure,
+} from "@chakra-ui/react";
+
+import {
+  HamburgerIcon,
+  CloseIcon,
+  ChevronDownIcon,
+  ChevronRightIcon,
+} from "@chakra-ui/icons";
+
 import { useAuth0 } from "@auth0/auth0-react";
 
 export const Navbar = () => {
+  const { isOpen, onToggle } = useDisclosure();
   const { isAuthenticated, loginWithRedirect, logout, user } = useAuth0();
+  const linkColor = useColorModeValue("gray.600", "gray.200");
+  const linkHoverColor = useColorModeValue("gray.800", "white");
+  const popoverContentBgColor = useColorModeValue("white", "gray.800");
 
   return (
-    <div className="container">
-      <header className="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+    <>
+      {/* <header className="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
         <a
           href="/"
           className="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-decoration-none text-dark"
@@ -83,8 +111,8 @@ export const Navbar = () => {
             </div>
           )}
         </div>
-      </header>
-    </div>
+      </header> */}
+    </>
   );
 };
 
