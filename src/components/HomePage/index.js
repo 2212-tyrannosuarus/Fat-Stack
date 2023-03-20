@@ -109,10 +109,10 @@ export const Homepage = () => {
           </Stack>
         </Container>
       </Box>
-      <Box bg="gray.100" py={20}>
+      <Box bg="gray.50" py={20}>
         <Container maxW="7xl">
           <Box>
-            <SimpleGrid columns={{ base: 1, md: 3 }} spacing={16}>
+            <SimpleGrid columns={{ base: 1, md: 3 }} spacing={12}>
               <Box
                 bg="white"
                 rounded="lg"

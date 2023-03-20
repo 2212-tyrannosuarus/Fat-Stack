@@ -7,7 +7,6 @@ import Budget from "./components/Budget";
 import Profile from "./components/Profile";
 import Homepage from "./components/HomePage";
 import Trends from "./components/Trends";
-import { useAuth0 } from "@auth0/auth0-react";
 import SidebarLayout from "./layouts/sidebarlayout";
 import MainLayout from "./layouts/mainlayout";
 

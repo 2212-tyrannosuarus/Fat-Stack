@@ -8,9 +8,9 @@ const SidebarLayout = ({ children }) => {
   return (
     <div>
       <Navbar />
-      <Flex>
+      <Flex bg={"#f5f5f9"}>
         <Sidebar />
-        <Box pt={3} px={3}>
+        <Box pt={5} px={5}>
           {children}
         </Box>
       </Flex>
