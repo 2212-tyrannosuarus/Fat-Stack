@@ -26,7 +26,12 @@ import {
 } from "@chakra-ui/react";
 
 export default function UpdateTransaction() {
+  const [merchant, setMerchant] = useState("");
+  const [date, setDate] = useState("");
+  const [amount, setAmount] = useState(0);
   const [subcategoryId, setCategoryId] = useState(27);
+  const [hideFromBudget, setHideFromBudget] = useState(false);
+
   const [changeAll, setChangeAll] = useState(false);
   const allSubCategories = useSelector(selectAllSubCat);
   const { id } = useParams();
@@ -38,7 +43,11 @@ export default function UpdateTransaction() {
 
   useEffect(() => {
     dispatch(fetchAllSubCat());
-  }, []);
+    setMerchant(transaction.merchant || "");
+    setDate(transaction.date || "");
+    setAmount(transaction.amount || "");
+    setHideFromBudget(transaction.hide_from_budget || false);
+  }, [dispatch, transaction]);
 
   const handleUpdate = async (event) => {
     console.log("called");
@@ -47,21 +56,35 @@ export default function UpdateTransaction() {
       await dispatch(
         updateAllTransactionCat({
           name: transaction.merchant,
-          body: { subcategoryId: subcategoryId },
+          body: {
+            merchant,
+            date,
+            amount,
+            hide_from_budget: hideFromBudget,
+            subcategoryId,
+          },
         })
       );
     }
     await dispatch(
       updateSingleTransaction({
         id: id,
-        body: { subcategoryId: subcategoryId },
+        body: {
+          merchant,
+          date,
+          amount,
+          hide_from_budget: hideFromBudget,
+          subcategoryId,
+        },
       })
     );
   };
 
   return (
     <>
-      <Button onClick={onOpen}>Edit</Button>
+      <Button onClick={onOpen} size="xs">
+        Edit
+      </Button>
 
       <Modal
         initialFocusRef={initialRef}
@@ -76,7 +99,12 @@ export default function UpdateTransaction() {
           <ModalBody pb={6}>
             <FormControl>
               <FormLabel>Merchant:</FormLabel>
-              <Input ref={initialRef} placeholder="Merchant" />
+              <Input
+                ref={initialRef}
+                placeholder="Merchant"
+                value={merchant}
+                onChange={(e) => setMerchant(e.target.value)}
+              />
             </FormControl>
 
             <FormControl mt={4}>
@@ -84,13 +112,20 @@ export default function UpdateTransaction() {
               <Input
                 placeholder="Select Date and Time"
                 size="md"
-                type="datetime-local"
+                type="date-local"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
               />
             </FormControl>
 
             <FormControl>
               <FormLabel>Amount:</FormLabel>
-              <Input ref={initialRef} placeholder="Amount" />
+              <Input
+                ref={initialRef}
+                placeholder="Amount"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+              />
             </FormControl>
 
             <FormControl>
@@ -105,9 +140,21 @@ export default function UpdateTransaction() {
             </FormControl>
 
             <FormControl>
+              <Checkbox
+                value={hideFromBudget}
+                onChange={(e) => {
+                  setHideFromBudget(!hideFromBudget);
+                }}
+              >
+                {!hideFromBudget ? "Show in budget" : "Hide in Budget"}
+              </Checkbox>
+            </FormControl>
+
+            <FormControl>
               <Select
                 id="color_category"
                 name="color_category"
+                value={subcategoryId}
                 onChange={(e) => {
                   setCategoryId(e.target.value);
                   console.log(subcategoryId);

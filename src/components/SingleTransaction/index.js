@@ -10,29 +10,20 @@ import {
   selectSingleTransactionSubCat,
 } from "../../reducers/singleTransactionPageSlice";
 import UpdateTransaction from "./UpdateTransaction";
+import SubCatTag from "./subCatTag";
+import BoxTest from "./BoxTest";
 
 const SingleTransction = () => {
-  const { isAuthenticated, loginWithRedirect, logout, user } = useAuth0();
-  const [transUpdated, setTransUpdated] = useState(false);
   const dispatch = useDispatch();
   const { id } = useParams();
   const singleTransaction = useSelector(selectSingleTransaction);
-  const subCategory = useSelector(selectSingleTransactionSubCat);
 
   useEffect(() => {
     const handleFetch = async () => {
       await dispatch(fetchSingleTransaction(id));
-      setTransUpdated(true);
     };
     handleFetch();
   }, []);
-
-  useEffect(() => {
-    const handleSubFetch = async () => {
-      dispatch(fetchSingleTransactionSubCat(singleTransaction.subcategoryId));
-    };
-    handleSubFetch();
-  }, [transUpdated]);
 
   return (
     <div>
@@ -42,12 +33,12 @@ const SingleTransction = () => {
           <p>{"a"}</p>
           <p>{"a"}</p>
           {/* <p>Transaction ID: {singleTransaction.account_id}</p> */}
-          <p>Merchant: {singleTransaction.merchant}</p>
+          <p>
+            Merchant: {singleTransaction.merchant} <UpdateTransaction />
+          </p>
           <p>Transaction Date: {singleTransaction.date}</p>
           <p>Amount: {singleTransaction.amount}</p>
-          {subCategory ? (
-            <p>Category: {subCategory.sub_category_name}</p>
-          ) : null}
+          <SubCatTag transaction={singleTransaction} />
           <p>
             Hide From Budget:{" "}
             {singleTransaction.hide_from_budget ? "True" : "False"}
@@ -55,10 +46,10 @@ const SingleTransction = () => {
           <p>Credit/Debit: {singleTransaction.credit_debit}</p>
           <p></p>
           <p></p>
+          <BoxTest />
         </div>
       ) : null}
       <Plaid />
-      <UpdateTransaction />
     </div>
   );
 };
