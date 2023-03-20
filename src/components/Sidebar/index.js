@@ -71,9 +71,12 @@ export default function Sidebar() {
         alignItems={navSize == "small" ? "center" : "flex-start"}
         as="nav"
       >
-        <Link to="/dashboard">
-          <NavItem navSize={navSize} icon={FiHome} title="Dashboard" Link="/" />
-        </Link>
+        <NavItem
+          navSize={navSize}
+          icon={FiHome}
+          title="Dashboard"
+          Link={{ pathname: "/profile" }}
+        />
         <Link to="/profile">
           <NavItem navSize={navSize} icon={FiCreditCard} title="My Accounts" />
         </Link>
