@@ -6,12 +6,18 @@ import Plaid from "../Plaid";
 import {
   fetchSingleTransaction,
   selectSingleTransaction,
-  fetchSingleTransactionSubCat,
-  selectSingleTransactionSubCat,
 } from "../../reducers/singleTransactionPageSlice";
 import UpdateTransaction from "./UpdateTransaction";
 import SubCatTag from "./subCatTag";
-import BoxTest from "./BoxTest";
+import {
+  Stat,
+  StatLabel,
+  StatNumber,
+  StatHelpText,
+  StatArrow,
+  StatGroup,
+} from "@chakra-ui/react";
+import "./SingleTransaction.css";
 
 const SingleTransction = () => {
   const dispatch = useDispatch();
@@ -26,27 +32,37 @@ const SingleTransction = () => {
   }, []);
 
   return (
-    <div>
+    <div className="single-transaction-container">
       {singleTransaction.id ? (
         <div>
-          <h1>SINGLE TRANSACTION:</h1>
-          <p>{"a"}</p>
-          <p>{"a"}</p>
-          {/* <p>Transaction ID: {singleTransaction.account_id}</p> */}
-          <p>
-            Merchant: {singleTransaction.merchant} <UpdateTransaction />
-          </p>
-          <p>Transaction Date: {singleTransaction.date}</p>
-          <p>Amount: {singleTransaction.amount}</p>
-          <SubCatTag transaction={singleTransaction} />
-          <p>
-            Hide From Budget:{" "}
-            {singleTransaction.hide_from_budget ? "True" : "False"}
-          </p>
-          <p>Credit/Debit: {singleTransaction.credit_debit}</p>
-          <p></p>
-          <p></p>
-          <BoxTest />
+          <Stat>
+            <StatLabel>
+              Transaction <UpdateTransaction />
+            </StatLabel>
+            <StatNumber>${singleTransaction.amount} </StatNumber>
+            <StatHelpText>Date: {singleTransaction.date}</StatHelpText>
+          </Stat>
+          <StatGroup>
+            <Stat>
+              <StatLabel>Merchant:</StatLabel>
+              <StatNumber>{singleTransaction.merchant} </StatNumber>
+              <StatHelpText> {singleTransaction.credit_debit}</StatHelpText>
+            </Stat>
+
+            <Stat>
+              <StatLabel>Category</StatLabel>
+              <StatNumber>
+                {" "}
+                <SubCatTag transaction={singleTransaction} />
+              </StatNumber>
+            </Stat>
+            <Stat>
+              <StatLabel>Hide from Budget</StatLabel>
+              <StatNumber>
+                {singleTransaction.hide_from_budget ? "True" : "False"}
+              </StatNumber>
+            </Stat>
+          </StatGroup>
         </div>
       ) : null}
       <Plaid />

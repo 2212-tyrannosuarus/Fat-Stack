@@ -91,6 +91,8 @@ export default function UpdateTransaction() {
         finalFocusRef={finalRef}
         isOpen={isOpen}
         onClose={onClose}
+        colorScheme="whiteAlpha"
+        isCentered="true"
       >
         <ModalOverlay />
         <ModalContent>
