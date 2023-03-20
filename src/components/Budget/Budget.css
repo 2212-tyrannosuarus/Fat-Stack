@@ -2,6 +2,11 @@
   margin-top: 90px;
 }
 
+.title-date {
+  font-size: 30px;
+  font-weight: bold;
+}
+
 /*
 * demo.css
 * File include item demo only specific css only
@@ -21,6 +26,14 @@
     font-size: 1.75rem;
     letter-spacing: -0.5px;
     text-transform: lowercase;
+  }
+
+  .edit-budget {
+    display: inline-flex; 
+    flex-flow: row nowrap; 
+    min-height: 50px; 
+    align-items: center; 
+    justify-content: space-between; 
   }
   
   /* ! For .layout-navbar-fixed added fix padding top tpo .layout-page */

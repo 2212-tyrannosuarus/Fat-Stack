@@ -28,6 +28,18 @@ export const fetchUnbudgetedSpendingFromDateToDate = createAsyncThunk(
   }
 );
 
+export const updateBudgetBySubCategory= createAsyncThunk(
+  "budgetBySubCategory/update",
+  async ({userId, subCategoryName, newBudgetedAmount}) => {
+    userId = parseInt(userId);
+    const { data } = await axios.put(`/api/budget/${userId}`, {
+      subCategoryName: subCategoryName,
+      newBudgetedAmount: parseInt(newBudgetedAmount)
+    });
+    return data;
+  }
+);
+
 export const budgetPageSlice = createSlice({
   name: "BudgetPage",
   initialState: {

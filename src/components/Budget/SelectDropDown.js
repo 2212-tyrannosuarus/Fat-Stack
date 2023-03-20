@@ -1,7 +1,7 @@
 import React from "react";
 
 const SelectDropDown = (props) => {
-    const {handleLastMonth, handleThisMonth} = props;
+    const {handleThisMonth} = props;
   return (
     <div className="col">
     <div class="card-body">
@@ -11,9 +11,9 @@ const SelectDropDown = (props) => {
               Selected Month
             </button>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="growthReportId">
-              <button id="this-month-button" className="dropdown-item" onClick={() => handleThisMonth()}>This month</button>
-              <button class="dropdown-item" onClick={() => handleLastMonth()}>Last month</button>
-              <button class="dropdown-item" >Last 3 months</button>
+              <button id="this-month-button" className="dropdown-item" onClick={() => handleThisMonth('this month')}>This month</button>
+              <button class="dropdown-item" onClick={() => handleThisMonth('last month')}>Last month</button>
+              <button class="dropdown-item" onClick={() => handleThisMonth('last three months')}>Last 3 months</button>
               <a class="dropdown-item" href="javascript:void(0);">Last 6 months</a>
               <a class="dropdown-item" href="javascript:void(0);">This year</a>
               <a class="dropdown-item" href="javascript:void(0);">Last year</a>
