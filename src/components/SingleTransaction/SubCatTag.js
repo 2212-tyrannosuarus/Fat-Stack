@@ -19,5 +19,5 @@ export default function SubCatTag({ transaction }) {
     handleSubFetch();
   }, [transaction]);
 
-  return <p>Category: {subCategory.sub_category_name}</p>;
+  return <p> {subCategory.sub_category_name}</p>;
 }

@@ -18,6 +18,7 @@ import {
   StatGroup,
 } from "@chakra-ui/react";
 import "./SingleTransaction.css";
+import Note from "../Note";
 
 const SingleTransction = () => {
   const dispatch = useDispatch();
@@ -40,13 +41,22 @@ const SingleTransction = () => {
               Transaction <UpdateTransaction />
             </StatLabel>
             <StatNumber>${singleTransaction.amount} </StatNumber>
-            <StatHelpText>Date: {singleTransaction.date}</StatHelpText>
+            <StatHelpText textColor="teal">
+              Date: {singleTransaction.date}
+            </StatHelpText>
           </Stat>
           <StatGroup>
             <Stat>
               <StatLabel>Merchant:</StatLabel>
               <StatNumber>{singleTransaction.merchant} </StatNumber>
-              <StatHelpText> {singleTransaction.credit_debit}</StatHelpText>
+              <StatHelpText
+                textColor={
+                  singleTransaction.credit_debit === "credit" ? "green" : "red"
+                }
+              >
+                {" "}
+                {singleTransaction.credit_debit}
+              </StatHelpText>
             </Stat>
 
             <Stat>
@@ -63,6 +73,10 @@ const SingleTransction = () => {
               </StatNumber>
             </Stat>
           </StatGroup>
+          <Note
+            notes={singleTransaction.notes}
+            transactionId={singleTransaction.id}
+          />
         </div>
       ) : null}
       <Plaid />
