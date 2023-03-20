@@ -54,7 +54,7 @@ const BarChart = (props) => {
 
   return (
     <div className="my-budget-graph-container">
-      {barChartCredit && barChartDebit ? (
+      {chartData && chartData.length && barChartCredit && barChartDebit ? (
         <VictoryChart
         domainPadding={30}
         padding={{ top: 10, bottom: 27, left: 50, right: 5 }}
@@ -73,7 +73,7 @@ const BarChart = (props) => {
           offset={16}>
           <VictoryBar
             color='#9798fe'
-            // animate={{ duration: 2000 }}
+            animate={{ duration: 2000 }}
             data={barChartCredit}
             x="monthYear"
             y="total"
@@ -81,7 +81,7 @@ const BarChart = (props) => {
           />
           <VictoryBar
             color='#ff7960'
-            // animate={{ duration: 2000, onLoad: { duration: 4000 } }}
+            animate={{ duration: 2000, onLoad: { duration: 4000 } }}
             data={barChartDebit}
             x="monthYear"
             y="total"

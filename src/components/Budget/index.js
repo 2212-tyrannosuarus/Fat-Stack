@@ -8,6 +8,8 @@ import Spending from "./Spending";
 import Other from "./Other";
 import Income from "./Income";
 import './Budget.css'
+import "../../scss/styles.scss";
+import * as bootstrap from "bootstrap";
 
 const MONTHS = [
   "Jan",
@@ -126,7 +128,7 @@ const Budget = () => {
   }
 
   return (
-    <div className="container">
+    <div className="container budget-container">
       <div className="row">
         <div className="row col-9">
           <div className="col-9">
