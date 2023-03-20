@@ -1,7 +1,7 @@
 const router = require("express").Router();
 
 const {
-  models: { Transaction, Sub_Category, Category },
+  models: { Transaction, Sub_Category, Category, Note },
 } = require("../db");
 
 module.exports = router;
@@ -20,9 +20,12 @@ router.get("/subcategory", async (req, res, next) => {
 router.put("/changeallsubcategory", async (req, res, next) => {
   try {
     const { name, body } = req.body;
-    const transactions = await Transaction.findAll({
-      where: { merchant: name },
-    });
+    const transactions = await Transaction.findAll(
+      {
+        where: { merchant: name },
+      },
+      { include: [Note] }
+    );
     transactions.forEach((transaction) => {
       transaction.update(body);
     });
@@ -52,7 +55,9 @@ router.get("/category/:id", async (req, res, next) => {
 
 router.get("/:id", async (req, res, next) => {
   try {
-    const transaction = await Transaction.findByPk(req.params.id);
+    const transaction = await Transaction.findByPk(req.params.id, {
+      include: [Note],
+    });
     res.json(transaction);
   } catch (err) {
     next(err);
@@ -61,7 +66,9 @@ router.get("/:id", async (req, res, next) => {
 
 router.put("/:id", async (req, res, next) => {
   try {
-    const transaction = await Transaction.findByPk(req.params.id);
+    const transaction = await Transaction.findByPk(req.params.id, {
+      include: [Note],
+    });
     res.json(await transaction.update(req.body));
   } catch (err) {
     next(err);
