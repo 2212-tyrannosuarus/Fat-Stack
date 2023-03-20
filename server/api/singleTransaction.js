@@ -17,6 +17,21 @@ router.get("/subcategory", async (req, res, next) => {
   }
 });
 
+router.put("/changeallsubcategory", async (req, res, next) => {
+  try {
+    const { name, body } = req.body;
+    const transactions = await Transaction.findAll({
+      where: { merchant: name },
+    });
+    transactions.forEach((transaction) => {
+      transaction.update(body);
+    });
+    res.json(transactions);
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.get("/subcategory/:id", async (req, res, next) => {
   try {
     const subCategory = await Sub_Category.findByPk(req.params.id);

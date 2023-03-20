@@ -36,6 +36,20 @@ export const updateSingleTransaction = createAsyncThunk(
   }
 );
 
+export const updateAllTransactionCat = createAsyncThunk(
+  "transaction/updateTransaction",
+  async ({ name, body }) => {
+    const { data } = await axios.put(
+      `/api/singleTransaction/changeallsubcategory`,
+      {
+        name,
+        body,
+      }
+    );
+    return data;
+  }
+);
+
 export const singleTransactionPageSlice = createSlice({
   name: "homePage",
   initialState: {
