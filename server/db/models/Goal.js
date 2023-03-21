@@ -6,7 +6,11 @@ const Goal = db.define("goal", {
     type: Sequelize.STRING,
     allowNull: false,
   },
-  amount: {
+  goalamount: {
+    type: Sequelize.DECIMAL(12, 2),
+    allowNull: false,
+  },
+  contributedamount: {
     type: Sequelize.DECIMAL(12, 2),
     allowNull: false,
   },
