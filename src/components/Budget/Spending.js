@@ -21,7 +21,7 @@ const Spending = (props) => {
 
   return (
     <div className="row">
-      {spending !== undefined ? (
+      {spending !== undefined && spending.length ? (
         <div class="col-md-12 col-lg-12 order-2 mb-4">
           <div class="card h-100">
             <div class="card-header d-flex align-items-center justify-content-between">
