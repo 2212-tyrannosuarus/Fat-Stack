@@ -135,7 +135,7 @@ router.put("/:userId", async (req, res, next) => {
         sub_category_name: req.body.subCategoryName
       }
     })
-    console.log('sub category ', subCategory)
+
     const budgetToUpdate = await Budget.findOne({
       where: {
         userId: req.params.userId,
@@ -143,18 +143,39 @@ router.put("/:userId", async (req, res, next) => {
       }
       
     });
-    console.log('budget to update ', budgetToUpdate);
+
     const updatedBudget = await budgetToUpdate.update({
       amount: req.body.newBudgetedAmount
     });
-    // const updatedBudget = await Budget.findOne({
-    //   where: {
-    //     userId: req.params.userId,
-    //     subcategoryId: subCategory.id
-    //   },
-    // });
-    console.log('updated budget ', updatedBudget);
+
     res.json(updatedBudget);
+  } catch (error) {
+    if (error instanceof ValidationError) {
+      res.status(400).json(error.errors[0].message);
+    } else {
+      next(error);
+    }
+  }
+});
+
+// DELETE /api/budget/:userId/:subCategoryName
+router.delete("/:userId/:subCategoryName", async (req, res, next) => {
+  try {
+    const subCategory = await Sub_Category.findOne({
+      where: {
+        sub_category_name: req.params.subCategoryName
+      }
+    })
+
+    await Budget.destroy({
+      where: {
+        userId: req.params.userId,
+        subcategoryId: subCategory.id
+      }
+      
+    });
+
+    res.json("budget item deleted");
   } catch (error) {
     if (error instanceof ValidationError) {
       res.status(400).json(error.errors[0].message);

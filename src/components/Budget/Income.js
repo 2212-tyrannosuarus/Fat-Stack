@@ -1,9 +1,16 @@
 import React, { useEffect } from "react";
 import { ProgressBar } from 'react-bootstrap'
 import './Budget.css'
+import EditModal from "./EditModal";
 
 const Income = (props) => {
-  const { income } = props;
+  const {
+    income,
+    handleSubmit,
+    handleDeleteBudget,
+    newBudgetedAmount,
+    setNewBudgetedAmount,
+  } = props;
 
 //   useEffect(() => {
     if (income !== undefined) {
@@ -17,7 +24,7 @@ const Income = (props) => {
         {income !== undefined && income.length ? (
           income.flat().slice(0, -1).map(incomeItem => {
             return (
-              <div class="col-md-9 col-lg-9 order-2 mb-4 mt-2">
+              <div class="col-md-12 col-lg-12 order-2 mb-4 mt-2 pb-0 mr-0">
             <div class="card h-100">
               <div class="card-header d-flex align-items-center justify-content-between">
                 <h5 class="card-title m-0 me-2 ">Income</h5>
@@ -36,8 +43,18 @@ const Income = (props) => {
                       </div>
                     </div>
                   </li>
-                  <li class="mb-0 pb-1 income-progress-bar">
+                  <li class="mb-0 pb-0 income-progress-bar">
                   <ProgressBar variant='primary' now={(incomeItem.transactionAmount/incomeItem.budgetedAmount) * 100} style={{height: "10px"}}/>
+                  <div className="row">
+                              <EditModal
+                                subCategory={incomeItem.subCategoryName}
+                                budgetedAmount={incomeItem.budgetedAmount}
+                                handleSubmit={handleSubmit}
+                                handleDeleteBudget={handleDeleteBudget}
+                                newBudgetedAmount={newBudgetedAmount}
+                                setNewBudgetedAmount={setNewBudgetedAmount}
+                              />
+                            </div>
                   </li>
                 </ul>
               </div>
