@@ -1,8 +1,11 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const goalPageSlice = createSlice({
   name: "homePage",
-  initialState: {},
+  initialState: {
+    allGoals: [],
+    goal: {},
+  },
   reducers: {},
   extraReducers: (builder) => {},
 });
