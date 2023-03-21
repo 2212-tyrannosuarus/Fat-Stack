@@ -8,7 +8,7 @@ import {
   selectSingleTransaction,
 } from "../../reducers/singleTransactionPageSlice";
 import UpdateTransaction from "./UpdateTransaction";
-import SubCatTag from "./subCatTag";
+import SubCatTag from "./SubCatTag";
 import {
   Stat,
   StatLabel,
