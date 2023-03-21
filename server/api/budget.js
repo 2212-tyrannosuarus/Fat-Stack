@@ -7,7 +7,24 @@ const Bank_Account = require("../db/models/Bank_Account");
 const Budget_Scheme = require("../db/models/Budget_Scheme");
 const Category = require("../db/models/Category");
 const Sub_Category = require("../db/models/Sub_Category");
+const User_Category  = require("../db/models/User_Category")
 module.exports = router;
+
+
+const MONTHS = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
 
 // GET /api/budget/budgeted/:userId/:fromDate/:toDate
 router.get("/budgeted/:userId/:fromDate/:toDate", async (req, res, next) => {
@@ -176,6 +193,50 @@ router.delete("/:userId/:subCategoryName", async (req, res, next) => {
     });
 
     res.json("budget item deleted");
+  } catch (error) {
+    if (error instanceof ValidationError) {
+      res.status(400).json(error.errors[0].message);
+    } else {
+      next(error);
+    }
+  }
+});
+
+
+// POST /api/budget/:userId
+router.put("/:userId", async (req, res, next) => {
+  try {
+    let subCategory = await Sub_Category.findOne({
+      where: {
+        sub_category_name: req.body.subCategoryName
+      }
+    })
+    let userCategory = "";
+
+    if (!subCategory) {
+      userCategory = await User_Category.findOne({
+      where: {
+        user_category_name: req.body.subCategoryName
+      }
+    })
+
+    subCategory = userCategory;
+    }
+
+    let todaysDate = new Date();
+    let currYear = todaysDate.split(' ')[3];
+    let currMonth = MONTHS.indexof(todaysDate.split(' ')[1].toString());
+    if (currMonth.length === 1) currMonth = `0${currMonth}`;
+
+    const budgetToCreate = await Budget.create({
+        budget_name: req.body.budgetName,
+        amount: req.body.budgetAmount,
+        date_started: ""
+    });
+
+
+    
+    res.json(budgetToCreate);
   } catch (error) {
     if (error instanceof ValidationError) {
       res.status(400).json(error.errors[0].message);
