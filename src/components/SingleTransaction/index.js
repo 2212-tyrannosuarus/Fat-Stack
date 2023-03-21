@@ -8,7 +8,7 @@ import {
   selectSingleTransaction,
 } from "../../reducers/singleTransactionPageSlice";
 import UpdateTransaction from "./UpdateTransaction";
-import SubCatTag from "./subCatTag";
+import SubCatTag from "./SubCatTag";
 import {
   Stat,
   StatLabel,
@@ -74,8 +74,9 @@ const SingleTransction = () => {
             </Stat>
           </StatGroup>
           <Note
-            notes={singleTransaction.notes}
+            notesProp={singleTransaction.notes}
             transactionId={singleTransaction.id}
+            transaction={singleTransaction}
           />
         </div>
       ) : null}

@@ -14,10 +14,10 @@ import {
   SimpleGrid,
   Checkbox,
 } from "@chakra-ui/react";
-import EditNote from "./EditNote";
+import NoteItem from "./NoteItem";
+import AddNote from "./AddNote";
 
 export default function Note({ transactionId }) {
-  const notes = useSelector(selectAllNotes);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -29,16 +29,8 @@ export default function Note({ transactionId }) {
       {" "}
       <Box>
         <List size="xl" variant="custom" spacing={5}>
-          {notes
-            ? notes.map((note) => (
-                <ListItem key={note.id}>
-                  <Checkbox>{note.transaction_note}</Checkbox>
-                  <Text color="gray.400" fontSize="xs">
-                    <EditNote id={note.id} />
-                  </Text>
-                </ListItem>
-              ))
-            : null}
+          <AddNote id={transactionId} />
+          <NoteItem transactionId={transactionId} />
         </List>
       </Box>
     </>
