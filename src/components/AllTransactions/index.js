@@ -25,7 +25,7 @@ import {
   RadioGroup,
   Radio,
 } from "@chakra-ui/react";
-import { CUIAutoComplete } from "chakra-ui-autocomplete";
+// import { CUIAutoComplete } from "chakra-ui-autocomplete";
 import {
   fetchAllTransactions,
   selectAllTransactions,
@@ -120,7 +120,7 @@ const AllTransactions = () => {
     setNewTransactionMerchant("");
   };
 
-  const handleNewTransactionSubmit = () => {
+  const handleNewTransactionSubmit = async () => {
     let newTransaction = {
       account_id: newTransactionAccountId,
       merchant: newTransactionMerchant,
@@ -128,7 +128,10 @@ const AllTransactions = () => {
       amount: newTransactionAmount,
       credit_debit: newTransactionCreditDebit,
     };
-    console.log(newTransaction);
+    const postedTransaction = await axios.post(
+      "/api/allTransactions",
+      newTransaction
+    );
   };
 
   return subCategories.length > 0 ? (

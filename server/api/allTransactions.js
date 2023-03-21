@@ -17,16 +17,17 @@ router.get("/", async (req, res, next) => {
 });
 
 router.post("/", async (req, res, next) => {
+  console.log("req.body", req.body);
   try {
     const postedTransaction = await Transaction.create({
-      account_id: req.body.transaction.account_id,
-      merchant: req.body.transaction.merchant,
-      date: req.body.transaction.date,
-      amount: req.body.transaction.amount,
-      credit_debit: req.body.transaction.credit_debit,
+      account_id: req.body.account_id,
+      merchant: req.body.merchant,
+      date: req.body.date,
+      amount: req.body.amount,
+      credit_debit: req.body.credit_debit,
     });
 
-    res.status(200).json(postedTransaction);
+    res.status(201).json(postedTransaction);
   } catch (e) {
     next(e);
   }
