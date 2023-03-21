@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { updateNote, deleteNote } from "../../reducers/noteSlice";
+import { addNote } from "../../reducers/noteSlice";
 import {
   Modal,
   ModalOverlay,
@@ -19,7 +19,7 @@ import {
   Select,
 } from "@chakra-ui/react";
 
-export default function EditNote({ id }) {
+export default function AddNote({ id }) {
   const [note, setNote] = useState("");
 
   const dispatch = useDispatch();
@@ -30,23 +30,19 @@ export default function EditNote({ id }) {
   const handleUpdate = async (event) => {
     event.preventDefault();
     await dispatch(
-      updateNote({
-        id: id,
+      addNote({
         body: {
           transaction_note: note,
+          transactionId: id,
         },
       })
     );
   };
 
-  const handleDelete = async () => {
-    await dispatch(deleteNote(id));
-  };
-
   return (
     <>
       <Button onClick={onOpen} size="xxs">
-        Edit
+        Add Note
       </Button>
 
       <Modal
@@ -59,11 +55,10 @@ export default function EditNote({ id }) {
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Update Note</ModalHeader>
+          <ModalHeader>Add Note</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
             <FormControl>
-              <FormLabel>Note:</FormLabel>
               <Input
                 ref={initialRef}
                 placeholder="note"
@@ -82,14 +77,6 @@ export default function EditNote({ id }) {
               }}
             >
               Submit
-            </Button>
-            <Button
-              onClick={(e) => {
-                onClose();
-                handleDelete();
-              }}
-            >
-              Delete
             </Button>
             <Button onClick={onClose}>Cancel</Button>
           </ModalFooter>

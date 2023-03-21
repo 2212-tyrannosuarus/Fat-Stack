@@ -74,8 +74,9 @@ const SingleTransction = () => {
             </Stat>
           </StatGroup>
           <Note
-            notes={singleTransaction.notes}
+            notesProp={singleTransaction.notes}
             transactionId={singleTransaction.id}
+            transaction={singleTransaction}
           />
         </div>
       ) : null}
