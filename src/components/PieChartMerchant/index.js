@@ -6,7 +6,8 @@ import {
   VictoryGroup,
   VictoryLegend,
   VictoryLabel,
-  VictoryContainer
+  VictoryContainer,
+  VictoryTooltip
 } from "victory";
 
 const MONTHS = [
@@ -49,7 +50,7 @@ const PieChartMerchant = (props) => {
 
   return (
     <div className="row">
-        <div className="col-8 border-svg">
+        <div className="col-8">
       {pieChartMerchant && legendMerchant? (
         
           <svg width="500" height="500" viewBox="0 0 400 400" >
@@ -58,17 +59,19 @@ const PieChartMerchant = (props) => {
               standalone={false}
               width={400}
               height={400}
-              colorScale={["#ff7960", "#fec44d", "#54d4f1", "#9798fe", "#9ce775", "#a8b3bd", "#65717d"]}
+              colorScale={["#54d4f1", "#9ce775", "#9798fe", "#fec44d", "#ff7960", 
+              "#a8b3bd", "#65717d", "#f56bdd", "#f5ec6b", "#9d9ad0", "#efdeb5", "#f69646", "#cdd9e1", ]}
               data={pieChartMerchant}
               innerRadius={68}
               labelRadius={100}
+              labelComponent = {<VictoryTooltip/>}
             />
             <VictoryLabel
               textAnchor="middle"
               style={{ fontSize: 20 }}
               x={200}
               y={200}
-              text="Pie!"
+              text="By Merchant"
             />
           </svg>
           
@@ -76,10 +79,14 @@ const PieChartMerchant = (props) => {
         "Loading in pie chart"
       )}
       </div>
-      <div className="col-4 border-svg">
+      <div className="col-4 mt-n2">
       <VictoryLegend 
-          colorScale={["#ff7960", "#fec44d", "#54d4f1", "#9798fe", "#9ce775", "#a8b3bd", "#65717d"]}
+          colorScale={["#54d4f1", "#9ce775", "#9798fe", "#fec44d", "#ff7960", 
+          "#a8b3bd", "#65717d", "#f56bdd", "#f5ec6b", "#9d9ad0", "#efdeb5", "#f69646", "#cdd9e1", ]}
           data={legendMerchant}
+          style={{ labels: {fontSize: 25 }}}
+          padding={{left: 60 }}
+          margin={{top: 0 }}
         />
         </div>
     </div>

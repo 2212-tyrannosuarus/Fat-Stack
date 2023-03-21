@@ -15,10 +15,10 @@ const Other = (props) => {
     
     <div className="row">
         {other !== undefined ? (
-            <div class="col-md-9 col-lg-9 order-2 mb-4">
+            <div class="col-md-12 col-lg-12 order-2 mb-4">
             <div class="card h-100">
               <div class="card-header d-flex align-items-center justify-content-between">
-                <h5 class="card-title m-0 me-2 ">Other</h5>
+                <h5 class="card-title m-0 me-2 ">Other Spending</h5>
               </div>
               <div class="card-body">
                 

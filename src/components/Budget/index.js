@@ -1,17 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { fetchBudgetedSpendingFromDateToDate, fetchIncomeFromDateToDate, fetchUnbudgetedSpendingFromDateToDate, selectBudgetedSpendingFromDateToDate, selectIncomeFromDateToDate, selectUnudgetedSpendingFromDateToDate, updateBudgetBySubCategory } from "../../reducers/budgetPageSlice";
+import {
+  deleteBudgetBySubCategory,
+  fetchBudgetedSpendingFromDateToDate,
+  fetchIncomeFromDateToDate,
+  fetchUnbudgetedSpendingFromDateToDate,
+  selectBudgetedSpendingFromDateToDate,
+  selectIncomeFromDateToDate,
+  selectUnudgetedSpendingFromDateToDate,
+  updateBudgetBySubCategory,
+} from "../../reducers/budgetPageSlice";
 import SelectDropDown from "./SelectDropDown";
 import MonthsToDisplay from "./MonthsToDisplay";
 import Spending from "./Spending";
 import Other from "./Other";
 import Income from "./Income";
-import './Budget.css'
+import "./Budget.css";
 import "../../scss/styles.scss";
 import * as bootstrap from "bootstrap";
 import Sidebar from "../Sidebar";
-
+import Summary from "./Summary";
 
 const MONTHS = [
   "Jan",
@@ -29,21 +38,27 @@ const MONTHS = [
 ];
 
 const Budget = () => {
-  const {userId} = useParams();
+  const { userId } = useParams();
   const dispatch = useDispatch();
 
-  let budgetedSpendingFromSlice = useSelector(selectBudgetedSpendingFromDateToDate);
+  let budgetedSpendingFromSlice = useSelector(
+    selectBudgetedSpendingFromDateToDate
+  );
   let unbudgetedSpending = useSelector(selectUnudgetedSpendingFromDateToDate);
-  let budgetedIncome = useSelector(selectIncomeFromDateToDate)
+  let budgetedIncome = useSelector(selectIncomeFromDateToDate);
 
   const [dateToday, setDateToday] = useState(new Date());
   let [newBudgetedAmount, setNewBudgetedAmount] = useState(null);
 
-  const [titleDate, setTitleDate] = useState(`${new Date().toString().split(' ')[1]} ${new Date().toString().split(' ')[3]}`)
+  const [titleDate, setTitleDate] = useState(
+    `${new Date().toString().split(" ")[1]} ${
+      new Date().toString().split(" ")[3]
+    }`
+  );
   let currMonth = dateToday.toString().split(" ")[1];
   let currYear = dateToday.toString().split(" ")[3].slice(2);
 
-    let indexOfCurrMonth = MONTHS.indexOf(currMonth);
+  let indexOfCurrMonth = MONTHS.indexOf(currMonth);
   let monthsToDisplay = [];
 
   for (let i = indexOfCurrMonth + 3; i < MONTHS.length; i++) {
@@ -54,47 +69,73 @@ const Budget = () => {
   }
 
   const handleSubmit = async (evt, subCategory, newBudgetedAmount) => {
-    if(evt.keyCode === 13) return;
+    if (evt.keyCode === 13) return;
     evt.preventDefault();
-    await dispatch(updateBudgetBySubCategory({userId: userId, subCategoryName: subCategory, newBudgetedAmount: newBudgetedAmount}));
-    handleThisMonth('this month');
+    await dispatch(
+      updateBudgetBySubCategory({
+        userId: userId,
+        subCategoryName: subCategory,
+        newBudgetedAmount: newBudgetedAmount,
+      })
+    );
+    handleThisMonth("this month");
   };
 
   const handleDeleteBudget = async (evt, subCategory) => {
     evt.preventDefault();
-    await dispatch();
+    await dispatch(
+      deleteBudgetBySubCategory({
+        userId: userId,
+        subCategoryName: subCategory,
+      })
+    );
+    handleThisMonth("this month");
   };
 
-
   useEffect(() => {
-
-    let todaysDate = (dateToday.toString() + 1).split(' ');
-    let currentMonth = '';
+    let todaysDate = (dateToday.toString() + 1).split(" ");
+    let currentMonth = "";
     if ((dateToday.getMonth() + 1).toString().length === 1) {
-      currentMonth = `0${(dateToday.getMonth() + 1).toString()}`
-    }
-    else {
-      currentMonth = (dateToday.getMonth() + 1).toString()
+      currentMonth = `0${(dateToday.getMonth() + 1).toString()}`;
+    } else {
+      currentMonth = (dateToday.getMonth() + 1).toString();
     }
     let startingDate = `${todaysDate[3]}-${currentMonth}-01`;
-    let endingDate = `${todaysDate[3]}-${currentMonth}-${todaysDate[2]}`
-    async function fetchThisMonthData () {
-      await dispatch(fetchBudgetedSpendingFromDateToDate({userId: userId, fromDate: startingDate, toDate: endingDate}));
-      await dispatch(fetchUnbudgetedSpendingFromDateToDate({userId: userId, fromDate: startingDate, toDate: endingDate}));
-      await dispatch(fetchIncomeFromDateToDate({userId: userId, fromDate: startingDate, toDate: endingDate}));
-      handleThisMonth('this month');
+    let endingDate = `${todaysDate[3]}-${currentMonth}-${todaysDate[2]}`;
+    async function fetchThisMonthData() {
+      await dispatch(
+        fetchBudgetedSpendingFromDateToDate({
+          userId: userId,
+          fromDate: startingDate,
+          toDate: endingDate,
+        })
+      );
+      await dispatch(
+        fetchUnbudgetedSpendingFromDateToDate({
+          userId: userId,
+          fromDate: startingDate,
+          toDate: endingDate,
+        })
+      );
+      await dispatch(
+        fetchIncomeFromDateToDate({
+          userId: userId,
+          fromDate: startingDate,
+          toDate: endingDate,
+        })
+      );
+      handleThisMonth("this month");
     }
     fetchThisMonthData();
   }, []);
 
-   // filter data for time Range
-   async function handleThisMonth(timeRange) {
-    let todaysDate = dateToday.toString().split(' ');
-    let currentMonth = '';
-   
+  // filter data for time Range
+  async function handleThisMonth(timeRange) {
+    let todaysDate = dateToday.toString().split(" ");
+    let currentMonth = "";
 
-    let startingDate = '';
-    let endingDate = '';
+    let startingDate = "";
+    let endingDate = "";
 
     let selectedMonthDivs = document.querySelectorAll(".selected-month");
     selectedMonthDivs.forEach((div) => {
@@ -102,160 +143,182 @@ const Budget = () => {
     });
 
     // handle this month
-    if (timeRange === 'this month') {
-      
+    if (timeRange === "this month") {
       if ((dateToday.getMonth() + 1).toString().length === 1) {
         currentMonth = `0${(dateToday.getMonth() + 1).toString()}`;
-      }
-      else {
+      } else {
         currentMonth = (dateToday.getMonth() + 1).toString();
       }
       startingDate = `${todaysDate[3]}-${currentMonth}-01`;
       endingDate = `${todaysDate[3]}-${currentMonth}-${todaysDate[2]}`;
 
-      console.log('current Month ', currMonth, currYear);
-    let thisMonthDiv = document.querySelector(`#${currMonth}`);
-    thisMonthDiv.classList.add("selected-month");
+      console.log("current Month ", currMonth, currYear);
+      let thisMonthDiv = document.querySelector(`#${currMonth}`);
+      thisMonthDiv.classList.add("selected-month");
 
-    setTitleDate(`${new Date().toString().split(' ')[1]} ${new Date().toString().split(' ')[3]}`);
+      setTitleDate(
+        `${new Date().toString().split(" ")[1]} ${
+          new Date().toString().split(" ")[3]
+        }`
+      );
     }
 
     // handle last month
-    else if (timeRange === 'last month') {
-
+    else if (timeRange === "last month") {
       if (dateToday.getMonth().toString().length === 1) {
         currentMonth = `0${dateToday.getMonth().toString()}`;
-      }
-      else {
+      } else {
         currentMonth = dateToday.getMonth().toString();
       }
       startingDate = `${todaysDate[3]}-${currentMonth}-01`;
       endingDate = `${todaysDate[3]}-${currentMonth}-${todaysDate[2]}`;
 
       let lastMonth = "";
-    if (indexOfCurrMonth === 0) {
-      lastMonth = MONTHS[MONTHS.length - 1];
-    } else {
-      lastMonth = MONTHS[indexOfCurrMonth - 1];
-    }
-    let lastMonthDiv = document.querySelector(`#${lastMonth}`);
-    lastMonthDiv.classList.add("selected-month");
+      if (indexOfCurrMonth === 0) {
+        lastMonth = MONTHS[MONTHS.length - 1];
+      } else {
+        lastMonth = MONTHS[indexOfCurrMonth - 1];
+      }
+      let lastMonthDiv = document.querySelector(`#${lastMonth}`);
+      lastMonthDiv.classList.add("selected-month");
 
-    let monthToDisplay = MONTHS[dateToday.getMonth() - 1];
-    let yearToDisplay = todaysDate[3];
+      let monthToDisplay = MONTHS[dateToday.getMonth() - 1];
+      let yearToDisplay = todaysDate[3];
 
-    if (indexOfCurrMonth === 0) {
-      monthToDisplay = MONTHS[MONTHS.length - 1];
-      yearToDisplay = parseInt(todaysDate[3]) - 1;
-    }
+      if (indexOfCurrMonth === 0) {
+        monthToDisplay = MONTHS[MONTHS.length - 1];
+        yearToDisplay = parseInt(todaysDate[3]) - 1;
+      }
 
-    setTitleDate(`${monthToDisplay} ${yearToDisplay}`)
+      setTitleDate(`${monthToDisplay} ${yearToDisplay}`);
     }
 
     // handle last three months
-    else if (timeRange === 'last three months') {
+    else if (timeRange === "last three months") {
       if ((dateToday.getMonth() + 1).toString().length === 1) {
         currentMonth = `0${(dateToday.getMonth() + 1).toString()}`;
-      }
-      else {
+      } else {
         currentMonth = (dateToday.getMonth() + 1).toString();
       }
-      
-      let startingMonth = '';
+
+      let startingMonth = "";
       if ((dateToday.getMonth() - 1).toString().length === 1) {
         startingMonth = `0${(dateToday.getMonth() - 1).toString()}`;
-      }
-      else {
+      } else {
         startingMonth = (dateToday.getMonth() - 1).toString();
       }
       startingDate = `${todaysDate[3]}-${startingMonth}-01`;
       endingDate = `${todaysDate[3]}-${currentMonth}-${todaysDate[2]}`;
 
-    let lastThreeMonths = [];
-    if (indexOfCurrMonth <= 2) {
+      let lastThreeMonths = [];
+      if (indexOfCurrMonth <= 2) {
         for (let i = indexOfCurrMonth - 1; i >= 0; i--) {
-            lastThreeMonths.push(MONTHS[i])
+          lastThreeMonths.push(MONTHS[i]);
         }
         if (lastThreeMonths.length === 2) {
-            lastThreeMonths.push(MONTHS[MONTHS.length - 1]);
+          lastThreeMonths.push(MONTHS[MONTHS.length - 1]);
+        } else if (lastThreeMonths.length === 1) {
+          for (let j = MONTHS.length - 1; j >= MONTHS.length - 2; j--) {
+            lastThreeMonths.push(MONTHS[j]);
+          }
+        } else if (lastThreeMonths.length === 0) {
+          for (let j = MONTHS.length - 1; j >= MONTHS.length - 3; j--) {
+            lastThreeMonths.push(MONTHS[j]);
+          }
         }
-        else if (lastThreeMonths.length === 1) {
-            for (let j = MONTHS.length - 1; j >= MONTHS.length - 2; j--) {
-                lastThreeMonths.push(MONTHS[j]);
-            }
-        }
-        else if (lastThreeMonths.length === 0) {
-            for (let j = MONTHS.length - 1; j >= MONTHS.length - 3; j--) {
-                lastThreeMonths.push(MONTHS[j]);
-            }
-        }
-        console.log('last three months ', lastThreeMonths);
-    }
-    else {
+        console.log("last three months ", lastThreeMonths);
+      } else {
         for (let i = indexOfCurrMonth - 1; i >= indexOfCurrMonth - 3; i--) {
-            lastThreeMonths.push(MONTHS[i]);
-            console.log('last three months ', lastThreeMonths);
+          lastThreeMonths.push(MONTHS[i]);
+          console.log("last three months ", lastThreeMonths);
         }
-    }
+      }
 
-    for (let i = 0; i < lastThreeMonths.length; i++) {
+      for (let i = 0; i < lastThreeMonths.length; i++) {
         let divToSelect = document.querySelector(`#${lastThreeMonths[i]}`);
         divToSelect.classList.add("selected-month");
-    }
-    
-    let monthToDisplay = MONTHS[dateToday.getMonth() - 2];
-    let yearToDisplay = todaysDate[3];
+      }
 
-    if (indexOfCurrMonth === 1) monthToDisplay = MONTHS[MONTHS.length - 1];
-    if (indexOfCurrMonth === 0) monthToDisplay = MONTHS[MONTHS.length - 2];
-    if (indexOfCurrMonth <= 1) yearToDisplay = parseInt(todaysDate[3]) - 1;
+      let monthToDisplay = MONTHS[dateToday.getMonth() - 2];
+      let yearToDisplay = todaysDate[3];
 
-    setTitleDate(`${monthToDisplay} ${yearToDisplay} - ${new Date().toString().split(' ')[1]} ${new Date().toString().split(' ')[3]}`)
+      if (indexOfCurrMonth === 1) monthToDisplay = MONTHS[MONTHS.length - 1];
+      if (indexOfCurrMonth === 0) monthToDisplay = MONTHS[MONTHS.length - 2];
+      if (indexOfCurrMonth <= 1) yearToDisplay = parseInt(todaysDate[3]) - 1;
+
+      setTitleDate(
+        `${monthToDisplay} ${yearToDisplay} - ${
+          new Date().toString().split(" ")[1]
+        } ${new Date().toString().split(" ")[3]}`
+      );
     }
-    
-    await dispatch(fetchBudgetedSpendingFromDateToDate({userId: userId, fromDate: startingDate, toDate: endingDate}));
-    await dispatch(fetchUnbudgetedSpendingFromDateToDate({userId: userId, fromDate: startingDate, toDate: endingDate}));
-    await dispatch(fetchIncomeFromDateToDate({userId: userId, fromDate: startingDate, toDate: endingDate}));
-    
+
+    await dispatch(
+      fetchBudgetedSpendingFromDateToDate({
+        userId: userId,
+        fromDate: startingDate,
+        toDate: endingDate,
+      })
+    );
+    await dispatch(
+      fetchUnbudgetedSpendingFromDateToDate({
+        userId: userId,
+        fromDate: startingDate,
+        toDate: endingDate,
+      })
+    );
+    await dispatch(
+      fetchIncomeFromDateToDate({
+        userId: userId,
+        fromDate: startingDate,
+        toDate: endingDate,
+      })
+    );
   }
 
-
   return (
-    
     <div className="container budget-container">
-      
-      <div className="row">
-        <div className="row col-9">
-          <div className="col-9">
+      <div className="row ">
+        <div className="row col-9 ">
+          <div className="col-8 ">
             <h2 className="mb-2 title-date">{titleDate}</h2>
           </div>
 
-          <SelectDropDown 
-          handleThisMonth={handleThisMonth}
-         />
+          <SelectDropDown handleThisMonth={handleThisMonth} />
         </div>
       </div>
 
-      <MonthsToDisplay monthsToDisplay={monthsToDisplay}/>
+      <MonthsToDisplay monthsToDisplay={monthsToDisplay} />
 
       <div className="row mt-2 mb-2">
-        <button  class="btn btn-sm btn-outline-primary col-2 ml-2">
+        <button class="btn btn-sm btn-outline-primary col-2 ml-0">
           + Add Budget
         </button>
       </div>
 
       {/* Budget */}
-      {budgetedSpendingFromSlice.length && unbudgetedSpending.length && budgetedIncome.length ? (
-        <div className="row">
-          <Income income={budgetedIncome} />
-          <Spending spending={budgetedSpendingFromSlice} 
-          handleSubmit={handleSubmit} handleDeleteBudget={handleDeleteBudget}
-           newBudgetedAmount={newBudgetedAmount} setNewBudgetedAmount={setNewBudgetedAmount}/>
-          <Other other={unbudgetedSpending} />
-          
-          
+      {budgetedSpendingFromSlice.length &&
+      unbudgetedSpending.length &&
+      budgetedIncome.length ? (
+        <div className="row ">
+          <div className="col-8 mr-0 pr-0">
+            <Income income={budgetedIncome} />
+            <Spending
+              spending={budgetedSpendingFromSlice}
+              handleSubmit={handleSubmit}
+              handleDeleteBudget={handleDeleteBudget}
+              newBudgetedAmount={newBudgetedAmount}
+              setNewBudgetedAmount={setNewBudgetedAmount}
+            />
+            <Other other={unbudgetedSpending} />
+          </div>
+          <div className="col-4 mt-2">
+            <Summary />
+          </div>
         </div>
-      ) : "You have not yet created a budget"}
+      ) : (
+        "You have not yet created a budget"
+      )}
 
       {/* template */}
       <>
@@ -273,10 +336,7 @@ const Budget = () => {
                       today. Check your new badge in your profile.
                     </p>
 
-                    <a
-                      href=""
-                      class="btn btn-sm btn-outline-primary"
-                    >
+                    <a href="" class="btn btn-sm btn-outline-primary">
                       View Badges
                     </a>
                   </div>

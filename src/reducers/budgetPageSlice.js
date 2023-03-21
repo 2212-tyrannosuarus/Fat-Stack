@@ -40,6 +40,15 @@ export const updateBudgetBySubCategory= createAsyncThunk(
   }
 );
 
+export const deleteBudgetBySubCategory= createAsyncThunk(
+  "budgetBySubCategory/delete",
+  async ({userId, subCategoryName}) => {
+    userId = parseInt(userId);
+    const { data } = await axios.delete(`/api/budget/${userId}/${subCategoryName}`);
+    return data;
+  }
+);
+
 export const budgetPageSlice = createSlice({
   name: "BudgetPage",
   initialState: {

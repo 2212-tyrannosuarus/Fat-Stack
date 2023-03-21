@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { ProgressBar, Button } from "react-bootstrap";
+import { ProgressBar } from "react-bootstrap";
 import "./Budget.css";
-import { BsPencil } from "react-icons/bs";
 import EditModal from "./EditModal";
 
+
 const Spending = (props) => {
-  const { spending, handleSubmit, handleDeleteBudget, newBudgetedAmount, setNewBudgetedAmount } = props;
-  const [modalShow, setModalShow] = useState(false);
+  const {
+    spending,
+    handleSubmit,
+    handleDeleteBudget,
+    newBudgetedAmount,
+    setNewBudgetedAmount,
+  } = props;
 
   //   useEffect(() => {
   if (spending !== undefined) {
@@ -17,12 +22,12 @@ const Spending = (props) => {
   return (
     <div className="row">
       {spending !== undefined ? (
-        <div class="col-md-9 col-lg-9 order-2 mb-4">
+        <div class="col-md-12 col-lg-12 order-2 mb-4">
           <div class="card h-100">
             <div class="card-header d-flex align-items-center justify-content-between">
               <h5 class="card-title m-0 me-2 ">Spending</h5>
             </div>
-            <div class="card-body">
+            <div class="card-body pb-0">
               {spending && spending.length
                 ? spending
                     .flat()
@@ -70,29 +75,18 @@ const Spending = (props) => {
                               style={{ height: "10px" }}
                             />
                             <div className="row">
-                            <Button
-                              className="edit-budget col-2 ms-auto"
-                              variant="link"
-                              onClick={() => setModalShow(true)}
-                            >
-                              <div className="row">
-                                <BsPencil className="col" />
-                                <span className="col">Edit</span>
-                              </div>
-                            </Button>
-                           
 
-                            <EditModal
-                              show={modalShow}
-                              onHide={() => setModalShow(false)}
-                              subCategory={spendingItem.subCategoryName}
-                              budgetedAmount={spendingItem.budgetedAmount}
-                              handleSubmit={handleSubmit} 
-                              handleDeleteBudget={handleDeleteBudget}
-                               newBudgetedAmount={newBudgetedAmount}
-                              setNewBudgetedAmount={setNewBudgetedAmount}
-                            />
-                             </div>
+                              <EditModal
+                                // show={modalShow}
+                                // onHide={() => setModalShow(false)}
+                                subCategory={spendingItem.subCategoryName}
+                                budgetedAmount={spendingItem.budgetedAmount}
+                                handleSubmit={handleSubmit}
+                                handleDeleteBudget={handleDeleteBudget}
+                                newBudgetedAmount={newBudgetedAmount}
+                                setNewBudgetedAmount={setNewBudgetedAmount}
+                              />
+                            </div>
                           </li>
                         </ul>
                       );

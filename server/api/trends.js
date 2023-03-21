@@ -56,7 +56,9 @@ router.get("/categoryPie/:userId/:fromDate/:toDate", async (req, res, next) => {
     group by 
     categories.category_name, 
     categories.id,
-    yearmonth`);
+    yearmonth
+    order by 
+    "transactionAmount" desc`);
 
     res.json(dataByCategory);
   } catch (err) {
@@ -76,7 +78,9 @@ router.get("/merchantPie/:userId/:fromDate/:toDate", async (req, res, next) => {
     and to_date(date,'YYYY-MM-DD') <= to_date(${req.params.toDate},'YYYY-MM-DD')
     and transactions."userId"=${req.params.userId}
     and transactions.credit_debit= 'debit'
-    group by merchant`);
+    group by merchant
+    order by 
+    "transactionAmount" desc`);
 
     res.json(dataByMerchant);
   } catch (err) {

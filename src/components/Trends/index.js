@@ -10,6 +10,7 @@ import PieChartCategory from "../PieChartCategory";
 import PieChartMerchant from "../PieChartMerchant";
 import "../../scss/styles.scss";
 import * as bootstrap from "bootstrap";
+import TrendsToggleButtonGroup from "./TrendsToggleButtonGroup";
 
 
 const Trends = () => {
@@ -109,44 +110,9 @@ const Trends = () => {
   return (
     <div className="container trends-container">
     <div className="row">
-    {/* <aside
-      id="layout-menu"
-      class="col-3 layout-menu menu-vertical menu bg-menu-theme"
-      data-bg-class="bg-menu-theme"
-    >
-      <div class="menu-inner-shadow" style={{ display: "none" }}></div>
-
-      <ul class="menu-inner py-1 ps ps--active-y">
-
-       
-        <li class="menu-item">
-          <div class="menu-link menu-toggle">
-            <div data-i18n="Layouts">SPENDING GRAPHS</div>
-          </div>
-
-          <ul class="menu-sub">
-            <li class="menu-item">
-              <button onClick={() => handleOvertime()} class="menu-link">
-                <div data-i18n="Without menu">Overtime</div>
-              </button>
-            </li>
-            <li class="menu-item">
-              <button onClick={() => handleCategoryPie()} class="menu-link">
-                <div data-i18n="Without navbar">By Category</div>
-              </button>
-            </li>
-            <li class="menu-item">
-              <button class="menu-link">
-                <div data-i18n="Container">By Merchant</div>
-              </button>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </aside> */}
 
 
-<Accordion className="col-3">
+{/* <Accordion className="col-3">
       <Accordion.Item eventKey="0">
         <Accordion.Header>Spending Graphs</Accordion.Header>
         <Accordion.Body>
@@ -157,15 +123,16 @@ const Trends = () => {
         </div>
         </Accordion.Body>
       </Accordion.Item>
-    </Accordion>
+    </Accordion> */}
 
-
+    <TrendsToggleButtonGroup handleOvertime={handleOvertime}
+    handleCategoryPie={handleCategoryPie} handleMerchantPie={handleMerchantPie}/>
 
   
 
-    <div className="col-7">
+    <div className="col-9 ">
    
-    <div className="container">
+    <div className="container mt-0 pt-0">
     {dataToChartOvertime && dataToChartOvertime.length !== undefined? 
         <BarChart chartData={spendingOvertime}/>: null}
 

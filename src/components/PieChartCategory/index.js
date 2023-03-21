@@ -6,8 +6,10 @@ import {
   VictoryGroup,
   VictoryLegend,
   VictoryLabel,
-  VictoryContainer
+  VictoryContainer,
+  VictoryTooltip
 } from "victory";
+import '../Trends/Trends.css'
 
 const MONTHS = [
   "Jan",
@@ -49,7 +51,7 @@ const PieChartCategory = (props) => {
 
   return (
     <div className="row">
-        <div className="col-8 border-svg">
+        <div className="col-8">
       {pieChart && legend? (
         
           <svg width="500" height="500" viewBox="0 0 400 400" >
@@ -58,17 +60,19 @@ const PieChartCategory = (props) => {
               standalone={false}
               width={400}
               height={400}
-              colorScale={["#ff7960", "#fec44d", "#54d4f1", "#9798fe", "#9ce775", "#a8b3bd", "#65717d"]}
+              colorScale={["#54d4f1", "#9ce775", "#9798fe", "#fec44d", "#ff7960", "#a8b3bd", "#65717d"]}
               data={pieChart}
               innerRadius={68}
               labelRadius={100}
+              labelComponent = {<VictoryTooltip/>}
+              
             />
             <VictoryLabel
               textAnchor="middle"
               style={{ fontSize: 20 }}
               x={200}
               y={200}
-              text="Pie!"
+              text="By Category"
             />
           </svg>
           
@@ -76,10 +80,13 @@ const PieChartCategory = (props) => {
         "Loading in pie chart"
       )}
       </div>
-      <div className="col-4 border-svg">
+      <div className="col-4 mt-n1">
       <VictoryLegend 
-          colorScale={["#ff7960", "#fec44d", "#54d4f1", "#9798fe", "#9ce775", "#a8b3bd", "#65717d"]}
+          colorScale={["#54d4f1", "#9ce775", "#9798fe", "#fec44d", "#ff7960", "#a8b3bd", "#65717d"]}
           data={legend}
+          style={{ labels: {fontSize: 35 }}}
+          padding={{left: 60 }}
+          margin={{top: 0 }}
         />
         </div>
     </div>

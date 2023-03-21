@@ -28,6 +28,7 @@ export const fetchSpendingByMerchantPie = createAsyncThunk(
   }
 );
 
+
 export const trendsPageSlice = createSlice({
   name: "TrendsPage",
   initialState: {
