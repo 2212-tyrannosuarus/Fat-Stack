@@ -5,6 +5,8 @@ const convertCsv = require("./transactionSeed");
 const subcategoryArr = require("./subcategoryList");
 const bulkTransactions = require("./transactionGenerator");
 const categoriesArr = require("./categoryList");
+const dataSetTwoFunc = require("./transactionCsvFormatter");
+console.log("datasettwo", dataSetTwoFunc);
 const assignCategoryToSubCategory = require("./assignCategoryToSubCategory");
 
 const subcategoryArrObj = subcategoryArr.map((subCategory) => {
@@ -13,6 +15,16 @@ const subcategoryArrObj = subcategoryArr.map((subCategory) => {
   };
 });
 
+const goalCategoryArr = [
+  "Crush a Loan",
+  "Save for a Rainy Day",
+  "Prepare for Retirement",
+  "Buy a Home",
+  "Buy a Car",
+  "Save for College",
+  "Take a Trip",
+  "Something Else",
+];
 const {
   db,
   models: {
@@ -28,8 +40,8 @@ const {
     User,
   },
 } = require("../server/db");
+const Goal_Category = require("../server/db/models/GoalCategory");
 
-console.log("test");
 /**
  * seed - this function clears the database, updates tables to
  *      match the models, and populates the database.
@@ -43,8 +55,12 @@ async function seed() {
   await db.sync({ force: true }); // clears db and matches models to tables
   console.log("db synced!");
   //*******START OF DEMO DATA */
-
-  // const bulkSeedTransactions = await Transaction.bulkCreate(bulkTransactions);
+  const bulkGoalCategoryObjArr = goalCategoryArr.map((goal) => {
+    return { name: goal };
+  });
+  const createBulkGoalCategories = await Goal_Category.bulkCreate(
+    bulkGoalCategoryObjArr
+  );
   const bulkSeedSubCategories = await Sub_Category.bulkCreate(
     subcategoryArrObj
   );
@@ -71,6 +87,13 @@ async function seed() {
     account_type: "Credit",
     account_name: "Silver Card",
   });
+  const bankAccountFour = await Bank_Account.create({
+    account_id: "05K6UQO2YFSB3PCUJXW25G8EZHVWK71RJMB",
+    available_balance: 570.8,
+    account_number: "79924094",
+    account_type: "Checking",
+    account_name: "Chase Debit Card",
+  });
 
   // creating user for csv transaction data
   const userTasneem = await User.create({
@@ -82,17 +105,25 @@ async function seed() {
   bankAccountOne.setUser(userTasneem);
   bankAccountTwo.setUser(userTasneem);
   bankAccountThree.setUser(userTasneem);
+  const userMiro = await User.create({
+    username: "mirom",
+    password: "miroPass",
+    email: "miro@gmail.com",
+    phone_number: "2345671234",
+  });
+  bankAccountFour.setUser(userMiro);
 
   // Create categories
-  categoriesArr.forEach(async(category) => {
-    await Category.create({category_name: category});
-  })
+  categoriesArr.forEach(async (category) => {
+    await Category.create({ category_name: category });
+  });
 
   // assign category to sub category
   assignCategoryToSubCategory();
 
   // Reading csv transaciton data and adding transactions to db
   const csvDataArr = await convertCsv();
+  const dataSetTwo = await dataSetTwoFunc();
   let transactionsArr = [];
   csvDataArr.forEach(async (transaction) => {
     let bankAccount = "";
@@ -143,30 +174,88 @@ async function seed() {
     transactionsArr.push(newTransaction);
   });
 
+  console.log(dataSetTwo);
+  dataSetTwo.forEach(async (transaction) => {
+    let bankAccount = "";
+    // console.log("transaction ", transaction);
+    let accountId = "";
+    accountId = "05K6UQO2YFSB3PCUJXW25G8EZHVWK71RJMB";
+    bankAccount = await Bank_Account.findOne({
+      where: { account_id: accountId },
+    });
+    let transactionToCreate = {
+      account_id: accountId,
+      merchant: transaction.description,
+      date: transaction.date,
+      amount: transaction.amount,
+      category: transaction.subCategory,
+      sub_category: transaction.subCategory,
+      credit_debit: transaction.tranactionType,
+    };
+    let newTransaction = await Transaction.create(transactionToCreate);
+    let currentSubCategory = await Sub_Category.findOne({
+      where: { sub_category_name: transaction.subCategory },
+    });
+
+    if (!currentSubCategory || currentSubCategory === null) {
+      let uncategorized = await Sub_Category.findOne({
+        where: { sub_category_name: "Uncategorized" },
+      });
+      newTransaction.setSubcategory(uncategorized);
+      newTransaction.setUser(userMiro);
+      newTransaction.setBankaccount(bankAccount);
+    } else {
+      newTransaction.setSubcategory(currentSubCategory);
+      newTransaction.setUser(userMiro);
+      newTransaction.setBankaccount(bankAccount);
+    }
+    transactionsArr.push(newTransaction);
+  });
+
   //creating budget schemes
-  const budgetScheme1 = await Budget_Scheme.create({scheme_name: "Every Month"});
-  const budgetScheme2 = await Budget_Scheme.create({scheme_name: "Once"});
+  const budgetScheme1 = await Budget_Scheme.create({
+    scheme_name: "Every Month",
+  });
+  const budgetScheme2 = await Budget_Scheme.create({ scheme_name: "Once" });
   for (let i = 3; i <= 12; i++) {
-    await Budget_Scheme.create({scheme_name: `Every Few Months ${i}`});
+    await Budget_Scheme.create({ scheme_name: `Every Few Months ${i}` });
   }
 
   //creating budget items for user tasneem
-  const budgetItem1 = await Budget.create({budget_name: "Restaurants", amount: 200.00, date_started: "2023-01-01"});
+  const budgetItem1 = await Budget.create({
+    budget_name: "Restaurants",
+    amount: 200.0,
+    date_started: "2023-01-01",
+  });
   budgetItem1.setBudgetscheme(budgetScheme1);
   budgetItem1.setUser(userTasneem);
-  let restaurants = await Sub_Category.findOne({where: {sub_category_name: "Restaurants"}});
+  let restaurants = await Sub_Category.findOne({
+    where: { sub_category_name: "Restaurants" },
+  });
   budgetItem1.setSubcategory(restaurants);
 
-  const budgetItem2 = await Budget.create({budget_name: "Mortgage", amount: 1500.00, date_started: "2023-01-01"});
+  const budgetItem2 = await Budget.create({
+    budget_name: "Mortgage",
+    amount: 1500.0,
+    date_started: "2023-01-01",
+  });
   budgetItem2.setBudgetscheme(budgetScheme1);
   budgetItem2.setUser(userTasneem);
-  let mortgage = await Sub_Category.findOne({where: {sub_category_name: "Mortgage & Rent"}});
+  let mortgage = await Sub_Category.findOne({
+    where: { sub_category_name: "Mortgage & Rent" },
+  });
   budgetItem2.setSubcategory(mortgage);
 
-  const budgetItem3 = await Budget.create({budget_name: "Paycheck", amount: 4000.00, date_started: "2023-01-01"});
+  const budgetItem3 = await Budget.create({
+    budget_name: "Paycheck",
+    amount: 4000.0,
+    date_started: "2023-01-01",
+  });
   budgetItem3.setBudgetscheme(budgetScheme1);
   budgetItem3.setUser(userTasneem);
-  let paycheck = await Sub_Category.findOne({where: {sub_category_name: "Paycheck"}});
+  let paycheck = await Sub_Category.findOne({
+    where: { sub_category_name: "Paycheck" },
+  });
   budgetItem3.setSubcategory(paycheck);
 
   console.log(`seeded successfully`);
