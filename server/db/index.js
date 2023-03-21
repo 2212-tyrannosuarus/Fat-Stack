@@ -7,6 +7,7 @@ const Budget_Scheme = require("./models/Budget_Scheme");
 const Budget = require("./models/Budget");
 const Category = require("./models/Category");
 const Goal = require("./models/Goal");
+const Goal_Category = require("./models/GoalCategory");
 const Note = require("./models/Note");
 const Sub_Category = require("./models/Sub_Category");
 const Transaction = require("./models/Transaction");
@@ -50,6 +51,9 @@ Budget_Scheme.hasMany(Budget);
 Budget.belongsTo(User);
 User.hasMany(Budget);
 
+Goal_Category.hasMany(Goal);
+Goal.belongsTo(Goal_Category);
+
 module.exports = {
   db,
   models: {
@@ -58,6 +62,7 @@ module.exports = {
     Budget,
     Category,
     Goal,
+    Goal_Category,
     Note,
     Sub_Category,
     Transaction,
