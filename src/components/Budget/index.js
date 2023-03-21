@@ -2,11 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import {
+  addBudgetBySubCategory,
   deleteBudgetBySubCategory,
   fetchBudgetedSpendingFromDateToDate,
   fetchIncomeFromDateToDate,
   fetchUnbudgetedSpendingFromDateToDate,
+  getCategories,
   selectBudgetedSpendingFromDateToDate,
+  selectCategories,
   selectIncomeFromDateToDate,
   selectUnudgetedSpendingFromDateToDate,
   updateBudgetBySubCategory,
@@ -21,6 +24,7 @@ import "../../scss/styles.scss";
 import * as bootstrap from "bootstrap";
 import Sidebar from "../Sidebar";
 import Summary from "./Summary";
+import AddBudgetModal from "./AddBudgetModal";
 
 const MONTHS = [
   "Jan",
@@ -46,9 +50,14 @@ const Budget = () => {
   );
   let unbudgetedSpending = useSelector(selectUnudgetedSpendingFromDateToDate);
   let budgetedIncome = useSelector(selectIncomeFromDateToDate);
+  let categories = useSelector(selectCategories);
+  console.log('categories ', categories);
 
   const [dateToday, setDateToday] = useState(new Date());
   let [newBudgetedAmount, setNewBudgetedAmount] = useState(null);
+  let [subCategoryName, setSubCategoryName] = useState("");
+  let [addBudgetAmount, setAddBudgetAmount] = useState(0);
+  let [categoriesForAddBudget, setCategoriesForAddBudget] = useState([]);
 
   const [titleDate, setTitleDate] = useState(
     `${new Date().toString().split(" ")[1]} ${
@@ -92,6 +101,19 @@ const Budget = () => {
     handleThisMonth("this month");
   };
 
+  const handlSubmitAddBudget = async (evt, subCategory, budgetAmount) => {
+    if (evt.keyCode === 13) return;
+    evt.preventDefault();
+    await dispatch(
+      addBudgetBySubCategory({
+        userId: userId,
+        subCategoryName: subCategory,
+        budgetAmount: budgetAmount,
+      })
+    );
+    handleThisMonth("this month");
+  }
+
   useEffect(() => {
     let todaysDate = (dateToday.toString() + 1).split(" ");
     let currentMonth = "";
@@ -124,6 +146,10 @@ const Budget = () => {
           toDate: endingDate,
         })
       );
+      await dispatch(
+        getCategories({userId: userId,}))
+        setCategoriesForAddBudget(categories);
+
       handleThisMonth("this month");
     }
     fetchThisMonthData();
@@ -291,9 +317,14 @@ const Budget = () => {
       <MonthsToDisplay monthsToDisplay={monthsToDisplay} />
 
       <div className="row mt-2 mb-2">
-        <button class="btn btn-sm btn-outline-primary col-2 ml-0">
-          + Add Budget
-        </button>
+      
+          <AddBudgetModal subCategoryName={subCategoryName}
+          handleSubmitAddBudget={handlSubmitAddBudget}
+          setSubCategoryName={setSubCategoryName}
+          addBudgetAmount={addBudgetAmount}
+          setAddBudgetAmount={setAddBudgetAmount}
+          categoriesForAddBudget={categories}/>
+     
       </div>
 
       {/* Budget */}

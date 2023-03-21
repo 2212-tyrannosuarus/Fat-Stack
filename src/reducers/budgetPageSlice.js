@@ -49,12 +49,34 @@ export const deleteBudgetBySubCategory= createAsyncThunk(
   }
 );
 
+export const addBudgetBySubCategory= createAsyncThunk(
+  "budgetBySubCategory/add",
+  async ({userId, subCategoryName, budgetAmount}) => {
+    userId = parseInt(userId);
+    const { data } = await axios.post(`/api/budget/${userId}`, {
+      subCategoryName: subCategoryName,
+      budgetAmount: parseInt(budgetAmount)
+    });
+    return data;
+  }
+);
+
+export const getCategories= createAsyncThunk(
+  "categories/get",
+  async ({userId}) => {
+    userId = parseInt(userId);
+    const { data } = await axios.get(`/api/budget/categories/${userId}`);
+    return data;
+  }
+);
+
 export const budgetPageSlice = createSlice({
   name: "BudgetPage",
   initialState: {
     income: [],
     budgetedSpending: [],
-    unbudgetedSpending: []
+    unbudgetedSpending: [],
+    categories: []
   },
   reducers: {
     
@@ -69,6 +91,9 @@ export const budgetPageSlice = createSlice({
     })
     .addCase(fetchBudgetedSpendingFromDateToDate.fulfilled, (state, action) => {
       state.budgetedSpending = action.payload;
+    })
+    .addCase(getCategories.fulfilled, (state, action) => {
+      state.categories = action.payload;
     });
   },
 });
@@ -85,6 +110,10 @@ export const selectBudgetedSpendingFromDateToDate = (state) => {
 
 export const selectUnudgetedSpendingFromDateToDate = (state) => {
   return state.budgetPage.unbudgetedSpending;
+};
+
+export const selectCategories = (state) => {
+  return state.budgetPage.categories;
 };
 
 export default budgetPageSlice.reducer;

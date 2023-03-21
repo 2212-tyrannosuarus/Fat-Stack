@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const {db,
-  models: { Budget, Transaction },
+  models: { Budget, Transaction, User },
 } = require("../db");
 const { ValidationError} = require("sequelize");
 const Bank_Account = require("../db/models/Bank_Account");
@@ -205,7 +205,7 @@ router.delete("/:userId/:subCategoryName", async (req, res, next) => {
 
 
 // POST /api/budget/:userId
-router.put("/:userId", async (req, res, next) => {
+router.post("/:userId", async (req, res, next) => {
   try {
     let subCategory = await Sub_Category.findOne({
       where: {
@@ -213,6 +213,16 @@ router.put("/:userId", async (req, res, next) => {
       }
     })
     let userCategory = "";
+
+    let todaysDate = new Date();
+    let currYear = todaysDate.toString().split(' ')[3];
+    let currMonth = MONTHS.indexOf(todaysDate.toString().split(' ')[1].toString()) + 1;
+    console.log('curr month ', currMonth.toString().length);
+    if (currMonth.toString().length === 1) currMonth = `0${currMonth}`;
+    let currDay = todaysDate.toString().split(' ')[2];
+    if (currDay.length === 1) currDay = `0${currDay}`;
+
+    let budgetToCreate = ""
 
     if (!subCategory) {
       userCategory = await User_Category.findOne({
@@ -222,21 +232,36 @@ router.put("/:userId", async (req, res, next) => {
     })
 
     subCategory = userCategory;
+
+    budgetToCreate = await Budget.create({
+      budget_name: req.body.subCategoryName,
+      amount: req.body.budgetAmount,
+      date_started: `${currYear}-${currMonth}-${currDay}`
+  });
+
+  const user = await User.findByPk(req.params.userId);
+  const budgetScheme = await Budget_Scheme.findByPk(1);
+
+  budgetToCreate.setUser(user);
+  budgetToCreate.setUsercategory(userCategory);
+  budgetToCreate.setBudgetscheme(budgetScheme);
     }
 
-    let todaysDate = new Date();
-    let currYear = todaysDate.split(' ')[3];
-    let currMonth = MONTHS.indexof(todaysDate.split(' ')[1].toString());
-    if (currMonth.length === 1) currMonth = `0${currMonth}`;
-
-    const budgetToCreate = await Budget.create({
-        budget_name: req.body.budgetName,
+    else {
+      budgetToCreate = await Budget.create({
+        budget_name: req.body.subCategoryName,
         amount: req.body.budgetAmount,
-        date_started: ""
+        date_started: `${currYear}-${currMonth}-${currDay}`
     });
 
+    const user = await User.findByPk(req.params.userId);
+    const budgetScheme = await Budget_Scheme.findByPk(1);
 
-    
+    budgetToCreate.setUser(user);
+    budgetToCreate.setSubcategory(subCategory);
+    budgetToCreate.setBudgetscheme(budgetScheme);
+    }
+
     res.json(budgetToCreate);
   } catch (error) {
     if (error instanceof ValidationError) {
@@ -247,3 +272,26 @@ router.put("/:userId", async (req, res, next) => {
   }
 });
 
+// GET /api/budget/categories/:userId
+router.get("/categories/:userId", async (req, res, next) => {
+  try {
+    const categories = await db.query(`select 
+    categories.category_name as "categoryName",
+    subcategories.sub_category_name as "subCategoryName"
+    from 
+    subcategories,
+    categories
+    where
+    categories.id=subcategories."categoryId"
+    group by
+    categories.category_name,
+    subcategories.sub_category_name
+    order by
+    categories.category_name asc,
+    subcategories.sub_category_name asc`);
+
+    res.json(categories);
+  } catch (err) {
+    next(err);
+  }
+});
