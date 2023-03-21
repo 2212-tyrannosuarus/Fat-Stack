@@ -333,7 +333,12 @@ const Budget = () => {
       budgetedIncome.length ? (
         <div className="row ">
           <div className="col-8 mr-0 pr-0">
-            <Income income={budgetedIncome} />
+            <Income income={budgetedIncome} 
+            handleSubmit={handleSubmit}
+            handleDeleteBudget={handleDeleteBudget}
+            newBudgetedAmount={newBudgetedAmount}
+            setNewBudgetedAmount={setNewBudgetedAmount}/>
+            
             <Spending
               spending={budgetedSpendingFromSlice}
               handleSubmit={handleSubmit}

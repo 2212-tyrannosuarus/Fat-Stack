@@ -28,7 +28,9 @@ function AddBudgetModal(props) {
 
   return (
     <>
-      {/* <Button onClick={onOpen}>Trigger modal</Button> */}
+    {categoriesForAddBudget && categoriesForAddBudget.length ? (
+        <>
+        {/* <Button onClick={onOpen}>Trigger modal</Button> */}
 
       {/* <Stack direction="row" spacing={0} className="edit-budget col-2" > */}
         {/* <Button
@@ -99,6 +101,9 @@ function AddBudgetModal(props) {
           </form>
         </ModalContent>
       </Modal>
+        </>
+    ): "Loading categories"}
+      
     </>
   );
 }
