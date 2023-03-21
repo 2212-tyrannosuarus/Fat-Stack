@@ -88,6 +88,7 @@ router.get("/unbudgeted/:userId/:fromDate/:toDate", async (req, res, next) => {
     and subcategories.id=transactions."subcategoryId"
     and categories.id=subcategories."categoryId"
     and transactions."userId"=${req.params.userId}
+    and transactions.credit_debit= 'debit'
     group by 
     subcategories.sub_category_name, 
     subcategories.id,
