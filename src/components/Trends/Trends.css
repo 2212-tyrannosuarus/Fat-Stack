@@ -1,3 +1,27 @@
-.trends-container {
-    margin-top: 90px;
-}
+.trends-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .toggle-graph, .toggle-graph:visited {
+    text-decoration: none;
+    color: black;
+  }
+
+  .toggle-graph:hover {
+    background-color: #f9fafc !important;
+  }
+
+  .toggle-graph-checked {
+    background-color: #f9fafc !important;
+    text-decoration: none;
+  }
+
+  .mt-n1 {
+    margin-top: -60px;
+  }
+
+  .mt-n2 {
+    margin-top: -140px;
+  }

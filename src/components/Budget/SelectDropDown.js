@@ -14,10 +14,6 @@ const SelectDropDown = (props) => {
               <button id="this-month-button" className="dropdown-item" onClick={() => handleThisMonth('this month')}>This month</button>
               <button class="dropdown-item" onClick={() => handleThisMonth('last month')}>Last month</button>
               <button class="dropdown-item" onClick={() => handleThisMonth('last three months')}>Last 3 months</button>
-              <a class="dropdown-item" href="javascript:void(0);">Last 6 months</a>
-              <a class="dropdown-item" href="javascript:void(0);">This year</a>
-              <a class="dropdown-item" href="javascript:void(0);">Last year</a>
-              <a class="dropdown-item" href="javascript:void(0);">All Time</a>
             </div>
           </div>
         </div>
