@@ -85,7 +85,6 @@ const AllTransactions = () => {
     setNewTransactionMerchant(e.target.value);
   };
   const handleNewAccountChange = (e) => {
-    console.log("account id?", e.target.value);
     setNewTransactionAccountId(e.target.value);
   };
   const handleNewCategoryChange = (e) => {
@@ -129,7 +128,6 @@ const AllTransactions = () => {
       amount: newTransactionAmount,
       credit_debit: newTransactionCreditDebit,
     };
-    console.log(newTransaction);
     const postedTransaction = await axios.post(
       "/api/allTransactions",
       newTransaction
