@@ -50,6 +50,7 @@ export const goalPageSlice = createSlice({
         state.allGoals = action.payload;
       })
       .addCase(createGoal.fulfilled, (state, action) => {
+        state.goalList.push(action.payload);
         state.goal = action.payload;
       })
       .addCase(getExistingGoals.fulfilled, (state, action) => {

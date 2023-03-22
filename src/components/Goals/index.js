@@ -1,25 +1,19 @@
-import React, { useState, useEffect } from "react";
-import AddGoals from "./GoalsComponent/AddGoals";
-import { getGoals, selectAllGoals } from "../../reducers/goalPageSlice";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import CreateGoal from "./GoalsComponent/CreateGoal";
+import { getExistingGoals, selectGoalList } from "../../reducers/goalPageSlice";
+import PageWithGoals from "./GoalsComponent/PageWithGoals";
 
-const Goals = () => {
+export default function Goals() {
   const dispatch = useDispatch();
-  const goals = useSelector(selectAllGoals);
+  const goalList = useSelector(selectGoalList);
+
   useEffect(() => {
     const handleFetch = async () => {
-      await dispatch(getGoals());
+      await dispatch(getExistingGoals());
     };
     handleFetch();
   }, []);
 
-  return (
-    <>
-      {goals.map((goal) => (
-        <AddGoals key={goal.id} goal={goal} />
-      ))}
-    </>
-  );
-};
-
-export default Goals;
+  return <>{goalList.length > 0 ? <PageWithGoals /> : <CreateGoal />}</>;
+}

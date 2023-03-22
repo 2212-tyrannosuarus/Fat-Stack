@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import moment from "moment";
 
 import {
@@ -32,6 +33,7 @@ import { useDispatch } from "react-redux";
 
 export default function AddGoals({ goal }) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [goalamount, setgoalamount] = useState(0);
   const [contributedamount, setcontributedamount] = useState(0);
@@ -173,6 +175,7 @@ export default function AddGoals({ goal }) {
               onClick={(e) => {
                 handleFormSubmit(e);
                 onClose();
+                // navigate to a different page?navigate("/goals");
               }}
             >
               Set Goal
