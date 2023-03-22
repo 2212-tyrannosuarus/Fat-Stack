@@ -12,6 +12,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useAuth0 } from "@auth0/auth0-react";
+import Notifications from "../Notifications";
 
 const Navbar = () => {
   const { loginWithRedirect, isAuthenticated, user, logout } = useAuth0();
@@ -66,12 +67,14 @@ const Navbar = () => {
       )}
 
       {isAuthenticated && (
-        <Box position="relative">
+        <Box display="flex" alignItems="center">
+          <Notifications />
           <Menu
             bg="white"
             colorScheme="gray"
             variant="outline"
             borderColor="gray.300"
+            borderRadius="10"
             _hover={{ bg: "gray.100" }}
             width="full"
           >

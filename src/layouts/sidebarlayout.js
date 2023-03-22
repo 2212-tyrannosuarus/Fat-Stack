@@ -14,7 +14,6 @@ const SidebarLayout = ({ children }) => {
           {children}
         </Box>
       </Flex>
-      <Footer />
     </div>
   );
 };
