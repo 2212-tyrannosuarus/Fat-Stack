@@ -8,7 +8,7 @@ const SelectDropDown = (props) => {
         <div class="text-center">
           <div class="dropdown">
             <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" id="growthReportId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Selected Month
+              Select Month
             </button>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="growthReportId">
               <button id="this-month-button" className="dropdown-item" onClick={() => handleThisMonth('this month')}>This month</button>

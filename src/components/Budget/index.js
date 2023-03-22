@@ -98,6 +98,7 @@ const Budget = () => {
         subCategoryName: subCategory,
       })
     );
+
     handleThisMonth("this month");
   };
 
@@ -112,6 +113,7 @@ const Budget = () => {
       })
     );
     handleThisMonth("this month");
+    // window.location.reload();
   }
 
   useEffect(() => {
@@ -302,6 +304,76 @@ const Budget = () => {
     );
   }
 
+  // handle individual months when specific month square is selected
+  async function handleIndividualMonth (month) {
+    let currMonth = "";
+    let currYear = "";
+
+    let startingDate = "";
+    let endingDate = "";
+
+    let selectedMonthDivs = document.querySelectorAll(".selected-month");
+    selectedMonthDivs.forEach((div) => {
+      div.classList.remove("selected-month");
+    });
+
+    currMonth = MONTHS.indexOf(month.split(' ')[0]) + 1;
+    
+
+    let endingDay = "";
+    if (currMonth === 1 || currMonth === 3 || currMonth === 5 || currMonth === 7 || currMonth === 8 || currMonth === 10 || currMonth === 12) {
+      endingDay = '31';
+    }
+    else if (currMonth === 4 || currMonth === 6 || currMonth === 9 || currMonth === 11) {
+      endingDay ='30'
+    }
+    else if (currMonth === 2) {
+      endingDay = '28'
+    }
+    if (currMonth.toString().length === 1) currMonth = `0${currMonth}`;
+
+    currYear = `20${month.split(' ')[1].slice(1)}`
+    startingDate = `${currYear}-${currMonth}-01`;
+    endingDate = `${currYear}-${currMonth}-${endingDay}`;
+
+    let thisMonth = "";
+    if (currMonth === 1) {
+      thisMonth = MONTHS[MONTHS.length - 1];
+    } else {
+      thisMonth = MONTHS[currMonth - 1];
+    }
+    let lastMonthDiv = document.querySelector(`#${thisMonth}`);
+    lastMonthDiv.classList.add("selected-month");
+
+    let monthToDisplay = month.split(' ')[0];
+      let yearToDisplay = `20${month.split(' ')[1].slice(1)}`;
+ 
+      setTitleDate(`${monthToDisplay} ${yearToDisplay}`);
+
+
+    await dispatch(
+      fetchBudgetedSpendingFromDateToDate({
+        userId: userId,
+        fromDate: startingDate,
+        toDate: endingDate,
+      })
+    );
+    await dispatch(
+      fetchUnbudgetedSpendingFromDateToDate({
+        userId: userId,
+        fromDate: startingDate,
+        toDate: endingDate,
+      })
+    );
+    await dispatch(
+      fetchIncomeFromDateToDate({
+        userId: userId,
+        fromDate: startingDate,
+        toDate: endingDate,
+      })
+    );
+  }
+
   return (
     <div className="container budget-container row">
       <div className="row">
@@ -314,7 +386,7 @@ const Budget = () => {
         </div>
       </div>
 
-      <MonthsToDisplay monthsToDisplay={monthsToDisplay} />
+      <MonthsToDisplay monthsToDisplay={monthsToDisplay} handleIndividualMonth={handleIndividualMonth}/>
 
       <div className="row mt-2 mb-2">
       
@@ -349,7 +421,7 @@ const Budget = () => {
             <Other other={unbudgetedSpending} />
           </div>
           <div className="col-4 mt-2">
-            <Summary />
+            <Summary income={budgetedIncome} spending={budgetedSpendingFromSlice} other={unbudgetedSpending}/>
           </div>
         </div>
       ) : (
