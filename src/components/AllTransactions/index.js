@@ -1,30 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Container,
-  Button,
-  useDisclosure,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  FormHelperText,
-  Input,
-  Select,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
-  Stack,
-  RadioGroup,
-  Radio,
-} from "@chakra-ui/react";
+import { Button, useDisclosure } from "@chakra-ui/react";
 // import { CUIAutoComplete } from "chakra-ui-autocomplete";
 import {
   fetchAllTransactions,
@@ -37,6 +12,8 @@ import {
 
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import AddTransactionModal from "./AddTransactionModal";
+import TransactionList from "./TransactionList";
 
 const AllTransactions = () => {
   const dispatch = useDispatch();
@@ -109,8 +86,6 @@ const AllTransactions = () => {
   // />
 
   //these functions format the number input field in the new Transaction form
-  const format = (val) => `$` + val;
-  const parse = (val) => val.replace(/^\$/, "");
 
   const handleClear = () => {
     setNewTransactionAccountId("");
@@ -182,134 +157,32 @@ const AllTransactions = () => {
       </div>
 
       <div>Transactions:</div>
-      <Button onClick={onOpen}>New Transaction</Button>
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>New Transaction</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <form>
-              <FormControl>
-                <FormLabel>Account</FormLabel>
-                <Select
-                  placeholder={"Select Account"}
-                  onChange={(e) => {
-                    handleNewAccountChange(e);
-                  }}
-                >
-                  {bankAccounts.map((account) => {
-                    return (
-                      <option value={account.account_id}>
-                        {account.account_name}
-                      </option>
-                    );
-                  })}
-                </Select>
-                <FormHelperText>Choose from existing accounts</FormHelperText>
-              </FormControl>
-              <FormControl>
-                <FormLabel>Description</FormLabel>
-                <Input
-                  value={newTransactionMerchant}
-                  onChange={(e) => {
-                    handleNewMerchantChange(e);
-                  }}
-                />
-                <FormHelperText>
-                  Briefly describe transaction. Eg: Amazon, Spotify...
-                </FormHelperText>
-              </FormControl>
-              <FormControl>
-                <FormLabel>Category</FormLabel>
+      <AddTransactionModal
+        newTransactionAmount={newTransactionAmount}
+        newTransactionDate={newTransactionDate}
+        newTransactionMerchant={newTransactionMerchant}
+        newTransactionSubCategory={newTransactionSubCategory}
+        bankAccounts={bankAccounts}
+        subCategories={subCategories}
+        subCategoriesAsStrings={subCategoriesAsStrings}
+        handleNewTransactionSubmit={handleNewTransactionSubmit}
+        handleNewMerchantChange={handleNewMerchantChange}
+        handleNewAccountChange={handleNewAccountChange}
+        handleNewCategoryChange={handleNewCategoryChange}
+        handleNewCreditDebitChange={handleNewCreditDebitChange}
+        handleNewDateChange={handleNewDateChange}
+        handleClear={handleClear}
+        setNewTransactionAmount={setNewTransactionAmount}
+      />
 
-                <Select
-                  onChange={(e) => {
-                    handleNewCategoryChange(e);
-                  }}
-                  items={subCategoriesAsStrings}
-                  value={newTransactionSubCategory}
-                >
-                  {subCategories.map((category) => {
-                    return (
-                      <option value={category.id}>
-                        {category.sub_category_name}
-                      </option>
-                    );
-                  })}
-                </Select>
-                <FormHelperText>Choose from list of Categories</FormHelperText>
-              </FormControl>
-              <FormControl>
-                <FormLabel>Date</FormLabel>
-                <Input
-                  placeholder="Select Date and Time"
-                  type="date"
-                  value={newTransactionDate}
-                  onChange={(e) => {
-                    handleNewDateChange(e);
-                  }}
-                />
-                <FormHelperText>Choose from existing account</FormHelperText>
-              </FormControl>
-              <FormControl>
-                <FormLabel>Amount</FormLabel>
-                <NumberInput
-                  precision={2}
-                  step={0.1}
-                  value={format(newTransactionAmount)}
-                  onChange={(amountString) =>
-                    setNewTransactionAmount(parse(amountString))
-                  }
-                >
-                  <NumberInputField />
-                  <NumberInputStepper>
-                    <NumberIncrementStepper />
-                    <NumberDecrementStepper />
-                  </NumberInputStepper>
-                </NumberInput>
-                <FormHelperText>Select the transaction amount</FormHelperText>
-              </FormControl>
-              <FormControl>
-                <FormLabel>Income or expense</FormLabel>
-                <RadioGroup defaultValue="debit">
-                  <Stack spacing={5} direction="row">
-                    <Radio
-                      colorScheme="red"
-                      value="debit"
-                      onChange={(e) => {
-                        handleNewCreditDebitChange(e);
-                      }}
-                    >
-                      Expense
-                    </Radio>
-                    <Radio
-                      colorScheme="green"
-                      value="credit"
-                      onChange={(e) => {
-                        handleNewCreditDebitChange(e);
-                      }}
-                    >
-                      Income
-                    </Radio>
-                  </Stack>
-                </RadioGroup>
-                <FormHelperText>
-                  Was this transaction income or an expense?
-                </FormHelperText>
-              </FormControl>
-            </form>
-          </ModalBody>
-          <Button onClick={handleNewTransactionSubmit}>Submit</Button>
-          <ModalFooter>
-            <Button onClick={handleClear}>Clear</Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
-      <div>
-        Date............Description............Category............Amount
-      </div>
-      <ul>
+      {/* TRANSACTIONS COMPONENT HERE */}
+      <TransactionList
+        allTransactions={allTransactions}
+        selectedAccount={selectedAccount}
+        selectedCategory={selectedCategory}
+        subCategories={subCategories}
+      />
+      {/* <ul>
         {allTransactions.map((transaction, idx) => {
           if (idx < 50) {
             if (
@@ -331,7 +204,7 @@ const AllTransactions = () => {
             }
           }
         })}
-      </ul>
+      </ul> */}
     </>
   ) : (
     <>LOADING</>

@@ -94,6 +94,13 @@ async function seed() {
     account_type: "Checking",
     account_name: "Chase Debit Card",
   });
+  const bankAccountFive = await Bank_Account.create({
+    account_id: "2QKGZ1UJF6RHX8B54E7YMWV20PCJSN3OAD9",
+    available_balance: 750.9,
+    account_number: "22876221",
+    account_type: "Checking",
+    account_name: "M&T Debit Card",
+  });
 
   // creating user for csv transaction data
   const userTasneem = await User.create({
@@ -179,10 +186,17 @@ async function seed() {
     let bankAccount = "";
     // console.log("transaction ", transaction);
     let accountId = "";
-    accountId = "05K6UQO2YFSB3PCUJXW25G8EZHVWK71RJMB";
-    bankAccount = await Bank_Account.findOne({
-      where: { account_id: accountId },
-    });
+    if (transaction.accountName.includes("Chase")) {
+      accountId = "05K6UQO2YFSB3PCUJXW25G8EZHVWK71RJMB";
+      bankAccount = await Bank_Account.findOne({
+        where: { account_id: accountId },
+      });
+    } else if (transaction.accountName.includes("M&T")) {
+      accountId = "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P";
+      bankAccount = await Bank_Account.findOne({
+        where: { account_id: accountId },
+      });
+    }
     let transactionToCreate = {
       account_id: accountId,
       merchant: transaction.description,
@@ -192,6 +206,8 @@ async function seed() {
       sub_category: transaction.subCategory,
       credit_debit: transaction.tranactionType,
     };
+
+    console.log(transactionToCreate);
     let newTransaction = await Transaction.create(transactionToCreate);
     let currentSubCategory = await Sub_Category.findOne({
       where: { sub_category_name: transaction.subCategory },
