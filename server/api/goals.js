@@ -28,6 +28,24 @@ router.post("/transaction", async (req, res, next) => {
   }
 });
 
+router.put("/contribute", async (req, res, next) => {
+  try {
+    const goal = await Goal.findOne({ where: { name: req.body.name } });
+    let newBalance =
+      parseInt(goal.contributedamount) + req.body.contributedamount;
+    console.log(
+      "newBalance",
+      newBalance,
+      typeof goal.contributedamount,
+      typeof req.body.contributedamount
+    );
+
+    res.status(201).send(await goal.update({ contributedamount: newBalance }));
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.get("/goallist", async (req, res, next) => {
   try {
     const goallist = await Goal.findAll();

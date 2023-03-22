@@ -8,6 +8,7 @@ import {
   getUserAccount,
   selectBankAccount,
   createGoalTransaction,
+  contributeToGoal,
 } from "../../reducers/goalPageSlice";
 import {
   Modal,
@@ -50,7 +51,7 @@ export default function GoalTransaction() {
     let bank = bankAccounts.filter(
       (account) => account.account_id === account_id
     );
-    console.log(bank);
+    let newAmount = parseFloat(amount);
     await dispatch(
       createGoalTransaction({
         account_id,
@@ -63,6 +64,9 @@ export default function GoalTransaction() {
         bankaccountId: bank[0].id,
         subcategoryId,
       })
+    );
+    await dispatch(
+      contributeToGoal({ name: merchant, contributedamount: newAmount })
     );
   };
 

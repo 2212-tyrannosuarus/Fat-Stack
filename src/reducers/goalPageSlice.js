@@ -35,6 +35,14 @@ export const getUserAccount = createAsyncThunk(
   }
 );
 
+export const contributeToGoal = createAsyncThunk(
+  "goals/contributeToGoal",
+  async (body) => {
+    console.log("body", body);
+    const { data } = await axios.put("/api/goals/contribute", body);
+  }
+);
+
 export const goalPageSlice = createSlice({
   name: "homePage",
   initialState: {
