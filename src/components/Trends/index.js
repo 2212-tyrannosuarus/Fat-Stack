@@ -180,6 +180,39 @@ const Trends = () => {
     setDataToChartCategoryPie(spendingByCategoryPie);
   }
 
+  async function handleDateChangePieMerchant(selectedDates) {
+    let startingDate = "";
+    let endingDate = "";
+
+    let deStucturedStartingDate = selectedDates[0].toString().split(' '); //[Wed Mar 01 2023 00:00:00 GMT-0500 (Eastern Standard Time)]
+    let deStructuredEndingDate = selectedDates[1].toString().split(' '); //[Wed Mar 22 2023 00:00:00 GMT-0400 (Eastern Daylight Time)]
+
+    let startingYear = deStucturedStartingDate[3];
+    let endingYear = deStructuredEndingDate[3];
+
+    let startingMonth = MONTHS.indexOf(deStucturedStartingDate[1]) + 1;
+    if (startingMonth.length === 1) startingMonth = `0${startingMonth}`;
+    let endingMonth = MONTHS.indexOf(deStructuredEndingDate[1]) + 1;;
+    if (endingMonth.length === 1) endingMonth = `0${endingMonth}`;
+
+    let startingDay = deStucturedStartingDate[2];
+    let endingDay = deStructuredEndingDate[2];
+
+    startingDate = `${startingYear}-${startingMonth}-${startingDay}`;
+    endingDate = `${endingYear}-${endingMonth}-${endingDay}`;
+
+    await dispatch(
+      fetchSpendingByMerchantPie({
+        userId: userId,
+        fromDate: startingDate,
+        toDate: endingDate,
+      })
+    );
+    setDataToChartOvertime(null);
+    setDataToChartCategoryPie(null);
+    setDataToChartMerchantPie(spendingByMerchantPie);
+  }
+
   return (
     <div className="container trends-container">
       <div className="row">
@@ -203,7 +236,8 @@ const Trends = () => {
 
             {dataToChartMerchantPie &&
             dataToChartMerchantPie.length !== undefined ? (
-              <PieChartMerchant chartData={spendingByMerchantPie} />
+              <PieChartMerchant chartData={spendingByMerchantPie} selectedDates={selectedDates}
+              setSelectedDates={setSelectedDates} handleDateChangePieMerchant={handleDateChangePieMerchant} />
             ) : null}
           </div>
         </div>
