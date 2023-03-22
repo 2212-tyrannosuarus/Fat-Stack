@@ -8,6 +8,8 @@ import {
   VictoryContainer,
   VictoryAxis,
 } from "victory";
+import { Select } from "@chakra-ui/react";
+import Button from "react-bootstrap/Button";
 
 const MONTHS = [
   "Jan",
@@ -25,40 +27,131 @@ const MONTHS = [
 ];
 
 const BarChartBySubcategory = (props) => {
-  const { chartData } = props;
-//   let [barChartCredit, setBarChartCredit] = useState([]);
+  const {
+    chartData,
+    trendsCategories,
+    handleOvertimeSubcategory,
+    setSubCategoryName,
+    subCategoryName,
+  } = props;
+  //   let [barChartCredit, setBarChartCredit] = useState([]);
   let [barChartDebit, setBarChartDebit] = useState([]);
   console.log("chartData sub category", chartData.flat().slice(0, -1));
 
-  useEffect(() => {
-    // barChartCredit = [];
-    barChartDebit = [];
-    let chartArr = chartData.flat().slice(0, -1);
-    for (let i = 0; i < chartArr.length; i++) {
-      let monthIndex = parseInt(chartArr[i].yearmonth.split("-")[1]);
-      let currMonth = MONTHS[monthIndex - 1];
-      let currYear = chartArr[i].yearmonth.split("-")[0].slice(2);
-    //   if (chartArr[i].credit_debit === "credit") {
-    //     barChartCredit.push({
-    //       monthYear: `${currMonth} ${currYear}`,
-    //       total: parseInt(chartArr[i].transactionAmount),
-    //     });
-    //   } else 
-      if (chartArr[i].credit_debit === "debit") {
-        barChartDebit.push({
-          monthYear: `${currMonth} ${currYear}`,
-          total: parseInt(chartArr[i].transactionAmount),
-        });
+  let categoriesForTrendsArr = [];
+  let subCategoriesArr = [];
+  let categoriesArr = [];
+
+  if (trendsCategories !== undefined && trendsCategories.length !== 0) {
+    categoriesForTrendsArr = trendsCategories.flat().slice(-1)[0]["rows"];
+
+    for (let i = 0; i < categoriesForTrendsArr.length; i++) {
+      if (!categoriesArr.includes(categoriesForTrendsArr[i].categoryName)) {
+        categoriesArr.push(categoriesForTrendsArr[i].categoryName);
       }
     }
-    console.log('barChartDebit ', barChartDebit)
-    // setBarChartCredit(barChartCredit.slice(6));
-    setBarChartDebit(barChartDebit.slice(6));
+
+    for (let i = 0; i < categoriesArr.length; i++) {
+      subCategoriesArr[i] = [];
+    }
+
+    for (let i = 0; i < categoriesArr.length; i++) {
+      for (let j = 0; j < categoriesForTrendsArr.length; j++) {
+        if (categoriesForTrendsArr[j].categoryName === categoriesArr[i]) {
+          if (!subCategoriesArr[i].length) {
+            subCategoriesArr[i] = [categoriesForTrendsArr[j].subCategoryName];
+          } else {
+            subCategoriesArr[i].push(categoriesForTrendsArr[j].subCategoryName);
+          }
+        }
+      }
+    }
+
+    categoriesArr.push(subCategoriesArr);
+  }
+
+  useEffect(() => {
+    if (chartData !== undefined) {
+      barChartDebit = [];
+      let chartArr = chartData.flat().slice(0, -1);
+      for (let i = 0; i < chartArr.length; i++) {
+        let monthIndex = parseInt(chartArr[i].yearmonth.split("-")[1]);
+        let currMonth = MONTHS[monthIndex - 1];
+        let currYear = chartArr[i].yearmonth.split("-")[0].slice(2);
+
+        if (chartArr[i].credit_debit === "debit") {
+          barChartDebit.push({
+            monthYear: `${currMonth} ${currYear}`,
+            total: parseInt(chartArr[i].transactionAmount),
+          });
+        }
+      }
+      console.log("barChartDebit ", barChartDebit);
+
+      setBarChartDebit(barChartDebit.slice(6));
+    } else {
+      console.log("No data to display");
+    }
   }, [setBarChartDebit, chartData]);
 
   return (
     <div className="container">
-      {chartData && chartData.length && barChartDebit ? (
+      {categoriesArr && categoriesArr.length ? (
+        <>
+          <h4 className="mb-2 mt-2">Choose a sub category </h4>
+          <Select
+            name="sub-categories"
+            id="subCategory"
+            onChange={(evt) => setSubCategoryName(evt.target.value)}
+          >
+            {categoriesArr && categoriesArr.length
+              ? categoriesArr.map((category, index1) => {
+                  if (index1 !== categoriesArr.length - 1) {
+                    return (
+                      <optgroup label={category} key={`${category}-${index1}`}>
+                        {categoriesArr[categoriesArr.length - 1].map(
+                          (subCategoryArr, index2) => {
+                            return (
+                              <>
+                                {index1 === index2
+                                  ? subCategoryArr.map((subCategory) => {
+                                      return (
+                                        <option
+                                          value={subCategory}
+                                          key={`${subCategory}-${index2}`}
+                                        >
+                                          {subCategory}
+                                        </option>
+                                      );
+                                    })
+                                  : null}
+                              </>
+                            );
+                          }
+                        )}
+                      </optgroup>
+                    );
+                  }
+                })
+              : "Loading sub categories"}
+          </Select>
+          <Button
+            variant="light"
+            onClick={() => handleOvertimeSubcategory(subCategoryName)}
+            className="col-12 display-chart"
+          >
+            {" "}
+            Display Chart
+          </Button>
+        </>
+      ) : (
+        "Loading subcategories"
+      )}
+
+      {chartData &&
+      chartData.length &&
+      chartData.flat().slice(0, -1)[0] !== undefined &&
+      barChartDebit ? (
         <VictoryChart
           domainPadding={50}
           padding={{ top: 125, bottom: 100, left: 100, right: 5 }}
@@ -71,7 +164,9 @@ const BarChartBySubcategory = (props) => {
             orientation="horizontal"
             gutter={50}
             colorScale={["#ff7960"]}
-            data={[{ name: `${chartData.flat().slice(0, -1)[0].subcategoryName}` }]}
+            data={[
+              { name: `${chartData.flat().slice(0, -1)[0].subcategoryName}` },
+            ]}
             style={{ labels: { fontSize: 25 } }}
           />
 
@@ -90,7 +185,6 @@ const BarChartBySubcategory = (props) => {
           />
 
           <VictoryGroup offset={25}>
-
             <VictoryBar
               color="#ff7960"
               // animate={{ duration: 2000, onLoad: { duration: 4000 } }}
@@ -102,7 +196,7 @@ const BarChartBySubcategory = (props) => {
           </VictoryGroup>
         </VictoryChart>
       ) : (
-        "Loading"
+        "No data to diaplay"
       )}
     </div>
   );

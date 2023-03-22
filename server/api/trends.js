@@ -102,6 +102,7 @@ router.get("/subcategoryOvertime/:userId/:fromDate/:toDate/:subcategory", async 
     to_date(date,'YYYY-MM-DD') >= to_date(${req.params.fromDate},'YYYY-MM-DD')
     and to_date(date,'YYYY-MM-DD') <= to_date(${req.params.toDate},'YYYY-MM-DD')
     and transactions."userId"=${req.params.userId}
+    and transactions."subcategoryId"=subcategories.id
     and subcategories.sub_category_name=${req.params.subcategory}
     group by
     transactions.credit_debit,
@@ -110,6 +111,37 @@ router.get("/subcategoryOvertime/:userId/:fromDate/:toDate/:subcategory", async 
     order by yearmonth`);
 
     res.json(dataOvertimeBySubCategory);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// GET /api/trends/categories/:userId/:fromDate/:toDate
+router.get("/categories/:userId/:fromDate/:toDate", async (req, res, next) => {
+  try {
+    const categories = await db.query(`SELECT
+		categories.category_name AS "categoryName",
+		subcategories.sub_category_name AS "subCategoryName",
+		sum(transactions.amount) AS "transactionAmount"
+	  FROM
+		subcategories,
+		categories,
+		transactions
+	  WHERE
+		categories.id = subcategories."categoryId"
+		and transactions."subcategoryId"=subcategories.id
+		and transactions.credit_debit='debit'
+    and to_date(date,'YYYY-MM-DD') >= to_date(${req.params.fromDate},'YYYY-MM-DD')
+    and to_date(date,'YYYY-MM-DD') <= to_date(${req.params.toDate},'YYYY-MM-DD')
+    and transactions."userId"=${req.params.userId}
+	  GROUP BY
+		categories.category_name,
+		subcategories.sub_category_name
+	  ORDER BY
+		categories.category_name ASC,
+		subcategories.sub_category_name ASC`);
+
+    res.json(categories);
   } catch (err) {
     next(err);
   }

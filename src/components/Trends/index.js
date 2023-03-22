@@ -6,10 +6,12 @@ import {
   fetchSpendingByMerchantPie,
   fetchSpendingOvertime,
   fetchSpendingOvertimeBySubcategory,
+  fetchTrendsCategories,
   selectSpendingByCategoryPie,
   selectSpendingByMerchantPie,
   selectSpendingOvertime,
   selectSpendingOvertimeBySubcategory,
+  selectTrendsCategories,
 } from "../../reducers/trendsPageSLice";
 import { useParams } from "react-router-dom";
 import "./Trends.css";
@@ -44,6 +46,8 @@ const Trends = () => {
   let spendingOvertimeBySubcategory = useSelector(
     selectSpendingOvertimeBySubcategory
   );
+  const trendsCategories = useSelector(selectTrendsCategories);
+  console.log('trends categories ', trendsCategories);
 
   console.log("spending overtime ", spendingOvertime);
   console.log("spending by category ", spendingByCategoryPie);
@@ -53,6 +57,7 @@ const Trends = () => {
   let [dataToChartCategoryPie, setDataToChartCategoryPie] = useState([]);
   let [dataToChartMerchantPie, setDataToChartMerchantPie] = useState([]);
   let [dataToChartOvertimeBySubcategory, setDataToChartOvertimeBySubcategory] = useState([]);
+  let [subCategoryName, setSubCategoryName] = useState("Groceries");
 
   const [selectedDates, setSelectedDates] = useState([new Date(), new Date()]);
   console.log("selected dates ", selectedDates);
@@ -83,7 +88,10 @@ const Trends = () => {
       setDataToChartMerchantPie(null);
       setDataToChartOvertimeBySubcategory(null);
       setDataToChartOvertime(spendingOvertime);
+      await dispatch(fetchTrendsCategories({userId: userId, fromDate: startingDate, toDate: endingDate}));
     }
+
+   
     getSpendingOvertime();
   }, [dispatch]);
 
@@ -269,6 +277,9 @@ const Trends = () => {
               <BarChartBySubcategory
                 chartData={spendingOvertimeBySubcategory}
                 handleOvertimeSubcategory={handleOvertimeSubcategory}
+                trendsCategories={trendsCategories}
+                subCategoryName={subCategoryName}
+                setSubCategoryName={setSubCategoryName}
               />
             ) : null}
 

@@ -37,6 +37,14 @@ export const fetchSpendingOvertimeBySubcategory = createAsyncThunk(
   }
 );
 
+export const fetchTrendsCategories = createAsyncThunk(
+  "userTrendsCategories/fetch",
+  async ({userId, fromDate, toDate}) => {
+    const { data } = await axios.get(`/api/trends/categories/${userId}/'${fromDate}'/'${toDate}'`);
+    return data;
+  }
+);
+
 
 export const trendsPageSlice = createSlice({
   name: "TrendsPage",
@@ -44,7 +52,8 @@ export const trendsPageSlice = createSlice({
     spendingOvertime: [],
     categoryPie: [],
     merchantPie: [],
-    spendingOvertimeBySubcategory: []
+    spendingOvertimeBySubcategory: [],
+    trendCategories: []
   },
   reducers: {
   },
@@ -60,6 +69,9 @@ export const trendsPageSlice = createSlice({
     })
     build.addCase(fetchSpendingOvertimeBySubcategory.fulfilled, (state, action) => {
       state.spendingOvertimeBySubcategory = action.payload;
+    })
+    build.addCase(fetchTrendsCategories.fulfilled, (state, action) => {
+      state.trendCategories = action.payload;
     });
   },
 });
@@ -80,6 +92,10 @@ export const selectSpendingByMerchantPie = (state) => {
 
 export const selectSpendingOvertimeBySubcategory = (state) => {
   return state.trendsPage.spendingOvertimeBySubcategory;
+};
+
+export const selectTrendsCategories = (state) => {
+  return state.trendsPage.trendCategories;
 };
 
 export default trendsPageSlice.reducer;
