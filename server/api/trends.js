@@ -86,3 +86,31 @@ router.get("/merchantPie/:userId/:fromDate/:toDate", async (req, res, next) => {
   }
 });
 
+
+// GET /api/trends/subcategoryOvertime/:userId/:fromDate/:toDate/:subcategory
+router.get("/subcategoryOvertime/:userId/:fromDate/:toDate/:subcategory", async (req, res, next) => {
+  try {
+    const dataOvertimeBySubCategory = await db.query(`select 
+    to_char(to_date(date,'YYYY-MM-DD'),'yyyy-mm') as "yearmonth",
+    transactions.credit_debit,
+    sum(transactions.amount) as "transactionAmount",
+    subcategories.sub_category_name as "subcategoryName"
+    from
+    transactions,
+    subcategories
+    where
+    to_date(date,'YYYY-MM-DD') >= to_date(${req.params.fromDate},'YYYY-MM-DD')
+    and to_date(date,'YYYY-MM-DD') <= to_date(${req.params.toDate},'YYYY-MM-DD')
+    and transactions."userId"=${req.params.userId}
+    and subcategories.sub_category_name=${req.params.subcategory}
+    group by
+    transactions.credit_debit,
+    yearmonth,
+    subcategories.sub_category_name
+    order by yearmonth`);
+
+    res.json(dataOvertimeBySubCategory);
+  } catch (err) {
+    next(err);
+  }
+});
