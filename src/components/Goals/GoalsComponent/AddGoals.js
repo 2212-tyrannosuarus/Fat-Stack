@@ -27,14 +27,17 @@ import {
   RadioGroup,
   Radio,
 } from "@chakra-ui/react";
+import { createGoal, selectGoal } from "../../../reducers/goalPageSlice";
+import { useDispatch } from "react-redux";
 
 export default function AddGoals({ goal }) {
+  const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [goalamount, setgoalamount] = useState(0);
   const [contributedamount, setcontributedamount] = useState(0);
   const [monthlySaveAmt, setmonthlySaveAmt] = useState(0);
   const [goal_date, setGoal_date] = useState(moment().format("YYYY-MM-DD"));
-  const [expectedDate, setexpectedDate] = useState("");
+  const [expectedDate, setexpectedDate] = useState(goal_date);
 
   const [showAmt, setShowAmt] = useState(false);
   const [showDate, setShowDate] = useState(false);
@@ -48,14 +51,33 @@ export default function AddGoals({ goal }) {
       : await setShowSaveAmt(true);
   };
 
+  const handleNewDate = () => {
+    let currentDate = moment();
+    if (monthlySaveAmt !== undefined && monthlySaveAmt !== 0) {
+      let monthDiff = goalamount / monthlySaveAmt;
+      let newDate = currentDate.add(monthDiff, "months");
+      let newDates = newDate.format("YYYY-MM-DD");
+      setexpectedDate(newDates);
+    }
+  };
+
   const handleDateCalc = () => {
     let currentDate = moment();
     let goalDate = moment(goal_date);
-    let monthDiff = goalDate.diff(currentDate, "months", true);
-    monthDiff <= 1
-      ? setmonthlySaveAmt(goalamount)
-      : setmonthlySaveAmt((goalamount / monthDiff).toFixed(2));
+    if (expectedDate > goalDate) {
+      let monthDiff = expectedDate.diff(currentDate, "months", true);
+      monthDiff <= 1
+        ? setmonthlySaveAmt(goalamount)
+        : setmonthlySaveAmt((goalamount / monthDiff).toFixed(2));
+    } else {
+      let monthDiff = goalDate.diff(currentDate, "months", true);
+      monthDiff <= 1
+        ? setmonthlySaveAmt(goalamount)
+        : setmonthlySaveAmt((goalamount / monthDiff).toFixed(2));
+    }
   };
+
+  const handleFormSubmit = () => {};
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
@@ -66,7 +88,7 @@ export default function AddGoals({ goal }) {
         <ModalContent>
           <ModalHeader>{goal.name}</ModalHeader>
           <ModalCloseButton />
-          <ModalBody>
+          <ModalBody mb={4}>
             <form>
               <FormControl>
                 <FormLabel>Name your goal</FormLabel>
@@ -108,6 +130,7 @@ export default function AddGoals({ goal }) {
                     onChange={(e) => {
                       setGoal_date(e.target.value);
                       handleShow("");
+                      handleDateCalc();
                     }}
                   />
                 </FormControl>
@@ -118,19 +141,21 @@ export default function AddGoals({ goal }) {
                   <Input
                     precision={2}
                     value={monthlySaveAmt}
-                    onClick={handleDateCalc}
+                    onClick={() => {
+                      handleNewDate();
+                    }}
                     onChange={(e) => {
                       setmonthlySaveAmt(e.target.value);
                     }}
                   ></Input>
                   <FormHelperText>
-                    Expected end date: {goal_date}
+                    Expected end date: {expectedDate}
                   </FormHelperText>
                 </FormControl>
               ) : null}
             </form>
           </ModalBody>
-          <Button>Set Goal</Button>
+          {showSaveAmt ? <Button>Set Goal</Button> : null}
         </ModalContent>
       </Modal>
     </>

@@ -12,4 +12,12 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+router.post("/", async (req, res, next) => {
+  try {
+    res.status(201).send(await Goal.create(req.body));
+  } catch (err) {
+    next(err);
+  }
+});
+
 module.exports = router;
