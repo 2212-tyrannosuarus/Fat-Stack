@@ -40,7 +40,6 @@ router.get("/categoryPie/:userId/:fromDate/:toDate", async (req, res, next) => {
     const dataByCategory = await db.query(`select 
     categories.category_name as "categoryName", 
     categories.id as "categoryId",
-    to_char(to_date(date,'YYYY-MM-DD'),'yyyymm') as "yearmonth",
     sum(transactions.amount) as "transactionAmount"
     from
     transactions,
@@ -55,8 +54,7 @@ router.get("/categoryPie/:userId/:fromDate/:toDate", async (req, res, next) => {
     and transactions.credit_debit= 'debit'
     group by 
     categories.category_name, 
-    categories.id,
-    yearmonth
+    categories.id
     order by 
     "transactionAmount" desc`);
 

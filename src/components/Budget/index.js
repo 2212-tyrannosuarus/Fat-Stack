@@ -56,7 +56,7 @@ const Budget = () => {
   const [dateToday, setDateToday] = useState(new Date());
   let [newBudgetedAmount, setNewBudgetedAmount] = useState(null);
   let [subCategoryName, setSubCategoryName] = useState("");
-  let [addBudgetAmount, setAddBudgetAmount] = useState(0);
+  let [addBudgetAmount, setAddBudgetAmount] = useState(null);
   let [categoriesForAddBudget, setCategoriesForAddBudget] = useState([]);
 
   const [titleDate, setTitleDate] = useState(

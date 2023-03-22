@@ -19,6 +19,21 @@ import "../../scss/styles.scss";
 import * as bootstrap from "bootstrap";
 import TrendsToggleButtonGroup from "./TrendsToggleButtonGroup";
 
+const MONTHS = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+
 const Trends = () => {
   const { userId } = useParams();
   const dispatch = useDispatch();
@@ -34,6 +49,8 @@ const Trends = () => {
   let [dataToChartCategoryPie, setDataToChartCategoryPie] = useState([]);
   let [dataToChartMerchantPie, setDataToChartMerchantPie] = useState([]);
 
+  const [selectedDates, setSelectedDates] = useState([new Date(), new Date()]);
+  console.log('selected dates ', selectedDates);
   console.log("dataToChartMerchantPie ", dataToChartMerchantPie);
 
   const [dateToday, setDateToday] = useState(new Date());
@@ -130,6 +147,39 @@ const Trends = () => {
     setDataToChartMerchantPie(spendingByMerchantPie);
   }
 
+  async function handleDateChangePieCategory(selectedDates) {
+    let startingDate = "";
+    let endingDate = "";
+
+    let deStucturedStartingDate = selectedDates[0].toString().split(' '); //[Wed Mar 01 2023 00:00:00 GMT-0500 (Eastern Standard Time)]
+    let deStructuredEndingDate = selectedDates[1].toString().split(' '); //[Wed Mar 22 2023 00:00:00 GMT-0400 (Eastern Daylight Time)]
+
+    let startingYear = deStucturedStartingDate[3];
+    let endingYear = deStructuredEndingDate[3];
+
+    let startingMonth = MONTHS.indexOf(deStucturedStartingDate[1]) + 1;
+    if (startingMonth.length === 1) startingMonth = `0${startingMonth}`;
+    let endingMonth = MONTHS.indexOf(deStructuredEndingDate[1]) + 1;;
+    if (endingMonth.length === 1) endingMonth = `0${endingMonth}`;
+
+    let startingDay = deStucturedStartingDate[2];
+    let endingDay = deStructuredEndingDate[2];
+
+    startingDate = `${startingYear}-${startingMonth}-${startingDay}`;
+    endingDate = `${endingYear}-${endingMonth}-${endingDay}`;
+
+    await dispatch(
+      fetchSpendingByCategoryPie({
+        userId: userId,
+        fromDate: startingDate,
+        toDate: endingDate,
+      })
+    );
+    setDataToChartOvertime(null);
+    setDataToChartMerchantPie(null);
+    setDataToChartCategoryPie(spendingByCategoryPie);
+  }
+
   return (
     <div className="container trends-container">
       <div className="row">
@@ -147,7 +197,8 @@ const Trends = () => {
 
             {dataToChartCategoryPie &&
             dataToChartCategoryPie.length !== undefined ? (
-              <PieChartCategory chartData={spendingByCategoryPie} />
+              <PieChartCategory chartData={spendingByCategoryPie} selectedDates={selectedDates}
+              setSelectedDates={setSelectedDates} handleDateChangePieCategory={handleDateChangePieCategory}/>
             ) : null}
 
             {dataToChartMerchantPie &&
