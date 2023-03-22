@@ -1,7 +1,4 @@
-.title-date {
-  font-size: 30px;
-  font-weight: bold;
-}
+
 
 /*
 * demo.css
@@ -126,4 +123,13 @@
 
   .income-progress-bar {
     list-style: none;
+  }
+
+  .title-date {
+    font-size: 30px;
+    font-weight: bold;
+  }
+  
+  .individual-month > div:hover {
+    cursor: pointer;
   }
