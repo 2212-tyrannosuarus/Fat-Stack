@@ -17,7 +17,6 @@ import TransactionList from "./TransactionList";
 
 const AllTransactions = () => {
   const dispatch = useDispatch();
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const allTransactions = useSelector(selectAllTransactions);
   const bankAccounts = useSelector(selectAllBankAccounts);
   const subCategories = useSelector(selectSubCategories);

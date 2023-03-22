@@ -17,10 +17,24 @@ const TransactionList = (props) => {
 
   return (
     <Container>
-      <div>
-        Date............Description............Category............Amount
-      </div>
-      <List w={1000}>
+      <List w={1000} p={"2"}>
+        <ListItem outline={"3px ridge"} p={"2"}>
+          <Flex justify={"space-between"} rowGap={"50px"} align={"flex-start"}>
+            <Box w={"23%"}>
+              <Text fontSize="lg">Date</Text>
+            </Box>
+            <Box w={"23%"}>
+              <Text fontSize="lg">Description</Text>
+            </Box>
+            <Box w={"23%"}>
+              <Text fontSize="lg">Category</Text>
+            </Box>
+            <Box w={"23%"}>
+              <Text fontSize="lg">Amount</Text>
+            </Box>
+            <Box w={"8%"}></Box>
+          </Flex>
+        </ListItem>
         {allTransactions.map((transaction, idx) => {
           //   console.log("category", transaction.subcategoryId);
           //   const transactionCategory = await
@@ -57,9 +71,9 @@ const TransactionList = (props) => {
                       <Text fontSize="lg">{transaction.amount}</Text>
                     </Box>
                     <Box w={"8%"}>
-                      <Button size={"sm"}>
-                        <NavLink to={`./${transaction.id}`}>View</NavLink>
-                      </Button>
+                      <NavLink to={`./${transaction.id}`}>
+                        <Text>View</Text>
+                      </NavLink>
                     </Box>
                   </Flex>
                 </ListItem>
