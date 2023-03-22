@@ -5,16 +5,20 @@ import CreateGoal from "./CreateGoal";
 import {
   getExistingGoals,
   selectGoalList,
+  selectCompeltedGoals,
+  getCompletedGoals,
 } from "../../../reducers/goalPageSlice";
 
 export default function PageWithGoals() {
   const [createGoals, setCreateGoals] = useState(false);
   const dispatch = useDispatch();
   const goalList = useSelector(selectGoalList);
+  const completedGoalList = useSelector(selectCompeltedGoals);
 
   useEffect(() => {
     const handleFetch = async () => {
       await dispatch(getExistingGoals());
+      await dispatch(getCompletedGoals());
     };
     handleFetch();
   }, []);
@@ -42,6 +46,10 @@ export default function PageWithGoals() {
             <p>In Progress</p>
             {goalList.map((goal) => (
               <GoalBox key={goal.id} goal={goal} />
+            ))}
+            {completedGoalList.length > 0 ? <p>Completed</p> : null}
+            {completedGoalList.map((completedGoal) => (
+              <GoalBox key={completedGoal.id} goal={completedGoal} />
             ))}
           </div>
         </>

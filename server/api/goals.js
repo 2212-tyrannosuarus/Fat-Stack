@@ -33,14 +33,16 @@ router.put("/contribute", async (req, res, next) => {
     const goal = await Goal.findOne({ where: { name: req.body.name } });
     let newBalance =
       parseInt(goal.contributedamount) + req.body.contributedamount;
-    console.log(
-      "newBalance",
-      newBalance,
-      typeof goal.contributedamount,
-      typeof req.body.contributedamount
-    );
 
-    res.status(201).send(await goal.update({ contributedamount: newBalance }));
+    let status = false;
+    if (newBalance >= goal.goalamount) status = true;
+
+    res.status(201).send(
+      await goal.update({
+        contributedamount: newBalance,
+        completion_status: status,
+      })
+    );
   } catch (err) {
     next(err);
   }
@@ -48,7 +50,20 @@ router.put("/contribute", async (req, res, next) => {
 
 router.get("/goallist", async (req, res, next) => {
   try {
-    const goallist = await Goal.findAll();
+    const goallist = await Goal.findAll({
+      where: { completion_status: false },
+    });
+    res.send(goallist);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get("/goallist/completed", async (req, res, next) => {
+  try {
+    const goallist = await Goal.findAll({
+      where: { completion_status: true },
+    });
     res.send(goallist);
   } catch (err) {
     next(err);

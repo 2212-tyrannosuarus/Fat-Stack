@@ -38,6 +38,8 @@ export default function GoalTransaction() {
   const [userId, setUserId] = useState(1);
   const [bankaccountId, setBankAccountId] = useState(1);
   const [subcategoryId, setSubcategoryId] = useState(111);
+  const [goalamount, setGoalAmount] = useState(0);
+  const [missingamount, setMissingAmount] = useState(0);
 
   const dispatch = useDispatch();
   const goalList = useSelector(selectGoalList);
@@ -65,6 +67,7 @@ export default function GoalTransaction() {
         subcategoryId,
       })
     );
+    console.log(merchant, newAmount);
     await dispatch(
       contributeToGoal({ name: merchant, contributedamount: newAmount })
     );
@@ -77,6 +80,14 @@ export default function GoalTransaction() {
     };
     handleFetch();
   }, []);
+
+  const handleGoalAmount = (goalList, merchant) => {
+    let newArr = goalList.filter((goal) => goal.name === merchant);
+    setGoalAmount(newArr[0].goalamount);
+    setMissingAmount(
+      newArr[0].goalamount - parseInt(newArr[0].contributedamount)
+    );
+  };
 
   return (
     <>
@@ -169,8 +180,12 @@ export default function GoalTransaction() {
                 ref={initialRef}
                 placeholder="Amount"
                 value={amount}
+                onClick={() => handleGoalAmount(goalList, merchant)}
                 onChange={(e) => setAmount(e.target.value)}
               />
+              <FormHelperText>
+                Goal: ${missingamount} / ${goalamount}!
+              </FormHelperText>
             </FormControl>
           </ModalBody>
 
