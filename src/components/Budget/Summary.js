@@ -70,7 +70,9 @@ const Summary = (props) => {
                         <h6 class="mb-0">Leftover</h6>
                       </div>
                       <div class="user-progress d-flex align-items-center gap-1">
-                        <h6 class="mb-0">${parseInt(income.flat()[0].transactionAmount) - parseInt(totalExpenses)}</h6>{" "}
+                        <h6 class="mb-0">{parseInt(income.flat()[0].transactionAmount) - parseInt(totalExpenses) > 0 ? 
+                        `$${parseInt(income.flat()[0].transactionAmount) - parseInt(totalExpenses)}` : 
+                        `-$${parseInt(totalExpenses) - parseInt(income.flat()[0].transactionAmount)}`}</h6>{" "}
                         {/* <span class="text-muted">USD</span> */}
                       </div>
                     </div>
