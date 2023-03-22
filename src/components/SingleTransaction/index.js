@@ -19,6 +19,7 @@ import {
 } from "@chakra-ui/react";
 import "./SingleTransaction.css";
 import Note from "../Note";
+import GoalTransaction from "./GoalTransaction";
 
 const SingleTransction = () => {
   const dispatch = useDispatch();
@@ -38,7 +39,7 @@ const SingleTransction = () => {
         <div>
           <Stat>
             <StatLabel>
-              Transaction <UpdateTransaction />
+              Transaction <UpdateTransaction /> <GoalTransaction />
             </StatLabel>
             <StatNumber>${singleTransaction.amount} </StatNumber>
             <StatHelpText textColor="teal">
