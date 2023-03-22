@@ -57,7 +57,9 @@ const TransactionList = (props) => {
                       <Text fontSize="lg">{transaction.amount}</Text>
                     </Box>
                     <Box w={"8%"}>
-                      <Button size={"sm"}>View</Button>
+                      <Button size={"sm"}>
+                        <NavLink to={`./${transaction.id}`}>View</NavLink>
+                      </Button>
                     </Box>
                   </Flex>
                 </ListItem>
