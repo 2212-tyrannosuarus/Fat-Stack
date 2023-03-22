@@ -349,7 +349,7 @@ const Budget = () => {
             <Other other={unbudgetedSpending} />
           </div>
           <div className="col-4 mt-2">
-            <Summary />
+            <Summary income={budgetedIncome} spending={budgetedSpendingFromSlice} other={unbudgetedSpending}/>
           </div>
         </div>
       ) : (
