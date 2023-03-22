@@ -28,7 +28,15 @@ export default function GoalBox({ goal }) {
               </li>
               <li className="mb-0 pb-0 income-progress-bar">
                 <ProgressBar
-                  variant="primary"
+                  variant={
+                    (goal.contributedamount / goal.goalamount) * 100 < 25
+                      ? "danger"
+                      : (goal.contributedamount / goal.goalamount) * 100 < 50
+                      ? "warning"
+                      : (goal.contributedamount / goal.goalamount) * 100 < 75
+                      ? "info"
+                      : "success"
+                  }
                   now={(goal.contributedamount / goal.goalamount) * 100}
                   style={{ height: "10px" }}
                 />
