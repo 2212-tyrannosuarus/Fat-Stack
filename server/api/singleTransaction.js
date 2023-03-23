@@ -64,6 +64,21 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
+router.delete("/:id", async (req, res, next) => {
+  console.log("req.params.id", req.params.id);
+  const deletedTransaction = await Transaction.findByPk(req.params.id);
+  try {
+    await Transaction.destroy({
+      where: {
+        id: req.params.id,
+      },
+    });
+    res.status(200).send(deletedTransaction);
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.put("/:id", async (req, res, next) => {
   try {
     const transaction = await Transaction.findByPk(req.params.id, {

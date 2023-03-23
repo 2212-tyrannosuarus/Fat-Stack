@@ -8,12 +8,14 @@ import {
   fetchAllBankAccounts,
   selectSubCategories,
   fetchAllSubCategories,
+  deleteSingleTransaction,
 } from "../../reducers/allTransactionsPageSlice";
 
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import AddTransactionModal from "./AddTransactionModal";
 import TransactionList from "./TransactionList";
+import Paginator from "./Paginator";
 
 const AllTransactions = () => {
   const dispatch = useDispatch();
@@ -38,12 +40,48 @@ const AllTransactions = () => {
   const [newTransactionAmount, setNewTransactionAmount] = useState("0");
   const [newTransactionSubCategory, setNewTransactionSubCategory] =
     useState("");
+  const [totalPageCount, setTotalPageCount] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [deletedTransaction, setDeletedTransaction] = useState({});
+  const [postedTransaction, setPostedTransaction] = useState({});
+  const [filteredTransactions, setFilteredTransactions] = useState(
+    allTransactions || []
+  );
+  const transactionsPerPage = 10;
 
   useEffect(() => {
     dispatch(fetchAllTransactions());
     dispatch(fetchAllBankAccounts());
     dispatch(fetchAllSubCategories());
-  }, [dispatch]);
+  }, [dispatch, deletedTransaction, postedTransaction]);
+
+  useEffect(() => {
+    setFilteredTransactions(
+      allTransactions.filter((transaction) => {
+        if (
+          (selectedAccount === "all" ||
+            transaction.bankaccountId === Number(selectedAccount)) &&
+          (selectedCategory === "none" ||
+            Number(selectedCategory) === Number(transaction.subcategoryId))
+        ) {
+          return true;
+        } else {
+          return false;
+        }
+      })
+    );
+    console.log("filteredtransactions", filteredTransactions);
+  }, [allTransactions, selectedAccount, selectedCategory, deletedTransaction]);
+  useEffect(() => {
+    setTotalPageCount(
+      Math.floor(filteredTransactions.length / transactionsPerPage) + 1
+    );
+    setCurrentPage(1);
+  }, [filteredTransactions]);
+
+  useEffect(() => {
+    console.log("totalPageCount", totalPageCount);
+  }, [totalPageCount]);
 
   let totalAccountBalance = bankAccounts.reduce((accum, account) => {
     accum += Number(account.available_balance);
@@ -52,6 +90,29 @@ const AllTransactions = () => {
 
   const handleAccountClick = (e) => {
     setSelectedAccount(e.target.value);
+  };
+
+  const handleDelete = async (evt, transactionId) => {
+    evt.preventDefault();
+
+    const newDeletedTransaction = await dispatch(
+      deleteSingleTransaction(transactionId)
+    );
+    setDeletedTransaction(newDeletedTransaction);
+
+    console.log("old", filteredTransactions.length);
+    setFilteredTransactions(
+      filteredTransactions.filter((transaction) => {
+        return transaction.id !== deletedTransaction.id;
+      })
+    );
+    console.log("new", filteredTransactions.length);
+  };
+
+  const handlePageChange = (e) => {
+    console.log(e);
+    setCurrentPage(e.selected + 1);
+    console.log("current page", currentPage);
   };
 
   const handleCategoryChange = (e) => {
@@ -102,10 +163,11 @@ const AllTransactions = () => {
       amount: newTransactionAmount,
       credit_debit: newTransactionCreditDebit,
     };
-    const postedTransaction = await axios.post(
+    const newPostedTransaction = await axios.post(
       "/api/allTransactions",
       newTransaction
     );
+    setPostedTransaction(newPostedTransaction);
   };
 
   return subCategories.length > 0 ? (
@@ -176,34 +238,19 @@ const AllTransactions = () => {
 
       {/* TRANSACTIONS COMPONENT HERE */}
       <TransactionList
-        allTransactions={allTransactions}
+        allTransactions={filteredTransactions}
         selectedAccount={selectedAccount}
         selectedCategory={selectedCategory}
         subCategories={subCategories}
+        handleDelete={handleDelete}
+        totalPageCount={totalPageCount}
+        transactionsPerPage={transactionsPerPage}
+        currentPage={currentPage}
       />
-      {/* <ul>
-        {allTransactions.map((transaction, idx) => {
-          if (idx < 50) {
-            if (
-              (selectedAccount === "all" ||
-                transaction.bankaccountId === Number(selectedAccount)) &&
-              (selectedCategory === "none" ||
-                Number(selectedCategory) === Number(transaction.subcategoryId))
-            ) {
-              return (
-                <li>
-                  <div>
-                    {transaction.date}............
-                    {transaction.merchant}............
-                    {transaction.category}............
-                    {transaction.amount}
-                  </div>
-                </li>
-              );
-            }
-          }
-        })}
-      </ul> */}
+      <Paginator
+        handlePageChange={handlePageChange}
+        totalPageCount={totalPageCount}
+      />
     </>
   ) : (
     <>LOADING</>
