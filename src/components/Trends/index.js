@@ -119,6 +119,7 @@ const Trends = () => {
   }
 
   async function handleCategoryPie() {
+    setSelectedDates([new Date(), new Date()]);
     let todaysDate = (dateToday.toString() + 1).split(" ");
     let currentMonth = "";
     if ((dateToday.getMonth() + 1).toString().length === 1) {
@@ -142,6 +143,7 @@ const Trends = () => {
   }
 
   async function handleMerchantPie() {
+    setSelectedDates([new Date(), new Date()]);
     let todaysDate = (dateToday.toString() + 1).split(" ");
     let currentMonth = "";
     if ((dateToday.getMonth() + 1).toString().length === 1) {

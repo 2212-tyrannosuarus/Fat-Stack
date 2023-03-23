@@ -52,11 +52,14 @@ const Budget = () => {
   let budgetedIncome = useSelector(selectIncomeFromDateToDate);
   let categories = useSelector(selectCategories);
   console.log('categories ', categories);
+  console.log('unbudgetedSpending ', unbudgetedSpending);
+  console.log('budgetedIncome ', budgetedIncome);
+  console.log('budgetedSpendingFromSlice ', budgetedSpendingFromSlice);
 
   const [dateToday, setDateToday] = useState(new Date());
-  let [newBudgetedAmount, setNewBudgetedAmount] = useState(null);
+  let [newBudgetedAmount, setNewBudgetedAmount] = useState(0);
   let [subCategoryName, setSubCategoryName] = useState("");
-  let [addBudgetAmount, setAddBudgetAmount] = useState(null);
+  let [addBudgetAmount, setAddBudgetAmount] = useState(0);
   let [categoriesForAddBudget, setCategoriesForAddBudget] = useState([]);
 
   const [titleDate, setTitleDate] = useState(
@@ -149,7 +152,7 @@ const Budget = () => {
         })
       );
       await dispatch(
-        getCategories({userId: userId,}))
+        getCategories({userId: userId}))
         setCategoriesForAddBudget(categories);
 
       handleThisMonth("this month");
@@ -302,6 +305,9 @@ const Budget = () => {
         toDate: endingDate,
       })
     );
+
+    await dispatch(
+      getCategories({userId: userId}))
   }
 
   // handle individual months when specific month square is selected
@@ -399,8 +405,113 @@ const Budget = () => {
      
       </div>
 
+
+
+    {/* if budgeted spending is not present and budgeted income is not present */}
+      {
+        budgetedSpendingFromSlice && budgetedSpendingFromSlice.flat().slice(0, -1).length === 0 && 
+        budgetedIncome && budgetedIncome.flat().slice(0, -1)[0] === undefined ? 
+
+        "You have not yet created a budget 1" :
+
+        (
+
+          //if budgeted spending is present but not budgeted income
+      budgetedSpendingFromSlice && budgetedSpendingFromSlice[0] && budgetedSpendingFromSlice[0].length &&
+      budgetedIncome && budgetedIncome.flat().slice(0, -1)[0] === undefined
+      ? (
+       <div className="row ">
+         <div className="col-8 mr-0 pr-0">
+           <Income income={budgetedIncome} 
+           handleSubmit={handleSubmit}
+           handleDeleteBudget={handleDeleteBudget}
+           newBudgetedAmount={newBudgetedAmount}
+           setNewBudgetedAmount={setNewBudgetedAmount}/>
+           
+           <Spending
+             spending={budgetedSpendingFromSlice}
+             handleSubmit={handleSubmit}
+             handleDeleteBudget={handleDeleteBudget}
+             newBudgetedAmount={newBudgetedAmount}
+             setNewBudgetedAmount={setNewBudgetedAmount}
+           />
+           <Other other={unbudgetedSpending} />
+         </div>
+         <div className="col-4 mt-2">
+           <Summary income={budgetedIncome} spending={budgetedSpendingFromSlice} other={unbudgetedSpending}/>
+         </div>
+       </div>
+
+     ): (
+       // if budgeted income is present but not budgeted spending
+        budgetedIncome && budgetedIncome.flat().slice(0, -1)[0] && budgetedSpendingFromSlice && budgetedSpendingFromSlice.flat().slice(0, -1).length === 0
+        ? (
+         <div className="row ">
+         <div className="col-8 mr-0 pr-0">
+           <Income income={budgetedIncome} 
+           handleSubmit={handleSubmit}
+           handleDeleteBudget={handleDeleteBudget}
+           newBudgetedAmount={newBudgetedAmount}
+           setNewBudgetedAmount={setNewBudgetedAmount}/>
+           
+           <Spending
+             spending={budgetedSpendingFromSlice}
+             handleSubmit={handleSubmit}
+             handleDeleteBudget={handleDeleteBudget}
+             newBudgetedAmount={newBudgetedAmount}
+             setNewBudgetedAmount={setNewBudgetedAmount}
+           />
+           <Other other={unbudgetedSpending} />
+         </div>
+         <div className="col-4 mt-2">
+           <Summary income={budgetedIncome} spending={budgetedSpendingFromSlice} other={unbudgetedSpending}/>
+         </div>
+       </div>
+        ) : (
+
+         // if both budgeted income and budgeted spending are present
+         budgetedSpendingFromSlice.length &&
+         unbudgetedSpending.length &&
+         budgetedIncome.length ? (
+           <div className="row ">
+             <div className="col-8 mr-0 pr-0">
+               <Income income={budgetedIncome} 
+               handleSubmit={handleSubmit}
+               handleDeleteBudget={handleDeleteBudget}
+               newBudgetedAmount={newBudgetedAmount}
+               setNewBudgetedAmount={setNewBudgetedAmount}/>
+               
+               <Spending
+                 spending={budgetedSpendingFromSlice}
+                 handleSubmit={handleSubmit}
+                 handleDeleteBudget={handleDeleteBudget}
+                 newBudgetedAmount={newBudgetedAmount}
+                 setNewBudgetedAmount={setNewBudgetedAmount}
+               />
+               <Other other={unbudgetedSpending} />
+             </div>
+             <div className="col-4 mt-2">
+               <Summary income={budgetedIncome} spending={budgetedSpendingFromSlice} other={unbudgetedSpending}/>
+             </div>
+           </div>
+         ) : (
+           "You have not yet created a budget"
+         )
+
+        )
+
+  ) 
+
+        )
+      
+      }
+
+
+
+
+
       {/* Budget */}
-      {budgetedSpendingFromSlice.length &&
+      {/* {budgetedSpendingFromSlice.length &&
       unbudgetedSpending.length &&
       budgetedIncome.length ? (
         <div className="row ">
@@ -426,7 +537,7 @@ const Budget = () => {
         </div>
       ) : (
         "You have not yet created a budget"
-      )}
+      )} */}
 
     </div>
   );

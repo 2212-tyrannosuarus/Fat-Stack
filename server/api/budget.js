@@ -53,6 +53,7 @@ router.get("/budgeted/:userId/:fromDate/:toDate", async (req, res, next) => {
     and to_date(date,'YYYY-MM-DD') >= to_date(${req.params.fromDate},'YYYY-MM-DD')
     and to_date(date,'YYYY-MM-DD') <= to_date(${req.params.toDate},'YYYY-MM-DD')
     and transactions."userId"=${req.params.userId}
+    and budgets."userId"=${req.params.userId}
     group by 
     budgets.budget_name, 
     budgets.amount, 
@@ -128,6 +129,7 @@ router.get("/income/:userId/:fromDate/:toDate", async (req, res, next) => {
     and to_date(date,'YYYY-MM-DD') >= to_date(${req.params.fromDate},'YYYY-MM-DD')
     and to_date(date,'YYYY-MM-DD') <= to_date(${req.params.toDate},'YYYY-MM-DD')
     and transactions."userId"=${req.params.userId}
+    and budgets."userId"=${req.params.userId}
     group by 
     budgets.budget_name, 
     budgets.amount, 
@@ -284,7 +286,7 @@ router.get("/categories/:userId", async (req, res, next) => {
 				budgets
 			WHERE
 				budgets."subcategoryId" = subcategories.id
-				AND budgets."userId" = 1)
+				AND budgets."userId" = ${req.params.userId})
 	  GROUP BY
 		categories.category_name,
 		subcategories.sub_category_name
