@@ -6,6 +6,7 @@ import overviewPageSlice from "../reducers/overviewPageSlice";
 import singleTransactionPageSlice from "../reducers/singleTransactionPageSlice";
 import trendsPageSLice from "../reducers/trendsPageSLice";
 import noteSlice from "../reducers/noteSlice";
+import openAiSlice from "../reducers/openAiSlice";
 
 export const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
     overviewPage: overviewPageSlice,
     trendsPage: trendsPageSLice,
     notePage: noteSlice,
+    openAI: openAiSlice,
   },
 });
 
