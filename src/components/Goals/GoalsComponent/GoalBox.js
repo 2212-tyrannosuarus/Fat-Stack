@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { ProgressBar } from "react-bootstrap";
 import "../../Budget/Budget.css";
+import { Link } from "@chakra-ui/react";
+import goalPageSlice from "../../../reducers/goalPageSlice";
 
 export default function GoalBox({ goal }) {
   return (
@@ -8,7 +10,11 @@ export default function GoalBox({ goal }) {
       <div className="col-md-12 col-lg-12 order-2 mb-4 mt-2 pb-0 mr-0">
         <div className="card h-100">
           <div className="card-header d-flex align-items-center justify-content-between">
-            <h5 className="card-title m-0 me-2 ">{goal.name}</h5>
+            <h5 className="card-title m-0 me-2 ">
+              <Link href={`/goals/${goal.id}`} name={goal.name}>
+                {goal.name}
+              </Link>
+            </h5>
           </div>
           <div className="card-body">
             <ul className="p-0 m-0">

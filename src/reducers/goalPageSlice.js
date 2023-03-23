@@ -6,6 +6,12 @@ export const getGoals = createAsyncThunk("goals/getGoalsCategory", async () => {
   return data;
 });
 
+export const getGoal = createAsyncThunk("goals/getGoal", async (id) => {
+  const { data } = await axios.get(`/api/goals/${id}`);
+  console.log(data);
+  return data;
+});
+
 export const createGoal = createAsyncThunk("goals/createGoal", async (body) => {
   const { data } = await axios.post("/api/goals", body);
   return data;
@@ -45,7 +51,6 @@ export const getUserAccount = createAsyncThunk(
 export const contributeToGoal = createAsyncThunk(
   "goals/contributeToGoal",
   async (body) => {
-    console.log("body", body);
     const { data } = await axios.put("/api/goals/contribute", body);
   }
 );
@@ -67,6 +72,9 @@ export const goalPageSlice = createSlice({
       })
       .addCase(createGoal.fulfilled, (state, action) => {
         state.goalList.push(action.payload);
+        state.goal = action.payload;
+      })
+      .addCase(getGoal.fulfilled, (state, action) => {
         state.goal = action.payload;
       })
       .addCase(getExistingGoals.fulfilled, (state, action) => {

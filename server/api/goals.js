@@ -70,4 +70,13 @@ router.get("/goallist/completed", async (req, res, next) => {
   }
 });
 
+router.get("/:id", async (req, res, next) => {
+  try {
+    const goal = await Goal.findByPk(req.params.id);
+    res.send(goal);
+  } catch (err) {
+    next(err);
+  }
+});
+
 module.exports = router;

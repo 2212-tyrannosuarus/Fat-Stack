@@ -50,6 +50,17 @@ export const updateAllTransactionCat = createAsyncThunk(
   }
 );
 
+export const getGoalsTransaction = createAsyncThunk(
+  "transaction/getGoalsTransaction",
+  async (body) => {
+    const { data } = await axios.post(
+      `/api/singleTransaction/goalstransaction`,
+      body
+    );
+    return data;
+  }
+);
+
 export const singleTransactionPageSlice = createSlice({
   name: "homePage",
   initialState: {
@@ -58,6 +69,7 @@ export const singleTransactionPageSlice = createSlice({
     allSubCategories: [],
     category: {},
     errorMsg: "",
+    goalsTransaction: [],
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -70,6 +82,9 @@ export const singleTransactionPageSlice = createSlice({
       })
       .addCase(fetchSingleTransactionSubCat.fulfilled, (state, action) => {
         state.subCategory = action.payload;
+      })
+      .addCase(getGoalsTransaction.fulfilled, (state, action) => {
+        state.goalsTransaction = action.payload;
       })
       .addCase(fetchAllSubCat.fulfilled, (state, action) => {
         state.allSubCategories = action.payload;
@@ -94,6 +109,9 @@ export const selectSingleTransactionSubCat = (state) => {
 };
 export const selectAllSubCat = (state) => {
   return state.singleTransactionPage.allSubCategories;
+};
+export const selectGoalTransactions = (state) => {
+  return state.singleTransactionPage.goalsTransaction;
 };
 
 export default singleTransactionPageSlice.reducer;
