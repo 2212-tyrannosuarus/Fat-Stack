@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import moment from "moment";
 
 import {
@@ -32,6 +33,7 @@ import { useDispatch } from "react-redux";
 
 export default function AddGoals({ goal }) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [goalamount, setgoalamount] = useState(0);
   const [contributedamount, setcontributedamount] = useState(0);
@@ -77,7 +79,20 @@ export default function AddGoals({ goal }) {
     }
   };
 
-  const handleFormSubmit = () => {};
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+
+    await dispatch(
+      createGoal({
+        userId: 1,
+        goalCategoryId: goal.id,
+        name,
+        goalamount,
+        contributedamount,
+        goal_date,
+      })
+    );
+  };
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
@@ -155,7 +170,17 @@ export default function AddGoals({ goal }) {
               ) : null}
             </form>
           </ModalBody>
-          {showSaveAmt ? <Button>Set Goal</Button> : null}
+          {showSaveAmt ? (
+            <Button
+              onClick={(e) => {
+                handleFormSubmit(e);
+                onClose();
+                // navigate to a different page?navigate("/goals");
+              }}
+            >
+              Set Goal
+            </Button>
+          ) : null}
         </ModalContent>
       </Modal>
     </>

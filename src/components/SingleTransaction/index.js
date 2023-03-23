@@ -16,9 +16,12 @@ import {
   StatHelpText,
   StatArrow,
   StatGroup,
+  Flex,
+  Square,
 } from "@chakra-ui/react";
 import "./SingleTransaction.css";
 import Note from "../Note";
+import GoalTransaction from "./GoalTransaction";
 
 const SingleTransction = () => {
   const dispatch = useDispatch();
@@ -33,55 +36,61 @@ const SingleTransction = () => {
   }, []);
 
   return (
-    <div className="single-transaction-container">
-      {singleTransaction.id ? (
-        <div>
-          <Stat>
-            <StatLabel>
-              Transaction <UpdateTransaction />
-            </StatLabel>
-            <StatNumber>${singleTransaction.amount} </StatNumber>
-            <StatHelpText textColor="teal">
-              Date: {singleTransaction.date}
-            </StatHelpText>
-          </Stat>
-          <StatGroup>
-            <Stat>
-              <StatLabel>Merchant:</StatLabel>
-              <StatNumber>{singleTransaction.merchant} </StatNumber>
-              <StatHelpText
-                textColor={
-                  singleTransaction.credit_debit === "credit" ? "green" : "red"
-                }
-              >
-                {" "}
-                {singleTransaction.credit_debit}
-              </StatHelpText>
-            </Stat>
+    <Flex>
+      <Square bg="white">
+        <div className="single-transaction-container">
+          {singleTransaction.id ? (
+            <div>
+              <Stat>
+                <StatLabel>
+                  Transaction <UpdateTransaction /> <GoalTransaction />
+                </StatLabel>
+                <StatNumber>${singleTransaction.amount} </StatNumber>
+                <StatHelpText textColor="teal">
+                  Date: {singleTransaction.date}
+                </StatHelpText>
+              </Stat>
+              <StatGroup>
+                <Stat>
+                  <StatLabel>Merchant:</StatLabel>
+                  <StatNumber>{singleTransaction.merchant} </StatNumber>
+                  <StatHelpText
+                    textColor={
+                      singleTransaction.credit_debit === "credit"
+                        ? "green"
+                        : "red"
+                    }
+                  >
+                    {" "}
+                    {singleTransaction.credit_debit}
+                  </StatHelpText>
+                </Stat>
 
-            <Stat>
-              <StatLabel>Category</StatLabel>
-              <StatNumber>
-                {" "}
-                <SubCatTag transaction={singleTransaction} />
-              </StatNumber>
-            </Stat>
-            <Stat>
-              <StatLabel>Hide from Budget</StatLabel>
-              <StatNumber>
-                {singleTransaction.hide_from_budget ? "True" : "False"}
-              </StatNumber>
-            </Stat>
-          </StatGroup>
-          <Note
-            notesProp={singleTransaction.notes}
-            transactionId={singleTransaction.id}
-            transaction={singleTransaction}
-          />
+                <Stat>
+                  <StatLabel>Category</StatLabel>
+                  <StatNumber>
+                    {" "}
+                    <SubCatTag transaction={singleTransaction} />
+                  </StatNumber>
+                </Stat>
+                <Stat>
+                  <StatLabel>Hide from Budget</StatLabel>
+                  <StatNumber>
+                    {singleTransaction.hide_from_budget ? "True" : "False"}
+                  </StatNumber>
+                </Stat>
+              </StatGroup>
+              <Note
+                notesProp={singleTransaction.notes}
+                transactionId={singleTransaction.id}
+                transaction={singleTransaction}
+              />
+            </div>
+          ) : null}
+          <Plaid />
         </div>
-      ) : null}
-      <Plaid />
-    </div>
+      </Square>
+    </Flex>
   );
 };
 
