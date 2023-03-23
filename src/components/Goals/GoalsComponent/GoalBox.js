@@ -44,7 +44,7 @@ export default function GoalBox({ goal }) {
     <div className="row">
       <div className="col-md-12 col-lg-12 order-2 mb-4 mt-2 pb-0 mr-0">
         <div className="card h-100">
-          <div className="card-header d-flex align-items-center justify-content-between">
+          <div className="card-header bg-light d-flex align-items-center justify-content-between">
             <h5 className="card-title m-0 me-2 ">
               <Link href={`/goals/${goal.id}`} name={goal.name}>
                 <Heading size="sm">{goal.name}</Heading>
