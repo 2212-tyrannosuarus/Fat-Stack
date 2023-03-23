@@ -6,6 +6,7 @@ import {
   getGoalsTransaction,
 } from "../../reducers/singleTransactionPageSlice";
 import { getGoal, selectGoal } from "../../reducers/goalPageSlice";
+import GoalIDBox from "./GoalsComponent/GoalIDBox";
 
 export default function GoalsID({ name }) {
   const { goalid } = useParams();
@@ -32,9 +33,7 @@ export default function GoalsID({ name }) {
   return (
     <>
       <div>
-        <p>{goal.name}</p>
-        <p>{goal.goalamount}</p>
-        <p>{goal.contributedamount}</p>
+        <GoalIDBox key={goal.id} goal={goal} />
       </div>
       <div>
         Contributions:
