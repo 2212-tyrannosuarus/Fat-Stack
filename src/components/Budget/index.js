@@ -25,6 +25,7 @@ import * as bootstrap from "bootstrap";
 import Sidebar from "../Sidebar";
 import Summary from "./Summary";
 import AddBudgetModal from "./AddBudgetModal";
+import {selectSpendingOvertimeBySubcategory, fetchSpendingOvertimeBySubcategory} from '../../reducers/trendsPageSLice';
 
 const MONTHS = [
   "Jan",
@@ -61,6 +62,11 @@ const Budget = () => {
   let [subCategoryName, setSubCategoryName] = useState("");
   let [addBudgetAmount, setAddBudgetAmount] = useState(0);
   let [categoriesForAddBudget, setCategoriesForAddBudget] = useState([]);
+
+  let spendingOvertimeBySubcategory = useSelector(
+    selectSpendingOvertimeBySubcategory
+  );
+  let [dataToChartOvertimeBySubcategory, setDataToChartOvertimeBySubcategory] = useState([]);
 
   const [titleDate, setTitleDate] = useState(
     `${new Date().toString().split(" ")[1]} ${
@@ -387,6 +393,30 @@ const Budget = () => {
     );
   }
 
+
+  async function handleOvertimeSubcategory (subcategory) {
+    let todaysDate = (dateToday.toString() + 1).split(" ");
+    let currentMonth = "";
+    if ((dateToday.getMonth() + 1).toString().length === 1) {
+      currentMonth = `0${(dateToday.getMonth() + 1).toString()}`;
+    } else {
+      currentMonth = (dateToday.getMonth() + 1).toString();
+    }
+    let startingDate = `2022-04-01`;
+    let endingDate = `${todaysDate[3]}-${currentMonth}-${todaysDate[2]}`;
+    await dispatch(
+      fetchSpendingOvertimeBySubcategory({
+        userId: userId,
+        fromDate: startingDate,
+        toDate: endingDate,
+        subcategory: subcategory
+      })
+    );
+   
+    setDataToChartOvertimeBySubcategory(spendingOvertimeBySubcategory);
+    
+  }
+
   return (
     <div className="container budget-container row">
       <div className="row">
@@ -412,6 +442,8 @@ const Budget = () => {
           addBudgetAmount={addBudgetAmount}
           setAddBudgetAmount={setAddBudgetAmount}
           categoriesForAddBudget={categories}
+          handleOvertimeSubcategory={handleOvertimeSubcategory}
+          chartData={spendingOvertimeBySubcategory}
         />
       </div>
 

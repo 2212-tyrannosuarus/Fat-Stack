@@ -71,6 +71,7 @@ const BarChartBySubcategory = (props) => {
   }
 
   useEffect(() => {
+
     if (chartData !== undefined) {
       barChartDebit = [];
       let chartArr = chartData.flat().slice(0, -1);
@@ -158,7 +159,7 @@ const BarChartBySubcategory = (props) => {
           <Select
             name="sub-categories"
             id="subCategory"
-            onChange={(evt) => {setSubCategoryName(evt.target.value)}}
+            onChange={(evt) => {setSubCategoryName(evt.target.value); handleOvertimeSubcategory(evt.target.value);}}
           >
             {categoriesArr && categoriesArr.length
               ? categoriesArr.map((category, index1) => {
@@ -191,14 +192,14 @@ const BarChartBySubcategory = (props) => {
                 })
               : "Loading sub categories"}
           </Select>
-          <Button
+          {/* <Button
             variant="outline-dark"
             onClick={() => handleOvertimeSubcategory(subCategoryName)}
             className="col-12 display-chart mt-3"
           >
             {" "}
             Display Chart
-          </Button>
+          </Button> */}
         </>
       ) : (
         "Loading subcategories"
