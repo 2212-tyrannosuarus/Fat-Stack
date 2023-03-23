@@ -17,6 +17,17 @@ router.get("/subcategory", async (req, res, next) => {
   }
 });
 
+router.post("/goalstransaction", async (req, res, next) => {
+  try {
+    const transactions = await Transaction.findAll({
+      where: { merchant: req.body.name },
+    });
+    res.json(transactions);
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.put("/changeallsubcategory", async (req, res, next) => {
   try {
     const { name, body } = req.body;

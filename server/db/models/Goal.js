@@ -19,6 +19,10 @@ const Goal = db.define("goal", {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  completion_status: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
+  },
 });
 
 module.exports = Goal;

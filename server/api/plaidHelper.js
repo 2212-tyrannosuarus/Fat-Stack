@@ -113,6 +113,7 @@ const categoryMap = {
   Vacation: 108,
   Uncategorized: 109,
   "Investment Withdrawal": 110,
+  Goals: 111,
 };
 
 const plaidMap = {
