@@ -28,7 +28,7 @@ const Summary = (props) => {
 
   return (
     <>
-    {income !== undefined  && spending !== undefined && other !== undefined ? (
+    {income[0] !== undefined && income[0].length && spending[0] !== undefined && spending[0].length && other !== undefined ? (
       <div class="col-md-12 col-lg-12 order-2 mb-4">
             <div class="card h-100">
               <div class="card-header d-flex align-items-center justify-content-between">

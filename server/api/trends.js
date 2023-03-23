@@ -40,7 +40,6 @@ router.get("/categoryPie/:userId/:fromDate/:toDate", async (req, res, next) => {
     const dataByCategory = await db.query(`select 
     categories.category_name as "categoryName", 
     categories.id as "categoryId",
-    to_char(to_date(date,'YYYY-MM-DD'),'yyyymm') as "yearmonth",
     sum(transactions.amount) as "transactionAmount"
     from
     transactions,
@@ -55,8 +54,7 @@ router.get("/categoryPie/:userId/:fromDate/:toDate", async (req, res, next) => {
     and transactions.credit_debit= 'debit'
     group by 
     categories.category_name, 
-    categories.id,
-    yearmonth
+    categories.id
     order by 
     "transactionAmount" desc`);
 
@@ -88,3 +86,63 @@ router.get("/merchantPie/:userId/:fromDate/:toDate", async (req, res, next) => {
   }
 });
 
+
+// GET /api/trends/subcategoryOvertime/:userId/:fromDate/:toDate/:subcategory
+router.get("/subcategoryOvertime/:userId/:fromDate/:toDate/:subcategory", async (req, res, next) => {
+  try {
+    const dataOvertimeBySubCategory = await db.query(`select 
+    to_char(to_date(date,'YYYY-MM-DD'),'yyyy-mm') as "yearmonth",
+    transactions.credit_debit,
+    sum(transactions.amount) as "transactionAmount",
+    subcategories.sub_category_name as "subcategoryName"
+    from
+    transactions,
+    subcategories
+    where
+    to_date(date,'YYYY-MM-DD') >= to_date(${req.params.fromDate},'YYYY-MM-DD')
+    and to_date(date,'YYYY-MM-DD') <= to_date(${req.params.toDate},'YYYY-MM-DD')
+    and transactions."userId"=${req.params.userId}
+    and transactions."subcategoryId"=subcategories.id
+    and subcategories.sub_category_name=${req.params.subcategory}
+    group by
+    transactions.credit_debit,
+    yearmonth,
+    subcategories.sub_category_name
+    order by yearmonth`);
+
+    res.json(dataOvertimeBySubCategory);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// GET /api/trends/categories/:userId/:fromDate/:toDate
+router.get("/categories/:userId/:fromDate/:toDate", async (req, res, next) => {
+  try {
+    const categories = await db.query(`SELECT
+		categories.category_name AS "categoryName",
+		subcategories.sub_category_name AS "subCategoryName",
+		sum(transactions.amount) AS "transactionAmount"
+	  FROM
+		subcategories,
+		categories,
+		transactions
+	  WHERE
+		categories.id = subcategories."categoryId"
+		and transactions."subcategoryId"=subcategories.id
+		and transactions.credit_debit='debit'
+    and to_date(date,'YYYY-MM-DD') >= to_date(${req.params.fromDate},'YYYY-MM-DD')
+    and to_date(date,'YYYY-MM-DD') <= to_date(${req.params.toDate},'YYYY-MM-DD')
+    and transactions."userId"=${req.params.userId}
+	  GROUP BY
+		categories.category_name,
+		subcategories.sub_category_name
+	  ORDER BY
+		categories.category_name ASC,
+		subcategories.sub_category_name ASC`);
+
+    res.json(categories);
+  } catch (err) {
+    next(err);
+  }
+});

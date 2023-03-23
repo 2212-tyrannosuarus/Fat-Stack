@@ -10,6 +10,8 @@ import {
   VictoryTooltip
 } from "victory";
 import '../Trends/Trends.css'
+import { RangeDatepicker } from "chakra-dayzed-datepicker";
+import Button from 'react-bootstrap/Button';
 
 const MONTHS = [
   "Jan",
@@ -27,7 +29,7 @@ const MONTHS = [
 ];
 
 const PieChartCategory = (props) => {
-  const { chartData } = props;
+  const { chartData, selectedDates, setSelectedDates, handleDateChangePieCategory } = props;
   let [pieChart, setPieChart] = useState([]);
   let [legend, setLegend] = useState([]);
   console.log("pieChart data ", chartData.flat().slice(0, -1));
@@ -52,6 +54,10 @@ const PieChartCategory = (props) => {
   return (
     <div className="row">
         <div className="col-8">
+
+        
+  
+  
       {pieChart && legend? (
         
           <svg width="500" height="500" viewBox="0 0 400 400" >
@@ -80,14 +86,23 @@ const PieChartCategory = (props) => {
         "Loading in pie chart"
       )}
       </div>
-      <div className="col-4 mt-n1">
+      <div className="col-4 mt-n1 border">
+        <div className="border">
+      <RangeDatepicker
+    selectedDates={selectedDates}
+    onDateChange={setSelectedDates} 
+  />
+  <Button variant="light" onClick={() => handleDateChangePieCategory(selectedDates)} className="col-12 display-chart"> Display Chart</Button>
+  </div>
       <VictoryLegend 
           colorScale={["#54d4f1", "#9ce775", "#9798fe", "#fec44d", "#ff7960", "#a8b3bd", "#65717d"]}
           data={legend}
-          style={{ labels: {fontSize: 35 }}}
+          style={{ border: { stroke: "black" }, labels: {fontSize: 35 }}}
           padding={{left: 60 }}
           margin={{top: 0 }}
+
         />
+
         </div>
     </div>
   );
