@@ -17,7 +17,6 @@ router.get("/", async (req, res, next) => {
 });
 
 router.post("/", async (req, res, next) => {
-  console.log("req.body", req.body);
   try {
     const postedTransaction = await Transaction.create({
       account_id: req.body.account_id,

@@ -16,7 +16,6 @@ import axios from "axios";
 
 const DeletePopup = (props) => {
   const { transactionId, handleDelete } = props;
-  console.log("handledelete", handleDelete);
   return (
     <>
       <IconButton

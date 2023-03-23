@@ -70,7 +70,6 @@ const AllTransactions = () => {
         }
       })
     );
-    console.log("filteredtransactions", filteredTransactions);
   }, [allTransactions, selectedAccount, selectedCategory, deletedTransaction]);
   useEffect(() => {
     setTotalPageCount(
@@ -79,9 +78,7 @@ const AllTransactions = () => {
     setCurrentPage(1);
   }, [filteredTransactions]);
 
-  useEffect(() => {
-    console.log("totalPageCount", totalPageCount);
-  }, [totalPageCount]);
+  useEffect(() => {}, [totalPageCount]);
 
   let totalAccountBalance = bankAccounts.reduce((accum, account) => {
     accum += Number(account.available_balance);
@@ -100,19 +97,15 @@ const AllTransactions = () => {
     );
     setDeletedTransaction(newDeletedTransaction);
 
-    console.log("old", filteredTransactions.length);
     setFilteredTransactions(
       filteredTransactions.filter((transaction) => {
         return transaction.id !== deletedTransaction.id;
       })
     );
-    console.log("new", filteredTransactions.length);
   };
 
   const handlePageChange = (e) => {
-    console.log(e);
     setCurrentPage(e.selected + 1);
-    console.log("current page", currentPage);
   };
 
   const handleCategoryChange = (e) => {
@@ -168,6 +161,28 @@ const AllTransactions = () => {
       newTransaction
     );
     setPostedTransaction(newPostedTransaction);
+    // now update the bank account balance
+    let avaialableBalanceDifferential = 0;
+    if (newPostedTransaction.credit_debit === "debit") {
+      avaialableBalanceDifferential -= Number(newPostedTransaction.data.amount);
+    } else {
+      avaialableBalanceDifferential += Number(newPostedTransaction.data.amount);
+    }
+
+    const bankAccountToUpdate = bankAccounts.filter((account) => {
+      return account.account_id === newPostedTransaction.data.account_id;
+    })[0];
+
+    const availableBalanceToUpdate = Number(
+      bankAccountToUpdate.available_balance
+    );
+
+    const newAccountBalance =
+      availableBalanceToUpdate + avaialableBalanceDifferential;
+    const updatedBankAccount = await axios.put(
+      `/api/bankAccounts/${bankAccountToUpdate.id}`,
+      { available_balance: newAccountBalance }
+    );
   };
 
   return subCategories.length > 0 ? (
