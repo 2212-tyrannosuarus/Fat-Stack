@@ -3,6 +3,7 @@ import AddGoals from "./AddGoals";
 import { getGoals, selectAllGoals } from "../../../reducers/goalPageSlice";
 import { useDispatch, useSelector } from "react-redux";
 import "./GoalsIcon/goalicon.css";
+import { v4 as uuidv4 } from "uuid";
 import {
   Wrap,
   WrapItem,
@@ -11,6 +12,11 @@ import {
   Box,
   Heading,
   Text,
+  List,
+  ListItem,
+  ListIcon,
+  OrderedList,
+  UnorderedList,
 } from "@chakra-ui/react";
 import {
   getInspirationQuote,
@@ -24,6 +30,7 @@ const CreateGoal = () => {
   const goals = useSelector(selectAllGoals);
   const inspiringQuote = useSelector(selectInspiringQuote);
   const goalDirections = useSelector(selectGoalDirection);
+  let key = 1;
   console.log(inspiringQuote);
 
   useEffect(() => {
@@ -44,25 +51,29 @@ const CreateGoal = () => {
           </Heading>
           <Wrap spacing="30px" justify="center">
             {goals.map((goal) => (
-              <WrapItem>
+              <WrapItem key={goal.id}>
                 <Center w="200px" h="120px" bg="white" borderRadius="20px">
-                  <AddGoals key={goal.id} goal={goal} />
+                  <AddGoals goal={goal} />
                 </Center>
               </WrapItem>
             ))}
           </Wrap>
         </Box>
-        <Box width="20%" colorScheme="whiteAlpha">
-          <Heading size="md" mb="5rem" mt="3rem">
+        <Box width="20%">
+          <Heading size="md" mb="3rem" mt="3rem">
             Building goals
           </Heading>
-          <Text fontColor="grey" fontSize="m">
+          <Text fontColor="grey" mb="2rem" fontSize="m" as="i">
             "{inspiringQuote}"
           </Text>
 
-          <Text fontColor="grey" fontSize="m">
-            {goalDirections}
-          </Text>
+          <OrderedList mt="3rem">
+            {goalDirections.map((direction) => (
+              <ListItem fontSize="xs" mb=".5rem" key={uuidv4()}>
+                {direction}
+              </ListItem>
+            ))}
+          </OrderedList>
         </Box>
       </Flex>
     </>

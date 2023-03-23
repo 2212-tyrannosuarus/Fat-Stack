@@ -26,7 +26,7 @@ router.get("/goalquote", async (req, res, next) => {
 
 router.get("/stepstowardsgoal", async (req, res, next) => {
   try {
-    let prompt = "Generate me 3 steps to help achieve goals";
+    let prompt = "Generate me 3 short steps to help achieve goals";
 
     const response = await openai.createCompletion({
       model: "text-davinci-003",

@@ -21,7 +21,7 @@ export const openAISlice = createSlice({
   name: "openAI",
   initialState: {
     inspiringQuote: "",
-    goalDirections: "",
+    goalDirections: [],
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -30,7 +30,7 @@ export const openAISlice = createSlice({
         state.inspiringQuote = action.payload;
       })
       .addCase(getGoalDirection.fulfilled, (state, action) => {
-        state.goalDirections = action.payload;
+        state.goalDirections = action.payload.split(/1.|2.|3./).slice(1);
       });
   },
 });
