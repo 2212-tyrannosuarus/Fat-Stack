@@ -57,7 +57,7 @@ const CreateGoal = () => {
           </Wrap>
         </Box>
 
-        <Box width="20%">
+        <Box width="30%">
           <Heading size="md" mb="3rem" mt="3rem">
             Building goals
           </Heading>
