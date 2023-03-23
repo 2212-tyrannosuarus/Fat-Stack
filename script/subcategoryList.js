@@ -109,5 +109,6 @@ const subcategoryArr = [
   "Vacation",
   "Uncategorized",
   "Investment Withdrawal",
+  "Goals",
 ];
 module.exports = subcategoryArr;

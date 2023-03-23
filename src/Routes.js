@@ -10,6 +10,7 @@ import Trends from "./components/Trends";
 import SidebarLayout from "./layouts/sidebarlayout";
 import MainLayout from "./layouts/mainlayout";
 import Goals from "./components/Goals";
+import GoalsID from "./components/Goals/GoalsID";
 
 export const NavigationRoutes = () => {
   return (
@@ -87,7 +88,7 @@ export const NavigationRoutes = () => {
         path="/goals/:goalid"
         element={
           <SidebarLayout>
-            <Goals />
+            <GoalsID />
           </SidebarLayout>
         }
       />

@@ -33,4 +33,17 @@ router.put("/:id", async (req, res, next) => {
   }
 });
 
+router.get("/user/:id", async (req, res, next) => {
+  try {
+    const bankAccounts = await Bank_Account.findAll({
+      where: {
+        userId: req.params.id,
+      },
+    });
+    res.status(200).json(bankAccounts);
+  } catch (e) {
+    next(e);
+  }
+});
+
 module.exports = router;
