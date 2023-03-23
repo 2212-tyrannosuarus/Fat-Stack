@@ -10,6 +10,7 @@ import Trends from "./components/Trends";
 import SidebarLayout from "./layouts/sidebarlayout";
 import MainLayout from "./layouts/mainlayout";
 import Goals from "./components/Goals";
+import NotFound from "./components/NotFound";
 
 export const NavigationRoutes = () => {
   return (
@@ -89,6 +90,15 @@ export const NavigationRoutes = () => {
           <SidebarLayout>
             <Goals />
           </SidebarLayout>
+        }
+      />
+      <Route
+        exact
+        path="*"
+        element={
+          <MainLayout>
+            <NotFound />
+          </MainLayout>
         }
       />
     </Routes>

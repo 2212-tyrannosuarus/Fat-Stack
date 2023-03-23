@@ -42,12 +42,10 @@ const Navbar = () => {
 
       {!isAuthenticated && (
         <Box fontWeight="bold" mr="1rem">
-          <Link href="/about" marginRight="2rem">
+          <Link href="/" marginRight="2rem">
             Home
           </Link>
-          <Link href="/contact" marginRight="2rem">
-            Features
-          </Link>
+          <Link marginRight="2rem">Features</Link>
           <Link href="/contact" marginRight="2rem">
             Contact Us
           </Link>

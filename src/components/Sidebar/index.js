@@ -1,51 +1,55 @@
 import React, { useState } from "react";
-import { Flex, Text, IconButton, Link, Icon } from "@chakra-ui/react";
-
 import {
-  FiHome,
-  FiTrendingUp,
-  FiDollarSign,
+  Box,
+  Flex,
+  IconButton,
+  Icon,
+  Link,
+  Text,
+  Divider,
+} from "@chakra-ui/react";
+import {
+  FiChevronsLeft,
+  FiChevronsRight,
   FiBriefcase,
-  FiArrowRight,
-  FiArrowLeft,
+  FiDollarSign,
+  FiHome,
+  FiCreditCard,
+  FiUser,
   FiLogOut,
+  FiTarget,
+  FiTrendingUp,
 } from "react-icons/fi";
-
 import { useAuth0 } from "@auth0/auth0-react";
 
-const NavLink = ({ icon, title, active, navSize, href }) => {
-  return (
-    <Flex
-      mt={2}
-      flexDir="column"
-      w="100%"
-      alignItems={navSize == "small" ? "center" : "flex-start"}
+const NavLink = ({ navSize, icon, title, href, onClick }) => (
+  <Flex
+    mt={2}
+    flexDir="column"
+    w="100%"
+    alignItems={navSize === "small" ? "center" : "flex-start"}
+  >
+    <Link
+      p={3}
+      borderRadius={8}
+      _hover={{ bg: "gray.50" }}
+      w={navSize === "large" && "100%"}
+      href={href}
+      onClick={onClick}
     >
-      <Link
-        p={3}
-        borderRadius={8}
-        _hover={{ bg: "gray.50" }}
-        w={navSize == "large" && "100%"}
-        href={href}
-      >
-        <Flex>
-          <Icon
-            as={icon}
-            fontSize="xl"
-            color={active ? "#82AAAD" : "gray.600"}
-          />
-          <Text
-            ml={5}
-            display={navSize == "small" ? "none" : "flex"}
-            color="gray.600"
-          >
-            {title}
-          </Text>
-        </Flex>
-      </Link>
-    </Flex>
-  );
-};
+      <Flex>
+        <Icon as={icon} fontSize="xl" color="gray.600" />
+        <Text
+          ml={5}
+          display={navSize === "small" ? "none" : "flex"}
+          color="gray.600"
+        >
+          {title}
+        </Text>
+      </Flex>
+    </Link>
+  </Flex>
+);
 
 export default function Sidebar() {
   const { logout } = useAuth0();
@@ -60,12 +64,24 @@ export default function Sidebar() {
     >
       <Flex
         px="5"
-        py="16"
+        pt="8"
+        pb="16"
         flexDir="column"
         minW={navSize == "small" ? "75px" : "250px"}
         alignItems={navSize == "small" ? "center" : "flex-start"}
         as="nav"
       >
+        <Box display="flex" alignItems="center" pb="10" navSize={navSize}>
+          <Link href="/">
+            <img src="/assets/logo.png" alt="Logo" width="50" height="50" />
+          </Link>
+          {navSize === "large" && (
+            <Box ml="3" fontWeight="bold" mr="1rem">
+              FINANCE
+            </Box>
+          )}
+        </Box>
+
         <NavLink
           navSize={navSize}
           icon={FiHome}
@@ -74,9 +90,9 @@ export default function Sidebar() {
         />
         <NavLink
           navSize={navSize}
-          icon={FiBriefcase}
-          title="My Goals"
-          href="/goals"
+          icon={FiCreditCard}
+          title="My Accounts"
+          href="/account"
         />
         <NavLink
           navSize={navSize}
@@ -86,15 +102,21 @@ export default function Sidebar() {
         />
         <NavLink
           navSize={navSize}
-          icon={FiTrendingUp}
-          title="Trends"
-          href="#"
+          icon={FiBriefcase}
+          title="Budget"
+          href="/budget/:userId"
+        />
+        <NavLink
+          navSize={navSize}
+          icon={FiTarget}
+          title="My Goals"
+          href="/goals"
         />
         <NavLink
           navSize={navSize}
           icon={FiTrendingUp}
-          title="Budget"
-          href="#"
+          title="Trends"
+          href="/trends/:userId"
         />
       </Flex>
 
@@ -105,6 +127,13 @@ export default function Sidebar() {
         alignItems={navSize == "small" ? "center" : "flex-start"}
         mb={4}
       >
+        <Divider />
+        <NavLink
+          navSize={navSize}
+          icon={FiUser}
+          title="My Profile"
+          href="/profile"
+        />
         <NavLink
           navSize={navSize}
           icon={FiLogOut}
@@ -114,7 +143,7 @@ export default function Sidebar() {
         <IconButton
           background="none"
           _hover={{ background: "none" }}
-          icon={navSize === "large" ? <FiArrowLeft /> : <FiArrowRight />}
+          icon={navSize === "large" ? <FiChevronsLeft /> : <FiChevronsRight />}
           onClick={() => {
             if (navSize == "small") changeNavSize("large");
             else changeNavSize("small");

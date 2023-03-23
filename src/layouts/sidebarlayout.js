@@ -7,10 +7,9 @@ import { Flex, Box } from "@chakra-ui/react";
 const SidebarLayout = ({ children }) => {
   return (
     <div>
-      <Navbar />
-      <Flex bg={"#f5f5f9"}>
+      <Flex bg={"#f5f7fb"}>
         <Sidebar />
-        <Box pt={5} px={5}>
+        <Box pt={20} px={5}>
           {children}
         </Box>
       </Flex>
