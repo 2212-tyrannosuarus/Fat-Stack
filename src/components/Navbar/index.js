@@ -35,8 +35,8 @@ const Navbar = () => {
         <Link href="/">
           <img src="/assets/logo.png" alt="Logo" width="40" height="40" />
         </Link>
-        <Box ml="3" fontWeight="bold" mr="1rem">
-          FINANCE
+        <Box ml="3" fontWeight="bold" pt={1} fontSize={26}>
+          BANK
         </Box>
       </Box>
 

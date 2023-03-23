@@ -61,7 +61,7 @@ export const NavigationRoutes = () => {
         path="/budget/:userId"
         element={
           <SidebarLayout>
-            <Budget />{" "}
+            <Budget />
           </SidebarLayout>
         }
       />

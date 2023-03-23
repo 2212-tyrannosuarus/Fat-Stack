@@ -51,15 +51,17 @@ const NavLink = ({ navSize, icon, title, href, onClick }) => (
   </Flex>
 );
 
-export default function Sidebar() {
+export default function Sidebar({ navSize, handleNavSize }) {
   const { logout } = useAuth0();
-  const [navSize, changeNavSize] = useState("large");
   return (
     <Flex
-      boxShadow="0 0px 12px 0 rgba(0, 0, 0, 0.05)"
+      boxShadow="0 0px 10px 0 rgba(0, 0, 0, .15)"
       minH="100vh"
       flexDir="column"
       bg={"white"}
+      position="fixed"
+      top={0}
+      left={0}
       justifyContent="space-between"
     >
       <Flex
@@ -71,13 +73,13 @@ export default function Sidebar() {
         alignItems={navSize == "small" ? "center" : "flex-start"}
         as="nav"
       >
-        <Box display="flex" alignItems="center" pb="10" navSize={navSize}>
+        <Box display="flex" alignItems="center" pb="7" navSize={navSize}>
           <Link href="/">
             <img src="/assets/logo.png" alt="Logo" width="50" height="50" />
           </Link>
           {navSize === "large" && (
-            <Box ml="3" fontWeight="bold" mr="1rem">
-              FINANCE
+            <Box ml="3" fontWeight="bold" pt={1} fontSize={26}>
+              BANK
             </Box>
           )}
         </Box>
@@ -144,10 +146,7 @@ export default function Sidebar() {
           background="none"
           _hover={{ background: "none" }}
           icon={navSize === "large" ? <FiChevronsLeft /> : <FiChevronsRight />}
-          onClick={() => {
-            if (navSize == "small") changeNavSize("large");
-            else changeNavSize("small");
-          }}
+          onClick={handleNavSize}
         />
       </Flex>
     </Flex>
