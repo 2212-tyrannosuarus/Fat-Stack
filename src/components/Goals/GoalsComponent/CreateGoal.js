@@ -16,7 +16,6 @@ import {
   ListItem,
   ListIcon,
   OrderedList,
-  UnorderedList,
 } from "@chakra-ui/react";
 import {
   getInspirationQuote,
@@ -30,8 +29,6 @@ const CreateGoal = () => {
   const goals = useSelector(selectAllGoals);
   const inspiringQuote = useSelector(selectInspiringQuote);
   const goalDirections = useSelector(selectGoalDirection);
-  let key = 1;
-  console.log(inspiringQuote);
 
   useEffect(() => {
     const handleFetch = async () => {
@@ -59,6 +56,7 @@ const CreateGoal = () => {
             ))}
           </Wrap>
         </Box>
+
         <Box width="20%">
           <Heading size="md" mb="3rem" mt="3rem">
             Building goals
