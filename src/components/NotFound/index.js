@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Button, Heading } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
-const PageNotFound = () => {
+const NotFound = () => {
   return (
     <Box
       display="flex"
@@ -10,29 +10,32 @@ const PageNotFound = () => {
       alignItems="center"
       justifyContent="center"
       height="100vh"
+      bg="gray.100"
+      p={5}
     >
-      <Heading as="h1" fontSize="3xl" fontWeight="bold" mb="1rem">
-        404 Not Found
+      <Heading as="h1" fontSize="5xl" fontWeight="bold" mb={5}>
+        Oops! Page not found.
       </Heading>
-      <Heading as="h2" fontSize="xl" fontWeight="bold" mb="2rem">
-        Oops! The page you requested could not be found.
-      </Heading>
+      <Box textAlign="center" mb={10}>
+        The page you are looking for might have been removed or is temporarily
+        unavailable.
+      </Box>
       <Button
         as={Link}
         to="/"
-        bg="gray.100"
-        color="black"
-        borderRadius="full"
+        rounded={"full"}
+        size={"lg"}
         fontWeight="bold"
-        fontSize="sm"
-        // px="5"
+        px={6}
+        bg={"purple.500"}
+        color="white"
+        _hover={{ bg: "purple.300", color: "white" }}
         py="2"
-        _hover={{ bg: "gray.200", color: "black" }}
       >
-        RETURN HOME
+        Return Home
       </Button>
     </Box>
   );
 };
 
-export default PageNotFound;
+export default NotFound;

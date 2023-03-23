@@ -39,7 +39,6 @@ const Navbar = () => {
           BANK
         </Box>
       </Box>
-
       {!isAuthenticated && (
         <Box fontWeight="bold" mr="1rem">
           <Link href="/" marginRight="2rem">
@@ -61,38 +60,6 @@ const Navbar = () => {
           >
             Sign In
           </Button>
-        </Box>
-      )}
-
-      {isAuthenticated && (
-        <Box display="flex" alignItems="center">
-          <Notifications />
-          <Menu
-            bg="white"
-            colorScheme="gray"
-            variant="outline"
-            borderColor="gray.300"
-            borderRadius="10"
-            _hover={{ bg: "gray.100" }}
-            width="full"
-          >
-            <MenuButton
-              as={Avatar}
-              src={user.picture}
-              alt={user.name}
-              size="sm"
-              cursor="pointer"
-            />
-            <MenuList>
-              <MenuItem as={Link} href="/profile">
-                My Profile
-              </MenuItem>
-              <MenuItem as={Link} href="/settings">
-                Settings
-              </MenuItem>
-              <MenuItem onClick={() => logout()}>Logout</MenuItem>
-            </MenuList>
-          </Menu>
         </Box>
       )}
     </Flex>

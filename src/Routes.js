@@ -11,6 +11,7 @@ import SidebarLayout from "./layouts/sidebarlayout";
 import MainLayout from "./layouts/mainlayout";
 import Goals from "./components/Goals";
 import NotFound from "./components/NotFound";
+import DashNav from "./components/DashNav";
 
 export const NavigationRoutes = () => {
   return (

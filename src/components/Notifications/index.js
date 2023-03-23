@@ -38,7 +38,7 @@ const Notifications = () => {
           icon={<FaBell />}
           variant="ghost"
           size="md"
-          color="grey.200"
+          color={"gray.800"}
           fontSize="20px"
           fontWeight="normal"
           _focus={{ boxShadow: "none" }}
@@ -81,7 +81,7 @@ const Notifications = () => {
                 as="span"
                 fontSize="10px"
                 fontWeight="bold"
-                color="gray.400"
+                color={"gray.800"}
                 cursor="pointer"
                 ml={2}
                 onClick={(event) => {
