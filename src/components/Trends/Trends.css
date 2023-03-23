@@ -36,4 +36,10 @@
 
   .display-chart:hover {
     background-color: #f9fafc !important;
+    color: black;
   }
+
+  .mb-date-picker {
+    margin-bottom: -60px;
+    /* z-index: 5; */
+  };
