@@ -24,6 +24,17 @@ export const fetchAllSubCategories = createAsyncThunk(
   }
 );
 
+export const deleteSingleTransaction = createAsyncThunk(
+  "singleTransaction/delete",
+  async (transactionId) => {
+    const { data } = await axios.delete(
+      `/api/singleTransaction/${transactionId}`
+    );
+    console.log("DATADATA", data);
+    return data;
+  }
+);
+
 export const allTransactionsPageSlice = createSlice({
   name: "allTransactions",
   initialState: {

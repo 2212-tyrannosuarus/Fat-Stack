@@ -15,6 +15,23 @@ router.get("/", async (req, res, next) => {
     next(e);
   }
 });
+router.get("/:id", async (req, res, next) => {
+  try {
+    const bankAccount = await Bank_Account.findByPk(req.params.id);
+    res.json(bankAccount);
+  } catch (err) {
+    next(err);
+  }
+});
+router.put("/:id", async (req, res, next) => {
+  console.log("re body", req.params.id);
+  try {
+    const bankAccount = await Bank_Account.findByPk(req.params.id);
+    res.json(await bankAccount.update(req.body));
+  } catch (e) {
+    next(e);
+  }
+});
 
 router.get("/user/:id", async (req, res, next) => {
   try {

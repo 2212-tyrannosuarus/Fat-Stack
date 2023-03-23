@@ -119,6 +119,7 @@ async function seed() {
     phone_number: "2345671234",
   });
   bankAccountFour.setUser(userMiro);
+  bankAccountFive.setUser(userMiro);
 
   // Create categories
   categoriesArr.forEach(async (category) => {
