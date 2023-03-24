@@ -20,6 +20,15 @@ export const fetchSingleTransactionSubCat = createAsyncThunk(
   }
 );
 
+export const fetchAllTransactions = createAsyncThunk(
+  "transaction/fetchallTransactions",
+  async (userId) => {
+    if (userId === undefined) return;
+    const { data } = await axios.get(`/api/singleTransaction//users/${userId}`);
+    return data;
+  }
+);
+
 export const fetchAllSubCat = createAsyncThunk(
   "transaction/fetchAllSubCat",
   async () => {
@@ -70,6 +79,14 @@ export const singleTransactionPageSlice = createSlice({
     category: {},
     errorMsg: "",
     goalsTransaction: [],
+    transactionsStats: {
+      debitTransactions: [],
+      creditTransactions: [],
+      creditSum: 0,
+      debitSum: 0,
+      creditAverage: 0,
+      debitAverage: 0,
+    },
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -97,6 +114,30 @@ export const singleTransactionPageSlice = createSlice({
           }
           return 0;
         });
+      })
+      .addCase(fetchAllTransactions.fulfilled, (state, action) => {
+        state.transactionsStats.debitTransactions = action.payload.filter(
+          (transaction) => transaction.credit_debit === "debit"
+        );
+        let sumDebit = state.transactionsStats.debitTransactions.reduce(
+          (sum, transaction) => sum + parseInt(transaction.amount),
+          0
+        );
+        state.transactionsStats.debitSum = sumDebit;
+        state.transactionsStats.debitAverage = (
+          sumDebit / state.transactionsStats.debitTransactions.length
+        ).toFixed(2);
+        state.transactionsStats.creditTransactions = action.payload.filter(
+          (transaction) => transaction.credit_debit === "credit"
+        );
+        let sumCredit = state.transactionsStats.creditTransactions.reduce(
+          (sum, transaction) => sum + parseInt(transaction.amount),
+          0
+        );
+        state.transactionsStats.creditSum = sumCredit;
+        state.transactionsStats.creditAverage = (
+          sumCredit / state.transactionsStats.creditTransactions.length
+        ).toFixed(2);
       });
   },
 });
@@ -112,6 +153,10 @@ export const selectAllSubCat = (state) => {
 };
 export const selectGoalTransactions = (state) => {
   return state.singleTransactionPage.goalsTransaction;
+};
+
+export const selectAllTransactions = (state) => {
+  return state.singleTransactionPage.transactionsStats;
 };
 
 export default singleTransactionPageSlice.reducer;
