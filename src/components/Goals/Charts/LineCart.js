@@ -97,6 +97,7 @@ export default function LineCart({ id, goal }) {
     let now = moment();
     let timePass = now.diff(start, "days", true);
     let dayDiff = end.diff(start, "days", true);
+    console.log("timePass", timePass);
 
     let ProjectedIncr = (parseInt(goal.contributedamount) / timePass).toFixed(
       2
@@ -113,7 +114,7 @@ export default function LineCart({ id, goal }) {
 
     setChartData([
       {
-        name: "Projected Path",
+        name: "Current Path",
         data: ProjectedData,
       },
       {
