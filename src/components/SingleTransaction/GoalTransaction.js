@@ -67,7 +67,6 @@ export default function GoalTransaction() {
         subcategoryId,
       })
     );
-    console.log(merchant, newAmount);
     await dispatch(
       contributeToGoal({ name: merchant, contributedamount: newAmount })
     );

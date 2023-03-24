@@ -9,6 +9,15 @@ import {
   selectSingleTransaction,
 } from "../../reducers/singleTransactionPageSlice";
 import {
+  selectGoalList,
+  getExistingGoals,
+  getUserAccount,
+  selectBankAccount,
+  createGoalTransaction,
+  contributeToGoal,
+  redoContribution,
+} from "../../reducers/goalPageSlice";
+import {
   Modal,
   ModalOverlay,
   ModalContent,
@@ -50,8 +59,8 @@ export default function UpdateTransaction() {
   }, [dispatch, transaction]);
 
   const handleUpdate = async (event) => {
-    console.log("called");
     event.preventDefault();
+    let newAmount = parseFloat(amount);
     if (changeAll) {
       await dispatch(
         updateAllTransactionCat({
@@ -65,6 +74,9 @@ export default function UpdateTransaction() {
           },
         })
       );
+      await dispatch(
+        redoContribution({ name: merchant, contributedamount: newAmount })
+      );
     }
     await dispatch(
       updateSingleTransaction({
@@ -77,6 +89,9 @@ export default function UpdateTransaction() {
           subcategoryId,
         },
       })
+    );
+    await dispatch(
+      redoContribution({ name: merchant, contributedamount: newAmount })
     );
   };
 

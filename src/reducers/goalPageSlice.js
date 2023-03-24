@@ -55,6 +55,13 @@ export const contributeToGoal = createAsyncThunk(
   }
 );
 
+export const redoContribution = createAsyncThunk(
+  "goals/redoContribution",
+  async (body) => {
+    const { data } = await axios.put("/api/goals/redoContribution", body);
+  }
+);
+
 export const goalPageSlice = createSlice({
   name: "homePage",
   initialState: {
