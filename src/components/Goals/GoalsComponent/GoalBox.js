@@ -91,12 +91,12 @@ export default function GoalBox({ goal }) {
               {goal.completion_status ? null : (
                 <li className="d-flex mb-2 pb-1">
                   <div className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                    <div className="row" mt-2>
+                    <div className="row mt-2">
                       <h6 className="text-muted d-block mb-1">
                         Projected Date: {goal.goal_date}
                       </h6>
                     </div>
-                    <div className="row" mt-2>
+                    <div className="row mt-2">
                       <h6 className="text-muted d-block mb-1">
                         Weeks Remaining: {weekLeft}
                       </h6>

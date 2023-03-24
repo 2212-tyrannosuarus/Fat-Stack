@@ -20,6 +20,7 @@ import {
   Button as ChakraButton,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import LineCart from "../Charts/LineCart";
 
 export default function GoalIDBox({ goal }) {
   const [weekContribution, setWeekContribution] = useState(0);
@@ -50,7 +51,7 @@ export default function GoalIDBox({ goal }) {
         <div className="card h-100">
           <div className="card-header d-flex align-items-center justify-content-between">
             <div className="card-title m-0 me-2 ">
-              <Heading mb=".25rem" size="md">
+              <Heading mt=".75rem" mb=".25rem" size="md">
                 {goal.name}
               </Heading>
               <Text fontSize="sm">Here's a summary</Text>
@@ -123,6 +124,7 @@ export default function GoalIDBox({ goal }) {
                   </div>
                 </li>
               )}
+              <LineCart id={goal.id} goal={goal} />
             </ul>
           </div>
         </div>

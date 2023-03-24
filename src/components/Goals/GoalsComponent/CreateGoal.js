@@ -61,7 +61,7 @@ const CreateGoal = () => {
           <Heading size="md" mb="3rem" mt="3rem">
             Building goals
           </Heading>
-          <Text fontColor="grey" mb="2rem" fontSize="m" as="i">
+          <Text mb="2rem" fontSize="m" as="i">
             "{inspiringQuote}"
           </Text>
 
