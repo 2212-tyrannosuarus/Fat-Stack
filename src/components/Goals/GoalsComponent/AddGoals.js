@@ -39,6 +39,7 @@ export default function AddGoals({ goal }) {
   const [goalamount, setgoalamount] = useState(0);
   const [contributedamount, setcontributedamount] = useState(0);
   const [monthlySaveAmt, setmonthlySaveAmt] = useState(0);
+  const [start_date, setStart_date] = useState(moment().format("YYYY-MM-DD"));
   const [goal_date, setGoal_date] = useState(moment().format("YYYY-MM-DD"));
   const [expectedDate, setexpectedDate] = useState(goal_date);
 
@@ -54,19 +55,19 @@ export default function AddGoals({ goal }) {
       : await setShowSaveAmt(true);
   };
 
-  const handleNewDate = () => {
+  const handleNewDate = (amount) => {
     let currentDate = moment();
     if (monthlySaveAmt !== undefined && monthlySaveAmt !== 0) {
-      let monthDiff = goalamount / monthlySaveAmt;
+      let monthDiff = goalamount / amount;
       let newDate = currentDate.add(monthDiff, "months");
       let newDates = newDate.format("YYYY-MM-DD");
       setexpectedDate(newDates);
     }
   };
 
-  const handleDateCalc = () => {
+  const handleDateCalc = (date) => {
     let currentDate = moment();
-    let goalDate = moment(goal_date);
+    let goalDate = moment(date);
     if (expectedDate > goalDate) {
       let monthDiff = expectedDate.diff(currentDate, "months", true);
       monthDiff <= 1
@@ -91,6 +92,7 @@ export default function AddGoals({ goal }) {
         goalamount,
         contributedamount,
         goal_date,
+        start_date,
       })
     );
   };
@@ -129,18 +131,33 @@ export default function AddGoals({ goal }) {
                   <FormHelperText>
                     You'll be able to change this later if you need to.
                   </FormHelperText>
-                  <Input
+                  <NumberInput
                     precision={2}
                     value={goalamount}
                     onChange={(e) => {
                       handleShow("date");
-                      setgoalamount(e.target.value);
+                      setgoalamount(e);
                     }}
-                  ></Input>
+                  >
+                    <NumberInputField />
+                    <NumberInputStepper>
+                      <NumberIncrementStepper />
+                      <NumberDecrementStepper />
+                    </NumberInputStepper>
+                  </NumberInput>
                 </FormControl>
               ) : null}
               {showDate ? (
                 <FormControl>
+                  <FormLabel>Awesome! When should you begin?</FormLabel>
+                  <Input
+                    placeholder="Select Date and Time"
+                    type="date"
+                    value={start_date}
+                    onChange={(e) => {
+                      setStart_date(e.target.value);
+                    }}
+                  />
                   <FormLabel>Awesome! When do you need it by?</FormLabel>
                   <Input
                     placeholder="Select Date and Time"
@@ -149,7 +166,7 @@ export default function AddGoals({ goal }) {
                     onChange={(e) => {
                       setGoal_date(e.target.value);
                       handleShow("");
-                      handleDateCalc();
+                      handleDateCalc(e.target.value);
                     }}
                   />
                 </FormControl>
@@ -157,16 +174,29 @@ export default function AddGoals({ goal }) {
               {showSaveAmt ? (
                 <FormControl>
                   <FormLabel>How much can you save each month?</FormLabel>
-                  <Input
+                  <NumberInput
                     precision={2}
                     value={monthlySaveAmt}
-                    onClick={() => {
-                      handleNewDate();
-                    }}
                     onChange={(e) => {
-                      setmonthlySaveAmt(e.target.value);
+                      setmonthlySaveAmt(e);
+                      console.log(e, typeof e);
+                      if (
+                        e !== "" &&
+                        e !== "0.00" &&
+                        e !== "0.0" &&
+                        e !== "0." &&
+                        e !== "0"
+                      ) {
+                        handleNewDate(e);
+                      }
                     }}
-                  ></Input>
+                  >
+                    <NumberInputField />
+                    <NumberInputStepper>
+                      <NumberIncrementStepper />
+                      <NumberDecrementStepper />
+                    </NumberInputStepper>
+                  </NumberInput>
                   <FormHelperText>
                     Expected end date: {expectedDate}
                   </FormHelperText>

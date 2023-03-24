@@ -78,9 +78,7 @@ export default function PageWithGoals() {
                     <Flex justifyContent="space-between">
                       <Box>
                         <Heading size="lg">You go, rockstar!</Heading>
-                        <Text fontColor="grey" ml="1rem">
-                          Here is an overview
-                        </Text>
+                        <Text ml="1rem">Here is an overview</Text>
                       </Box>
                       <Box>
                         <Button
@@ -121,7 +119,7 @@ export default function PageWithGoals() {
                   <Heading size="md" mb="3rem" mt="3rem">
                     Building goals
                   </Heading>
-                  <Text fontColor="grey" mb="2rem" fontSize="m" as="i">
+                  <Text mb="2rem" fontSize="m" as="i">
                     "{inspiringQuote}"
                   </Text>
 
