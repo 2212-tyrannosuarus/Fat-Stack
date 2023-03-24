@@ -8,7 +8,7 @@ import {
   MenuItem,
   MenuList,
 } from "@chakra-ui/react";
-import { FaBell } from "react-icons/fa";
+import { FiBell, FiXCircle } from "react-icons/fi";
 
 const Notifications = () => {
   const [notifications, setNotifications] = useState([
@@ -35,7 +35,7 @@ const Notifications = () => {
         <MenuButton
           as={IconButton}
           aria-label="Notifications"
-          icon={<FaBell />}
+          icon={<FiBell />}
           variant="ghost"
           size="md"
           color={"gray.800"}
@@ -73,10 +73,10 @@ const Notifications = () => {
               }}
               _hover={{ background: "gray.100" }}
             >
-              <Box fontWeight="bold" fontSize="14px" mb={1}>
+              <Box fontWeight="bold" mb={1}>
                 {notification.source}
               </Box>
-              <Box fontSize="12px">{notification.message}</Box>
+              <Box>{notification.message}</Box>
               <Box
                 as="span"
                 fontSize="10px"
@@ -93,17 +93,17 @@ const Notifications = () => {
               >
                 <Box
                   as="span"
-                  borderRadius="full"
-                  bg="white"
-                  display="inline-block"
-                  width="1rem"
-                  height="1rem"
-                  textAlign="center"
-                  lineHeight="1rem"
-                >
-                  x
-                </Box>
+                  fontSize="10px"
+                  fontWeight="bold"
+                  color={"gray.800"}
+                  cursor="pointer"
+                  ml={2}
+                  display="flex"
+                  justifyContent="space-between"
+                  alignItems="center"
+                ></Box>
               </Box>
+              <FiXCircle size={14} />
             </MenuItem>
           ))}
           <MenuDivider />

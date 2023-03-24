@@ -55,7 +55,7 @@ export default function Sidebar({ navSize, handleNavSize }) {
   const { logout } = useAuth0();
   return (
     <Flex
-      boxShadow="0 0px 10px 0 rgba(0, 0, 0, .15)"
+      boxShadow="md"
       minH="100vh"
       flexDir="column"
       bg={"white"}

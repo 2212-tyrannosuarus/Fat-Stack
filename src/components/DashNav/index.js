@@ -60,14 +60,24 @@ const DashNav = () => {
               >
                 Hi, {user.nickname}!
               </Text>
-              <Icon as={isOpen ? FiChevronUp : FiChevronDown} />
+              <Icon mr={4} as={isOpen ? FiChevronUp : FiChevronDown} />
             </Flex>
           </MenuButton>
           <MenuList>
-            <MenuItem as={Link} href="/profile" color={"gray.800"}>
+            <MenuItem
+              as={Link}
+              href="/profile"
+              color={"gray.800"}
+              _hover={{ textDecoration: "none", color: "gray.800" }}
+            >
               My Profile
             </MenuItem>
-            <MenuItem as={Link} href="/settings" color={"gray.800"}>
+            <MenuItem
+              as={Link}
+              href="/settings"
+              color={"gray.800"}
+              _hover={{ textDecoration: "none", color: "gray.800" }}
+            >
               Bank Accounts
             </MenuItem>
             <MenuItem onClick={() => logout()}>Logout</MenuItem>
