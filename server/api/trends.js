@@ -146,3 +146,25 @@ router.get("/categories/:userId/:fromDate/:toDate", async (req, res, next) => {
     next(err);
   }
 });
+
+// GET /api/trends/overviewChart/:userId/:fromDate/:toDate
+router.get("/overviewChart/:userId/:fromDate/:toDate", async (req, res, next) => {
+  try {
+    const categories = await db.query(`select 
+    to_char(to_date(date,'YYYY-MM-DD'),'yyyy-mm-dd') as "yearmonthday",
+    sum(transactions.amount) as "transactionAmount"
+    from
+    transactions
+    where
+    transactions.credit_debit= 'debit'
+    and to_date(date,'YYYY-MM-DD') >= to_date(${req.params.fromDate},'YYYY-MM-DD')
+    and to_date(date,'YYYY-MM-DD') <= to_date(${req.params.toDate},'YYYY-MM-DD')
+    and transactions."userId"=${req.params.userId}
+    group by 
+    yearmonthday`);
+
+    res.json(categories);
+  } catch (err) {
+    next(err);
+  }
+});
