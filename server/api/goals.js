@@ -48,6 +48,32 @@ router.put("/contribute", async (req, res, next) => {
   }
 });
 
+router.put("/redoContribution", async (req, res, next) => {
+  try {
+    const goal = await Goal.findOne({ where: { name: req.body.name } });
+    const transactions = await Transaction.findAll({
+      where: { merchant: req.body.name },
+    });
+
+    let newBalance = transactions.reduce(
+      (acc, current) => acc + parseInt(current.amount),
+      0
+    );
+
+    let status = false;
+    if (newBalance >= goal.goalamount) status = true;
+
+    res.status(201).send(
+      await goal.update({
+        contributedamount: newBalance,
+        completion_status: status,
+      })
+    );
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.get("/goallist", async (req, res, next) => {
   try {
     const goallist = await Goal.findAll({
