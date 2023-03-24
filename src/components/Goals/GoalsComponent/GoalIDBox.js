@@ -1,9 +1,45 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { ProgressBar } from "react-bootstrap";
 import "../../Budget/Budget.css";
 import { Link } from "@chakra-ui/react";
+import moment from "moment";
+import goalPageSlice from "../../../reducers/goalPageSlice";
+import {
+  Wrap,
+  WrapItem,
+  Center,
+  Flex,
+  Box,
+  Heading,
+  Text,
+  List,
+  ListItem,
+  ListIcon,
+  OrderedList,
+} from "@chakra-ui/react";
 
 export default function GoalIDBox({ goal }) {
+  const [weekContribution, setWeekContribution] = useState(0);
+  const [monthContribution, setMonthContribution] = useState(0);
+  const [weekLeft, setWeekLeft] = useState(0);
+
+  const calculateMoneyPerMonth = () => {
+    let currentDate = moment();
+    let goalDate = moment(goal.goal_date);
+    let amountNeeded =
+      parseInt(goal.goalamount) - parseInt(goal.contributedamount);
+
+    let monthDiff = goalDate.diff(currentDate, "months", true);
+    let weekDiff = goalDate.diff(currentDate, "weeks", true);
+    setWeekLeft(weekDiff.toFixed(0));
+    setMonthContribution((amountNeeded / monthDiff).toFixed(2));
+    setWeekContribution((amountNeeded / weekDiff).toFixed(2));
+  };
+
+  useEffect(() => {
+    calculateMoneyPerMonth();
+  }, []);
+
   return (
     <div className="row">
       <div className="col-md-12 col-lg-12 order-2 mb-4 mt-2 pb-0 mr-0">
