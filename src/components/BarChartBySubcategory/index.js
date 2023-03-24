@@ -192,14 +192,7 @@ const BarChartBySubcategory = (props) => {
                 })
               : "Loading sub categories"}
           </Select>
-          {/* <Button
-            variant="outline-dark"
-            onClick={() => handleOvertimeSubcategory(subCategoryName)}
-            className="col-12 display-chart mt-3"
-          >
-            {" "}
-            Display Chart
-          </Button> */}
+      
         </>
       ) : (
         "Loading subcategories"

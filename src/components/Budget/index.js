@@ -62,6 +62,7 @@ const Budget = () => {
   let [subCategoryName, setSubCategoryName] = useState("");
   let [addBudgetAmount, setAddBudgetAmount] = useState(0);
   let [categoriesForAddBudget, setCategoriesForAddBudget] = useState([]);
+  const [average, setAverage] = useState(0);
 
   let spendingOvertimeBySubcategory = useSelector(
     selectSpendingOvertimeBySubcategory
@@ -444,6 +445,8 @@ const Budget = () => {
           categoriesForAddBudget={categories}
           handleOvertimeSubcategory={handleOvertimeSubcategory}
           chartData={spendingOvertimeBySubcategory}
+          average={average}
+          setAverage={setAverage}
         />
       </div>
 

@@ -28,14 +28,15 @@ const MONTHS = [
 
 const BarChartForModal = (props) => {
   const {
-    chartData
+    chartData,
+    average,
+    setAverage
   } = props;
   //   let [barChartCredit, setBarChartCredit] = useState([]);
   let [barChartDebit, setBarChartDebit] = useState([]);
   console.log("chartData sub category", chartData.flat().slice(0, -1));
   let totalAmount = 0;
     let count = 0;
-    let average = 0;
 
   useEffect(() => {
 
@@ -58,11 +59,13 @@ const BarChartForModal = (props) => {
       console.log("barChartDebit ", barChartDebit);
 
       setBarChartDebit(barChartDebit.slice(6));
-      barChartDebit.forEach(item => {
+      barChartDebit.slice(6).forEach(item => {
+        console.log('item ', item);
         totalAmount+= item.total;
         count++;
       })
-      average = totalAmount / count;
+      
+      setAverage(totalAmount / count);
     } else {
       console.log("No data to display");
     }
@@ -85,19 +88,20 @@ const BarChartForModal = (props) => {
           width={800}
         >
           <VictoryLegend
-            x={200}
+            x={50}
             y={60}
             orientation="horizontal"
             gutter={50}
+            // title={`Historically you've spent about $${average} on ${chartData.flat().slice(0, -1)[0].subcategoryName}`}
             colorScale={["#ff7960"]}
             data={[
-              { name: `${chartData.flat().slice(0, -1)[0].subcategoryName}` },
+              { name: `Historically you've spent about $${average} on ${chartData.flat().slice(0, -1)[0].subcategoryName}` },
             ]}
-            style={{ labels: { fontSize: 25 } }}
+            style={{ labels: { fontSize: 30 }, symbol: "none"}}
           />
 
           <VictoryAxis
-            label={` Last 6 months average`}
+            label={` Last 6 months `}
             style={{
               tickLabels: { fontSize: 25, padding: 5 },
               axisLabel: { fontSize: 30, padding: 50 },
@@ -123,8 +127,6 @@ const BarChartForModal = (props) => {
           </VictoryGroup>
         </VictoryChart>
         </div>
-
-        
         </div>
       ) : (
         <img src="./assets/placeholderGraph.png" width="300" height="800" alt="" className="mt-4 pt-4"/>
