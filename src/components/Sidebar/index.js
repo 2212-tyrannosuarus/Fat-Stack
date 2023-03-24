@@ -32,7 +32,7 @@ const NavLink = ({ navSize, icon, title, href, onClick }) => (
     <Link
       p={3}
       borderRadius={8}
-      _hover={{ bg: "gray.50" }}
+      _hover={{ bg: "gray.100" }}
       w={navSize === "large" && "100%"}
       href={href}
       onClick={onClick}
@@ -73,16 +73,23 @@ export default function Sidebar({ navSize, handleNavSize }) {
         alignItems={navSize == "small" ? "center" : "flex-start"}
         as="nav"
       >
-        <Box display="flex" alignItems="center" pb="7" navSize={navSize}>
-          <Link href="/">
+        <Link href="/">
+          <Box display="flex" alignItems="center" pb="7" navSize={navSize}>
             <img src="/assets/logo.png" alt="Logo" width="50" height="50" />
-          </Link>
-          {navSize === "large" && (
-            <Box ml="3" fontWeight="bold" pt={1} fontSize={26} color="grey.800">
-              BANK
-            </Box>
-          )}
-        </Box>
+
+            {navSize === "large" && (
+              <Box
+                ml="3"
+                fontWeight="bold"
+                pt={1}
+                fontSize={26}
+                color="grey.800"
+              >
+                BANK
+              </Box>
+            )}
+          </Box>
+        </Link>
 
         <NavLink
           navSize={navSize}
