@@ -33,12 +33,23 @@ export default function GoalIDBox({ goal }) {
     let goalDate = moment(goal.goal_date);
     let amountNeeded =
       parseInt(goal.goalamount) - parseInt(goal.contributedamount);
-
     let monthDiff = goalDate.diff(currentDate, "months", true);
     let weekDiff = goalDate.diff(currentDate, "weeks", true);
+    console.log(monthDiff, weekDiff);
     setWeekLeft(weekDiff.toFixed(0));
-    setMonthContribution((amountNeeded / monthDiff).toFixed(2));
-    setWeekContribution((amountNeeded / weekDiff).toFixed(2));
+    let monthAmt = (amountNeeded / monthDiff).toFixed(2);
+    let weekAmt = (amountNeeded / weekDiff).toFixed(2);
+    console.log(monthAmt, weekAmt);
+    if (parseInt(monthAmt) > parseInt(goal.goalamount)) {
+      setMonthContribution(goal.goalamount);
+    } else {
+      setMonthContribution(monthAmt);
+    }
+    if (parseInt(weekAmt) > parseInt(goal.goalamount)) {
+      setWeekContribution(goal.goalamount);
+    } else {
+      setWeekContribution(weekAmt);
+    }
   };
 
   useEffect(() => {

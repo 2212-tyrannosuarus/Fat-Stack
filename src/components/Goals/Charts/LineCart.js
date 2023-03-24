@@ -92,7 +92,7 @@ export default function LineCart({ id, goal }) {
   let RecommendedData = [];
 
   const handleDateCalculation = async () => {
-    let start = moment(goal.createdAt);
+    let start = moment(goal.start_date);
     let end = moment(goal.goal_date);
     let now = moment();
     let timePass = now.diff(start, "days", true);
