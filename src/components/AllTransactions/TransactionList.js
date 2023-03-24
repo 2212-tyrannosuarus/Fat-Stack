@@ -44,7 +44,7 @@ const TransactionList = (props) => {
   return (
     <List w="1000px" p={"2"} flex="1">
       <ListItem borderRadius={"20px"} bg={"gray.200"} p={"2"}>
-        <Flex justify={"space-between"} rowGap={"50px"} align={"flex-start"}>
+        <Flex justify={"space-between"} align={"flex-start"}>
           <Box w={"21%"} flex="1">
             <Text fontSize="lg">Date</Text>
           </Box>
@@ -102,7 +102,11 @@ const TransactionList = (props) => {
               Number(selectedCategory) === Number(transaction.subcategoryId))
           ) {
             return (
-              <ListItem bg={alternateColor}>
+              <ListItem
+                key={transaction.id}
+                bg={alternateColor}
+                _hover={{ bg: "purple.50" }}
+              >
                 <Flex
                   direction={"row"}
                   justify={"space-between"}

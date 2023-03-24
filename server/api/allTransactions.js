@@ -41,14 +41,21 @@ router.get("/:fromDate/:toDate", async (req, res, next) => {
   try {
     const transactionsByDate = await db.query(
       `select
-          *
-        from
-          transactions
-        where
-          to_date(date, 'YYYY-MM-DD') >= to_date('${fromDate}', 'YYYY-MM-DD')
-          and to_date(date, 'YYYY-MM-DD') <= to_date('${toDate}', 'YYYY-MM-DD')
-        and "userId" = 1
-      `
+*
+   
+from
+  transactions
+  
+  where
+  to_date(date, 'YYYY-MM-DD') >= to_date('${fromDate}', 'YYYY-MM-DD')
+  and to_date(date, 'YYYY-MM-DD') <= to_date('${toDate}', 'YYYY-MM-DD')
+  and "userId" = 1
+
+order by 
+to_date(date, 'YYYY-MM-DD') desc
+
+
+`
     );
     res.json(transactionsByDate);
   } catch (err) {

@@ -49,7 +49,7 @@ const AddTransactionModal = (props) => {
     <>
       <Button
         flex="1"
-        w="100%"
+        w="90%"
         bg={"purple.100"}
         alignSelf={"flex-end"}
         justifySelf={"flex-end"}
@@ -75,7 +75,10 @@ const AddTransactionModal = (props) => {
                 >
                   {bankAccounts.map((account) => {
                     return (
-                      <option value={account.account_id}>
+                      <option
+                        key={account.account_id}
+                        value={account.account_id}
+                      >
                         {account.account_name}
                       </option>
                     );
@@ -107,7 +110,7 @@ const AddTransactionModal = (props) => {
                 >
                   {subCategories.map((category) => {
                     return (
-                      <option value={category.id}>
+                      <option key={category.id} value={category.id}>
                         {category.sub_category_name}
                       </option>
                     );

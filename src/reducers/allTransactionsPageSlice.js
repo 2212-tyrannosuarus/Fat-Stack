@@ -14,7 +14,11 @@ export const fetchAllBankAccounts = createAsyncThunk(
   "bankAccounts/fetchAll",
   async () => {
     const { data } = await axios.get("/api/bankAccounts");
-    return data;
+    const sortedData = data.sort((a, b) => {
+      return a.id > b.id ? 1 : a.id < b.id ? -1 : 0;
+    });
+
+    return sortedData;
   }
 );
 
