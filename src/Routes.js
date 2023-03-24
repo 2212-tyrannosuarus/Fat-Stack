@@ -95,10 +95,10 @@ export const NavigationRoutes = () => {
       />
        <Route
         exact
-        path="/overviewChart/:userId"
+        path="/overviewChart"
         element={
           <SidebarLayout>
-            <ChartForOVerview />
+            <ChartForOVerview userId={1}/>
           </SidebarLayout>
         }
       />
