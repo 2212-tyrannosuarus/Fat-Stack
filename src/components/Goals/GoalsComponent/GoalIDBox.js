@@ -16,6 +16,7 @@ import {
   ListItem,
   ListIcon,
   OrderedList,
+  Progress,
   Button as ChakraButton,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
@@ -49,7 +50,7 @@ export default function GoalIDBox({ goal }) {
         <div className="card h-100">
           <div className="card-header d-flex align-items-center justify-content-between">
             <div className="card-title m-0 me-2 ">
-              <Heading mb=".25rem" size="sm">
+              <Heading mb=".25rem" size="md">
                 {goal.name}
               </Heading>
               <Text fontSize="sm">Here's a summary</Text>
@@ -92,18 +93,18 @@ export default function GoalIDBox({ goal }) {
                 </div>
               </li>
               <li className="mb-2 pb-0 income-progress-bar">
-                <ProgressBar
-                  variant={
+                <Progress
+                  colorScheme={
                     (goal.contributedamount / goal.goalamount) * 100 < 25
-                      ? "danger"
+                      ? "red"
                       : (goal.contributedamount / goal.goalamount) * 100 < 50
-                      ? "warning"
+                      ? "yellow"
                       : (goal.contributedamount / goal.goalamount) * 100 < 75
-                      ? "info"
-                      : "success"
+                      ? "blue"
+                      : "green"
                   }
-                  now={(goal.contributedamount / goal.goalamount) * 100}
-                  style={{ height: "10px" }}
+                  height="32px"
+                  value={(goal.contributedamount / goal.goalamount) * 100}
                 />
               </li>
               {goal.completion_status ? null : (
