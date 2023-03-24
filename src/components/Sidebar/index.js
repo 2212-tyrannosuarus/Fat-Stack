@@ -88,13 +88,13 @@ export default function Sidebar() {
           navSize={navSize}
           icon={FiTrendingUp}
           title="Trends"
-          href="#"
+          href="/trends/1"
         />
         <NavLink
           navSize={navSize}
           icon={FiTrendingUp}
           title="Budget"
-          href="#"
+          href="/budget/1"
         />
       </Flex>
 

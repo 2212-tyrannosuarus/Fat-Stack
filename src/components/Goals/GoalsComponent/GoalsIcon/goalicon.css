@@ -1,0 +1,14 @@
+.goalboxicons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin: 0px;
+}
+.goalboxicons > p {
+  color: rgb(126, 126, 126);
+}
+
+.goalboxiconbabies {
+  margin: 10px;
+}

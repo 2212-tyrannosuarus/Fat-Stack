@@ -133,3 +133,10 @@
   .individual-month > div:hover {
     cursor: pointer;
   }
+
+  #chakra-modal-mymodal {
+    height:550px !important;
+    /* // There is a max-width rule used by chakra-ui, */
+    /* // thus you need to overwrite it to make it work. */
+    max-width:900px !important;
+}

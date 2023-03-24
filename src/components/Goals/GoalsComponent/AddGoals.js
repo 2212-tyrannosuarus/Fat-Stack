@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
-
 import {
   Container,
   Button,
@@ -30,6 +29,8 @@ import {
 } from "@chakra-ui/react";
 import { createGoal, selectGoal } from "../../../reducers/goalPageSlice";
 import { useDispatch } from "react-redux";
+import Rainy from "./GoalsIcon/Rainy";
+import "./GoalsIcon/goalicon.css";
 
 export default function AddGoals({ goal }) {
   const dispatch = useDispatch();
@@ -97,7 +98,10 @@ export default function AddGoals({ goal }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
-      <Button onClick={onOpen}>{goal.name}</Button>
+      <Button onClick={onOpen} colorScheme="rgba(0,0,0,0.5)">
+        <Rainy name={goal.name}> </Rainy>
+      </Button>
+
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
