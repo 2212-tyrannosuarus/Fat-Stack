@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Button, useDisclosure } from "@chakra-ui/react";
+import { Button, Flex, useDisclosure } from "@chakra-ui/react";
 // import { CUIAutoComplete } from "chakra-ui-autocomplete";
 import {
-  fetchAllTransactions,
   selectAllTransactions,
   selectAllBankAccounts,
   fetchAllBankAccounts,
   selectSubCategories,
   fetchAllSubCategories,
   deleteSingleTransaction,
+  fetchTransactionsFromDateToDate,
 } from "../../reducers/allTransactionsPageSlice";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -16,6 +16,8 @@ import axios from "axios";
 import AddTransactionModal from "./AddTransactionModal";
 import TransactionList from "./TransactionList";
 import Paginator from "./Paginator";
+import FilterBar from "./FilterBar";
+import { Box } from "victory";
 
 const AllTransactions = () => {
   const dispatch = useDispatch();
@@ -28,6 +30,8 @@ const AllTransactions = () => {
       label: subCategory.sub_category_name,
     };
   });
+  const sixMonthsAgo = new Date();
+  sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
 
   const [selectedAccount, setSelectedAccount] = useState("all");
   const [selectedCategory, setSelectedCategory] = useState("none");
@@ -44,16 +48,57 @@ const AllTransactions = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [deletedTransaction, setDeletedTransaction] = useState({});
   const [postedTransaction, setPostedTransaction] = useState({});
+  const [selectedDates, setSelectedDates] = useState([
+    sixMonthsAgo,
+    new Date(),
+  ]);
   const [filteredTransactions, setFilteredTransactions] = useState(
     allTransactions || []
   );
   const transactionsPerPage = 10;
 
+  const formatDateObjects = (selectedDates) => {
+    const monthLookup = {
+      Jan: "01",
+      Feb: "02",
+      Mar: "03",
+      Apr: "04",
+      May: "05",
+      Jun: "06",
+      Jul: "07",
+      Aug: "08",
+      Sep: "09",
+      Oct: "10",
+      Nov: "11",
+      Dec: "12",
+    };
+    const formattedDates = selectedDates.map((date) => {
+      const tempDate = date.toString().split(" ");
+      let day;
+      if (tempDate[2].length < 2) {
+        day = "0" + tempDate[2];
+      } else {
+        day = tempDate[2];
+      }
+      let month = monthLookup[tempDate[1]];
+      return tempDate[3] + "-" + month + "-" + day;
+    });
+    return formattedDates;
+    // return { dates: { fromDate, toDate } };
+  };
+
   useEffect(() => {
-    dispatch(fetchAllTransactions());
     dispatch(fetchAllBankAccounts());
     dispatch(fetchAllSubCategories());
-  }, [dispatch, deletedTransaction, postedTransaction]);
+    const fromDate = formatDateObjects(selectedDates)[0];
+    const toDate = formatDateObjects(selectedDates)[1];
+    dispatch(
+      fetchTransactionsFromDateToDate({
+        fromDate: fromDate,
+        toDate: toDate,
+      })
+    );
+  }, [dispatch, deletedTransaction, postedTransaction, selectedDates]);
 
   useEffect(() => {
     setFilteredTransactions(
@@ -70,7 +115,13 @@ const AllTransactions = () => {
         }
       })
     );
-  }, [allTransactions, selectedAccount, selectedCategory, deletedTransaction]);
+  }, [
+    allTransactions,
+    selectedAccount,
+    selectedCategory,
+    deletedTransaction,
+    selectedDates,
+  ]);
   useEffect(() => {
     setTotalPageCount(
       Math.floor(filteredTransactions.length / transactionsPerPage) + 1
@@ -186,87 +237,58 @@ const AllTransactions = () => {
   };
 
   return subCategories.length > 0 ? (
-    <>
-      <div>
-        <div>Your accounts:</div>
-        <ul>
-          <li>
-            <Button
-              value={"all"}
-              onClick={(e) => {
-                handleAccountClick(e);
-              }}
-            >
-              {"All Accounts"}|{totalAccountBalance}
-            </Button>
-          </li>
-          {bankAccounts.map((account) => {
-            return (
-              <li key={account.account_id}>
-                <Button
-                  value={account.id}
-                  onClick={(e) => {
-                    handleAccountClick(e);
-                  }}
-                >
-                  {account.account_name}|{account.available_balance}
-                </Button>
-              </li>
-            );
-          })}
-        </ul>
-        <div>filters</div>
-        <label for="category">Category</label>
-        <select
-          id="category"
-          onChange={(e) => {
-            handleCategoryChange(e);
-          }}
+    <Flex direction={"column"}>
+      <Flex direction={"row"}>
+        <Flex
+          direction={"column"}
+          padding={"10px"}
+          w="20%"
+          alignItems={"flex-start"}
         >
-          {subCategories.map((category) => {
-            return (
-              <option value={category.id}>{category.sub_category_name}</option>
-            );
-          })}
-        </select>
-        <label>Date</label>
-      </div>
-
-      <div>Transactions:</div>
-      <AddTransactionModal
-        newTransactionAmount={newTransactionAmount}
-        newTransactionDate={newTransactionDate}
-        newTransactionMerchant={newTransactionMerchant}
-        newTransactionSubCategory={newTransactionSubCategory}
-        bankAccounts={bankAccounts}
-        subCategories={subCategories}
-        subCategoriesAsStrings={subCategoriesAsStrings}
-        handleNewTransactionSubmit={handleNewTransactionSubmit}
-        handleNewMerchantChange={handleNewMerchantChange}
-        handleNewAccountChange={handleNewAccountChange}
-        handleNewCategoryChange={handleNewCategoryChange}
-        handleNewCreditDebitChange={handleNewCreditDebitChange}
-        handleNewDateChange={handleNewDateChange}
-        handleClear={handleClear}
-        setNewTransactionAmount={setNewTransactionAmount}
-      />
-
-      {/* TRANSACTIONS COMPONENT HERE */}
-      <TransactionList
-        allTransactions={filteredTransactions}
-        selectedAccount={selectedAccount}
-        selectedCategory={selectedCategory}
-        subCategories={subCategories}
-        handleDelete={handleDelete}
-        totalPageCount={totalPageCount}
-        transactionsPerPage={transactionsPerPage}
-        currentPage={currentPage}
-      />
+          <FilterBar
+            handleAccountClick={handleAccountClick}
+            totalAccountBalance={totalAccountBalance}
+            bankAccounts={bankAccounts}
+            subCategories={subCategories}
+            handleCategoryChange={handleCategoryChange}
+            setSelectedDates={setSelectedDates}
+            selectedDates={selectedDates}
+          />
+        </Flex>
+        {/* ADD A GRAPH HERE  */}
+        <Box bg="gray.100">TTest</Box>
+        {/* TRANSACTIONS COMPONENT HERE */}
+        <TransactionList
+          allTransactions={filteredTransactions}
+          selectedAccount={selectedAccount}
+          selectedCategory={selectedCategory}
+          subCategories={subCategories}
+          handleDelete={handleDelete}
+          totalPageCount={totalPageCount}
+          transactionsPerPage={transactionsPerPage}
+          currentPage={currentPage}
+          // props for New transaction modal element
+          newTransactionAmount={newTransactionAmount}
+          newTransactionDate={newTransactionDate}
+          newTransactionMerchant={newTransactionMerchant}
+          newTransactionSubCategory={newTransactionSubCategory}
+          bankAccounts={bankAccounts}
+          subCategoriesAsStrings={subCategoriesAsStrings}
+          handleNewTransactionSubmit={handleNewTransactionSubmit}
+          handleNewMerchantChange={handleNewMerchantChange}
+          handleNewAccountChange={handleNewAccountChange}
+          handleNewCategoryChange={handleNewCategoryChange}
+          handleNewCreditDebitChange={handleNewCreditDebitChange}
+          handleNewDateChange={handleNewDateChange}
+          handleClear={handleClear}
+          setNewTransactionAmount={setNewTransactionAmount}
+        />
+      </Flex>
       <Paginator
         handlePageChange={handlePageChange}
         totalPageCount={totalPageCount}
       />
-    </>
+    </Flex>
   ) : (
     <>LOADING</>
   );

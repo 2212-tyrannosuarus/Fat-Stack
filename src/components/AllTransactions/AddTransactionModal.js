@@ -47,7 +47,16 @@ const AddTransactionModal = (props) => {
   } = props;
   return (
     <>
-      <Button onClick={onOpen}>New Transaction</Button>
+      <Button
+        flex="1"
+        w="100%"
+        bg={"purple.100"}
+        alignSelf={"flex-end"}
+        justifySelf={"flex-end"}
+        onClick={onOpen}
+      >
+        New Transaction
+      </Button>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
