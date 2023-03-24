@@ -10,8 +10,14 @@ import {
   ModalCloseButton,
   useDisclosure,
   Select,
+  Card,
+  CardBody,
+  Text,
 } from "@chakra-ui/react";
 import { Button, Stack } from "@chakra-ui/react";
+import BarChartForModal from "../BarChartForModal";
+import { BsCheckCircleFill } from "react-icons/bs";
+import { IconContext } from "react-icons";
 
 function AddBudgetModal(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -22,6 +28,10 @@ function AddBudgetModal(props) {
     setAddBudgetAmount,
     categoriesForAddBudget,
     setSubCategoryName,
+    handleOvertimeSubcategory,
+    chartData,
+    average,
+    setAverage,
   } = props;
 
   let categoriesForAddBudgetArr = [];
@@ -77,7 +87,7 @@ function AddBudgetModal(props) {
             + Add Budget
           </button>
 
-          <Modal onClose={onClose} isOpen={isOpen} isCentered size="xl">
+          <Modal onClose={onClose} isOpen={isOpen} isCentered id="mymodal">
             <ModalOverlay />
             <ModalContent>
               <ModalHeader>Add a budget</ModalHeader>
@@ -90,58 +100,108 @@ function AddBudgetModal(props) {
                 className="column"
               >
                 <ModalBody>
-                <h4 className="mb-2 mt-2">Choose a sub category </h4>
-                  <Select
-                    name="sub-categories"
-                    id="subCategory"
-                    onChange={(evt) => setSubCategoryName(evt.target.value)}
-                  >
-                    {categoriesArr && categoriesArr.length
-                      ? categoriesArr.map((category, index1) => {
-                          if (index1 !== categoriesArr.length - 1) {
-                            return (
-                              <optgroup label={category}>
-                                {categoriesArr[categoriesArr.length - 1].map(
-                                  (subCategoryArr, index2) => {
-                                    return (
-                                      <>
-                                        {index1 === index2
-                                          ? subCategoryArr.map(
-                                              (subCategory) => {
-                                                return (
-                                                  <option value={subCategory}>
-                                                    {subCategory}
-                                                  </option>
-                                                );
-                                              }
-                                            )
-                                          : null}
-                                      </>
-                                    );
-                                  }
-                                )}
-                              </optgroup>
-                            );
-                          }
-                        })
-                      : "Loading sub categories"}
-                  </Select>
+                  <div className="row">
+                    <div className="col-6">
+                      <h4 className="mb-3 mt-4">Choose a sub category </h4>
+                      <Select
+                        name="sub-categories"
+                        id="subCategory"
+                        onChange={(evt) => {
+                          setSubCategoryName(evt.target.value);
+                          handleOvertimeSubcategory(evt.target.value);
+                        }}
+                      >
+                        {categoriesArr && categoriesArr.length
+                          ? categoriesArr.map((category, index1) => {
+                              if (index1 !== categoriesArr.length - 1) {
+                                return (
+                                  <optgroup label={category}>
+                                    {categoriesArr[
+                                      categoriesArr.length - 1
+                                    ].map((subCategoryArr, index2) => {
+                                      return (
+                                        <>
+                                          {index1 === index2
+                                            ? subCategoryArr.map(
+                                                (subCategory) => {
+                                                  return (
+                                                    <option value={subCategory}>
+                                                      {subCategory}
+                                                    </option>
+                                                  );
+                                                }
+                                              )
+                                            : null}
+                                        </>
+                                      );
+                                    })}
+                                  </optgroup>
+                                );
+                              }
+                            })
+                          : "Loading sub categories"}
+                      </Select>
 
-                  <h4 className="mb-2 mt-2">What is the budget amount ? </h4>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="defaultFormControlInput"
-                    placeholder="0"
-                    value={addBudgetAmount}
-                    onChange={(evt) => setAddBudgetAmount(evt.target.value)}
-                  />
+                      {/* <Button
+                        colorScheme="purple"
+                        variant="link"
+                        onClick={() =>
+                          handleOvertimeSubcategory(subCategoryName)
+                        }
+                        className="col-12 display-chart mt-3"
+                      >
+                        {" "}
+                        View Trends
+                      </Button> */}
 
-                  <Stack
-                    direction="row"
-                    spacing={0}
-                    className="edit-budget col-2 mt-2"
-                  ></Stack>
+                      <h4 className="mb-2 mt-4">
+                        What is the budget amount ?{" "}
+                      </h4>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="defaultFormControlInput"
+                        placeholder="0"
+                        value={addBudgetAmount}
+                        onChange={(evt) => setAddBudgetAmount(evt.target.value)}
+                      />
+
+                      {addBudgetAmount && subCategoryName ? (
+                        <Card variant="filled" className="mt-4">
+                          <CardBody className="row">
+                            <div className="col-1">
+                            <IconContext.Provider
+                              value={{ color: "#72dc3a", size: "25px" }}
+                            >
+                              <BsCheckCircleFill />
+                            </IconContext.Provider>
+                            </div>
+                            <div className="col-11">
+                            <Text>
+                              {`We'll set a budget of $${addBudgetAmount} each month for`}{" "}
+                              <strong>{subCategoryName}</strong>{" "}
+                              {` that starts over at the 
+                            beginning of every month.`}
+                            </Text>
+                            </div>
+                          </CardBody>
+                        </Card>
+                      ) : null}
+
+                      <Stack
+                        direction="row"
+                        spacing={0}
+                        className="edit-budget col-2 mt-2"
+                      ></Stack>
+                    </div>
+                    <div className="col-6">
+                      <BarChartForModal
+                        chartData={chartData}
+                        average={average}
+                        setAverage={setAverage}
+                      />
+                    </div>
+                  </div>
                 </ModalBody>
                 <ModalFooter>
                   <Stack direction="row" spacing={4}>
