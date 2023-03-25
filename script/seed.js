@@ -6,7 +6,7 @@ const subcategoryArr = require("./subcategoryList");
 const bulkTransactions = require("./transactionGenerator");
 const categoriesArr = require("./categoryList");
 const dataSetTwoFunc = require("./transactionCsvFormatter");
-console.log("datasettwo", dataSetTwoFunc);
+
 const assignCategoryToSubCategory = require("./assignCategoryToSubCategory");
 
 const subcategoryArrObj = subcategoryArr.map((subCategory) => {
@@ -64,6 +64,50 @@ async function seed() {
   const bulkSeedSubCategories = await Sub_Category.bulkCreate(
     subcategoryArrObj
   );
+
+  //Creating 3 goals
+  const dateArrGoals = [
+    "2020-01-21",
+    "2020-02-21",
+    "2020-03-21",
+    "2020-04-21",
+    "2020-05-21",
+    "2020-06-21",
+    "2020-07-21",
+    "2020-08-21",
+    "2020-09-21",
+    "2020-10-21",
+    "2020-11-21",
+    "2020-12-21",
+    "2021-01-21",
+    "2021-02-21",
+    "2021-03-21",
+    "2021-04-21",
+    "2021-05-21",
+    "2021-06-21",
+    "2021-07-21",
+    "2021-08-21",
+    "2021-09-21",
+    "2021-10-21",
+    "2021-11-21",
+    "2021-12-21",
+    "2022-01-21",
+    "2022-02-21",
+    "2022-03-21",
+    "2022-04-21",
+    "2022-05-21",
+    "2022-06-21",
+    "2022-07-21",
+    "2022-08-21",
+    "2022-09-21",
+    "2022-10-21",
+    "2022-11-21",
+    "2022-12-21",
+    "2023-01-21",
+    "2023-02-21",
+    "2023-03-21",
+    "2023-04-21",
+  ];
 
   // creating three bank a/cs for csv transaction data
   const bankAccountOne = await Bank_Account.create({
@@ -126,6 +170,37 @@ async function seed() {
     await Category.create({ category_name: category });
   });
 
+  const tripGoal = await Goal.create({
+    name: "Hawaii",
+    goalamount: 5000,
+    contributedamount: 5000,
+    start_date: "2022-04-21",
+    goal_date: "2023-08-21",
+    completion_status: true,
+    userId: 1,
+    goalCategoryId: 7,
+  });
+  const studentloan = await Goal.create({
+    name: "Student Loans",
+    goalamount: 200000,
+    contributedamount: 57000,
+    start_date: "2020-01-21",
+    goal_date: "2030-02-21",
+    completion_status: false,
+    userId: 1,
+    goalCategoryId: 1,
+  });
+  const house = await Goal.create({
+    name: "Home Ownership",
+    goalamount: 789999,
+    contributedamount: 122250,
+    start_date: "2021-01-01",
+    goal_date: "2035-01-01",
+    completion_status: false,
+    userId: 1,
+    goalCategoryId: 4,
+  });
+
   // assign category to sub category
   assignCategoryToSubCategory();
 
@@ -135,7 +210,7 @@ async function seed() {
   let transactionsArr = [];
   csvDataArr.forEach(async (transaction) => {
     let bankAccount = "";
-    // console.log("transaction ", transaction);
+
     let accountId = "";
     if (transaction.accountName.includes("Checking")) {
       accountId = "GD5JC6GNBB2SBRZ9W8Z1JB95IGWBSWT13EST0";
@@ -182,7 +257,6 @@ async function seed() {
     transactionsArr.push(newTransaction);
   });
 
-  console.log(dataSetTwo);
   dataSetTwo.forEach(async (transaction) => {
     let bankAccount = "";
     // console.log("transaction ", transaction);
@@ -208,7 +282,6 @@ async function seed() {
       credit_debit: transaction.tranactionType,
     };
 
-    console.log(transactionToCreate);
     let newTransaction = await Transaction.create(transactionToCreate);
     let currentSubCategory = await Sub_Category.findOne({
       where: { sub_category_name: transaction.subCategory },
@@ -227,6 +300,364 @@ async function seed() {
       newTransaction.setBankaccount(bankAccount);
     }
     transactionsArr.push(newTransaction);
+  });
+
+  let tripTrans = await Transaction.create({
+    account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
+    merchant: "Hawaii",
+    date: "2022-04-21",
+    amount: 1500,
+    hide_from_budget: false,
+    credit_debit: "debit",
+    userId: 1,
+    bankaccountId: 3,
+    subcategoryId: 111,
+  });
+
+  let tripTrans1 = await Transaction.create({
+    account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
+    merchant: "Hawaii",
+    date: "2022-06-21",
+    amount: 1700,
+    hide_from_budget: false,
+    credit_debit: "debit",
+    userId: 1,
+    bankaccountId: 3,
+    subcategoryId: 111,
+  });
+
+  let tripTrans2 = await Transaction.create({
+    account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
+    merchant: "Hawaii",
+    date: "2022-08-21",
+    amount: 1300,
+    hide_from_budget: false,
+    credit_debit: "debit",
+    userId: 1,
+    bankaccountId: 3,
+    subcategoryId: 111,
+  });
+
+  let tripTrans3 = await Transaction.create({
+    account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
+    merchant: "Hawaii",
+    date: "2023-01-21",
+    amount: 500,
+    hide_from_budget: false,
+    credit_debit: "debit",
+    userId: 1,
+    bankaccountId: 3,
+    subcategoryId: 111,
+  });
+
+  let house1 = await Transaction.create({
+    account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
+    merchant: "Home Ownership",
+    date: "2021-01-21",
+    amount: 4890,
+    hide_from_budget: false,
+    credit_debit: "debit",
+    userId: 1,
+    bankaccountId: 3,
+    subcategoryId: 111,
+  });
+
+  let house2 = await Transaction.create({
+    account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
+    merchant: "Home Ownership",
+    date: "2021-02-21",
+    amount: 4890,
+    hide_from_budget: false,
+    credit_debit: "debit",
+    userId: 1,
+    bankaccountId: 3,
+    subcategoryId: 111,
+  });
+
+  let house3 = await Transaction.create({
+    account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
+    merchant: "Home Ownership",
+    date: "2021-03-21",
+    amount: 4890,
+    hide_from_budget: false,
+    credit_debit: "debit",
+    userId: 1,
+    bankaccountId: 3,
+    subcategoryId: 111,
+  });
+
+  let house4 = await Transaction.create({
+    account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
+    merchant: "Home Ownership",
+    date: "2021-04-21",
+    amount: 4890,
+    hide_from_budget: false,
+    credit_debit: "debit",
+    userId: 1,
+    bankaccountId: 3,
+    subcategoryId: 111,
+  });
+
+  let house5 = await Transaction.create({
+    account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
+    merchant: "Home Ownership",
+    date: "2021-05-21",
+    amount: 4890,
+    hide_from_budget: false,
+    credit_debit: "debit",
+    userId: 1,
+    bankaccountId: 3,
+    subcategoryId: 111,
+  });
+
+  let house6 = await Transaction.create({
+    account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
+    merchant: "Home Ownership",
+    date: "2021-06-21",
+    amount: 4890,
+    hide_from_budget: false,
+    credit_debit: "debit",
+    userId: 1,
+    bankaccountId: 3,
+    subcategoryId: 111,
+  });
+
+  let house7 = await Transaction.create({
+    account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
+    merchant: "Home Ownership",
+    date: "2021-07-21",
+    amount: 4890,
+    hide_from_budget: false,
+    credit_debit: "debit",
+    userId: 1,
+    bankaccountId: 3,
+    subcategoryId: 111,
+  });
+
+  let house8 = await Transaction.create({
+    account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
+    merchant: "Home Ownership",
+    date: "2021-08-21",
+    amount: 4890,
+    hide_from_budget: false,
+    credit_debit: "debit",
+    userId: 1,
+    bankaccountId: 3,
+    subcategoryId: 111,
+  });
+
+  let house9 = await Transaction.create({
+    account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
+    merchant: "Home Ownership",
+    date: "2021-09-21",
+    amount: 4890,
+    hide_from_budget: false,
+    credit_debit: "debit",
+    userId: 1,
+    bankaccountId: 3,
+    subcategoryId: 111,
+  });
+
+  let house10 = await Transaction.create({
+    account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
+    merchant: "Home Ownership",
+    date: "2021-10-21",
+    amount: 4890,
+    hide_from_budget: false,
+    credit_debit: "debit",
+    userId: 1,
+    bankaccountId: 3,
+    subcategoryId: 111,
+  });
+
+  let house11 = await Transaction.create({
+    account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
+    merchant: "Home Ownership",
+    date: "2021-11-21",
+    amount: 4890,
+    hide_from_budget: false,
+    credit_debit: "debit",
+    userId: 1,
+    bankaccountId: 3,
+    subcategoryId: 111,
+  });
+
+  let house12 = await Transaction.create({
+    account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
+    merchant: "Home Ownership",
+    date: "2021-12-21",
+    amount: 4890,
+    hide_from_budget: false,
+    credit_debit: "debit",
+    userId: 1,
+    bankaccountId: 3,
+    subcategoryId: 111,
+  });
+
+  let house13 = await Transaction.create({
+    account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
+    merchant: "Home Ownership",
+    date: "2022-01-21",
+    amount: 4890,
+    hide_from_budget: false,
+    credit_debit: "debit",
+    userId: 1,
+    bankaccountId: 3,
+    subcategoryId: 111,
+  });
+  let house14 = await Transaction.create({
+    account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
+    merchant: "Home Ownership",
+    date: "2022-02-21",
+    amount: 4890,
+    hide_from_budget: false,
+    credit_debit: "debit",
+    userId: 1,
+    bankaccountId: 3,
+    subcategoryId: 111,
+  });
+  let house15 = await Transaction.create({
+    account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
+    merchant: "Home Ownership",
+    date: "2022-03-21",
+    amount: 4890,
+    hide_from_budget: false,
+    credit_debit: "debit",
+    userId: 1,
+    bankaccountId: 3,
+    subcategoryId: 111,
+  });
+  let house16 = await Transaction.create({
+    account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
+    merchant: "Home Ownership",
+    date: "2022-04-21",
+    amount: 4890,
+    hide_from_budget: false,
+    credit_debit: "debit",
+    userId: 1,
+    bankaccountId: 3,
+    subcategoryId: 111,
+  });
+  let house17 = await Transaction.create({
+    account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
+    merchant: "Home Ownership",
+    date: "2022-05-21",
+    amount: 4890,
+    hide_from_budget: false,
+    credit_debit: "debit",
+    userId: 1,
+    bankaccountId: 3,
+    subcategoryId: 111,
+  });
+  let house18 = await Transaction.create({
+    account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
+    merchant: "Home Ownership",
+    date: "2022-06-21",
+    amount: 4890,
+    hide_from_budget: false,
+    credit_debit: "debit",
+    userId: 1,
+    bankaccountId: 3,
+    subcategoryId: 111,
+  });
+
+  let house19 = await Transaction.create({
+    account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
+    merchant: "Home Ownership",
+    date: "2022-07-21",
+    amount: 4890,
+    hide_from_budget: false,
+    credit_debit: "debit",
+    userId: 1,
+    bankaccountId: 3,
+    subcategoryId: 111,
+  });
+
+  let house20 = await Transaction.create({
+    account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
+    merchant: "Home Ownership",
+    date: "2022-08-21",
+    amount: 4890,
+    hide_from_budget: false,
+    credit_debit: "debit",
+    userId: 1,
+    bankaccountId: 3,
+    subcategoryId: 111,
+  });
+
+  let house21 = await Transaction.create({
+    account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
+    merchant: "Home Ownership",
+    date: "2022-09-21",
+    amount: 4890,
+    hide_from_budget: false,
+    credit_debit: "debit",
+    userId: 1,
+    bankaccountId: 3,
+    subcategoryId: 111,
+  });
+
+  let house22 = await Transaction.create({
+    account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
+    merchant: "Home Ownership",
+    date: "2022-10-21",
+    amount: 4890,
+    hide_from_budget: false,
+    credit_debit: "debit",
+    userId: 1,
+    bankaccountId: 3,
+    subcategoryId: 111,
+  });
+
+  let house23 = await Transaction.create({
+    account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
+    merchant: "Home Ownership",
+    date: "2022-11-21",
+    amount: 4890,
+    hide_from_budget: false,
+    credit_debit: "debit",
+    userId: 1,
+    bankaccountId: 3,
+    subcategoryId: 111,
+  });
+
+  let house24 = await Transaction.create({
+    account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
+    merchant: "Home Ownership",
+    date: "2022-12-21",
+    amount: 4890,
+    hide_from_budget: false,
+    credit_debit: "debit",
+    userId: 1,
+    bankaccountId: 3,
+    subcategoryId: 111,
+  });
+
+  let house25 = await Transaction.create({
+    account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
+    merchant: "Home Ownership",
+    date: "2023-01-21",
+    amount: 4890,
+    hide_from_budget: false,
+    credit_debit: "debit",
+    userId: 1,
+    bankaccountId: 3,
+    subcategoryId: 111,
+  });
+
+  dateArrGoals.forEach(async (date) => {
+    await Transaction.create({
+      account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
+      merchant: "Student Loans",
+      date: date,
+      amount: 1500,
+      hide_from_budget: false,
+      credit_debit: "debit",
+      userId: 1,
+      bankaccountId: 3,
+      subcategoryId: 111,
+    });
+    console.log(date);
   });
 
   //creating budget schemes
@@ -275,7 +706,6 @@ async function seed() {
   });
   budgetItem3.setSubcategory(paycheck);
 
-  console.log(`seeded successfully`);
   return;
 }
 
@@ -285,7 +715,6 @@ async function seed() {
  The `seed` function is concerned only with modifying the database.
 */
 async function runSeed() {
-  console.log("seeding...");
   try {
     await seed();
   } catch (err) {
