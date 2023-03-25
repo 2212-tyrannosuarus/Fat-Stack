@@ -169,6 +169,7 @@ const Trends = () => {
   }
 
   async function handleDateChangePieCategory(selectedDates) {
+    if (selectedDates[0].toString() === selectedDates[1].toString()) alert('Please select date range > 1 day');
     let startingDate = "";
     let endingDate = "";
 
