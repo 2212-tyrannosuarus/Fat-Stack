@@ -10,6 +10,7 @@ import {
   fetchAllTransactions,
 } from "../../reducers/singleTransactionPageSlice";
 import UpdateTransaction from "./UpdateTransaction";
+import LineCarts from "./Table/LineCarts";
 
 import {
   Stat,
@@ -192,6 +193,7 @@ const SingleTransction = () => {
                     </Stat>
                   </Flex>
                 </Flex>
+                {/* <LineCarts /> */}
               </Stat>
               <StatGroup>
                 {/* <Stat>
