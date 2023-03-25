@@ -311,10 +311,11 @@ const ChartForOVerview = (props) => {
   return (
     <>
       {overviewChartData && overviewChartData.flat().slice(0, -1).length ? (
-        <VictoryChart width={800} height={400}>
+        <VictoryChart width={800} height={500}>
           <VictoryLegend
             x={125}
             y={10}
+            style={{ border: { stroke: "black" }, title: {fontSize: 20 } }}
             title={
               thisMonthArr[thisMonthArr.length - 1].y -
                 lastMonthArr[lastMonthArr.length - 1].y >
@@ -331,7 +332,7 @@ const ChartForOVerview = (props) => {
             orientation="horizontal"
             gutter={20}
             //   style={{ border: { stroke: "black" } }}
-            colorScale={["#b5b6ff", "#a8b3bd"]}
+            colorScale={["#b5b6ff", "#f8a7dc"]}
             data={[{ name: "Now" }, { name: "Last Month" }]}
           />
           <VictoryGroup
@@ -349,19 +350,21 @@ const ChartForOVerview = (props) => {
             <VictoryLine
               interpolation="natural"
               style={{
-                data: { stroke: "#a8b3bd" },
-                parent: { border: "1px solid #a8b3bd" },
+                data: { stroke: "#f8a7dc" },
+                parent: { border: "1px solid #f8a7dc" },
               }}
               data={lastMonthArr}
             />
           </VictoryGroup>
-          <VictoryAxis label="Day of month" />
+          <VictoryAxis label="Day of month" 
+          style={{ tickLabels: { fontSize: 18, padding: 5 }, axisLabel: {fontSize: 20, padding: 25} }}/>
 
           <VictoryAxis
             dependentAxis
             // tickFormat specifies how ticks should be displayed
             tickFormat={(x) => `$${x}`}
-            style={{ tickLabels: { fontSize: 15, padding: 5 } }}
+            style={{ tickLabels: { fontSize: 18, padding: 5 } }}
+            height={600}
           />
         </VictoryChart>
       ) : (
