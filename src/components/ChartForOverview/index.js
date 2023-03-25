@@ -6,19 +6,13 @@ import {
   selectOverviewChartData,
 } from "../../reducers/trendsPageSLice";
 import {
-  VictoryBar,
   VictoryChart,
   VictoryArea,
-  VictoryVoronoiContainer,
+  VictoryGroup,
   VictoryStack,
   VictoryLine,
-  VictoryGroup,
   VictoryLegend,
-  VictoryContainer,
   VictoryAxis,
-  VictoryPortal,
-  VictoryScatter,
-  Area,
 } from "victory";
 
 const MONTHS = [
@@ -37,11 +31,9 @@ const MONTHS = [
 ];
 
 const ChartForOVerview = (props) => {
-
-//   const { userId } = useParams();
-const {userId} = props;
+  //   const { userId } = useParams();
+  const { userId } = props;
   const dispatch = useDispatch();
-  const [activeX, setActiveX] = useState(null);
 
   const overviewChartData = useSelector(selectOverviewChartData);
   console.log("overview chart data ", overviewChartData.flat().slice(0, -1));
@@ -60,11 +52,10 @@ const {userId} = props;
     chartdataLastMonth = [];
     chartdataThisMonth = [];
 
+    // creating two arrays with data from last month and data from this month and aggregating each successive y value
     let newMonthStarted = false;
     for (let i = 0; i < chartDataArr.length; i++) {
-      console.log("month ", chartDataArr[i].yearmonthday.split("-")[1]);
       if (chartDataArr[i].yearmonthday.split("-")[1] === lastMonth) {
-        console.log("chartdataLastMonth ", chartdataLastMonth, " ", i);
         if (i === 0) {
           let date = new Date();
           date.setDate(parseInt(chartDataArr[i].yearmonthday.split("-")[2]));
@@ -83,9 +74,7 @@ const {userId} = props;
           });
         }
       } else if (chartDataArr[i].yearmonthday.split("-")[1] === thisMonth) {
-        console.log("chartdataThisMonth ", chartdataThisMonth, " ", i);
         if (newMonthStarted === false) {
-          console.log("inside if");
           let date = new Date();
           date.setDate(parseInt(chartDataArr[i].yearmonthday.split("-")[2]));
           chartdataThisMonth.push({
@@ -116,23 +105,28 @@ const {userId} = props;
     let pointerThisMonth = 0;
     let lastElementIndex = 0;
 
-    // calculations for lastMonthArr
+    // calculations for lastMonthArr - adding interpolation points that exist in this month arr but not in last month arr
     for (let i = 0; i < chartdataLastMonth.length; i++) {
       let alreadyexists = false;
       if (chartdataLastMonth[i].x === chartdataThisMonth[pointerThisMonth].x) {
+        console.log(' i ', i, ' pointerThisMonth ', pointerThisMonth, ' chartdataLastMonth[i].x ', chartdataLastMonth[i].x, ' chartdataThisMonth[pointerThisMonth].x ', chartdataThisMonth[pointerThisMonth].x)
         lastMonthArr.push({
           x: chartdataLastMonth[i].x,
           y: chartdataLastMonth[i].y,
         });
         pointerThisMonth++;
+        console.log(' lastMonthArr ', lastMonthArr);
       } else if (
         chartdataLastMonth[i].x < chartdataThisMonth[pointerThisMonth].x
       ) {
+        console.log(' i ', i, ' pointerThisMonth ', pointerThisMonth, ' chartdataLastMonth[i].x ', chartdataLastMonth[i].x, ' chartdataThisMonth[pointerThisMonth].x ', chartdataThisMonth[pointerThisMonth].x)
         lastMonthArr.push({
           x: chartdataLastMonth[i].x,
           y: chartdataLastMonth[i].y,
         });
+        console.log(' lastMonthArr ', lastMonthArr);
       } else {
+        console.log(' i ', i, ' pointerThisMonth ', pointerThisMonth, ' chartdataLastMonth[i].x ', chartdataLastMonth[i].x, ' chartdataThisMonth[pointerThisMonth].x ', chartdataThisMonth[pointerThisMonth].x)
         for (let j = 0; j < lastMonthArr.length; j++) {
           if (lastMonthArr[j].x === chartdataThisMonth[pointerThisMonth].x)
             alreadyexists = true;
@@ -153,6 +147,7 @@ const {userId} = props;
             y: chartdataLastMonth[i].y,
           });
         }
+        console.log(' lastMonthArr ', lastMonthArr);
       }
       if (pointerThisMonth === chartdataThisMonth.length - 1) {
         lastElementIndex = i;
@@ -160,30 +155,52 @@ const {userId} = props;
       }
     }
 
-    for (let i = lastElementIndex + 1; i < chartdataLastMonth.length; i++) {
-      lastMonthArr.push({
-        x: chartdataLastMonth[i].x,
-        y: chartdataLastMonth[i].y,
-      });
+    if (lastElementIndex > 0) {
+      for (let i = lastElementIndex + 1; i < chartdataLastMonth.length; i++) {
+        console.log('inside lastElementIndex > 0 , chartdataLastMonth[i].x ',  chartdataLastMonth[i].x, ' i ', i)
+        lastMonthArr.push({
+          x: chartdataLastMonth[i].x,
+          y: chartdataLastMonth[i].y,
+        });
+      }
     }
+
+    if (pointerThisMonth < chartdataThisMonth.length) {
+      console.log(' inside ')
+      
+      for (let i = pointerThisMonth + 1; i < chartdataThisMonth.length; i++) {
+        let alreadyexists = false;
+        console.log(' i ', i, ' chartdataThisMonth[i].x ', chartdataThisMonth[i].x)
+        for (let j = 0; j < lastMonthArr.length; j++) {
+          if (lastMonthArr[j].x === chartdataThisMonth[i].x)
+            alreadyexists = true;
+        }
+        console.log('alreadyexists ', alreadyexists)
+        if (!alreadyexists) {
+          let indexOfLastMonth = 0;
+          for (let j = 0; j < lastMonthArr.length; j++) {
+            if (lastMonthArr[j].x > chartdataThisMonth[i].x) {
+              indexOfLastMonth = j - 1;
+              console.log(' j - 1 ', indexOfLastMonth)
+              break;
+            }
+          }
+          lastMonthArr.push({
+            x: chartdataThisMonth[i].x,
+            y: lastMonthArr[indexOfLastMonth].y,
+          });
+      }
+    }
+  }
+
     console.log("lastMonthArr ", lastMonthArr);
-    
 
     let lastElement = 0;
-    // calculations for thisMonthArr
+    // calculations for thisMonthArr - adding interpolation points that exist in last month arr but not in this month arr
     for (let i = 0; i < chartdataThisMonth.length; i++) {
       let alreadyexists = false;
       if (chartdataThisMonth[i].x === chartdataLastMonth[pointerlastMonth].x) {
-        console.log(
-          "i ",
-          i,
-          " pointerLastMonth ",
-          pointerlastMonth,
-          " chartdataThisMonth[i].x ",
-          chartdataThisMonth[i].x,
-          " chartdataLastMonth[pointerlastMonth].x ",
-          chartdataLastMonth[pointerlastMonth].x
-        );
+        console.log(' i ', i, ' pointerlastMonth ', pointerlastMonth, ' chartdataThisMonth[i].x ', chartdataThisMonth[i].x, ' chartdataLastMonth[pointerlastMonth].x ', chartdataLastMonth[pointerlastMonth].x)
         thisMonthArr.push({
           x: chartdataThisMonth[i].x,
           y: chartdataThisMonth[i].y,
@@ -192,37 +209,17 @@ const {userId} = props;
       } else if (
         chartdataThisMonth[i].x < chartdataLastMonth[pointerlastMonth].x
       ) {
-        console.log(
-          "i ",
-          i,
-          " pointerLastMonth ",
-          pointerlastMonth,
-          " chartdataThisMonth[i].x ",
-          chartdataThisMonth[i].x,
-          " chartdataLastMonth[pointerlastMonth].x ",
-          chartdataLastMonth[pointerlastMonth].x
-        );
+        console.log(' i ', i, ' pointerlastMonth ', pointerlastMonth, ' chartdataThisMonth[i].x ', chartdataThisMonth[i].x, ' chartdataLastMonth[pointerlastMonth].x ', chartdataLastMonth[pointerlastMonth].x)
         thisMonthArr.push({
           x: chartdataThisMonth[i].x,
           y: chartdataThisMonth[i].y,
         });
       } else {
-        console.log(
-          "i ",
-          i,
-          " pointerLastMonth ",
-          pointerlastMonth,
-          " chartdataThisMonth[i].x ",
-          chartdataThisMonth[i].x,
-          " chartdataLastMonth[pointerlastMonth].x ",
-          chartdataLastMonth[pointerlastMonth].x
-        );
+        console.log(' i ', i, ' pointerlastMonth ', pointerlastMonth, ' chartdataThisMonth[i].x ', chartdataThisMonth[i].x, ' chartdataLastMonth[pointerlastMonth].x ', chartdataLastMonth[pointerlastMonth].x)
         for (let j = 0; j < thisMonthArr.length; j++) {
           if (thisMonthArr[j].x === chartdataLastMonth[pointerlastMonth].x)
             alreadyexists = true;
         }
-        console.log(" thisMonthArr ", thisMonthArr);
-        console.log(" alreadyexists ", alreadyexists);
         if (!alreadyexists) {
           thisMonthArr.push({
             x: chartdataLastMonth[pointerlastMonth].x,
@@ -240,37 +237,31 @@ const {userId} = props;
           });
         }
       }
-      // if (pointerlastMonth === (chartdataLastMonth.length - 1)) {
-      //     lastElementIndex = i;
-      //     break; }
       lastElement = thisMonthArr[thisMonthArr.length - 1].x;
     }
 
     console.log("thisMonthArr after 1st iteration", thisMonthArr);
-    console.log(
-      "thisMonthArr[thisMonthArr.length-1] ",
-      thisMonthArr[thisMonthArr.length - 1].x
-    );
+    console.log('pointerlastMonth ', pointerlastMonth);
+    console.log(' lastElement ', lastElement)
 
-    for (let i = pointerlastMonth + 1; i < lastElement; i++) {
+    for (let i = pointerlastMonth + 1; i < chartdataLastMonth.length; i++) {
       let alreadyexists = false;
-      console.log(
-        chartdataLastMonth[i].x,
-        " ",
-        thisMonthArr[thisMonthArr.length - 1].x
-      );
+      console.log('i ', i, ' chartdataLastMonth[i] ', chartdataLastMonth[i])
+
       if (chartdataLastMonth[i].x < lastElement) {
         for (let j = 0; j < thisMonthArr.length; j++) {
           if (thisMonthArr[j].x === chartdataLastMonth[i].x)
             alreadyexists = true;
         }
-        // console.log()
+        console.log(' alreadyexists ', alreadyexists);
 
         if (!alreadyexists) {
           let indexInThisMonth = 0;
           for (let j = 0; j < thisMonthArr.length; j++) {
-            if (chartdataLastMonth[i].x > thisMonthArr[j].x) {
+            if (chartdataLastMonth[i].x < thisMonthArr[j].x) {
               indexInThisMonth = j - 1;
+              console.log(' indexInThisMonth ', indexInThisMonth)
+              break;
             }
           }
           thisMonthArr.push({
@@ -281,7 +272,12 @@ const {userId} = props;
       }
     }
     console.log("thisMonthArr ", thisMonthArr);
-    lastMonthArr =  lastMonthArr.slice(0, thisMonthArr.length);
+    thisMonthArr.sort((a,b) => a.x - b.x);
+    lastMonthArr.sort((a,b) => a.x - b.x);
+    console.log("lastMonthArr before slice", lastMonthArr);
+    // slicing data set for laxt month to match this month arr length to be able to show data uptil the current date.
+    lastMonthArr = lastMonthArr.slice(0, thisMonthArr.length); 
+    console.log("lastMonthArr after slice", lastMonthArr);
   }
 
   useEffect(() => {
@@ -315,21 +311,30 @@ const {userId} = props;
   return (
     <>
       {overviewChartData && overviewChartData.flat().slice(0, -1).length ? (
-
         <VictoryChart width={800} height={400}>
-            
           <VictoryLegend
             x={125}
             y={10}
-            title={ (thisMonthArr[thisMonthArr.length - 1].y - lastMonthArr[lastMonthArr.length - 1].y) > 0 ? `$${(thisMonthArr[thisMonthArr.length - 1].y - lastMonthArr[lastMonthArr.length - 1].y)}  less than last month` :
-            `$${(lastMonthArr[lastMonthArr.length - 1].y - thisMonthArr[thisMonthArr.length - 1].y)} more than last month`}
+            title={
+              thisMonthArr[thisMonthArr.length - 1].y -
+                lastMonthArr[lastMonthArr.length - 1].y >
+              0
+                ? `$${
+                    thisMonthArr[thisMonthArr.length - 1].y -
+                    lastMonthArr[lastMonthArr.length - 1].y
+                  }  more than last month all spending`
+                : `$${
+                    lastMonthArr[lastMonthArr.length - 1].y -
+                    thisMonthArr[thisMonthArr.length - 1].y
+                  } less than last month all spending`
+            }
             orientation="horizontal"
             gutter={20}
             //   style={{ border: { stroke: "black" } }}
-            colorScale={["#b5b6ff", "#cdd4d9"]}
+            colorScale={["#b5b6ff", "#a8b3bd"]}
             data={[{ name: "Now" }, { name: "Last Month" }]}
           />
-          <VictoryStack
+          <VictoryGroup
             style={{
               data: { strokeWidth: 3, fillOpacity: 0.4 },
             }}
@@ -344,23 +349,20 @@ const {userId} = props;
             <VictoryLine
               interpolation="natural"
               style={{
-                data: { stroke: "#cdd4d9" },
-                parent: { border: "1px solid #cdd4d9" },
+                data: { stroke: "#a8b3bd" },
+                parent: { border: "1px solid #a8b3bd" },
               }}
               data={lastMonthArr}
             />
-          </VictoryStack>
-          <VictoryAxis
-  label="Day of month"
-/>
+          </VictoryGroup>
+          <VictoryAxis label="Day of month" />
 
-<VictoryAxis
-              dependentAxis
-              // tickFormat specifies how ticks should be displayed
-              tickFormat={(x) => `$${x}`}
-              style={{tickLabels: {fontSize: 15, padding: 5},
-             }}
-            />
+          <VictoryAxis
+            dependentAxis
+            // tickFormat specifies how ticks should be displayed
+            tickFormat={(x) => `$${x}`}
+            style={{ tickLabels: { fontSize: 15, padding: 5 } }}
+          />
         </VictoryChart>
       ) : (
         "Loading"

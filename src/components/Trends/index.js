@@ -21,6 +21,8 @@ import "../../scss/styles.scss";
 import * as bootstrap from "bootstrap";
 import TrendsToggleButtonGroup from "./TrendsToggleButtonGroup";
 import BarChartBySubcategory from "../BarChartBySubcategory";
+// import theme from '../Budget/theme.js'
+// import { ChakraProvider } from "@chakra-ui/react";
 
 const MONTHS = [
   "Jan",
@@ -260,6 +262,7 @@ const Trends = () => {
   }
 
   return (
+
     <div className="container trends-container">
       <div className="row">
         <TrendsToggleButtonGroup
@@ -308,6 +311,7 @@ const Trends = () => {
         </div>
       </div>
     </div>
+   
   );
 };
 

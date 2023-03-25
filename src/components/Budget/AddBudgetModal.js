@@ -19,6 +19,7 @@ import BarChartForModal from "../BarChartForModal";
 import { BsCheckCircleFill } from "react-icons/bs";
 import { IconContext } from "react-icons";
 
+
 function AddBudgetModal(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   let {
@@ -141,18 +142,6 @@ function AddBudgetModal(props) {
                             })
                           : "Loading sub categories"}
                       </Select>
-
-                      {/* <Button
-                        colorScheme="purple"
-                        variant="link"
-                        onClick={() =>
-                          handleOvertimeSubcategory(subCategoryName)
-                        }
-                        className="col-12 display-chart mt-3"
-                      >
-                        {" "}
-                        View Trends
-                      </Button> */}
 
                       <h4 className="mb-2 mt-4">
                         What is the budget amount ?{" "}
