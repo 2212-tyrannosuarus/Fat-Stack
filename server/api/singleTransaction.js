@@ -64,6 +64,17 @@ router.get("/category/:id", async (req, res, next) => {
   }
 });
 
+router.get("/users/:userId", async (req, res, next) => {
+  try {
+    const transactions = await Transaction.findAll({
+      where: { userId: req.params.userId },
+    });
+    res.json(transactions);
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.get("/:id", async (req, res, next) => {
   try {
     const transaction = await Transaction.findByPk(req.params.id, {
