@@ -95,7 +95,7 @@ const BarChartForModal = (props) => {
             // title={`Historically you've spent about $${average} on ${chartData.flat().slice(0, -1)[0].subcategoryName}`}
             colorScale={["#ff7960"]}
             data={[
-              { name: `Historically you've spent about $${average} on ${chartData.flat().slice(0, -1)[0].subcategoryName}` },
+              { name: `Historically you've spent about $${average.toFixed(2)} \n on ${chartData.flat().slice(0, -1)[0].subcategoryName}` },
             ]}
             style={{ labels: { fontSize: 30 }, symbol: "none"}}
           />
