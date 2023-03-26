@@ -155,7 +155,7 @@ const BarChartBySubcategory = (props) => {
 
         {categoriesArr && categoriesArr.length ? (
         <>
-           <h4 class="fw-bold mb-2 mt-2">Choose a sub-category</h4>
+           <h6 class="fw-bold mb-2 mt-2">Choose a sub-category</h6>
           <Select
             name="sub-categories"
             id="subCategory"

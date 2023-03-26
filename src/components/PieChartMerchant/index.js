@@ -99,7 +99,7 @@ const PieChartMerchant = (props) => {
       </div>
       <div className="col-4 mt-n2">
         <div className="" align="center">
-        <h4 class="fw-bold mb-2 mt-2">Pick a date range</h4>
+        <h6 class="fw-bold mb-2 mt-2">Pick a date range</h6>
           <RangeDatepicker
             selectedDates={selectedDates}
             onDateChange={setSelectedDates}
