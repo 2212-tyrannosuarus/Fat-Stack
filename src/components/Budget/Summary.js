@@ -35,7 +35,12 @@ const Summary = (props) => {
     let otherArr = other.flat();
 
     for (let i = 0; i < otherArr.length - 1; i++) {
-      totalExpenses += parseInt(otherArr[i].transactionAmount);
+      if (otherArr[i].subCategoryName === 'Goals') {
+        goals = otherArr[i].transactionAmount;
+      }
+      else {
+        totalExpenses += parseInt(otherArr[i].transactionAmount);
+      }
     }
   }
 
@@ -81,6 +86,21 @@ const Summary = (props) => {
                     </div>
                   </div>
                 </li>
+
+                {goals > 0 ? (
+                  <li class="d-flex mb-2 pb-1">
+                  <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                    <div class="me-2">
+                      {/* <small class="text-muted d-block mb-1">Paypal</small> */}
+                      <h6 class="mb-0">Goals</h6>
+                    </div>
+                    <div class="user-progress d-flex align-items-center gap-1">
+                      <h6 class="mb-0">- ${parseInt(goals)}</h6>{" "}
+                      {/* <span class="text-muted">USD</span> */}
+                    </div>
+                  </div>
+                </li>
+                ) : null}
                 <hr />
                 <li class="d-flex mb-2 pb-1 mt-2">
                   <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
@@ -91,14 +111,14 @@ const Summary = (props) => {
                     <div class="user-progress d-flex align-items-center gap-1">
                       <h6 class="mb-0">
                         {parseInt(income.flat()[0].transactionAmount) -
-                          parseInt(totalExpenses) >
+                          parseInt(totalExpenses) - parseInt(goals) >
                         0
                           ? `$${
                               parseInt(income.flat()[0].transactionAmount) -
-                              parseInt(totalExpenses)
+                              parseInt(totalExpenses) - parseInt(goals)
                             }`
                           : `-$${
-                              parseInt(totalExpenses) -
+                              (parseInt(totalExpenses) + parseInt(goals)) -
                               parseInt(income.flat()[0].transactionAmount)
                             }`}
                       </h6>{" "}
