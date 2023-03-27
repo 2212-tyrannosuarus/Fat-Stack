@@ -4,7 +4,7 @@
 2023-04-27,Brewing Company,40,debit,Alcohol & Bars,Platinum Card
 2023-04-27,Credit Card Payment,268.96,credit,Credit Card Payment,Silver Card
 2023-04-27,American Tavern,14.74,debit,Restaurants,Silver Card
-2023-04-26,Biweekly Paycheck,2000,credit,Paycheck,Checking
+2023-04-26,Biweekly Paycheck,2500,credit,Paycheck,Checking
 2023-04-25,Internet Service Provider,75,debit,Internet,Checking
 2023-04-23,Hardware Store,29.56,debit,Home Improvement,Silver Card
 2023-04-22,Brewing Company,14.4,debit,Alcohol & Bars,Silver Card
@@ -21,7 +21,7 @@
 2023-04-13,Vietnamese Restaurant,20.64,debit,Restaurants,Platinum Card
 2023-04-12,Best Buy,44.93,debit,Electronics & Software,Silver Card
 2023-04-12,Grocery Store,41.34,debit,Groceries,Platinum Card
-2023-04-12,Biweekly Paycheck,2000,credit,Paycheck,Checking
+2023-04-12,Biweekly Paycheck,2500,credit,Paycheck,Checking
 2023-04-10,Phone Company,65,debit,Mobile Phone,Checking
 2023-04-09,Credit Card Payment,436.75,debit,Credit Card Payment,Checking
 2023-04-09,Grocery Store,10.7,debit,Groceries,Platinum Card
@@ -35,7 +35,7 @@
 2023-04-02,Mortgage Payment,1100,debit,Mortgage & Rent,Checking
 2023-04-01,Credit Card Payment,1552.65,debit,Credit Card Payment,Checking
 2023-04-01,Credit Card Payment,600.51,credit,Credit Card Payment,Platinum Card
-2023-04-01,Biweekly Paycheck,2000,credit,Paycheck,Checking
+2023-04-01,Biweekly Paycheck,2500,credit,Paycheck,Checking
 2023-04-01,Amazon,13.09,debit,Shopping,Platinum Card
 2023-03-31,Credit Card Payment,957.6,credit,Credit Card Payment,Platinum Card
 2023-03-30,Starbucks,12.84,debit,Coffee Shops,Platinum Card
@@ -50,7 +50,7 @@
 2023-03-19,City Water Charges,35,debit,Utilities,Checking
 2023-03-18,Best Buy,320.99,debit,Electronics & Software,Platinum Card
 2023-03-18,Grocery Store,16.23,debit,Groceries,Platinum Card
-2023-03-15,Biweekly Paycheck,2000,credit,Paycheck,Checking
+2023-03-15,Biweekly Paycheck,2500,credit,Paycheck,Checking
 2023-03-15,Power Company,60,debit,Utilities,Checking
 2023-03-14,Credit Card Payment,305.27,debit,Credit Card Payment,Checking
 2023-03-14,Credit Card Payment,301.79,debit,Credit Card Payment,Checking
@@ -68,7 +68,7 @@
 2023-03-04,Grocery Store,92.04,debit,Groceries,Silver Card
 2023-03-04,Mortgage Payment,1100,debit,Mortgage & Rent,Checking
 2023-03-04,Netflix,11.76,debit,Television,Platinum Card
-2023-03-01,Biweekly Paycheck,2000,credit,Paycheck,Checking
+2023-03-01,Biweekly Paycheck,2500,credit,Paycheck,Checking
 2023-03-01,Amazon,13.09,debit,Shopping,Platinum Card
 2023-02-28,Grocery Store,32.07,debit,Groceries,Silver Card
 2023-02-27,Roadside Diner,25.77,debit,Restaurants,Silver Card
@@ -87,7 +87,7 @@
 2023-02-15,Credit Card Payment,207.47,credit,Credit Card Payment,Platinum Card
 2023-02-15,Credit Card Payment,207.47,debit,Credit Card Payment,Checking
 2023-02-15,Grocery Store,4.59,debit,Groceries,Platinum Card
-2023-02-15,Biweekly Paycheck,2000,credit,Paycheck,Checking
+2023-02-15,Biweekly Paycheck,2500,credit,Paycheck,Checking
 2023-02-15,Power Company,60,debit,Utilities,Checking
 2023-02-13,Grocery Store,8.21,debit,Groceries,Platinum Card
 2023-02-12,Grocery Store,30.54,debit,Groceries,Platinum Card
@@ -102,7 +102,7 @@
 2023-02-05,Mortgage Payment,1100,debit,Mortgage & Rent,Checking
 2023-02-04,Hardware Store,86.97,debit,Home Improvement,Silver Card
 2023-02-04,Netflix,11.76,debit,Television,Platinum Card
-2023-02-01,Biweekly Paycheck,2000,credit,Paycheck,Checking
+2023-02-01,Biweekly Paycheck,2500,credit,Paycheck,Checking
 2023-02-01,Roadside Diner,9.47,debit,Restaurants,Silver Card
 2023-02-01,Amazon,13.09,debit,Shopping,Platinum Card
 2023-01-31,Credit Card Payment,1900,debit,Credit Card Payment,Checking
@@ -114,7 +114,7 @@
 2023-01-22,Credit Card Payment,277.99,debit,Credit Card Payment,Checking
 2023-01-21,Credit Card Payment,277.99,credit,Credit Card Payment,Silver Card
 2023-01-18,State Farm,75,debit,Auto Insurance,Checking
-2023-01-18,Biweekly Paycheck,2000,credit,Paycheck,Checking
+2023-01-18,Biweekly Paycheck,2500,credit,Paycheck,Checking
 2023-01-16,City Water Charges,35,debit,Utilities,Checking
 2023-01-16,Power Company,60,debit,Utilities,Checking
 2023-01-15,Grocery Store,6.06,debit,Groceries,Silver Card
@@ -128,7 +128,7 @@
 2023-01-09,Spotify,10.69,debit,Music,Platinum Card
 2023-01-08,Gas Company,45,debit,Utilities,Checking
 2023-01-05,American Tavern,23.49,debit,Restaurants,Platinum Card
-2023-01-04,Biweekly Paycheck,2000,credit,Paycheck,Checking
+2023-01-04,Biweekly Paycheck,2500,credit,Paycheck,Checking
 2023-01-03,Mortgage Payment,1100,debit,Mortgage & Rent,Checking
 2023-01-03,Amazon,42.1,debit,Shopping,Platinum Card
 2023-01-02,Credit Card Payment,499.6,debit,Credit Card Payment,Checking
@@ -147,7 +147,7 @@
 2022-12-22,New York Deli,21.38,debit,Fast Food,Platinum Card
 2022-12-22,Hardware Store,22.14,debit,Home Improvement,Platinum Card
 2022-12-21,Credit Card Payment,464.03,debit,Credit Card Payment,Checking
-2022-12-21,Biweekly Paycheck,2000,credit,Paycheck,Checking
+2022-12-21,Biweekly Paycheck,2500,credit,Paycheck,Checking
 2022-12-20,Credit Card Payment,464.03,credit,Credit Card Payment,Silver Card
 2022-12-20,Shell,30.38,debit,Gas & Fuel,Silver Card
 2022-12-19,State Farm,75,debit,Auto Insurance,Checking
@@ -171,7 +171,7 @@
 2022-12-09,Spotify,10.69,debit,Music,Platinum Card
 2022-12-08,Grocery Store,12.64,debit,Groceries,Platinum Card
 2022-12-07,Barbershop,30,debit,Haircut,Platinum Card
-2022-12-07,Biweekly Paycheck,2000,credit,Paycheck,Checking
+2022-12-07,Biweekly Paycheck,2500,credit,Paycheck,Checking
 2022-12-06,Grocery Store,21.38,debit,Groceries,Platinum Card
 2022-12-06,Grocery Store,13.48,debit,Groceries,Platinum Card
 2022-12-06,Gas Company,40,debit,Utilities,Checking
@@ -192,7 +192,7 @@
 2022-11-27,American Tavern,28.4,debit,Restaurants,Silver Card
 2022-11-26,American Tavern,16.8,debit,Alcohol & Bars,Silver Card
 2022-11-26,Internet Service Provider,74.99,debit,Internet,Checking
-2022-11-23,Biweekly Paycheck,2000,credit,Paycheck,Checking
+2022-11-23,Biweekly Paycheck,2500,credit,Paycheck,Checking
 2022-11-21,Grocery Store,5.64,debit,Groceries,Silver Card
 2022-11-21,Hardware Store,37.41,debit,Home Improvement,Platinum Card
 2022-11-20,State Farm,75,debit,Auto Insurance,Checking
@@ -216,7 +216,7 @@
 2022-11-10,Chick-Fil-A,14.19,debit,Fast Food,Platinum Card
 2022-11-10,Food Truck,24.4,debit,Groceries,Platinum Card
 2022-11-09,Spotify,10.69,debit,Music,Platinum Card
-2022-11-09,Biweekly Paycheck,2000,credit,Paycheck,Checking
+2022-11-09,Biweekly Paycheck,2500,credit,Paycheck,Checking
 2022-11-08,Grocery Store,5.64,debit,Groceries,Platinum Card
 2022-11-06,Amazon,53.95,debit,Shopping,Platinum Card
 2022-11-06,Gas Company,30,debit,Utilities,Checking
@@ -233,7 +233,7 @@
 2022-10-28,Grocery Store,92.49,debit,Groceries,Platinum Card
 2022-10-28,Italian Restaurant,54,debit,Restaurants,Platinum Card
 2022-10-27,American Tavern,25.4,debit,Restaurants,Silver Card
-2022-10-26,Biweekly Paycheck,2000,credit,Paycheck,Checking
+2022-10-26,Biweekly Paycheck,2500,credit,Paycheck,Checking
 2022-10-25,Internet Service Provider,74.99,debit,Internet,Checking
 2022-10-25,Amazon,29.98,debit,Shopping,Platinum Card
 2022-10-23,Grocery Store,7.57,debit,Groceries,Platinum Card
@@ -247,7 +247,7 @@
 2022-10-18,Brunch Restaurant,8,debit,Restaurants,Platinum Card
 2022-10-17,City Water Charges,35,debit,Utilities,Checking
 2022-10-16,Power Company,60,debit,Utilities,Checking
-2022-10-12,Biweekly Paycheck,2000,credit,Paycheck,Checking
+2022-10-12,Biweekly Paycheck,2500,credit,Paycheck,Checking
 2022-10-11,Phone Company,89.4,debit,Mobile Phone,Checking
 2022-10-10,Grocery Store,53.68,debit,Groceries,Silver Card
 2022-10-09,Spotify,10.69,debit,Music,Platinum Card
@@ -392,7 +392,7 @@
 2022-06-28,BP,30.64,debit,Gas & Fuel,Silver Card
 2022-06-24,Brewing Company,15,debit,Alcohol & Bars,Silver Card
 2022-06-21,Credit Card Payment,100.68,debit,Credit Card Payment,Checking
-2022-06-21,Biweekly Paycheck,2000,credit,Paycheck,Checking
+2022-06-21,Biweekly Paycheck,2500,credit,Paycheck,Checking
 2022-06-20,Credit Card Payment,375.26,debit,Credit Card Payment,Checking
 2022-06-20,Mike's Construction Co.,9200,debit,Home Improvement,Checking
 2022-06-20,Credit Card Payment,100.68,credit,Credit Card Payment,Silver Card
@@ -408,7 +408,7 @@
 2022-06-12,Phone Company,65,debit,Mobile Phone,Checking
 2022-06-09,Spotify,10.69,debit,Music,Platinum Card
 2022-06-07,Credit Card Payment,458.56,debit,Credit Card Payment,Checking
-2022-06-07,Biweekly Paycheck,2000,credit,Paycheck,Checking
+2022-06-07,Biweekly Paycheck,2500,credit,Paycheck,Checking
 2022-06-07,Gas Company,30,debit,Utilities,Checking
 2022-06-06,Starbucks,3.75,debit,Coffee Shops,Platinum Card
 2022-06-06,Grocery Store,5.64,debit,Groceries,Platinum Card
@@ -428,7 +428,7 @@
 2022-05-25,Hardware Store,30.99,debit,Home Improvement,Platinum Card
 2022-05-24,Credit Card Payment,765.68,credit,Credit Card Payment,Silver Card
 2022-05-24,Hardware Store,27.96,debit,Home Improvement,Platinum Card
-2022-05-24,Biweekly Paycheck,2000,credit,Paycheck,Checking
+2022-05-24,Biweekly Paycheck,2500,credit,Paycheck,Checking
 2022-05-24,Brunch Restaurant,8,debit,Restaurants,Platinum Card
 2022-05-20,State Farm,75,debit,Auto Insurance,Checking
 2022-05-20,Credit Card Payment,415.47,debit,Credit Card Payment,Checking
@@ -443,7 +443,7 @@
 2022-05-13,Greek Restaurant,23.11,debit,Restaurants,Silver Card
 2022-05-10,Best Buy,21.39,debit,Electronics & Software,Silver Card
 2022-05-10,Phone Company,65,debit,Mobile Phone,Checking
-2022-05-10,Biweekly Paycheck,2000,credit,Paycheck,Checking
+2022-05-10,Biweekly Paycheck,2500,credit,Paycheck,Checking
 2022-05-09,Best Buy,331.69,debit,Electronics & Software,Platinum Card
 2022-05-09,Spotify,10.69,debit,Music,Platinum Card
 2022-05-09,Target,3.2,debit,Shopping,Platinum Card
@@ -460,7 +460,7 @@
 2022-04-27,Brewing Company,40,debit,Alcohol & Bars,Platinum Card
 2022-04-27,Credit Card Payment,268.96,credit,Credit Card Payment,Silver Card
 2022-04-27,American Tavern,14.74,debit,Restaurants,Silver Card
-2022-04-26,Biweekly Paycheck,2000,credit,Paycheck,Checking
+2022-04-26,Biweekly Paycheck,2500,credit,Paycheck,Checking
 2022-04-25,Internet Service Provider,75,debit,Internet,Checking
 2022-04-23,Hardware Store,29.56,debit,Home Improvement,Silver Card
 2022-04-22,Brewing Company,14.4,debit,Alcohol & Bars,Silver Card
@@ -477,7 +477,7 @@
 2022-04-13,Vietnamese Restaurant,20.64,debit,Restaurants,Platinum Card
 2022-04-12,Best Buy,44.93,debit,Electronics & Software,Silver Card
 2022-04-12,Grocery Store,41.34,debit,Groceries,Platinum Card
-2022-04-12,Biweekly Paycheck,2000,credit,Paycheck,Checking
+2022-04-12,Biweekly Paycheck,2500,credit,Paycheck,Checking
 2022-04-10,Phone Company,65,debit,Mobile Phone,Checking
 2022-04-09,Credit Card Payment,436.75,debit,Credit Card Payment,Checking
 2022-04-09,Grocery Store,10.7,debit,Groceries,Platinum Card
@@ -494,7 +494,7 @@
 2022-04-01,Amazon,13.09,debit,Shopping,Platinum Card
 2022-03-31,Credit Card Payment,957.6,credit,Credit Card Payment,Platinum Card
 2022-03-30,Starbucks,12.84,debit,Coffee Shops,Platinum Card
-2022-03-29,Biweekly Paycheck,2000,credit,Paycheck,Checking
+2022-03-29,Biweekly Paycheck,2500,credit,Paycheck,Checking
 2022-03-27,Brewing Company,49.63,debit,Alcohol & Bars,Platinum Card
 2022-03-27,Grocery Store,4.46,debit,Groceries,Platinum Card
 2022-03-26,Amazon,16.04,debit,Shopping,Platinum Card
@@ -506,7 +506,7 @@
 2022-03-19,City Water Charges,35,debit,Utilities,Checking
 2022-03-18,Best Buy,320.99,debit,Electronics & Software,Platinum Card
 2022-03-18,Grocery Store,16.23,debit,Groceries,Platinum Card
-2022-03-15,Biweekly Paycheck,2000,credit,Paycheck,Checking
+2022-03-15,Biweekly Paycheck,2500,credit,Paycheck,Checking
 2022-03-15,Power Company,60,debit,Utilities,Checking
 2022-03-14,Credit Card Payment,305.27,debit,Credit Card Payment,Checking
 2022-03-14,Credit Card Payment,301.79,debit,Credit Card Payment,Checking
@@ -524,7 +524,7 @@
 2022-03-04,Grocery Store,92.04,debit,Groceries,Silver Card
 2022-03-04,Mortgage Payment,1100,debit,Mortgage & Rent,Checking
 2022-03-04,Netflix,11.76,debit,Television,Platinum Card
-2022-03-01,Biweekly Paycheck,2000,credit,Paycheck,Checking
+2022-03-01,Biweekly Paycheck,2500,credit,Paycheck,Checking
 2022-03-01,Amazon,13.09,debit,Shopping,Platinum Card
 2022-02-28,Grocery Store,32.07,debit,Groceries,Silver Card
 2022-02-27,Roadside Diner,25.77,debit,Restaurants,Silver Card
@@ -543,7 +543,7 @@
 2022-02-15,Credit Card Payment,207.47,credit,Credit Card Payment,Platinum Card
 2022-02-15,Credit Card Payment,207.47,debit,Credit Card Payment,Checking
 2022-02-15,Grocery Store,4.59,debit,Groceries,Platinum Card
-2022-02-15,Biweekly Paycheck,2000,credit,Paycheck,Checking
+2022-02-15,Biweekly Paycheck,2500,credit,Paycheck,Checking
 2022-02-15,Power Company,60,debit,Utilities,Checking
 2022-02-13,Grocery Store,8.21,debit,Groceries,Platinum Card
 2022-02-12,Grocery Store,30.54,debit,Groceries,Platinum Card
@@ -558,7 +558,7 @@
 2022-02-05,Mortgage Payment,1100,debit,Mortgage & Rent,Checking
 2022-02-04,Hardware Store,86.97,debit,Home Improvement,Silver Card
 2022-02-04,Netflix,11.76,debit,Television,Platinum Card
-2022-02-01,Biweekly Paycheck,2000,credit,Paycheck,Checking
+2022-02-01,Biweekly Paycheck,2500,credit,Paycheck,Checking
 2022-02-01,Roadside Diner,9.47,debit,Restaurants,Silver Card
 2022-02-01,Amazon,13.09,debit,Shopping,Platinum Card
 2022-01-31,Credit Card Payment,1900,debit,Credit Card Payment,Checking
@@ -570,7 +570,7 @@
 2022-01-22,Credit Card Payment,277.99,debit,Credit Card Payment,Checking
 2022-01-21,Credit Card Payment,277.99,credit,Credit Card Payment,Silver Card
 2022-01-18,State Farm,75,debit,Auto Insurance,Checking
-2022-01-18,Biweekly Paycheck,2000,credit,Paycheck,Checking
+2022-01-18,Biweekly Paycheck,2500,credit,Paycheck,Checking
 2022-01-16,City Water Charges,35,debit,Utilities,Checking
 2022-01-16,Power Company,60,debit,Utilities,Checking
 2022-01-15,Grocery Store,6.06,debit,Groceries,Silver Card
@@ -584,7 +584,7 @@
 2022-01-09,Spotify,10.69,debit,Music,Platinum Card
 2022-01-08,Gas Company,45,debit,Utilities,Checking
 2022-01-05,American Tavern,23.49,debit,Restaurants,Platinum Card
-2022-01-04,Biweekly Paycheck,2000,credit,Paycheck,Checking
+2022-01-04,Biweekly Paycheck,2500,credit,Paycheck,Checking
 2022-01-03,Mortgage Payment,1100,debit,Mortgage & Rent,Checking
 2022-01-03,Amazon,42.1,debit,Shopping,Platinum Card
 2022-01-02,Credit Card Payment,499.6,debit,Credit Card Payment,Checking
@@ -603,7 +603,7 @@
 2021-12-22,New York Deli,21.38,debit,Fast Food,Platinum Card
 2021-12-22,Hardware Store,22.14,debit,Home Improvement,Platinum Card
 2021-12-21,Credit Card Payment,464.03,debit,Credit Card Payment,Checking
-2021-12-21,Biweekly Paycheck,2000,credit,Paycheck,Checking
+2021-12-21,Biweekly Paycheck,2500,credit,Paycheck,Checking
 2021-12-20,Credit Card Payment,464.03,credit,Credit Card Payment,Silver Card
 2021-12-20,Shell,30.38,debit,Gas & Fuel,Silver Card
 2021-12-19,State Farm,75,debit,Auto Insurance,Checking
@@ -627,7 +627,7 @@
 2021-12-09,Spotify,10.69,debit,Music,Platinum Card
 2021-12-08,Grocery Store,12.64,debit,Groceries,Platinum Card
 2021-12-07,Barbershop,30,debit,Haircut,Platinum Card
-2021-12-07,Biweekly Paycheck,2000,credit,Paycheck,Checking
+2021-12-07,Biweekly Paycheck,2500,credit,Paycheck,Checking
 2021-12-06,Grocery Store,21.38,debit,Groceries,Platinum Card
 2021-12-06,Grocery Store,13.48,debit,Groceries,Platinum Card
 2021-12-06,Gas Company,40,debit,Utilities,Checking
@@ -648,7 +648,7 @@
 2021-11-27,American Tavern,28.4,debit,Restaurants,Silver Card
 2021-11-26,American Tavern,16.8,debit,Alcohol & Bars,Silver Card
 2021-11-26,Internet Service Provider,74.99,debit,Internet,Checking
-2021-11-23,Biweekly Paycheck,2000,credit,Paycheck,Checking
+2021-11-23,Biweekly Paycheck,2500,credit,Paycheck,Checking
 2021-11-21,Grocery Store,5.64,debit,Groceries,Silver Card
 2021-11-21,Hardware Store,37.41,debit,Home Improvement,Platinum Card
 2021-11-20,State Farm,75,debit,Auto Insurance,Checking
@@ -672,7 +672,7 @@
 2021-11-10,Chick-Fil-A,14.19,debit,Fast Food,Platinum Card
 2021-11-10,Food Truck,24.4,debit,Groceries,Platinum Card
 2021-11-09,Spotify,10.69,debit,Music,Platinum Card
-2021-11-09,Biweekly Paycheck,2000,credit,Paycheck,Checking
+2021-11-09,Biweekly Paycheck,2500,credit,Paycheck,Checking
 2021-11-08,Grocery Store,5.64,debit,Groceries,Platinum Card
 2021-11-06,Amazon,53.95,debit,Shopping,Platinum Card
 2021-11-06,Gas Company,30,debit,Utilities,Checking
@@ -689,7 +689,7 @@
 2021-10-28,Grocery Store,92.49,debit,Groceries,Platinum Card
 2021-10-28,Italian Restaurant,54,debit,Restaurants,Platinum Card
 2021-10-27,American Tavern,25.4,debit,Restaurants,Silver Card
-2021-10-26,Biweekly Paycheck,2000,credit,Paycheck,Checking
+2021-10-26,Biweekly Paycheck,2500,credit,Paycheck,Checking
 2021-10-25,Internet Service Provider,74.99,debit,Internet,Checking
 2021-10-25,Amazon,29.98,debit,Shopping,Platinum Card
 2021-10-23,Grocery Store,7.57,debit,Groceries,Platinum Card
@@ -703,7 +703,7 @@
 2021-10-18,Brunch Restaurant,8,debit,Restaurants,Platinum Card
 2021-10-17,City Water Charges,35,debit,Utilities,Checking
 2021-10-16,Power Company,60,debit,Utilities,Checking
-2021-10-12,Biweekly Paycheck,2000,credit,Paycheck,Checking
+2021-10-12,Biweekly Paycheck,2500,credit,Paycheck,Checking
 2021-10-11,Phone Company,89.4,debit,Mobile Phone,Checking
 2021-10-10,Grocery Store,53.68,debit,Groceries,Silver Card
 2021-10-09,Spotify,10.69,debit,Music,Platinum Card
@@ -727,7 +727,7 @@
 2021-09-28,Credit Card Payment,284.96,credit,Credit Card Payment,Platinum Card
 2021-09-28,Credit Card Payment,284.96,debit,Credit Card Payment,Checking
 2021-09-28,Grocery Store,13.36,debit,Groceries,Platinum Card
-2021-09-28,Biweekly Paycheck,2000,credit,Paycheck,Checking
+2021-09-28,Biweekly Paycheck,2500,credit,Paycheck,Checking
 2021-09-27,Valero,40.71,debit,Gas & Fuel,Platinum Card
 2021-09-26,Starbucks,5,debit,Coffee Shops,Platinum Card
 2021-09-26,Exxon,38,debit,Gas & Fuel,Silver Card
@@ -744,7 +744,7 @@
 2021-09-17,Grocery Store,8.8,debit,Groceries,Platinum Card
 2021-09-17,City Water Charges,35,debit,Utilities,Checking
 2021-09-14,Credit Card Payment,134.34,credit,Credit Card Payment,Platinum Card
-2021-09-14,Biweekly Paycheck,2000,credit,Paycheck,Checking
+2021-09-14,Biweekly Paycheck,2500,credit,Paycheck,Checking
 2021-09-13,Grocery Store,5.64,debit,Groceries,Platinum Card
 2021-09-12,Grocery Store,47.16,debit,Groceries,Platinum Card
 2021-09-12,Phone Company,89.4,debit,Mobile Phone,Checking
@@ -761,7 +761,7 @@
 2021-09-01,Brewing Company,47.4,debit,Alcohol & Bars,Platinum Card
 2021-09-01,Amazon,13.13,debit,Shopping,Platinum Card
 2021-08-31,Grocery Store,11.64,debit,Groceries,Platinum Card
-2021-08-31,Biweekly Paycheck,2000,credit,Paycheck,Checking
+2021-08-31,Biweekly Paycheck,2500,credit,Paycheck,Checking
 2021-08-30,Shell,35.65,debit,Gas & Fuel,Platinum Card
 2021-08-27,Internet Service Provider,74.99,debit,Internet,Checking
 2021-08-24,American Tavern,42.31,debit,Restaurants,Platinum Card
@@ -771,7 +771,7 @@
 2021-08-21,Credit Card Payment,99.76,debit,Credit Card Payment,Checking
 2021-08-20,State Farm,75,debit,Auto Insurance,Checking
 2021-08-18,Amazon,23.47,debit,Shopping,Platinum Card
-2021-08-17,Biweekly Paycheck,2000,credit,Paycheck,Checking
+2021-08-17,Biweekly Paycheck,2500,credit,Paycheck,Checking
 2021-08-17,Amazon,14.98,debit,Shopping,Platinum Card
 2021-08-16,Credit Card Payment,269.56,debit,Credit Card Payment,Checking
 2021-08-16,City Water Charges,35,debit,Utilities,Checking
@@ -788,7 +788,7 @@
 2021-08-06,Amazon,76.47,debit,Shopping,Platinum Card
 2021-08-04,Netflix,11.76,debit,Movies & DVDs,Platinum Card
 2021-08-03,Grocery Store,6.27,debit,Groceries,Silver Card
-2021-08-03,Biweekly Paycheck,2000,credit,Paycheck,Checking
+2021-08-03,Biweekly Paycheck,2500,credit,Paycheck,Checking
 2021-08-02,Credit Card Payment,816.27,credit,Credit Card Payment,Platinum Card
 2021-08-02,Shell,40.44,debit,Gas & Fuel,Silver Card
 2021-08-02,Mortgage Payment,1247.44,debit,Mortgage & Rent,Checking
@@ -806,7 +806,7 @@
 2021-07-20,Credit Card Payment,61.43,credit,Credit Card Payment,Silver Card
 2021-07-20,Credit Card Payment,102.88,credit,Credit Card Payment,Platinum Card
 2021-07-20,Credit Card Payment,102.88,debit,Credit Card Payment,Checking
-2021-07-20,Biweekly Paycheck,2000,credit,Paycheck,Checking
+2021-07-20,Biweekly Paycheck,2500,credit,Paycheck,Checking
 2021-07-18,Irish Restaurant,28.54,debit,Alcohol & Bars,Platinum Card
 2021-07-18,State Farm,75,debit,Auto Insurance,Checking
 2021-07-17,Wendy's,15.23,debit,Fast Food,Silver Card
@@ -823,7 +823,7 @@
 2021-07-09,Spotify,10.69,debit,Music,Platinum Card
 2021-07-08,Credit Card Payment,259.87,credit,Credit Card Payment,Platinum Card
 2021-07-06,Amazon Video,6.41,debit,Movies & DVDs,Platinum Card
-2021-07-06,Biweekly Paycheck,2000,credit,Paycheck,Checking
+2021-07-06,Biweekly Paycheck,2500,credit,Paycheck,Checking
 2021-07-05,Grocery Store,44.25,debit,Groceries,Silver Card
 2021-07-05,Amazon,212.32,debit,Shopping,Platinum Card
 2021-07-04,BP,34.48,debit,Gas & Fuel,Silver Card
@@ -841,7 +841,7 @@
 2021-06-25,Internet Service Provider,74.99,debit,Internet,Checking
 2021-06-23,Brunch Restaurant,8.5,debit,Restaurants,Silver Card
 2021-06-23,Amazon,74.97,debit,Shopping,Platinum Card
-2021-06-22,Biweekly Paycheck,2000,credit,Paycheck,Checking
+2021-06-22,Biweekly Paycheck,2500,credit,Paycheck,Checking
 2021-06-21,Credit Card Payment,89.45,debit,Credit Card Payment,Checking
 2021-06-20,State Farm,75,debit,Auto Insurance,Checking
 2021-06-20,Credit Card Payment,89.45,credit,Credit Card Payment,Silver Card
@@ -862,7 +862,7 @@
 2021-06-09,Chick-Fil-A,16.18,debit,Fast Food,Platinum Card
 2021-06-09,Grocery Store,9.56,debit,Groceries,Platinum Card
 2021-06-09,Spotify,10.69,debit,Music,Platinum Card
-2021-06-08,Biweekly Paycheck,2000,credit,Paycheck,Checking
+2021-06-08,Biweekly Paycheck,2500,credit,Paycheck,Checking
 2021-06-08,Gas Company,30,debit,Utilities,Checking
 2021-06-06,Starbucks,4,debit,Coffee Shops,Platinum Card
 2021-06-04,Credit Card Payment,235.18,debit,Credit Card Payment,Checking
@@ -880,7 +880,7 @@
 2021-05-28,Movie Theater,9.62,debit,Entertainment,Silver Card
 2021-05-28,Grocery Store,91.03,debit,Groceries,Silver Card
 2021-05-25,Internet Service Provider,74.99,debit,Internet,Checking
-2021-05-25,Biweekly Paycheck,2000,credit,Paycheck,Checking
+2021-05-25,Biweekly Paycheck,2500,credit,Paycheck,Checking
 2021-05-24,BP,39.44,debit,Gas & Fuel,Silver Card
 2021-05-22,Credit Card Payment,283.07,debit,Credit Card Payment,Checking
 2021-05-21,Credit Card Payment,283.07,credit,Credit Card Payment,Silver Card
@@ -899,7 +899,7 @@
 2021-05-12,Shell,33.3,debit,Gas & Fuel,Platinum Card
 2021-05-12,Fancy Restaurant,78,debit,Restaurants,Platinum Card
 2021-05-11,Grocery Store,57.32,debit,Groceries,Platinum Card
-2021-05-11,Biweekly Paycheck,2000,credit,Paycheck,Checking
+2021-05-11,Biweekly Paycheck,2500,credit,Paycheck,Checking
 2021-05-11,Mike's Construction Co.,8000,debit,Home Improvement,Checking
 2021-05-10,Phone Company,111.18,debit,Mobile Phone,Checking
 2021-05-09,Credit Card Payment,601.4,credit,Credit Card Payment,Platinum Card
@@ -921,7 +921,7 @@
 2021-04-29,Hardware Store,68.47,debit,Home Improvement,Platinum Card
 2021-04-28,Grocery Store,22.98,debit,Groceries,Silver Card
 2021-04-27,Credit Card Payment,769.72,debit,Credit Card Payment,Checking
-2021-04-27,Biweekly Paycheck,2000,credit,Paycheck,Checking
+2021-04-27,Biweekly Paycheck,2500,credit,Paycheck,Checking
 2021-04-26,Credit Card Payment,769.72,credit,Credit Card Payment,Silver Card
 2021-04-26,Credit Card Payment,1216.94,credit,Credit Card Payment,Platinum Card
 2021-04-26,Credit Card Payment,1216.94,debit,Credit Card Payment,Checking
@@ -940,7 +940,7 @@
 2021-04-14,Hardware Store,11.61,debit,Home Improvement,Platinum Card
 2021-04-14,American Tavern,41,debit,Restaurants,Platinum Card
 2021-04-13,BP,37.98,debit,Gas & Fuel,Platinum Card
-2021-04-13,Biweekly Paycheck,2000,credit,Paycheck,Checking
+2021-04-13,Biweekly Paycheck,2500,credit,Paycheck,Checking
 2021-04-13,American Tavern,10.66,debit,Restaurants,Platinum Card
 2021-04-12,Starbucks,7,debit,Coffee Shops,Platinum Card
 2021-04-12,Barbershop,30,debit,Haircut,Platinum Card
@@ -967,7 +967,7 @@
 2021-03-31,Chili's,24.74,debit,Restaurants,Platinum Card
 2021-03-31,Greek Restaurant,41.16,debit,Restaurants,Silver Card
 2021-03-30,Grocery Store,9.09,debit,Groceries,Silver Card
-2021-03-30,Biweekly Paycheck,2000,credit,Paycheck,Checking
+2021-03-30,Biweekly Paycheck,2500,credit,Paycheck,Checking
 2021-03-29,Steakhouse,17.64,debit,Restaurants,Silver Card
 2021-03-28,Grocery Store,16.06,debit,Groceries,Silver Card
 2021-03-28,Pizza Place,24.98,debit,Restaurants,Silver Card
@@ -981,7 +981,7 @@
 2021-03-19,City Water Charges,35,debit,Utilities,Checking
 2021-03-17,Brewing Company,19.5,debit,Alcohol & Bars,Silver Card
 2021-03-17,Pizza Place,23.34,debit,Fast Food,Platinum Card
-2021-03-16,Biweekly Paycheck,2000,credit,Paycheck,Checking
+2021-03-16,Biweekly Paycheck,2500,credit,Paycheck,Checking
 2021-03-15,Starbucks,3.5,debit,Coffee Shops,Platinum Card
 2021-03-15,Power Company,60,debit,Utilities,Checking
 2021-03-14,Grocery Store,22.5,debit,Groceries,Platinum Card
@@ -1003,7 +1003,7 @@
 2021-03-04,BBQ Restaurant,42.24,debit,Restaurants,Platinum Card
 2021-03-03,Grocery Store,23.74,debit,Groceries,Silver Card
 2021-03-02,Mortgage Payment,1247.44,debit,Mortgage & Rent,Checking
-2021-03-02,Biweekly Paycheck,2000,credit,Paycheck,Checking
+2021-03-02,Biweekly Paycheck,2500,credit,Paycheck,Checking
 2021-03-01,Grocery Store,32.07,debit,Groceries,Silver Card
 2021-03-01,Amazon,13.13,debit,Shopping,Platinum Card
 2021-02-27,Credit Card Payment,156.11,debit,Credit Card Payment,Checking
@@ -1017,7 +1017,7 @@
 2021-02-21,Starbucks,2,debit,Coffee Shops,Platinum Card
 2021-02-20,Grocery Store,35.95,debit,Groceries,Silver Card
 2021-02-20,Mexican Restaurant,23.51,debit,Restaurants,Silver Card
-2021-02-16,Biweekly Paycheck,2000,credit,Paycheck,Checking
+2021-02-16,Biweekly Paycheck,2500,credit,Paycheck,Checking
 2021-02-16,Brunch Restaurant,8,debit,Restaurants,Silver Card
 2021-02-16,City Water Charges,35,debit,Utilities,Checking
 2021-02-15,American Tavern,10,debit,Restaurants,Platinum Card
@@ -1036,7 +1036,7 @@
 2021-02-04,Netflix,11.76,debit,Movies & DVDs,Platinum Card
 2021-02-03,Japanese Restaurant,57.02,debit,Restaurants,Platinum Card
 2021-02-02,Mortgage Payment,1247.44,debit,Mortgage & Rent,Checking
-2021-02-02,Biweekly Paycheck,2000,credit,Paycheck,Checking
+2021-02-02,Biweekly Paycheck,2500,credit,Paycheck,Checking
 2021-02-01,Grocery Store,27.79,debit,Groceries,Platinum Card
 2021-02-01,Amazon,11.11,debit,Shopping,Platinum Card
 2021-01-29,Shell,30.42,debit,Gas & Fuel,Silver Card
@@ -1050,14 +1050,14 @@
 2021-01-22,Credit Card Payment,554.99,debit,Credit Card Payment,Checking
 2021-01-22,Hardware Store,17.38,debit,Home Improvement,Silver Card
 2021-01-20,Amazon,50.21,debit,Shopping,Platinum Card
-2021-01-19,Biweekly Paycheck,2000,credit,Paycheck,Checking
+2021-01-19,Biweekly Paycheck,2500,credit,Paycheck,Checking
 2021-01-16,City Water Charges,35,debit,Utilities,Checking
 2021-01-16,Power Company,60,debit,Utilities,Checking
 2021-01-15,Grocery Store,44.19,debit,Groceries,Silver Card
 2021-01-15,American Tavern,64.11,debit,Restaurants,Silver Card
 2021-01-13,Pizza Place,32.91,debit,Fast Food,Platinum Card
 2021-01-13,Amazon,39.05,debit,Shopping,Platinum Card
-2021-01-12,Biweekly Paycheck,2000,credit,Paycheck,Checking
+2021-01-12,Biweekly Paycheck,2500,credit,Paycheck,Checking
 2021-01-11,Shell,34.87,debit,Gas & Fuel,Platinum Card
 2021-01-11,Grocery Store,43.54,debit,Groceries,Platinum Card
 2021-01-10,Phone Company,89.46,debit,Mobile Phone,Checking

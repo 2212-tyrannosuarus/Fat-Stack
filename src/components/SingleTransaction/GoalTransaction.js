@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 import moment from "moment";
 import {
   selectGoalList,
@@ -27,6 +28,7 @@ import {
   Select,
   FormHelperText,
 } from "@chakra-ui/react";
+import { fetchAllBankAccounts } from "../../reducers/allTransactionsPageSlice";
 
 export default function GoalTransaction() {
   const [merchant, setTransactionName] = useState("");
@@ -40,6 +42,7 @@ export default function GoalTransaction() {
   const [subcategoryId, setSubcategoryId] = useState(111);
   const [goalamount, setGoalAmount] = useState(0);
   const [missingamount, setMissingAmount] = useState(0);
+  const [updatedBankAccount, setUpdatedBankAccount] = useState({});
 
   const dispatch = useDispatch();
   const goalList = useSelector(selectGoalList);
@@ -70,6 +73,22 @@ export default function GoalTransaction() {
     await dispatch(
       contributeToGoal({ name: merchant, contributedamount: newAmount })
     );
+    //update account balance
+    let avaialableBalanceDifferential = 0;
+    avaialableBalanceDifferential -= Number(amount);
+
+    const bankAccountToUpdate = bank;
+    const availableBalanceToUpdate = Number(
+      bankAccountToUpdate[0].available_balance
+    );
+
+    const newAccountBalance =
+      Number(availableBalanceToUpdate) + Number(avaialableBalanceDifferential);
+    const update = await axios.put(
+      `/api/bankAccounts/${bankAccountToUpdate[0].id}`,
+      { available_balance: newAccountBalance }
+    );
+    setUpdatedBankAccount(update);
   };
 
   useEffect(() => {
@@ -79,6 +98,10 @@ export default function GoalTransaction() {
     };
     handleFetch();
   }, []);
+
+  useEffect(() => {
+    dispatch(fetchAllBankAccounts());
+  }, [updatedBankAccount]);
 
   const handleGoalAmount = (goalList, merchant) => {
     let newArr = goalList.filter((goal) => goal.name === merchant);
@@ -92,6 +115,11 @@ export default function GoalTransaction() {
     <>
       {goalList.length > 0 ? (
         <Button
+          flex="1"
+          w={"100%"}
+          bg={"purple.100"}
+          // alignSelf={"flex-end"}
+          // justifySelf={"flex-end"}
           onClick={() => {
             onOpen();
             setTransactionName(goalList[0].name || "");
@@ -99,7 +127,7 @@ export default function GoalTransaction() {
             setBankAccountId(bankAccounts[0].id || 1);
           }}
         >
-          Goals
+          Contribute To Goals
         </Button>
       ) : null}
 

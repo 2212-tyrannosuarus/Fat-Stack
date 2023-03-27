@@ -259,7 +259,6 @@ async function seed() {
 
   dataSetTwo.forEach(async (transaction) => {
     let bankAccount = "";
-    // console.log("transaction ", transaction);
     let accountId = "";
     if (transaction.accountName.includes("Chase")) {
       accountId = "05K6UQO2YFSB3PCUJXW25G8EZHVWK71RJMB";
@@ -696,7 +695,7 @@ async function seed() {
 
   const budgetItem3 = await Budget.create({
     budget_name: "Paycheck",
-    amount: 4000.0,
+    amount: 5000.0,
     date_started: "2023-01-01",
   });
   budgetItem3.setBudgetscheme(budgetScheme1);

@@ -13,6 +13,7 @@ import {
 import axios from "axios";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import { current } from "@reduxjs/toolkit";
+import AddTransactionModal from "./AddTransactionModal";
 
 const TransactionList = (props) => {
   const {
@@ -24,86 +25,124 @@ const TransactionList = (props) => {
     totalPageCount,
     transactionsPerPage,
     currentPage,
+    newTransactionAmount,
+    newTransactionDate,
+    newTransactionMerchant,
+    newTransactionSubCategory,
+    bankAccounts,
+    subCategoriesAsStrings,
+    handleNewTransactionSubmit,
+    handleNewMerchantChange,
+    handleNewAccountChange,
+    handleNewCategoryChange,
+    handleNewCreditDebitChange,
+    handleNewDateChange,
+    handleClear,
+    setNewTransactionAmount,
   } = props;
 
   return (
-    <Container>
-      <List w={1000} p={"2"}>
-        <ListItem outline={"3px ridge"} p={"2"}>
-          <Flex justify={"space-between"} rowGap={"50px"} align={"flex-start"}>
-            <Box w={"21%"}>
-              <Text fontSize="lg">Date</Text>
-            </Box>
-            <Box w={"21%"}>
-              <Text fontSize="lg">Description</Text>
-            </Box>
-            <Box w={"21%"}>
-              <Text fontSize="lg">Category</Text>
-            </Box>
-            <Box w={"21%"}>
-              <Text fontSize="lg">Amount</Text>
-            </Box>
-            <Box w={"16%"}></Box>
-          </Flex>
-        </ListItem>
-        {allTransactions.map((transaction, idx) => {
-          //   console.log("category", transaction.subcategoryId);
-          //   const transactionCategory = await
-          let transactionCategory;
-          subCategories.forEach((subcat) => {
-            if (transaction.subcategoryId === subcat.id) {
-              transactionCategory = subcat.sub_category_name;
-            }
-          });
-          if (
-            idx < currentPage * transactionsPerPage &&
-            idx > (currentPage - 1) * transactionsPerPage
-          ) {
-            if (
-              (selectedAccount === "all" ||
-                transaction.bankaccountId === Number(selectedAccount)) &&
-              (selectedCategory === "none" ||
-                Number(selectedCategory) === Number(transaction.subcategoryId))
-            ) {
-              return (
-                <ListItem outline={"1px ridge"}>
-                  <Flex
-                    direction={"row"}
-                    justify={"space-between"}
-                    align={"center"}
-                  >
-                    <Box w={"21%"}>
-                      <Text fontSize="lg">{transaction.date}</Text>
-                    </Box>
-                    <Box w={"21%"}>
-                      <Text fontSize="lg">{transaction.merchant}</Text>
-                    </Box>
-                    <Box w={"21%"}>
-                      <Text fontSize="lg">{transactionCategory}</Text>
-                    </Box>
-                    <Box w={"21%"}>
-                      <Text fontSize="lg">{transaction.amount}</Text>
-                    </Box>
-                    <Box w={"10%"}>
-                      <NavLink to={`/transactions/${transaction.id}`}>
-                        <Text>View</Text>
-                        <ExternalLinkIcon />
-                      </NavLink>
-                    </Box>
-                    <Box w={"6%"}>
-                      <DeletePopup
-                        handleDelete={handleDelete}
-                        transactionId={transaction.id}
-                      />
-                    </Box>
-                  </Flex>
-                </ListItem>
-              );
-            }
+    <List w="1000px" p={"2"} flex="1">
+      <ListItem borderRadius={"20px"} bg={"gray.200"} p={"2"}>
+        <Flex justify={"space-between"} align={"flex-start"}>
+          <Box w={"21%"} flex="1">
+            <Text fontSize="lg">Date</Text>
+          </Box>
+          <Box w={"21%"} flex="1">
+            <Text fontSize="lg">Description</Text>
+          </Box>
+          <Box w={"21%"} flex="1">
+            <Text fontSize="lg">Category</Text>
+          </Box>
+          <Box w={"21%"} flex="1">
+            <Text fontSize="lg">Amount</Text>
+          </Box>
+          <Box w={"16%"} flex="1">
+            <AddTransactionModal
+              subCategories={subCategories}
+              newTransactionAmount={newTransactionAmount}
+              newTransactionDate={newTransactionDate}
+              newTransactionMerchant={newTransactionMerchant}
+              newTransactionSubCategory={newTransactionSubCategory}
+              bankAccounts={bankAccounts}
+              subCategoriesAsStrings={subCategoriesAsStrings}
+              handleNewTransactionSubmit={handleNewTransactionSubmit}
+              handleNewMerchantChange={handleNewMerchantChange}
+              handleNewAccountChange={handleNewAccountChange}
+              handleNewCategoryChange={handleNewCategoryChange}
+              handleNewCreditDebitChange={handleNewCreditDebitChange}
+              handleNewDateChange={handleNewDateChange}
+              handleClear={handleClear}
+              setNewTransactionAmount={setNewTransactionAmount}
+            />
+          </Box>
+        </Flex>
+      </ListItem>
+      {allTransactions.map((transaction, idx) => {
+        //   console.log("category", transaction.subcategoryId);
+        //   const transactionCategory = await
+        let transactionCategory;
+        let alternateColor = "";
+        if (idx % 2 === 0) {
+          alternateColor = "gray.100";
+        }
+        subCategories.forEach((subcat) => {
+          if (transaction.subcategoryId === subcat.id) {
+            transactionCategory = subcat.sub_category_name;
           }
-        })}
-      </List>
-    </Container>
+        });
+        if (
+          idx < currentPage * transactionsPerPage &&
+          idx > (currentPage - 1) * transactionsPerPage
+        ) {
+          if (
+            (selectedAccount === "all" ||
+              transaction.bankaccountId === Number(selectedAccount)) &&
+            (selectedCategory === "none" ||
+              Number(selectedCategory) === Number(transaction.subcategoryId))
+          ) {
+            return (
+              <ListItem
+                key={transaction.id}
+                bg={alternateColor}
+                _hover={{ bg: "purple.50" }}
+              >
+                <Flex
+                  direction={"row"}
+                  justify={"space-between"}
+                  align={"center"}
+                >
+                  <Box w={"21%"}>
+                    <Text fontSize="lg">{transaction.date}</Text>
+                  </Box>
+                  <Box w={"21%"}>
+                    <Text fontSize="lg">{transaction.merchant}</Text>
+                  </Box>
+                  <Box w={"21%"}>
+                    <Text fontSize="lg">{transactionCategory}</Text>
+                  </Box>
+                  <Box w={"21%"}>
+                    <Text fontSize="lg">{transaction.amount}</Text>
+                  </Box>
+                  <Box w={"10%"}>
+                    <NavLink to={`/transactions/${transaction.id}`}>
+                      <Text>View</Text>
+                      <ExternalLinkIcon />
+                    </NavLink>
+                  </Box>
+                  <Box w={"6%"}>
+                    <DeletePopup
+                      handleDelete={handleDelete}
+                      transactionId={transaction.id}
+                    />
+                  </Box>
+                </Flex>
+              </ListItem>
+            );
+          }
+        }
+      })}
+    </List>
   );
 };
 

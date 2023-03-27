@@ -47,7 +47,16 @@ const AddTransactionModal = (props) => {
   } = props;
   return (
     <>
-      <Button onClick={onOpen}>New Transaction</Button>
+      <Button
+        flex="1"
+        w="90%"
+        bg={"purple.100"}
+        alignSelf={"flex-end"}
+        justifySelf={"flex-end"}
+        onClick={onOpen}
+      >
+        New Transaction
+      </Button>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
@@ -66,7 +75,10 @@ const AddTransactionModal = (props) => {
                 >
                   {bankAccounts.map((account) => {
                     return (
-                      <option value={account.account_id}>
+                      <option
+                        key={account.account_id}
+                        value={account.account_id}
+                      >
                         {account.account_name}
                       </option>
                     );
@@ -98,7 +110,7 @@ const AddTransactionModal = (props) => {
                 >
                   {subCategories.map((category) => {
                     return (
-                      <option value={category.id}>
+                      <option key={category.id} value={category.id}>
                         {category.sub_category_name}
                       </option>
                     );
