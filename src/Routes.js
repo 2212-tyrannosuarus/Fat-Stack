@@ -11,6 +11,7 @@ import SidebarLayout from "./layouts/sidebarlayout";
 import MainLayout from "./layouts/mainlayout";
 import Goals from "./components/Goals";
 import GoalsID from "./components/Goals/GoalsID";
+import ChartForOVerview from "./components/ChartForOverview";
 
 export const NavigationRoutes = () => {
   return (
@@ -89,6 +90,15 @@ export const NavigationRoutes = () => {
         element={
           <SidebarLayout>
             <GoalsID />
+          </SidebarLayout>
+        }
+      />
+       <Route
+        exact
+        path="/overviewChart"
+        element={
+          <SidebarLayout>
+            <ChartForOVerview userId={1}/>
           </SidebarLayout>
         }
       />

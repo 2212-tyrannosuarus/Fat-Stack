@@ -29,7 +29,7 @@ export default function Note({ transactionId }) {
       {" "}
       <Box>
         <List size="xl" variant="custom" spacing={5}>
-          <AddNote id={transactionId} />
+          {/* <AddNote id={transactionId} /> */}
           <NoteItem transactionId={transactionId} />
         </List>
       </Box>

@@ -9,12 +9,22 @@ import {
   selectSingleTransaction,
 } from "../../reducers/singleTransactionPageSlice";
 import {
+  selectGoalList,
+  getExistingGoals,
+  getUserAccount,
+  selectBankAccount,
+  createGoalTransaction,
+  contributeToGoal,
+  redoContribution,
+} from "../../reducers/goalPageSlice";
+import {
   Modal,
   ModalOverlay,
   ModalContent,
   ModalHeader,
   ModalFooter,
   ModalBody,
+  Stack,
   ModalCloseButton,
   useDisclosure,
   Button,
@@ -23,6 +33,8 @@ import {
   Input,
   Checkbox,
   Select,
+  Radio,
+  RadioGroup,
 } from "@chakra-ui/react";
 
 export default function UpdateTransaction() {
@@ -50,8 +62,8 @@ export default function UpdateTransaction() {
   }, [dispatch, transaction]);
 
   const handleUpdate = async (event) => {
-    console.log("called");
     event.preventDefault();
+    let newAmount = parseFloat(amount);
     if (changeAll) {
       await dispatch(
         updateAllTransactionCat({
@@ -65,6 +77,9 @@ export default function UpdateTransaction() {
           },
         })
       );
+      await dispatch(
+        redoContribution({ name: merchant, contributedamount: newAmount })
+      );
     }
     await dispatch(
       updateSingleTransaction({
@@ -77,6 +92,9 @@ export default function UpdateTransaction() {
           subcategoryId,
         },
       })
+    );
+    await dispatch(
+      redoContribution({ name: merchant, contributedamount: newAmount })
     );
   };
 
@@ -114,13 +132,13 @@ export default function UpdateTransaction() {
               <Input
                 placeholder="Select Date and Time"
                 size="md"
-                type="date-local"
+                type="date"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
               />
             </FormControl>
 
-            <FormControl>
+            <FormControl mt={4}>
               <FormLabel>Amount:</FormLabel>
               <Input
                 ref={initialRef}
@@ -130,7 +148,45 @@ export default function UpdateTransaction() {
               />
             </FormControl>
 
-            <FormControl>
+            <FormControl mt={4}>
+              <FormLabel>Apply changes to:</FormLabel>
+              <RadioGroup
+                value={changeAll}
+                onChange={(e) => {
+                  setChangeAll(!changeAll);
+                }}
+              >
+                <Stack spacing={5} direction="row">
+                  <Radio colorScheme="teal" value={false}>
+                    Single Transaction
+                  </Radio>
+                  <Radio colorScheme="green" value={true}>
+                    All Transactions
+                  </Radio>
+                </Stack>
+              </RadioGroup>
+            </FormControl>
+
+            <FormControl mt={4}>
+              <FormLabel>Hide from budgets:</FormLabel>
+              <RadioGroup
+                value={hideFromBudget}
+                onChange={(e) => {
+                  setHideFromBudget(!hideFromBudget);
+                }}
+              >
+                <Stack spacing={5} direction="row">
+                  <Radio colorScheme="teal" value={false}>
+                    Show
+                  </Radio>
+                  <Radio colorScheme="green" value={true}>
+                    Hide
+                  </Radio>
+                </Stack>
+              </RadioGroup>
+            </FormControl>
+
+            {/* <FormControl mt={4}>
               <Checkbox
                 value={changeAll}
                 onChange={(e) => {
@@ -141,7 +197,7 @@ export default function UpdateTransaction() {
               </Checkbox>
             </FormControl>
 
-            <FormControl>
+            <FormControl mt={4}>
               <Checkbox
                 value={hideFromBudget}
                 onChange={(e) => {
@@ -150,9 +206,9 @@ export default function UpdateTransaction() {
               >
                 {!hideFromBudget ? "Show in budget" : "Hide in Budget"}
               </Checkbox>
-            </FormControl>
+            </FormControl> */}
 
-            <FormControl>
+            <FormControl mt={4}>
               <Select
                 id="color_category"
                 name="color_category"

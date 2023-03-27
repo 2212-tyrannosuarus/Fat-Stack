@@ -38,6 +38,7 @@ import {
   selectGoalDirection,
   getGoalDirection,
 } from "../../reducers/openAiSlice";
+import LineCart from "./Charts/LineCart";
 
 export default function GoalsID({ name }) {
   const { goalid } = useParams();

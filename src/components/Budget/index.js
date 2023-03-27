@@ -26,6 +26,9 @@ import Sidebar from "../Sidebar";
 import Summary from "./Summary";
 import AddBudgetModal from "./AddBudgetModal";
 import {selectSpendingOvertimeBySubcategory, fetchSpendingOvertimeBySubcategory} from '../../reducers/trendsPageSLice';
+import theme from '../Budget/theme.js'
+import { ChakraProvider } from "@chakra-ui/react";
+import NoBudgetCreated from "./NoBudgetCreatedPage";
 
 const MONTHS = [
   "Jan",
@@ -419,6 +422,7 @@ const Budget = () => {
   }
 
   return (
+    <ChakraProvider theme={theme}>
     <div className="container budget-container row">
       <div className="row">
         <div className="row col-9 ">
@@ -455,7 +459,7 @@ const Budget = () => {
       budgetedSpendingFromSlice.flat().slice(0, -1).length === 0 &&
       budgetedIncome &&
       budgetedIncome.flat().slice(0, -1)[0] === undefined ? (
-        "You have not yet created a budget 1"
+        <NoBudgetCreated />
       ) : //if budgeted spending is present but not budgeted income
       budgetedSpendingFromSlice &&
         budgetedSpendingFromSlice[0] &&
@@ -585,6 +589,7 @@ const Budget = () => {
         "You have not yet created a budget"
       )} */}
     </div>
+    </ChakraProvider>
   );
 };
 
