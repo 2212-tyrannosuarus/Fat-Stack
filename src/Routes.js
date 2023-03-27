@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import Dashboard from "./components/Dashboard";
 import AllTransactions from "./components/AllTransactions";
 import SingleTransaction from "./components/SingleTransaction";
 import Budget from "./components/Budget";
+import Login from "./components/Login";
 import Profile from "./components/Profile";
 import Homepage from "./components/HomePage";
 import Trends from "./components/Trends";
@@ -11,28 +12,37 @@ import SidebarLayout from "./layouts/sidebarlayout";
 import MainLayout from "./layouts/mainlayout";
 import Goals from "./components/Goals";
 import GoalsID from "./components/Goals/GoalsID";
-import ChartForOVerview from "./components/ChartForOverview";
+import Signup from "./components/Signup";
+import ChartForOverview from "./components/ChartForOverview";
+import NotFound from "./components/NotFound";
+import { Navigate } from "react-router-dom";
+import { connect } from "react-redux";
+import { me } from "./store";
 
-export const NavigationRoutes = () => {
+const NavigationRoutes = (props) => {
+  const { isLoggedIn, loadInitialData } = props;
+
+  useEffect(() => {
+    loadInitialData();
+  }, []);
+
+  function PrivateRoute({ children }) {
+    return isLoggedIn ? <>{children}</> : <Navigate to="/" />;
+  }
+
   return (
     <Routes>
       <Route
-        path="/"
+        path="/dashboard"
         element={
-          <MainLayout>
-            <Homepage />
-          </MainLayout>
+          <PrivateRoute>
+            <SidebarLayout>
+              <Dashboard />
+            </SidebarLayout>
+          </PrivateRoute>
         }
       />
 
-      <Route
-        path="/dashboard"
-        element={
-          <SidebarLayout>
-            <Dashboard />
-          </SidebarLayout>
-        }
-      />
       <Route
         path="/transactions"
         element={
@@ -62,7 +72,7 @@ export const NavigationRoutes = () => {
         path="/budget/:userId"
         element={
           <SidebarLayout>
-            <Budget />{" "}
+            <Budget />
           </SidebarLayout>
         }
       />
@@ -93,17 +103,77 @@ export const NavigationRoutes = () => {
           </SidebarLayout>
         }
       />
-       <Route
+      <Route
         exact
         path="/overviewChart"
         element={
           <SidebarLayout>
-            <ChartForOVerview userId={1}/>
+            <ChartForOverview userId={1} />
           </SidebarLayout>
+        }
+      />
+
+      <Route
+        path="/"
+        element={
+          <MainLayout>
+            <Homepage />
+          </MainLayout>
+        }
+      />
+
+      <Route
+        exact
+        path="/login"
+        element={
+          <MainLayout>
+            <Login />
+          </MainLayout>
+        }
+      />
+      <Route
+        exact
+        path="/signup"
+        element={
+          <MainLayout>
+            <Signup />
+          </MainLayout>
+        }
+      />
+      <Route
+        exact
+        path="/overviewChart"
+        element={
+          <SidebarLayout>
+            <ChartForOverview userId={1} />
+          </SidebarLayout>
+        }
+      />
+      <Route
+        exact
+        path="/*"
+        element={
+          <MainLayout>
+            <NotFound />
+          </MainLayout>
         }
       />
     </Routes>
   );
 };
 
-export default NavigationRoutes;
+const mapState = (state) => {
+  return {
+    isLoggedIn: !!state.auth.id,
+  };
+};
+
+const mapDispatch = (dispatch) => {
+  return {
+    loadInitialData() {
+      dispatch(me());
+    },
+  };
+};
+
+export default connect(mapState, mapDispatch)(NavigationRoutes);

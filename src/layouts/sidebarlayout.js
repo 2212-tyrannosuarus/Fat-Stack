@@ -1,21 +1,28 @@
-import React from "react";
-import Navbar from "../components/Navbar";
+import React, { useState } from "react";
 import Sidebar from "../components/Sidebar";
-import Footer from "../components/Footer";
 import { Flex, Box } from "@chakra-ui/react";
+import DashNav from "../components/DashNav";
 
 const SidebarLayout = ({ children }) => {
+  const [navSize, changeNavSize] = useState("large");
+
+  const handleNavSize = () => {
+    if (navSize == "small") changeNavSize("large");
+    else changeNavSize("small");
+  };
+
   return (
-    <div>
-      <Navbar />
-      <Flex bg={"#f5f5f9"}>
-        <Sidebar />
-        <Box pt={5} px={5}>
+    <Box w={"100vw"} h={"100vh"} bg="#f5f5f9">
+      <Box pt={18} ml={navSize == "large" ? 260 : 100} pr={5}>
+        <DashNav />
+      </Box>
+      <Flex>
+        <Sidebar navSize={navSize} handleNavSize={handleNavSize} />
+        <Box pt={5} px={5} ml={navSize == "large" ? 260 : 100}>
           {children}
         </Box>
       </Flex>
-      <Footer />
-    </div>
+    </Box>
   );
 };
 
