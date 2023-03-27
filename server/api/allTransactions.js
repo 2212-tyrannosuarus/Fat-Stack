@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const {
+  db,
   models: { Transaction },
 } = require("../db");
 // api/transactions
@@ -32,45 +33,34 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-// router.get("/allTransactions", async (req, res, next) => {
-//   try {
-//     const transactionsByDate = await db.query(`select
-//     transactions.merchant as "merchant",
-//     budgets.amount *
-//     ((EXTRACT(year FROM age(to_date(${req.params.toDate},'YYYY-MM-DD'),to_date(${req.params.fromDate},'YYYY-MM-DD')))*12 + EXTRACT(month FROM age(to_date(${req.params.toDate},'YYYY-MM-DD'),to_date(${req.params.fromDate},'YYYY-MM-DD')))) +1)
-//     as "budgetedAmount",
-//     budgets.date_started as "budgetStartDate",
-//     subcategories.sub_category_name as "subCategoryName",
-//     subcategories.id as "subCategoryId",
-//     categories.category_name as "categoryName",
-//     categories.id as "categoryId",
-//     sum(transactions.amount) as "transactionAmount"
-//     from
-//     budgets,
-//     subcategories,
-//     categories,
-//     transactions
-//     where
-//     subcategories.id=budgets."subcategoryId"
-//     and categories.id=subcategories."categoryId"
-//     and transactions."subcategoryId"=subcategories.id
-//     and transactions.credit_debit= 'credit'
-//     and to_date(date,'YYYY-MM-DD') >= to_date(${req.params.fromDate},'YYYY-MM-DD')
-//     and to_date(date,'YYYY-MM-DD') <= to_date(${req.params.toDate},'YYYY-MM-DD')
-//     and transactions."userId"=${req.params.userId}
-//     group by
-//     budgets.budget_name,
-//     budgets.amount,
-//     budgets.date_started,
-//     subcategories.sub_category_name,
-//     subcategories.id,
-//     categories.category_name,
-//     categories.id`);
+router.get("/:fromDate/:toDate", async (req, res, next) => {
+  console.log("testing now");
+  const fromDate = req.params.fromDate;
+  const toDate = req.params.toDate;
+  console.log("in the right route", fromDate, toDate);
+  try {
+    const transactionsByDate = await db.query(
+      `select
+*
+   
+from
+  transactions
+  
+  where
+  to_date(date, 'YYYY-MM-DD') >= to_date('${fromDate}', 'YYYY-MM-DD')
+  and to_date(date, 'YYYY-MM-DD') <= to_date('${toDate}', 'YYYY-MM-DD')
+  and "userId" = 1
 
-//     res.json(budgetedIncome);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
+order by 
+to_date(date, 'YYYY-MM-DD') desc
+
+
+`
+    );
+    res.json(transactionsByDate);
+  } catch (err) {
+    next(err);
+  }
+});
 
 module.exports = router;
