@@ -8,15 +8,7 @@ import {
   updateAllTransactionCat,
   selectSingleTransaction,
 } from "../../reducers/singleTransactionPageSlice";
-import {
-  selectGoalList,
-  getExistingGoals,
-  getUserAccount,
-  selectBankAccount,
-  createGoalTransaction,
-  contributeToGoal,
-  redoContribution,
-} from "../../reducers/goalPageSlice";
+import { redoContribution } from "../../reducers/goalPageSlice";
 import {
   Modal,
   ModalOverlay,
@@ -31,7 +23,6 @@ import {
   FormControl,
   FormLabel,
   Input,
-  Checkbox,
   Select,
   Radio,
   RadioGroup,

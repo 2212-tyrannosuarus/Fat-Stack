@@ -10,7 +10,6 @@ import {
   fetchAllTransactions,
 } from "../../reducers/singleTransactionPageSlice";
 import UpdateTransaction from "./UpdateTransaction";
-import LineCarts from "./Table/LineCarts";
 
 import {
   Stat,
