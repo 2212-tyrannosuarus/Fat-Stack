@@ -1,7 +1,4 @@
-.title-date {
-  font-size: 30px;
-  font-weight: bold;
-}
+
 
 /*
 * demo.css
@@ -127,3 +124,19 @@
   .income-progress-bar {
     list-style: none;
   }
+
+  .title-date {
+    font-size: 30px;
+    font-weight: bold;
+  }
+  
+  .individual-month > div:hover {
+    cursor: pointer;
+  }
+
+  #chakra-modal-mymodal {
+    height:550px !important;
+    /* // There is a max-width rule used by chakra-ui, */
+    /* // thus you need to overwrite it to make it work. */
+    max-width:1000px !important;
+}

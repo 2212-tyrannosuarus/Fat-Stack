@@ -19,9 +19,27 @@
   }
 
   .mt-n1 {
-    margin-top: -60px;
+    margin-top: 0px;
   }
 
   .mt-n2 {
-    margin-top: -140px;
+    margin-top: 0px;
   }
+
+  .mb-date-picker {
+    margin-bottom: -100px;
+  }
+
+  .pie-category-legend {
+    padding-bottom: 50px;
+  }
+
+  .display-chart:hover {
+    background-color: #f9fafc !important;
+    color: black;
+  }
+
+  .mb-date-picker {
+    margin-bottom: -60px;
+    /* z-index: 5; */
+  };

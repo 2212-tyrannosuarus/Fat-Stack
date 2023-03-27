@@ -7,9 +7,11 @@ import {
   VictoryLegend,
   VictoryLabel,
   VictoryContainer,
-  VictoryTooltip
+  VictoryTooltip,
 } from "victory";
-import '../Trends/Trends.css'
+import "../Trends/Trends.css";
+import { RangeDatepicker } from "chakra-dayzed-datepicker";
+import Button from "react-bootstrap/Button";
 
 const MONTHS = [
   "Jan",
@@ -27,7 +29,12 @@ const MONTHS = [
 ];
 
 const PieChartCategory = (props) => {
-  const { chartData } = props;
+  const {
+    chartData,
+    selectedDates,
+    setSelectedDates,
+    handleDateChangePieCategory,
+  } = props;
   let [pieChart, setPieChart] = useState([]);
   let [legend, setLegend] = useState([]);
   console.log("pieChart data ", chartData.flat().slice(0, -1));
@@ -43,7 +50,7 @@ const PieChartCategory = (props) => {
         x: chartArr[i].categoryName,
         y: parseInt(chartArr[i].transactionAmount),
       });
-      legendArr.push({name: chartArr[i].categoryName});
+      legendArr.push({ name: chartArr[i].categoryName });
     }
     setPieChart(pieChartArr);
     setLegend(legendArr);
@@ -51,44 +58,89 @@ const PieChartCategory = (props) => {
 
   return (
     <div className="row">
-        <div className="col-8">
-      {pieChart && legend? (
-        
-          <svg width="500" height="500" viewBox="0 0 400 400" >
-          
+      <div className="col-8">
+        {pieChart && legend ? (
+          <svg width="500" height="700" viewBox="0 0 400 400">
             <VictoryPie
               standalone={false}
               width={400}
               height={400}
-              colorScale={["#54d4f1", "#9ce775", "#9798fe", "#fec44d", "#ff7960", "#a8b3bd", "#65717d"]}
+              colorScale={[
+                "#54d4f1",
+                "#9ce775",
+                "#9798fe",
+                "#fec44d",
+                "#ff7960",
+                "#a8b3bd",
+                "#65717d",
+              ]}
               data={pieChart}
               innerRadius={68}
               labelRadius={100}
-              labelComponent = {<VictoryTooltip/>}
-              
+              labelComponent={<VictoryTooltip />}
+              padding={{left: 50}}
             />
             <VictoryLabel
               textAnchor="middle"
               style={{ fontSize: 20 }}
-              x={200}
+              x={225}
               y={200}
               text="By Category"
             />
           </svg>
-          
-      ) : (
-        "Loading in pie chart"
-      )}
+        ) : (
+          "Loading in pie chart"
+        )}
       </div>
-      <div className="col-4 mt-n1">
-      <VictoryLegend 
-          colorScale={["#54d4f1", "#9ce775", "#9798fe", "#fec44d", "#ff7960", "#a8b3bd", "#65717d"]}
-          data={legend}
-          style={{ labels: {fontSize: 35 }}}
-          padding={{left: 60 }}
-          margin={{top: 0 }}
-        />
+      <div className="col-4 mt-n1 ">
+        <div className="" align="center">
+        <h6 class="fw-bold mb-2 mt-2">Pick a date range</h6>
+          <RangeDatepicker
+            selectedDates={selectedDates}
+            onDateChange={setSelectedDates}
+            propsConfigs={{
+              inputProps: {
+                size: "lg",
+                _active: {
+                  border: "purple"
+                },
+                _visited: {
+                  border: "purple"
+                },
+                _focus: {
+                  border: "none"
+                }
+              },
+            }}
+          />
+          <Button
+            variant="outline-dark"
+            onClick={() => handleDateChangePieCategory(selectedDates)}
+            className="col-12 display-chart mt-3"
+          >
+            {" "}
+            Display Chart
+          </Button>
         </div>
+   
+          <VictoryLegend
+          x={50} y={-300}
+            colorScale={[
+              "#54d4f1",
+              "#9ce775",
+              "#9798fe",
+              "#fec44d",
+              "#ff7960",
+              "#a8b3bd",
+              "#65717d",
+            ]}
+            data={legend}
+            style={{labels: { fontSize: 35 } }}
+            // padding={{ left: 60 }}
+            // margin={{ top: -100 }}
+          />
+
+      </div>
     </div>
   );
 };

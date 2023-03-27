@@ -14,7 +14,7 @@ const Income = (props) => {
 
 //   useEffect(() => {
     if (income !== undefined) {
-      console.log("income ", income.flat().slice(0, -1)[0]);
+      console.log("income from income", income.flat().slice(0, -1)[0]);
     }
 //   });
 

@@ -14,10 +14,19 @@ const Goal = db.define("goal", {
     type: Sequelize.DECIMAL(12, 2),
     allowNull: false,
   },
+  start_date: {
+    // 2018-07-09
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
   goal_date: {
     // 2018-07-09
     type: Sequelize.STRING,
     allowNull: false,
+  },
+  completion_status: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
   },
 });
 

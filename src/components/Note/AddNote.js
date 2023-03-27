@@ -41,7 +41,7 @@ export default function AddNote({ id }) {
 
   return (
     <>
-      <Button onClick={onOpen} size="xxs">
+      <Button onClick={onOpen} size="xs">
         Add Note
       </Button>
 

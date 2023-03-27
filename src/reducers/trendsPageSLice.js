@@ -28,13 +28,41 @@ export const fetchSpendingByMerchantPie = createAsyncThunk(
   }
 );
 
+export const fetchSpendingOvertimeBySubcategory = createAsyncThunk(
+  "userSpendingOvertimeBySubcategory/fetch",
+  async ({userId, fromDate, toDate, subcategory}) => {
+    userId = parseInt(userId);
+    const { data } = await axios.get(`/api/trends/subcategoryOvertime/${userId}/'${fromDate}'/'${toDate}'/'${subcategory}'`);
+    return data;
+  }
+);
+
+export const fetchTrendsCategories = createAsyncThunk(
+  "userTrendsCategories/fetch",
+  async ({userId, fromDate, toDate}) => {
+    const { data } = await axios.get(`/api/trends/categories/${userId}/'${fromDate}'/'${toDate}'`);
+    return data;
+  }
+);
+
+export const fetchOverviewChartData = createAsyncThunk(
+  "userOverviewChartData/fetch",
+  async ({userId, fromDate, toDate}) => {
+    const { data } = await axios.get(`/api/trends/overviewChart/${userId}/'${fromDate}'/'${toDate}'`);
+    return data;
+  }
+);
+
 
 export const trendsPageSlice = createSlice({
   name: "TrendsPage",
   initialState: {
     spendingOvertime: [],
     categoryPie: [],
-    merchantPie: []
+    merchantPie: [],
+    spendingOvertimeBySubcategory: [],
+    trendCategories: [],
+    overviewChartData: []
   },
   reducers: {
   },
@@ -47,6 +75,15 @@ export const trendsPageSlice = createSlice({
     })
     build.addCase(fetchSpendingByMerchantPie.fulfilled, (state, action) => {
       state.merchantPie = action.payload;
+    })
+    build.addCase(fetchSpendingOvertimeBySubcategory.fulfilled, (state, action) => {
+      state.spendingOvertimeBySubcategory = action.payload;
+    })
+    build.addCase(fetchTrendsCategories.fulfilled, (state, action) => {
+      state.trendCategories = action.payload;
+    })
+    build.addCase(fetchOverviewChartData.fulfilled, (state, action) => {
+      state.overviewChartData = action.payload;
     });
   },
 });
@@ -63,6 +100,18 @@ export const selectSpendingByCategoryPie = (state) => {
 
 export const selectSpendingByMerchantPie = (state) => {
   return state.trendsPage.merchantPie;
+};
+
+export const selectSpendingOvertimeBySubcategory = (state) => {
+  return state.trendsPage.spendingOvertimeBySubcategory;
+};
+
+export const selectTrendsCategories = (state) => {
+  return state.trendsPage.trendCategories;
+};
+
+export const selectOverviewChartData = (state) => {
+  return state.trendsPage.overviewChartData;
 };
 
 export default trendsPageSlice.reducer;

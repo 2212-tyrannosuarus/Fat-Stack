@@ -20,6 +20,15 @@ export const fetchSingleTransactionSubCat = createAsyncThunk(
   }
 );
 
+export const fetchAllTransactions = createAsyncThunk(
+  "transaction/fetchallTransactions",
+  async (userId) => {
+    if (userId === undefined) return;
+    const { data } = await axios.get(`/api/singleTransaction//users/${userId}`);
+    return data;
+  }
+);
+
 export const fetchAllSubCat = createAsyncThunk(
   "transaction/fetchAllSubCat",
   async () => {
@@ -50,6 +59,17 @@ export const updateAllTransactionCat = createAsyncThunk(
   }
 );
 
+export const getGoalsTransaction = createAsyncThunk(
+  "transaction/getGoalsTransaction",
+  async (body) => {
+    const { data } = await axios.post(
+      `/api/singleTransaction/goalstransaction`,
+      body
+    );
+    return data;
+  }
+);
+
 export const singleTransactionPageSlice = createSlice({
   name: "homePage",
   initialState: {
@@ -58,6 +78,15 @@ export const singleTransactionPageSlice = createSlice({
     allSubCategories: [],
     category: {},
     errorMsg: "",
+    goalsTransaction: [],
+    transactionsStats: {
+      debitTransactions: [],
+      creditTransactions: [],
+      creditSum: 0,
+      debitSum: 0,
+      creditAverage: 0,
+      debitAverage: 0,
+    },
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -71,6 +100,9 @@ export const singleTransactionPageSlice = createSlice({
       .addCase(fetchSingleTransactionSubCat.fulfilled, (state, action) => {
         state.subCategory = action.payload;
       })
+      .addCase(getGoalsTransaction.fulfilled, (state, action) => {
+        state.goalsTransaction = action.payload;
+      })
       .addCase(fetchAllSubCat.fulfilled, (state, action) => {
         state.allSubCategories = action.payload;
         state.allSubCategories = state.allSubCategories.sort(function (a, b) {
@@ -82,6 +114,30 @@ export const singleTransactionPageSlice = createSlice({
           }
           return 0;
         });
+      })
+      .addCase(fetchAllTransactions.fulfilled, (state, action) => {
+        state.transactionsStats.debitTransactions = action.payload.filter(
+          (transaction) => transaction.credit_debit === "debit"
+        );
+        let sumDebit = state.transactionsStats.debitTransactions.reduce(
+          (sum, transaction) => sum + parseInt(transaction.amount),
+          0
+        );
+        state.transactionsStats.debitSum = sumDebit;
+        state.transactionsStats.debitAverage = (
+          sumDebit / state.transactionsStats.debitTransactions.length
+        ).toFixed(2);
+        state.transactionsStats.creditTransactions = action.payload.filter(
+          (transaction) => transaction.credit_debit === "credit"
+        );
+        let sumCredit = state.transactionsStats.creditTransactions.reduce(
+          (sum, transaction) => sum + parseInt(transaction.amount),
+          0
+        );
+        state.transactionsStats.creditSum = sumCredit;
+        state.transactionsStats.creditAverage = (
+          sumCredit / state.transactionsStats.creditTransactions.length
+        ).toFixed(2);
       });
   },
 });
@@ -94,6 +150,13 @@ export const selectSingleTransactionSubCat = (state) => {
 };
 export const selectAllSubCat = (state) => {
   return state.singleTransactionPage.allSubCategories;
+};
+export const selectGoalTransactions = (state) => {
+  return state.singleTransactionPage.goalsTransaction;
+};
+
+export const selectAllTransactions = (state) => {
+  return state.singleTransactionPage.transactionsStats;
 };
 
 export default singleTransactionPageSlice.reducer;

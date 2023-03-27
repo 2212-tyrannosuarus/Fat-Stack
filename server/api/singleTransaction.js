@@ -17,6 +17,17 @@ router.get("/subcategory", async (req, res, next) => {
   }
 });
 
+router.post("/goalstransaction", async (req, res, next) => {
+  try {
+    const transactions = await Transaction.findAll({
+      where: { merchant: req.body.name },
+    });
+    res.json(transactions);
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.put("/changeallsubcategory", async (req, res, next) => {
   try {
     const { name, body } = req.body;
@@ -53,12 +64,38 @@ router.get("/category/:id", async (req, res, next) => {
   }
 });
 
+router.get("/users/:userId", async (req, res, next) => {
+  try {
+    const transactions = await Transaction.findAll({
+      where: { userId: req.params.userId },
+    });
+    res.json(transactions);
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.get("/:id", async (req, res, next) => {
   try {
     const transaction = await Transaction.findByPk(req.params.id, {
       include: [Note],
     });
     res.json(transaction);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.delete("/:id", async (req, res, next) => {
+  console.log("req.params.id", req.params.id);
+  const deletedTransaction = await Transaction.findByPk(req.params.id);
+  try {
+    await Transaction.destroy({
+      where: {
+        id: req.params.id,
+      },
+    });
+    res.status(200).send(deletedTransaction);
   } catch (err) {
     next(err);
   }

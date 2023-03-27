@@ -139,6 +139,15 @@ class NavigationRoutes extends Component {
             </MainLayout>
           }
         />
+         <Route
+        exact
+        path="/overviewChart"
+        element={
+          <SidebarLayout>
+            <ChartForOVerview userId={1}/>
+          </SidebarLayout>
+        }
+      />
       </Routes>
     );
   }
