@@ -50,10 +50,11 @@ const DashNav = ({ user, handleLogout }) => {
         >
           <MenuButton cursor="pointer" onClick={toggleIcon}>
             <Flex alignItems="center">
-              <Avatar src={"#"} alt={"#"} size="sm" />
+              <Avatar src={"#"} alt={"user picture"} size="sm" />
               <Text
                 ml={2}
                 mr={2}
+                justifyContent={"center"}
                 fontWeight="bold"
                 fontSize={15}
                 color={"gray.800"}
@@ -71,14 +72,6 @@ const DashNav = ({ user, handleLogout }) => {
               _hover={{ textDecoration: "none", color: "gray.800" }}
             >
               My Profile
-            </MenuItem>
-            <MenuItem
-              as={Link}
-              href="/settings"
-              color={"gray.800"}
-              _hover={{ textDecoration: "none", color: "gray.800" }}
-            >
-              Bank Accounts
             </MenuItem>
             <MenuItem onClick={() => handleLogout()}>Logout</MenuItem>
           </MenuList>

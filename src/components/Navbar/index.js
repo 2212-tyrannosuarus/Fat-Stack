@@ -1,17 +1,7 @@
-import React, { useState } from "react";
-import {
-  Avatar,
-  Box,
-  Button,
-  Flex,
-  Link,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-} from "@chakra-ui/react";
-import { logout } from "../../store";
+import React from "react";
+import { Box, Button, Flex, Link } from "@chakra-ui/react";
 import { connect } from "react-redux";
+import Homepage from "../HomePage";
 import { useNavigate } from "react-router-dom";
 
 const Navbar = (props) => {
@@ -41,7 +31,7 @@ const Navbar = (props) => {
         </Box>
       </Box>
       <Box fontWeight="bold" mr="1rem">
-        <Link href="/about" marginRight="2rem">
+        <Link href="/" marginRight="2rem">
           Home
         </Link>
         <Link href="/contact" marginRight="2rem">
