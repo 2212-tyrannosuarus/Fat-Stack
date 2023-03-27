@@ -5,7 +5,6 @@ import { AiOutlineCar } from "react-icons/ai";
 import { BiHomeSmile } from "react-icons/bi";
 import { GiMuscleUp } from "react-icons/gi";
 import { MdOutlineElderly } from "react-icons/md";
-import { IoHomeOutline, IoSchoolOutline } from "react-icons/io";
 import { GiStairsGoal } from "react-icons/gi";
 import { TbPlaneInflight, TbSchool } from "react-icons/tb";
 import "./goalicon.css";

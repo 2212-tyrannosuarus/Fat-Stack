@@ -12,7 +12,13 @@ export const getallGoals = createAsyncThunk("goals/getallGoals", async () => {
 });
 
 export const getGoal = createAsyncThunk("goals/getGoal", async (id) => {
+  console.log("this is receiving id", id);
   const { data } = await axios.get(`/api/goals/${id}`);
+  return data;
+});
+
+export const deleteGoal = createAsyncThunk("goals/deleteGoal", async (id) => {
+  const { data } = await axios.delete(`/api/goals/${id}`);
   console.log(data);
   return data;
 });
@@ -67,6 +73,15 @@ export const redoContribution = createAsyncThunk(
   }
 );
 
+export const updateGoal = createAsyncThunk(
+  "goals/updateGoal",
+  async ({ id, body }) => {
+    console.log("body", body);
+    const { data } = await axios.put(`/api/goals/${id}`, body);
+    return data;
+  }
+);
+
 export const goalPageSlice = createSlice({
   name: "homePage",
   initialState: {
@@ -82,6 +97,12 @@ export const goalPageSlice = createSlice({
     builder
       .addCase(getGoals.fulfilled, (state, action) => {
         state.allGoals = action.payload;
+      })
+      .addCase(updateGoal.fulfilled, (state, action) => {
+        state.goal = action.payload;
+      })
+      .addCase(deleteGoal.fulfilled, (state, action) => {
+        state.goal = {};
       })
       .addCase(getallGoals.fulfilled, (state, action) => {
         state.allGoalList = action.payload;

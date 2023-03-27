@@ -10,7 +10,6 @@ import {
   fetchAllTransactions,
 } from "../../reducers/singleTransactionPageSlice";
 import UpdateTransaction from "./UpdateTransaction";
-import LineCarts from "./Table/LineCarts";
 
 import {
   Stat,
@@ -134,6 +133,7 @@ const SingleTransction = () => {
                   <AddNote id={singleTransaction.id} />
                   {/* <GoalTransaction /> */}
                   <Note
+                    mt="4rem"
                     notesProp={singleTransaction.notes}
                     transactionId={singleTransaction.id}
                     transaction={singleTransaction}

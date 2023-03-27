@@ -656,7 +656,6 @@ async function seed() {
       bankaccountId: 3,
       subcategoryId: 111,
     });
-    console.log(date);
   });
 
   //creating budget schemes

@@ -1,22 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { ProgressBar } from "react-bootstrap";
 import "../../Budget/Budget.css";
-import { Link } from "@chakra-ui/react";
 import moment from "moment";
-import goalPageSlice from "../../../reducers/goalPageSlice";
-import {
-  Wrap,
-  WrapItem,
-  Center,
-  Flex,
-  Box,
-  Heading,
-  Text,
-  List,
-  ListItem,
-  ListIcon,
-  OrderedList,
-} from "@chakra-ui/react";
+import { Heading, Link } from "@chakra-ui/react";
 
 export default function GoalBox({ goal }) {
   const [weekContribution, setWeekContribution] = useState(0);
@@ -46,9 +32,12 @@ export default function GoalBox({ goal }) {
         <div className="card h-100">
           <div className="card-header bg-light d-flex align-items-center justify-content-between">
             <h5 className="card-title m-0 me-2 ">
-              <Link href={`/goals/${goal.id}`} name={goal.name}>
-                <Heading size="sm">{goal.name}</Heading>
-              </Link>
+              <div>
+                {" "}
+                <Link href={`/goals/${goal.id}`} name={goal.name}>
+                  <Heading size="sm">{goal.name}</Heading>
+                </Link>
+              </div>
             </h5>
           </div>
           <div className="card-body">

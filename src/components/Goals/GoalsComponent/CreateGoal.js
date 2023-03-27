@@ -12,9 +12,7 @@ import {
   Box,
   Heading,
   Text,
-  List,
   ListItem,
-  ListIcon,
   OrderedList,
 } from "@chakra-ui/react";
 import {

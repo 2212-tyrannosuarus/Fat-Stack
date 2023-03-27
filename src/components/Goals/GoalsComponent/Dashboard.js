@@ -28,10 +28,8 @@ export default function Dashboard() {
     goals.forEach((goal) => {
       if (goal.completion_status === true) {
         completeCount += 1;
-        console.log(completeCount);
       } else {
         incompleteCount += 1;
-        console.log(incompleteCount);
       }
     });
     setIncompleteCount(incompleteCount);
