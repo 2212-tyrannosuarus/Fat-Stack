@@ -59,7 +59,7 @@ const PieChartMerchant = (props) => {
     <div className="row">
       <div className="col-8 p-0">
         {pieChartMerchant && legendMerchant ? (
-          <svg width="600" height="700" viewBox="0 0 500 400">
+          <svg width="600" height="800" viewBox="0 0 500 450">
             <VictoryPie
               standalone={false}
               width={400}
@@ -129,7 +129,7 @@ const PieChartMerchant = (props) => {
         </div>
         <VictoryLegend
           x={50}
-          y={-360}
+          y={-420}
           colorScale={[
             "#54d4f1",
             "#9ce775",

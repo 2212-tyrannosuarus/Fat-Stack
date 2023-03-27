@@ -135,7 +135,7 @@
   }
 
   #chakra-modal-mymodal {
-    height:550px !important;
+    height:600px !important;
     /* // There is a max-width rule used by chakra-ui, */
     /* // thus you need to overwrite it to make it work. */
     max-width:1000px !important;
