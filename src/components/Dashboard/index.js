@@ -1,10 +1,9 @@
 import React from "react";
 import { Box, Text, Icon, Flex } from "@chakra-ui/react";
 
-import { FcDonate, FcDepartment, FcMoneyTransfer } from "react-icons/fc";
-import ChartForOVerview from "../ChartForOverview";
+import { FcDepartment } from "react-icons/fc";
+import ChartForOverview from "../ChartForOverview";
 import Dashboardd from "../Goals/GoalsComponent/Dashboard";
-
 
 const Dashboard = () => {
   return (
