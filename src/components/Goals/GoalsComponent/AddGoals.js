@@ -2,30 +2,23 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import {
-  Container,
   Button,
   useDisclosure,
   Modal,
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
   FormControl,
   FormLabel,
-  FormErrorMessage,
   FormHelperText,
   Input,
-  Select,
   NumberInput,
   NumberInputField,
   NumberInputStepper,
   NumberIncrementStepper,
   NumberDecrementStepper,
-  Stack,
-  RadioGroup,
-  Radio,
 } from "@chakra-ui/react";
 import { createGoal, selectGoal } from "../../../reducers/goalPageSlice";
 import { useDispatch } from "react-redux";
@@ -178,7 +171,6 @@ export default function AddGoals({ goal }) {
                     value={monthlySaveAmt}
                     onChange={(e) => {
                       setmonthlySaveAmt(e);
-                      console.log(e, typeof e);
                       if (
                         e !== "" &&
                         e !== "0.00" &&

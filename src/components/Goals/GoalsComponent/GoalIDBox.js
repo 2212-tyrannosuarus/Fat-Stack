@@ -1,26 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Button, ProgressBar } from "react-bootstrap";
 import "../../Budget/Budget.css";
-import { Link } from "@chakra-ui/react";
+
 import moment from "moment";
-import goalPageSlice from "../../../reducers/goalPageSlice";
 import {
-  Wrap,
-  WrapItem,
-  Center,
-  Flex,
-  Box,
   Heading,
   Text,
-  List,
-  ListItem,
-  ListIcon,
-  OrderedList,
   Progress,
   Button as ChakraButton,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import LineCart from "../Charts/LineCart";
+import UpdateGoals from "./UpdateGoals";
 
 export default function GoalIDBox({ goal }) {
   const [weekContribution, setWeekContribution] = useState(0);
@@ -35,7 +26,6 @@ export default function GoalIDBox({ goal }) {
       parseInt(goal.goalamount) - parseInt(goal.contributedamount);
     let monthDiff = goalDate.diff(currentDate, "months", true);
     let weekDiff = goalDate.diff(currentDate, "weeks", true);
-    console.log(monthDiff, weekDiff);
     setWeekLeft(weekDiff.toFixed(0));
     let monthAmt = (amountNeeded / monthDiff).toFixed(2);
     let weekAmt = (amountNeeded / weekDiff).toFixed(2);
@@ -76,9 +66,12 @@ export default function GoalIDBox({ goal }) {
                 >
                   ↫
                 </ChakraButton>
-                <ChakraButton colorScheme="teal" variant="ghost">
-                  ⚙️
-                </ChakraButton>
+                {/* {
+                  <ChakraButton colorScheme="teal" variant="ghost">
+                    ⚙️
+                  </ChakraButton>
+                } */}
+                <UpdateGoals goalid={goal.id} />
               </h5>
             </div>
           </div>
