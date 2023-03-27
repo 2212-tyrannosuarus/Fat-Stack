@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Button, useDisclosure } from "@chakra-ui/react";
+import { Button, Flex, useDisclosure } from "@chakra-ui/react";
 // import { CUIAutoComplete } from "chakra-ui-autocomplete";
 import {
-  fetchAllTransactions,
   selectAllTransactions,
   selectAllBankAccounts,
   fetchAllBankAccounts,
   selectSubCategories,
   fetchAllSubCategories,
   deleteSingleTransaction,
+  fetchTransactionsFromDateToDate,
 } from "../../reducers/allTransactionsPageSlice";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -16,6 +16,7 @@ import axios from "axios";
 import AddTransactionModal from "./AddTransactionModal";
 import TransactionList from "./TransactionList";
 import Paginator from "./Paginator";
+import FilterBar from "./FilterBar";
 
 const AllTransactions = () => {
   const dispatch = useDispatch();
@@ -28,6 +29,8 @@ const AllTransactions = () => {
       label: subCategory.sub_category_name,
     };
   });
+  const sixMonthsAgo = new Date();
+  sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
 
   const [selectedAccount, setSelectedAccount] = useState("all");
   const [selectedCategory, setSelectedCategory] = useState("none");
@@ -44,41 +47,102 @@ const AllTransactions = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [deletedTransaction, setDeletedTransaction] = useState({});
   const [postedTransaction, setPostedTransaction] = useState({});
+  const [selectedDates, setSelectedDates] = useState([
+    sixMonthsAgo,
+    new Date(),
+  ]);
   const [filteredTransactions, setFilteredTransactions] = useState(
     allTransactions || []
   );
   const transactionsPerPage = 10;
 
+  const formatDateObjects = (selectedDates) => {
+    const monthLookup = {
+      Jan: "01",
+      Feb: "02",
+      Mar: "03",
+      Apr: "04",
+      May: "05",
+      Jun: "06",
+      Jul: "07",
+      Aug: "08",
+      Sep: "09",
+      Oct: "10",
+      Nov: "11",
+      Dec: "12",
+    };
+    const formattedDates = selectedDates.map((date) => {
+      const tempDate = date.toString().split(" ");
+      let day;
+      if (tempDate[2].length < 2) {
+        day = "0" + tempDate[2];
+      } else {
+        day = tempDate[2];
+      }
+      let month = monthLookup[tempDate[1]];
+      return tempDate[3] + "-" + month + "-" + day;
+    });
+    return formattedDates;
+    // return { dates: { fromDate, toDate } };
+  };
+
   useEffect(() => {
-    dispatch(fetchAllTransactions());
     dispatch(fetchAllBankAccounts());
     dispatch(fetchAllSubCategories());
-  }, [dispatch, deletedTransaction, postedTransaction]);
+    const fromDate = formatDateObjects(selectedDates)[0];
+    const toDate = formatDateObjects(selectedDates)[1];
+    dispatch(
+      fetchTransactionsFromDateToDate({
+        fromDate: fromDate,
+        toDate: toDate,
+      })
+    );
+  }, [dispatch, deletedTransaction, postedTransaction, selectedDates]);
 
   useEffect(() => {
     setFilteredTransactions(
-      allTransactions.filter((transaction) => {
-        if (
-          (selectedAccount === "all" ||
-            transaction.bankaccountId === Number(selectedAccount)) &&
-          (selectedCategory === "none" ||
-            Number(selectedCategory) === Number(transaction.subcategoryId))
-        ) {
-          return true;
-        } else {
-          return false;
-        }
-      })
+      allTransactions
+        .filter((transaction) => {
+          if (
+            (selectedAccount === "all" ||
+              transaction.bankaccountId === Number(selectedAccount)) &&
+            (selectedCategory === "none" ||
+              Number(selectedCategory) === Number(transaction.subcategoryId))
+          ) {
+            return true;
+          } else {
+            return false;
+          }
+        })
+        .sort((a, b) => {
+          //compare the dates and arrange them in order
+        })
     );
-  }, [allTransactions, selectedAccount, selectedCategory, deletedTransaction]);
+  }, [
+    allTransactions,
+    selectedAccount,
+    selectedCategory,
+    deletedTransaction,
+    selectedDates,
+  ]);
   useEffect(() => {
+    let extraPage = 1;
+    //math for pagination
+    if (filteredTransactions.length % transactionsPerPage < 2) {
+      extraPage = 0;
+    }
     setTotalPageCount(
-      Math.floor(filteredTransactions.length / transactionsPerPage) + 1
+      Math.floor(filteredTransactions.length / transactionsPerPage) + extraPage
     );
-    setCurrentPage(1);
   }, [filteredTransactions]);
 
-  useEffect(() => {}, [totalPageCount]);
+  useEffect(() => {
+    if (currentPage > totalPageCount) {
+      setCurrentPage(totalPageCount);
+    } else {
+      setCurrentPage(1);
+    }
+  }, [selectedAccount, selectedCategory, selectedDates, totalPageCount]);
 
   let totalAccountBalance = bankAccounts.reduce((accum, account) => {
     accum += Number(account.available_balance);
@@ -87,6 +151,7 @@ const AllTransactions = () => {
 
   const handleAccountClick = (e) => {
     setSelectedAccount(e.target.value);
+    console.log(selectedAccount);
   };
 
   const handleDelete = async (evt, transactionId) => {
@@ -102,10 +167,6 @@ const AllTransactions = () => {
         return transaction.id !== deletedTransaction.id;
       })
     );
-  };
-
-  const handlePageChange = (e) => {
-    setCurrentPage(e.selected + 1);
   };
 
   const handleCategoryChange = (e) => {
@@ -128,15 +189,6 @@ const AllTransactions = () => {
   };
 
   //want to make this the filter for categories
-  // <CUIAutoComplete
-  //   value={newTransactionSubCategory}
-  //   disableCreateItem="true"
-  //   items={subCategoriesAsStrings}
-  //   placeholder="Pick a category "
-  //   onChange={(e) => {
-  //     handleNewCategoryChange(e);
-  //   }}
-  // />
 
   //these functions format the number input field in the new Transaction form
 
@@ -160,10 +212,16 @@ const AllTransactions = () => {
       "/api/allTransactions",
       newTransaction
     );
+    //set user, set category, set bank account
+    //query for user #1, bank account, and category
+    //user magic methods to set these foreign keys
+    console.log(newPostedTransaction);
+
+    newPostedTransaction.setUser;
     setPostedTransaction(newPostedTransaction);
     // now update the bank account balance
     let avaialableBalanceDifferential = 0;
-    if (newPostedTransaction.credit_debit === "debit") {
+    if (newPostedTransaction.data.credit_debit === "debit") {
       avaialableBalanceDifferential -= Number(newPostedTransaction.data.amount);
     } else {
       avaialableBalanceDifferential += Number(newPostedTransaction.data.amount);
@@ -186,87 +244,60 @@ const AllTransactions = () => {
   };
 
   return subCategories.length > 0 ? (
-    <>
-      <div>
-        <div>Your accounts:</div>
-        <ul>
-          <li>
-            <Button
-              value={"all"}
-              onClick={(e) => {
-                handleAccountClick(e);
-              }}
-            >
-              {"All Accounts"}|{totalAccountBalance}
-            </Button>
-          </li>
-          {bankAccounts.map((account) => {
-            return (
-              <li key={account.account_id}>
-                <Button
-                  value={account.id}
-                  onClick={(e) => {
-                    handleAccountClick(e);
-                  }}
-                >
-                  {account.account_name}|{account.available_balance}
-                </Button>
-              </li>
-            );
-          })}
-        </ul>
-        <div>filters</div>
-        <label for="category">Category</label>
-        <select
-          id="category"
-          onChange={(e) => {
-            handleCategoryChange(e);
-          }}
-        >
-          {subCategories.map((category) => {
-            return (
-              <option value={category.id}>{category.sub_category_name}</option>
-            );
-          })}
-        </select>
-        <label>Date</label>
-      </div>
-
-      <div>Transactions:</div>
-      <AddTransactionModal
-        newTransactionAmount={newTransactionAmount}
-        newTransactionDate={newTransactionDate}
-        newTransactionMerchant={newTransactionMerchant}
-        newTransactionSubCategory={newTransactionSubCategory}
-        bankAccounts={bankAccounts}
-        subCategories={subCategories}
-        subCategoriesAsStrings={subCategoriesAsStrings}
-        handleNewTransactionSubmit={handleNewTransactionSubmit}
-        handleNewMerchantChange={handleNewMerchantChange}
-        handleNewAccountChange={handleNewAccountChange}
-        handleNewCategoryChange={handleNewCategoryChange}
-        handleNewCreditDebitChange={handleNewCreditDebitChange}
-        handleNewDateChange={handleNewDateChange}
-        handleClear={handleClear}
-        setNewTransactionAmount={setNewTransactionAmount}
-      />
-
+    <Flex direction={"row"}>
+      <Flex
+        direction={"column"}
+        padding={"10px"}
+        w="20%"
+        alignItems={"flex-start"}
+      >
+        <FilterBar
+          selectedCategory={selectedCategory}
+          handleAccountClick={handleAccountClick}
+          totalAccountBalance={totalAccountBalance}
+          bankAccounts={bankAccounts}
+          subCategories={subCategories}
+          handleCategoryChange={handleCategoryChange}
+          setSelectedDates={setSelectedDates}
+          selectedDates={selectedDates}
+          selectedAccount={selectedAccount}
+        />
+      </Flex>
+      {/* ADD A GRAPH HERE  */}
       {/* TRANSACTIONS COMPONENT HERE */}
-      <TransactionList
-        allTransactions={filteredTransactions}
-        selectedAccount={selectedAccount}
-        selectedCategory={selectedCategory}
-        subCategories={subCategories}
-        handleDelete={handleDelete}
-        totalPageCount={totalPageCount}
-        transactionsPerPage={transactionsPerPage}
-        currentPage={currentPage}
-      />
-      <Paginator
-        handlePageChange={handlePageChange}
-        totalPageCount={totalPageCount}
-      />
-    </>
+      <Flex direction={"column"}>
+        <TransactionList
+          allTransactions={filteredTransactions}
+          selectedAccount={selectedAccount}
+          selectedCategory={selectedCategory}
+          subCategories={subCategories}
+          handleDelete={handleDelete}
+          totalPageCount={totalPageCount}
+          transactionsPerPage={transactionsPerPage}
+          currentPage={currentPage}
+          // props for New transaction modal element
+          newTransactionAmount={newTransactionAmount}
+          newTransactionDate={newTransactionDate}
+          newTransactionMerchant={newTransactionMerchant}
+          newTransactionSubCategory={newTransactionSubCategory}
+          bankAccounts={bankAccounts}
+          subCategoriesAsStrings={subCategoriesAsStrings}
+          handleNewTransactionSubmit={handleNewTransactionSubmit}
+          handleNewMerchantChange={handleNewMerchantChange}
+          handleNewAccountChange={handleNewAccountChange}
+          handleNewCategoryChange={handleNewCategoryChange}
+          handleNewCreditDebitChange={handleNewCreditDebitChange}
+          handleNewDateChange={handleNewDateChange}
+          handleClear={handleClear}
+          setNewTransactionAmount={setNewTransactionAmount}
+        />
+        <Paginator
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          totalPageCount={totalPageCount}
+        />
+      </Flex>
+    </Flex>
   ) : (
     <>LOADING</>
   );

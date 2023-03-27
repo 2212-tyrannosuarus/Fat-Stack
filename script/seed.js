@@ -182,8 +182,8 @@ async function seed() {
   });
   const studentloan = await Goal.create({
     name: "Student Loans",
-    goalamount: 200000,
-    contributedamount: 57000,
+    goalamount: 20000,
+    contributedamount: 5700,
     start_date: "2020-01-21",
     goal_date: "2030-02-21",
     completion_status: false,
@@ -191,9 +191,9 @@ async function seed() {
     goalCategoryId: 1,
   });
   const house = await Goal.create({
-    name: "Home Ownership",
-    goalamount: 789999,
-    contributedamount: 122250,
+    name: "Lake House Downpayment",
+    goalamount: 78999,
+    contributedamount: 12225,
     start_date: "2021-01-01",
     goal_date: "2035-01-01",
     completion_status: false,
@@ -351,9 +351,9 @@ async function seed() {
 
   let house1 = await Transaction.create({
     account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
-    merchant: "Home Ownership",
+    merchant: "Lake House Downpayment",
     date: "2021-01-21",
-    amount: 4890,
+    amount: 489,
     hide_from_budget: false,
     credit_debit: "debit",
     userId: 1,
@@ -363,9 +363,9 @@ async function seed() {
 
   let house2 = await Transaction.create({
     account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
-    merchant: "Home Ownership",
+    merchant: "Lake House Downpayment",
     date: "2021-02-21",
-    amount: 4890,
+    amount: 489,
     hide_from_budget: false,
     credit_debit: "debit",
     userId: 1,
@@ -375,9 +375,9 @@ async function seed() {
 
   let house3 = await Transaction.create({
     account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
-    merchant: "Home Ownership",
+    merchant: "Lake House Downpayment",
     date: "2021-03-21",
-    amount: 4890,
+    amount: 489,
     hide_from_budget: false,
     credit_debit: "debit",
     userId: 1,
@@ -387,9 +387,9 @@ async function seed() {
 
   let house4 = await Transaction.create({
     account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
-    merchant: "Home Ownership",
+    merchant: "Lake House Downpayment",
     date: "2021-04-21",
-    amount: 4890,
+    amount: 489,
     hide_from_budget: false,
     credit_debit: "debit",
     userId: 1,
@@ -399,9 +399,9 @@ async function seed() {
 
   let house5 = await Transaction.create({
     account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
-    merchant: "Home Ownership",
+    merchant: "Lake House Downpayment",
     date: "2021-05-21",
-    amount: 4890,
+    amount: 489,
     hide_from_budget: false,
     credit_debit: "debit",
     userId: 1,
@@ -411,9 +411,9 @@ async function seed() {
 
   let house6 = await Transaction.create({
     account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
-    merchant: "Home Ownership",
+    merchant: "Lake House Downpayment",
     date: "2021-06-21",
-    amount: 4890,
+    amount: 489,
     hide_from_budget: false,
     credit_debit: "debit",
     userId: 1,
@@ -423,9 +423,9 @@ async function seed() {
 
   let house7 = await Transaction.create({
     account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
-    merchant: "Home Ownership",
+    merchant: "Lake House Downpayment",
     date: "2021-07-21",
-    amount: 4890,
+    amount: 489,
     hide_from_budget: false,
     credit_debit: "debit",
     userId: 1,
@@ -435,9 +435,9 @@ async function seed() {
 
   let house8 = await Transaction.create({
     account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
-    merchant: "Home Ownership",
+    merchant: "Lake House Downpayment",
     date: "2021-08-21",
-    amount: 4890,
+    amount: 489,
     hide_from_budget: false,
     credit_debit: "debit",
     userId: 1,
@@ -447,9 +447,9 @@ async function seed() {
 
   let house9 = await Transaction.create({
     account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
-    merchant: "Home Ownership",
+    merchant: "Lake House Downpayment",
     date: "2021-09-21",
-    amount: 4890,
+    amount: 489,
     hide_from_budget: false,
     credit_debit: "debit",
     userId: 1,
@@ -459,9 +459,9 @@ async function seed() {
 
   let house10 = await Transaction.create({
     account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
-    merchant: "Home Ownership",
+    merchant: "Lake House Downpayment",
     date: "2021-10-21",
-    amount: 4890,
+    amount: 489,
     hide_from_budget: false,
     credit_debit: "debit",
     userId: 1,
@@ -471,9 +471,9 @@ async function seed() {
 
   let house11 = await Transaction.create({
     account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
-    merchant: "Home Ownership",
+    merchant: "Lake House Downpayment",
     date: "2021-11-21",
-    amount: 4890,
+    amount: 489,
     hide_from_budget: false,
     credit_debit: "debit",
     userId: 1,
@@ -483,9 +483,9 @@ async function seed() {
 
   let house12 = await Transaction.create({
     account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
-    merchant: "Home Ownership",
+    merchant: "Lake House Downpayment",
     date: "2021-12-21",
-    amount: 4890,
+    amount: 489,
     hide_from_budget: false,
     credit_debit: "debit",
     userId: 1,
@@ -495,9 +495,9 @@ async function seed() {
 
   let house13 = await Transaction.create({
     account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
-    merchant: "Home Ownership",
+    merchant: "Lake House Downpayment",
     date: "2022-01-21",
-    amount: 4890,
+    amount: 489,
     hide_from_budget: false,
     credit_debit: "debit",
     userId: 1,
@@ -506,9 +506,9 @@ async function seed() {
   });
   let house14 = await Transaction.create({
     account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
-    merchant: "Home Ownership",
+    merchant: "Lake House Downpayment",
     date: "2022-02-21",
-    amount: 4890,
+    amount: 489,
     hide_from_budget: false,
     credit_debit: "debit",
     userId: 1,
@@ -517,9 +517,9 @@ async function seed() {
   });
   let house15 = await Transaction.create({
     account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
-    merchant: "Home Ownership",
+    merchant: "Lake House Downpayment",
     date: "2022-03-21",
-    amount: 4890,
+    amount: 489,
     hide_from_budget: false,
     credit_debit: "debit",
     userId: 1,
@@ -528,9 +528,9 @@ async function seed() {
   });
   let house16 = await Transaction.create({
     account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
-    merchant: "Home Ownership",
+    merchant: "Lake House Downpayment",
     date: "2022-04-21",
-    amount: 4890,
+    amount: 489,
     hide_from_budget: false,
     credit_debit: "debit",
     userId: 1,
@@ -539,9 +539,9 @@ async function seed() {
   });
   let house17 = await Transaction.create({
     account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
-    merchant: "Home Ownership",
+    merchant: "Lake House Downpayment",
     date: "2022-05-21",
-    amount: 4890,
+    amount: 489,
     hide_from_budget: false,
     credit_debit: "debit",
     userId: 1,
@@ -550,9 +550,9 @@ async function seed() {
   });
   let house18 = await Transaction.create({
     account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
-    merchant: "Home Ownership",
+    merchant: "Lake House Downpayment",
     date: "2022-06-21",
-    amount: 4890,
+    amount: 489,
     hide_from_budget: false,
     credit_debit: "debit",
     userId: 1,
@@ -562,9 +562,9 @@ async function seed() {
 
   let house19 = await Transaction.create({
     account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
-    merchant: "Home Ownership",
+    merchant: "Lake House Downpayment",
     date: "2022-07-21",
-    amount: 4890,
+    amount: 489,
     hide_from_budget: false,
     credit_debit: "debit",
     userId: 1,
@@ -574,9 +574,9 @@ async function seed() {
 
   let house20 = await Transaction.create({
     account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
-    merchant: "Home Ownership",
+    merchant: "Lake House Downpayment",
     date: "2022-08-21",
-    amount: 4890,
+    amount: 489,
     hide_from_budget: false,
     credit_debit: "debit",
     userId: 1,
@@ -586,9 +586,9 @@ async function seed() {
 
   let house21 = await Transaction.create({
     account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
-    merchant: "Home Ownership",
+    merchant: "Lake House Downpayment",
     date: "2022-09-21",
-    amount: 4890,
+    amount: 489,
     hide_from_budget: false,
     credit_debit: "debit",
     userId: 1,
@@ -598,9 +598,9 @@ async function seed() {
 
   let house22 = await Transaction.create({
     account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
-    merchant: "Home Ownership",
+    merchant: "Lake House Downpayment",
     date: "2022-10-21",
-    amount: 4890,
+    amount: 489,
     hide_from_budget: false,
     credit_debit: "debit",
     userId: 1,
@@ -610,9 +610,9 @@ async function seed() {
 
   let house23 = await Transaction.create({
     account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
-    merchant: "Home Ownership",
+    merchant: "Lake House Downpayment",
     date: "2022-11-21",
-    amount: 4890,
+    amount: 489,
     hide_from_budget: false,
     credit_debit: "debit",
     userId: 1,
@@ -622,9 +622,9 @@ async function seed() {
 
   let house24 = await Transaction.create({
     account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
-    merchant: "Home Ownership",
+    merchant: "Lake House Downpayment",
     date: "2022-12-21",
-    amount: 4890,
+    amount: 489,
     hide_from_budget: false,
     credit_debit: "debit",
     userId: 1,
@@ -634,9 +634,9 @@ async function seed() {
 
   let house25 = await Transaction.create({
     account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
-    merchant: "Home Ownership",
+    merchant: "Lake House Downpayment",
     date: "2023-01-21",
-    amount: 4890,
+    amount: 489,
     hide_from_budget: false,
     credit_debit: "debit",
     userId: 1,
@@ -649,7 +649,7 @@ async function seed() {
       account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
       merchant: "Student Loans",
       date: date,
-      amount: 1500,
+      amount: 150,
       hide_from_budget: false,
       credit_debit: "debit",
       userId: 1,

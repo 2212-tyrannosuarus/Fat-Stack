@@ -2,6 +2,7 @@ import React from "react";
 import { Box, Text, Icon, Flex } from "@chakra-ui/react";
 import { FcDonate, FcDepartment, FcMoneyTransfer } from "react-icons/fc";
 import ChartForOVerview from "../ChartForOverview";
+import Dashboardd from "../Goals/GoalsComponent/Dashboard";
 
 const Dashboard = () => {
   return (
@@ -54,7 +55,7 @@ const Dashboard = () => {
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam
               viverra justo odio, sit amet mollis massa porttitor id.
             </Text> */}
-            <ChartForOVerview userId={1}/>
+            <ChartForOVerview userId={1} />
           </Box>
         </Box>
         <Box
@@ -81,6 +82,7 @@ const Dashboard = () => {
             </Text>
           </Box>
         </Box>
+        <Dashboardd />
       </Flex>
     </>
   );
