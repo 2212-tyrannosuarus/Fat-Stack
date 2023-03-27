@@ -133,6 +133,7 @@ const SingleTransction = () => {
                   <AddNote id={singleTransaction.id} />
                   {/* <GoalTransaction /> */}
                   <Note
+                    mt="4rem"
                     notesProp={singleTransaction.notes}
                     transactionId={singleTransaction.id}
                     transaction={singleTransaction}

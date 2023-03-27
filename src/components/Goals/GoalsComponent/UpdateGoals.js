@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import {
   getGoal,
   selectGoal,
@@ -23,6 +23,7 @@ import {
 } from "@chakra-ui/react";
 
 export default function UpdateGoals({ goalid }) {
+  const navigate = useNavigate();
   const [date, setDate] = useState("");
   const [amount, setAmount] = useState(0);
   const { id } = useParams();
@@ -52,6 +53,10 @@ export default function UpdateGoals({ goalid }) {
     await dispatch(
       updateGoal({ id: goalid, body: { goal_date: date, goalamount: amount } })
     );
+  };
+
+  const handleDelete = async (event) => {
+    await dispatch(deleteGoal(goalid));
   };
 
   return (
@@ -104,6 +109,15 @@ export default function UpdateGoals({ goalid }) {
               }}
             >
               Submit
+            </Button>
+            <Button
+              mr={3}
+              onClick={() => {
+                handleDelete();
+                navigate("/goals");
+              }}
+            >
+              Delete
             </Button>
             <Button onClick={onClose}>Cancel</Button>
           </ModalFooter>

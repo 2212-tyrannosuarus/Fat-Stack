@@ -130,7 +130,7 @@ router.put("/:id", async (req, res, next) => {
 router.delete("/:id", async (req, res, next) => {
   try {
     const goal = await Goal.findByPk(req.params.id);
-    res.send(await goal.destory());
+    res.send(await goal.destroy());
   } catch (err) {
     next(err);
   }
