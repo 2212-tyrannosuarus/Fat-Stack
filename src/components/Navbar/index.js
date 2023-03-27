@@ -9,13 +9,14 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
-  Text,
 } from "@chakra-ui/react";
-import { useAuth0 } from "@auth0/auth0-react";
-import Notifications from "../Notifications";
+import { logout } from "../../store";
+import { connect } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-const Navbar = () => {
-  const { loginWithRedirect, isAuthenticated, user, logout } = useAuth0();
+const Navbar = (props) => {
+  const { handleLogout, isLoggedIn, user } = props;
+  const navigate = useNavigate();
 
   return (
     <Flex
@@ -35,35 +36,50 @@ const Navbar = () => {
         <Link href="/">
           <img src="/assets/logo.png" alt="Logo" width="40" height="40" />
         </Link>
-        <Box ml="3" fontWeight="bold" pt={1} fontSize={26}>
-          BANK
+        <Box ml="3" fontWeight="bold" mr="1rem">
+          FINANCE
         </Box>
       </Box>
-      {!isAuthenticated && (
-        <Box fontWeight="bold" mr="1rem">
-          <Link href="/" marginRight="2rem">
-            Home
-          </Link>
-          <Link marginRight="2rem">Features</Link>
-          <Link href="/contact" marginRight="2rem">
-            Contact Us
-          </Link>
-          <Button
-            fontWeight="bold"
-            mr="1rem"
-            bg="white"
-            colorScheme="gray"
-            variant="outline"
-            borderColor="gray.300"
-            _hover={{ bg: "gray.100" }}
-            onClick={() => loginWithRedirect()}
-          >
-            Sign In
-          </Button>
-        </Box>
-      )}
+      <Box fontWeight="bold" mr="1rem">
+        <Link href="/about" marginRight="2rem">
+          Home
+        </Link>
+        <Link href="/contact" marginRight="2rem">
+          Features
+        </Link>
+        <Link href="/contact" marginRight="2rem">
+          Contact Us
+        </Link>
+        <Button
+          fontWeight="bold"
+          mr="1rem"
+          bg="white"
+          colorScheme="gray"
+          variant="outline"
+          borderColor="gray.300"
+          _hover={{ bg: "gray.100" }}
+          onClick={() => navigate("/login")}
+        >
+          Sign In
+        </Button>
+      </Box>
     </Flex>
   );
 };
 
-export default Navbar;
+const mapState = (state) => {
+  return {
+    error: state.auth.error,
+    isLoggedIn: !!state.auth.id,
+  };
+};
+
+// const mapDispatch = (dispatch) => {
+//   return {
+//     handleLogout() {
+//       dispatch(logout());
+//     },
+//   };
+// };
+
+export default connect(mapState)(Navbar);

@@ -9,19 +9,17 @@ import {
   Button,
   SimpleGrid,
   Image,
+  Link,
   Icon,
   Input,
   Textarea,
 } from "@chakra-ui/react";
 import { FcDonate, FcDepartment, FcMoneyTransfer } from "react-icons/fc";
-import { useAuth0 } from "@auth0/auth0-react";
 
 export const Homepage = () => {
-  const { loginWithRedirect } = useAuth0();
-
   return (
     <>
-      <Box mx={36} my={42}>
+      <Box marginX={36} marginY={42}>
         <Container maxW={"7xl"}>
           <Stack
             align={"center"}
@@ -36,7 +34,6 @@ export const Homepage = () => {
                 fontSize={{ base: "3xl", sm: "4xl", lg: "6xl" }}
               >
                 <Text
-                  color="grey.800"
                   as={"span"}
                   position={"relative"}
                   _after={{
@@ -57,7 +54,7 @@ export const Homepage = () => {
                   Finance App
                 </Text>
               </Heading>
-              <Text color="grey.800">
+              <Text color={"gray.500"}>
                 This is just an example of what we can write here. I'm gauging
                 the length of how long this paragraph should be. We are Farmers
               </Text>
@@ -123,7 +120,6 @@ export const Homepage = () => {
                 display="flex"
                 flexDirection="column"
                 boxShadow="md"
-                color="grey.800"
               >
                 <Icon as={FcDepartment} w={10} h={10} mb={4} />
                 <Box>
