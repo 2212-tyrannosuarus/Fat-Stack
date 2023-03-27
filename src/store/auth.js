@@ -1,5 +1,4 @@
 import axios from "axios";
-import history from "../history";
 import { useNavigate } from "react-router-dom";
 
 const TOKEN = "token";
@@ -57,8 +56,6 @@ export const createUser =
 export const logout = () => {
   window.localStorage.removeItem(TOKEN);
   window.localStorage.removeItem("cart");
-  const navigate = useNavigate;
-  navigate("/");
   return {
     type: SET_AUTH,
     auth: {},

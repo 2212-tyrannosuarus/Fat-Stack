@@ -7,6 +7,7 @@ import {
   FormLabel,
   Grid,
   Input,
+  Card,
   Link,
   Text,
 } from "@chakra-ui/react";
@@ -15,10 +16,15 @@ import { connect } from "react-redux";
 
 const Signup = ({ handleSubmit, name, error }) => {
   return (
-    <Container>
-      <Box p={3} textAlign="center">
-        <form onSubmit={handleSubmit} name={name}>
-          <Box textAlign="center">
+    <Container maxW="container.sm" mt={10} mb={10}>
+      <Box textAlign="center">
+        <Card p={6} boxShadow="lg" borderRadius="md" maxW="md" mx="auto">
+          <Box>
+            <Text fontSize="xl" fontWeight="bold">
+              Sign Up
+            </Text>
+          </Box>
+          <form onSubmit={handleSubmit} name={name}>
             <Grid
               templateColumns="1fr"
               gap={3}
@@ -26,11 +32,6 @@ const Signup = ({ handleSubmit, name, error }) => {
               justifyContent="center"
               mt={3}
             >
-              <FormControl>
-                <FormLabel htmlFor="name">Name</FormLabel>
-                <Input id="name" variant="filled" type="name" />
-              </FormControl>
-
               <FormControl>
                 <FormLabel htmlFor="username">Username</FormLabel>
                 <Input id="username" variant="filled" />
@@ -47,32 +48,33 @@ const Signup = ({ handleSubmit, name, error }) => {
               </FormControl>
 
               <FormControl>
+                <FormLabel htmlFor="name">Name</FormLabel>
+                <Input id="name" variant="filled" type="name" />
+              </FormControl>
+
+              <FormControl>
                 <FormLabel htmlFor="phone_number">Phone Number</FormLabel>
                 <Input id="phone_number" variant="filled" />
               </FormControl>
 
-              <Button type="submit" colorScheme="blue" variant="solid">
-                Login
+              <Button
+                type="submit"
+                color="white"
+                bg={"purple.500"}
+                _hover={{ bg: "purple.300" }}
+                mt={4}
+              >
+                Sign Up
               </Button>
 
               {error && error.response && (
-                <Text color="red.500">{error.response.data}</Text>
+                <Text color="red.500" mt={4}>
+                  {error.response.data}
+                </Text>
               )}
             </Grid>
-
-            <Box
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              mt={2}
-            >
-              <Text>Don't have an account? </Text>
-              <Link to="/signup" color="blue.500">
-                Register Here
-              </Link>
-            </Box>
-          </Box>
-        </form>
+          </form>
+        </Card>
       </Box>
     </Container>
   );

@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { logout } from "../../store";
+import { connect } from "react-redux";
 import {
   Box,
   Flex,
@@ -20,17 +22,16 @@ import {
   FiTarget,
   FiTrendingUp,
 } from "react-icons/fi";
-import { useAuth0 } from "@auth0/auth0-react";
 
 const NavLink = ({ navSize, icon, title, href, onClick }) => (
   <Flex
     mt={2}
+    p={1}
     flexDir="column"
     w="100%"
     alignItems={navSize === "small" ? "center" : "flex-start"}
   >
     <Link
-      p={3}
       borderRadius={8}
       _hover={{ bg: "gray.100" }}
       w={navSize === "large" && "100%"}
@@ -51,8 +52,7 @@ const NavLink = ({ navSize, icon, title, href, onClick }) => (
   </Flex>
 );
 
-export default function Sidebar({ navSize, handleNavSize }) {
-  const { logout } = useAuth0();
+const SideBar = ({ navSize, handleNavSize, handleLogout }) => {
   return (
     <Flex
       boxShadow="md"
@@ -147,15 +147,25 @@ export default function Sidebar({ navSize, handleNavSize }) {
           navSize={navSize}
           icon={FiLogOut}
           title="Logout"
-          onClick={logout}
+          onClick={handleLogout}
         />
         <IconButton
           background="none"
           _hover={{ background: "none" }}
           icon={navSize === "large" ? <FiChevronsLeft /> : <FiChevronsRight />}
-          onClick={handleNavSize}
+          onClick={() => handleNavSize()}
         />
       </Flex>
     </Flex>
   );
-}
+};
+
+const mapDispatch = (dispatch) => {
+  return {
+    handleLogout() {
+      dispatch(logout());
+    },
+  };
+};
+
+export default connect(null, mapDispatch)(SideBar);

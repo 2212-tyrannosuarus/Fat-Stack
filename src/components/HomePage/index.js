@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Container,
   Stack,
@@ -9,7 +10,6 @@ import {
   Button,
   SimpleGrid,
   Image,
-  Link,
   Icon,
   Input,
   Textarea,
@@ -17,6 +17,7 @@ import {
 import { FcDonate, FcDepartment, FcMoneyTransfer } from "react-icons/fc";
 
 export const Homepage = () => {
+  const navigate = useNavigate();
   return (
     <>
       <Box marginX={36} marginY={42}>
@@ -70,7 +71,7 @@ export const Homepage = () => {
                   colorScheme={"red"}
                   bg={"purple.500"}
                   _hover={{ bg: "purple.300" }}
-                  onClick={() => loginWithRedirect()}
+                  onClick={() => navigate("/signup")}
                 >
                   Get started
                 </Button>

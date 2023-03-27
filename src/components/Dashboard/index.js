@@ -11,31 +11,6 @@ const Dashboard = () => {
           bg="white"
           rounded="lg"
           w={600}
-          h={200}
-          overflow="hidden"
-          px={6}
-          py={12}
-          mr={5}
-          display="flex"
-          flexDirection="column"
-          boxShadow="md"
-        >
-          <Icon as={FcDepartment} w={10} h={10} mb={4} />
-          <Box>
-            <Text fontWeight="bold" fontSize="xl" mb={2}>
-              Add Multiple Accounts
-            </Text>
-            <Text fontSize="md">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam
-              viverra justo odio, sit amet mollis massa porttitor id.
-            </Text>
-          </Box>
-        </Box>
-
-        <Box
-          bg="white"
-          rounded="lg"
-          w={600}
           h={400}
           overflow="hidden"
           px={6}
@@ -54,7 +29,7 @@ const Dashboard = () => {
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam
               viverra justo odio, sit amet mollis massa porttitor id.
             </Text> */}
-            <ChartForOVerview userId={1}/>
+            <ChartForOVerview userId={1} />
           </Box>
         </Box>
         <Box

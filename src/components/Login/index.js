@@ -4,30 +4,39 @@ import {
   Button,
   Container,
   FormControl,
+  Flex,
   FormLabel,
+  Card,
   Grid,
   Input,
-  Link,
   Text,
 } from "@chakra-ui/react";
 import { authenticateUser } from "../../store";
-import { Navigate } from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 const Login = ({ handleSubmit, name, error, isLoggedIn }) => {
   if (isLoggedIn) return <Navigate to="/dashboard" />;
 
   return (
-    <Container>
-      <Box p={3} textAlign="center">
-        <form onSubmit={handleSubmit} name={name}>
-          <Box textAlign="center">
+    <Container maxW="md" my={20}>
+      <Box textAlign="center">
+        <Card p={6} boxShadow="lg" borderRadius="md" maxW="md" mx="auto">
+          <Box mx="auto" mb={5}>
+            <img src="/assets/logo.png" alt="Logo" width="100" height="100" />
+          </Box>
+          <Box>
+            <Text fontSize="xl" fontWeight="bold">
+              Sign In
+            </Text>
+          </Box>
+          <form onSubmit={handleSubmit} name={name}>
             <Grid
               templateColumns="1fr"
               gap={3}
               alignItems="center"
               justifyContent="center"
-              mt={3}
+              mt={1}
             >
               <FormControl>
                 <FormLabel htmlFor="username">Username</FormLabel>
@@ -39,28 +48,33 @@ const Login = ({ handleSubmit, name, error, isLoggedIn }) => {
                 <Input id="password" variant="filled" type="password" />
               </FormControl>
 
-              <Button type="submit" colorScheme="blue" variant="solid">
+              <Button
+                type="submit"
+                color="white"
+                bg={"purple.500"}
+                _hover={{ bg: "purple.300" }}
+                mt={4}
+                width="100%"
+              >
                 Login
               </Button>
 
               {error && error.response && (
-                <Text color="red.500">{error.response.data}</Text>
+                <Text color="red.500" mt={4} textAlign="center">
+                  {error.response.data}
+                </Text>
               )}
             </Grid>
-
-            <Box
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              mt={2}
-            >
-              <Text>Don't have an account? </Text>
+            <Flex alignItems="center" justifyContent="center" mt={5}>
+              <Text mb={0} mr={2}>
+                Don't have an account?
+              </Text>
               <Link to="/signup" color="blue.500">
                 Register Here
               </Link>
-            </Box>
-          </Box>
-        </form>
+            </Flex>
+          </form>
+        </Card>
       </Box>
     </Container>
   );

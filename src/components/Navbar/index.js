@@ -74,12 +74,4 @@ const mapState = (state) => {
   };
 };
 
-// const mapDispatch = (dispatch) => {
-//   return {
-//     handleLogout() {
-//       dispatch(logout());
-//     },
-//   };
-// };
-
 export default connect(mapState)(Navbar);
