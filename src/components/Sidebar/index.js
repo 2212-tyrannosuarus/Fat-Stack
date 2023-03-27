@@ -108,7 +108,7 @@ const SideBar = ({ navSize, handleNavSize, handleLogout }) => {
           navSize={navSize}
           icon={FiDollarSign}
           title="Budget"
-          href="/budget/:userId"
+          href="/budget"
         />
         <NavLink
           navSize={navSize}
@@ -120,7 +120,7 @@ const SideBar = ({ navSize, handleNavSize, handleLogout }) => {
           navSize={navSize}
           icon={FiTrendingUp}
           title="Trends"
-          href="/trends/:userId"
+          href="/trends"
         />
       </Flex>
 

@@ -313,7 +313,7 @@ const ChartForOVerview = (props) => {
             gutter={20}
             //   style={{ border: { stroke: "black" } }}
             colorScale={["#b5b6ff", "#f8a7dc"]}
-            data={[{ name: "Now" }, { name: "Last Month" }]}
+            data={[{ name: "This Month" }, { name: "Last Month" }]}
           />
           <VictoryGroup
             style={{

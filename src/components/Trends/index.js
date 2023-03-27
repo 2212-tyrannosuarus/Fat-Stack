@@ -39,8 +39,8 @@ const MONTHS = [
   "Dec",
 ];
 
-const Trends = () => {
-  const { userId } = useParams();
+const Trends = (props) => {
+  const { userId } = props;
   const dispatch = useDispatch();
   let spendingOvertime = useSelector(selectSpendingOvertime);
   let spendingByCategoryPie = useSelector(selectSpendingByCategoryPie);

@@ -112,6 +112,7 @@ function AddBudgetModal(props) {
                           handleOvertimeSubcategory(evt.target.value);
                         }}
                       >
+                        <option value="">None</option>
                         {categoriesArr && categoriesArr.length
                           ? categoriesArr.map((category, index1) => {
                               if (index1 !== categoriesArr.length - 1) {
@@ -194,7 +195,7 @@ function AddBudgetModal(props) {
                 </ModalBody>
                 <ModalFooter>
                   <Stack direction="row" spacing={4}>
-                    <Button onClick={onClose}>Cancel</Button>
+                    <Button onClick={() => {onClose(); setSubCategoryName(""); setAddBudgetAmount(0)}}>Cancel</Button>
                     <Button
                       type="submit"
                       onClick={onClose}

@@ -150,7 +150,7 @@ async function seed() {
   const userTasneem = await User.create({
     username: "tasneemp",
     password: "tasneemPass",
-    email: "tasnee@gmail.com",
+    email: "tasneem@gmail.com",
     phone_number: "1234561234",
   });
   bankAccountOne.setUser(userTasneem);
