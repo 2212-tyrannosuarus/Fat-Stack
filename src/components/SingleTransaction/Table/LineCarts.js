@@ -3,16 +3,8 @@ import ReactApexChart from "react-apexcharts";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  fetchSpendingByCategoryPie,
-  fetchSpendingByMerchantPie,
   fetchSpendingOvertime,
-  fetchSpendingOvertimeBySubcategory,
-  fetchTrendsCategories,
-  selectSpendingByCategoryPie,
-  selectSpendingByMerchantPie,
   selectSpendingOvertime,
-  selectSpendingOvertimeBySubcategory,
-  selectTrendsCategories,
 } from "../../../reducers/trendsPageSLice";
 
 export default function LineCarts() {
@@ -38,7 +30,6 @@ export default function LineCarts() {
       setDataToChartOvertime(spendingOvertime);
     }
     getSpendingOvertime();
-    console.log(dataToChartOvertime);
   }, []);
 
   return (

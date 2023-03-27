@@ -73,12 +73,18 @@ const PieChartCategory = (props) => {
                 "#ff7960",
                 "#a8b3bd",
                 "#65717d",
+                "#f56bdd",
+                "#f5ec6b",
+                "#9d9ad0",
+                "#efdeb5",
+                "#f69646",
+                "#cdd9e1",
               ]}
               data={pieChart}
               innerRadius={68}
               labelRadius={100}
               labelComponent={<VictoryTooltip />}
-              padding={{left: 50}}
+              padding={{ left: 50 }}
             />
             <VictoryLabel
               textAnchor="middle"
@@ -94,7 +100,7 @@ const PieChartCategory = (props) => {
       </div>
       <div className="col-4 mt-n1 ">
         <div className="" align="center">
-        <h6 class="fw-bold mb-2 mt-2">Pick a date range</h6>
+          <h6 className="fw-bold mb-2 mt-2">Pick a date range</h6>
           <RangeDatepicker
             selectedDates={selectedDates}
             onDateChange={setSelectedDates}
@@ -102,14 +108,14 @@ const PieChartCategory = (props) => {
               inputProps: {
                 size: "lg",
                 _active: {
-                  border: "purple"
+                  border: "purple",
                 },
                 _visited: {
-                  border: "purple"
+                  border: "purple",
                 },
                 _focus: {
-                  border: "none"
-                }
+                  border: "none",
+                },
               },
             }}
           />
@@ -122,24 +128,28 @@ const PieChartCategory = (props) => {
             Display Chart
           </Button>
         </div>
-   
-          <VictoryLegend
-          x={50} y={-300}
-            colorScale={[
-              "#54d4f1",
-              "#9ce775",
-              "#9798fe",
-              "#fec44d",
-              "#ff7960",
-              "#a8b3bd",
-              "#65717d",
-            ]}
-            data={legend}
-            style={{labels: { fontSize: 35 } }}
-            // padding={{ left: 60 }}
-            // margin={{ top: -100 }}
-          />
 
+        <VictoryLegend
+          x={50}
+          y={-300}
+          colorScale={[
+            "#54d4f1",
+            "#9ce775",
+            "#9798fe",
+            "#fec44d",
+            "#ff7960",
+            "#a8b3bd",
+            "#65717d",
+            "#f56bdd",
+            "#f5ec6b",
+            "#9d9ad0",
+            "#efdeb5",
+            "#f69646",
+            "#cdd9e1",
+          ]}
+          data={legend}
+          style={{ labels: { fontSize: 35 } }}
+        />
       </div>
     </div>
   );

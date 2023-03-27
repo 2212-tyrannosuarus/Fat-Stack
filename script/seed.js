@@ -150,7 +150,7 @@ async function seed() {
   const userTasneem = await User.create({
     username: "tasneemp",
     password: "tasneemPass",
-    email: "tasnee@gmail.com",
+    email: "tasneem@gmail.com",
     phone_number: "1234561234",
   });
   bankAccountOne.setUser(userTasneem);
@@ -656,7 +656,6 @@ async function seed() {
       bankaccountId: 3,
       subcategoryId: 111,
     });
-    console.log(date);
   });
 
   //creating budget schemes
@@ -695,7 +694,7 @@ async function seed() {
 
   const budgetItem3 = await Budget.create({
     budget_name: "Paycheck",
-    amount: 5000.0,
+    amount: 4000.0,
     date_started: "2023-01-01",
   });
   budgetItem3.setBudgetscheme(budgetScheme1);

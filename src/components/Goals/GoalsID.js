@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
@@ -9,28 +9,18 @@ import {
 import { getGoal, selectGoal } from "../../reducers/goalPageSlice";
 import GoalIDBox from "./GoalsComponent/GoalIDBox";
 import {
-  Wrap,
-  WrapItem,
-  Center,
   Flex,
   Box,
   Heading,
   Text,
-  List,
-  ListItem,
-  ListIcon,
-  OrderedList,
   Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,
   TableCaption,
   TableContainer,
-  Button,
-  Link,
 } from "@chakra-ui/react";
 import {
   getInspirationQuote,
@@ -38,7 +28,6 @@ import {
   selectGoalDirection,
   getGoalDirection,
 } from "../../reducers/openAiSlice";
-import LineCart from "./Charts/LineCart";
 
 export default function GoalsID({ name }) {
   const { goalid } = useParams();

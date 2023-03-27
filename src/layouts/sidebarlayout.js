@@ -12,7 +12,7 @@ const SidebarLayout = ({ children }) => {
   };
 
   return (
-    <Box w={"100vw"} h={"100vh"} bg={"#f5f7fb"}>
+    <Box w={"100%"} h={"100%"} bg={"#f5f7fb"}>
       <Box pt={18} ml={navSize == "large" ? 260 : 100}>
         <DashNav />
       </Box>

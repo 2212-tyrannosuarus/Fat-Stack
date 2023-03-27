@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import anime from "animejs/lib/anime.es.js";
-import { Link, Routes, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function Progress() {
   function animeTechnology() {

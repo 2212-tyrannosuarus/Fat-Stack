@@ -45,7 +45,12 @@ export default function EditNote({ id }) {
 
   return (
     <>
-      <Button onClick={onOpen} size="xxs">
+      <Button
+        onClick={onOpen}
+        size="xxs"
+        textColor="black"
+        colorScheme="whiteAlpha"
+      >
         Edit
       </Button>
 

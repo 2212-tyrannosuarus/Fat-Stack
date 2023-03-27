@@ -39,8 +39,8 @@ const MONTHS = [
   "Dec",
 ];
 
-const Trends = () => {
-  const { userId } = useParams();
+const Trends = (props) => {
+  const { userId } = props;
   const dispatch = useDispatch();
   let spendingOvertime = useSelector(selectSpendingOvertime);
   let spendingByCategoryPie = useSelector(selectSpendingByCategoryPie);
@@ -59,7 +59,7 @@ const Trends = () => {
   let [dataToChartCategoryPie, setDataToChartCategoryPie] = useState([]);
   let [dataToChartMerchantPie, setDataToChartMerchantPie] = useState([]);
   let [dataToChartOvertimeBySubcategory, setDataToChartOvertimeBySubcategory] = useState([]);
-  let [subCategoryName, setSubCategoryName] = useState("Groceries");
+  let [subCategoryName, setSubCategoryName] = useState("Auto Insurance");
 
   const [selectedDates, setSelectedDates] = useState([new Date(), new Date()]);
   console.log("selected dates ", selectedDates);
@@ -91,9 +91,7 @@ const Trends = () => {
       setDataToChartOvertimeBySubcategory(null);
       setDataToChartOvertime(spendingOvertime);
       await dispatch(fetchTrendsCategories({userId: userId, fromDate: startingDate, toDate: endingDate}));
-    }
-
-   
+    } 
     getSpendingOvertime();
   }, [dispatch]);
 
@@ -169,7 +167,6 @@ const Trends = () => {
   }
 
   async function handleDateChangePieCategory(selectedDates) {
-    if (selectedDates[0].toString() === selectedDates[1].toString()) alert('Please select date range > 1 day');
     let startingDate = "";
     let endingDate = "";
 

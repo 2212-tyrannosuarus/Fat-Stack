@@ -69,19 +69,19 @@ const NavigationRoutes = (props) => {
       />
       <Route
         exact
-        path="/budget/:userId"
+        path="/budget"
         element={
           <SidebarLayout>
-            <Budget />
+            <Budget userId={1}/>
           </SidebarLayout>
         }
       />
       <Route
         exact
-        path="/trends/:userId"
+        path="/trends"
         element={
           <SidebarLayout>
-            <Trends />
+            <Trends userId={1}/>
           </SidebarLayout>
         }
       />

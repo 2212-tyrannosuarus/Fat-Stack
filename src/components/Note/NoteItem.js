@@ -29,7 +29,7 @@ export default function NoteItem({ transactionId }) {
       {" "}
       {notes
         ? notes.map((note) => (
-            <ListItem key={note.id}>
+            <ListItem key={note.id} mt="2rem">
               <Checkbox>{note.transaction_note}</Checkbox>
               <Text color="gray.400" fontSize="xs">
                 <EditNote id={note.id} />

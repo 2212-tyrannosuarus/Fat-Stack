@@ -8,15 +8,7 @@ import {
   updateAllTransactionCat,
   selectSingleTransaction,
 } from "../../reducers/singleTransactionPageSlice";
-import {
-  selectGoalList,
-  getExistingGoals,
-  getUserAccount,
-  selectBankAccount,
-  createGoalTransaction,
-  contributeToGoal,
-  redoContribution,
-} from "../../reducers/goalPageSlice";
+import { redoContribution } from "../../reducers/goalPageSlice";
 import {
   Modal,
   ModalOverlay,
@@ -31,7 +23,6 @@ import {
   FormControl,
   FormLabel,
   Input,
-  Checkbox,
   Select,
   Radio,
   RadioGroup,
@@ -186,29 +177,8 @@ export default function UpdateTransaction() {
               </RadioGroup>
             </FormControl>
 
-            {/* <FormControl mt={4}>
-              <Checkbox
-                value={changeAll}
-                onChange={(e) => {
-                  setChangeAll(!changeAll);
-                }}
-              >
-                Apply to All
-              </Checkbox>
-            </FormControl>
-
             <FormControl mt={4}>
-              <Checkbox
-                value={hideFromBudget}
-                onChange={(e) => {
-                  setHideFromBudget(!hideFromBudget);
-                }}
-              >
-                {!hideFromBudget ? "Show in budget" : "Hide in Budget"}
-              </Checkbox>
-            </FormControl> */}
-
-            <FormControl mt={4}>
+              <FormLabel>Select Category:</FormLabel>
               <Select
                 id="color_category"
                 name="color_category"

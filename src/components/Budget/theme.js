@@ -19,13 +19,6 @@ import {
         },
       },
     },
-    // sizes: {
-    //   md: {
-    //     field: {
-    //       borderRadius: 'none',
-    //     },
-    //   },
-    // },
   };
   
   const theme = extendTheme(
@@ -33,11 +26,8 @@ import {
       colors: {
         brand: {
           50: '#dadaff',
+          100: '#6a6cfe'
         },
-      },
-      fonts: {
-        heading: `Montserrat, ${base.fonts?.heading}`,
-        body: `Inter, ${base.fonts?.body}`,
       },
       components: {
         Input: { ...inputSelectStyles },

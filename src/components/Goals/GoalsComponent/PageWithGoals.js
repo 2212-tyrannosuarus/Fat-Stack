@@ -10,16 +10,11 @@ import {
   getCompletedGoals,
 } from "../../../reducers/goalPageSlice";
 import {
-  Wrap,
-  WrapItem,
-  Center,
   Flex,
   Box,
   Heading,
   Text,
-  List,
   ListItem,
-  ListIcon,
   OrderedList,
   Spacer,
   Button,
@@ -31,7 +26,6 @@ import {
   getGoalDirection,
 } from "../../../reducers/openAiSlice";
 import { BiArrowToLeft } from "react-icons/bi";
-import { TbStar } from "react-icons/tb";
 
 export default function PageWithGoals() {
   const [createGoals, setCreateGoals] = useState(false);
@@ -119,11 +113,11 @@ export default function PageWithGoals() {
                   <Heading size="md" mb="3rem" mt="3rem">
                     Building goals
                   </Heading>
-                  <Text mb="2rem" fontSize="m" as="i">
+                  <Text mb="2rem" fontSize="m" as="i" textAlign="center">
                     "{inspiringQuote}"
                   </Text>
 
-                  <OrderedList mt="3rem">
+                  <OrderedList mt="3rem" textAlign="left">
                     {goalDirections.map((direction) => (
                       <ListItem fontSize="xs" mb=".5rem" key={uuidv4()}>
                         {direction}

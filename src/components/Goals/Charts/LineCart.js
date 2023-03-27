@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+
 import ReactApexChart from "react-apexcharts";
 import moment from "moment";
 
@@ -185,7 +185,9 @@ export default function LineCart({ id, goal }) {
   };
 
   useEffect(() => {
-    handleDateCalculation();
+    if (Array.isArray(dateArr)) {
+      handleDateCalculation();
+    }
   }, [goal]);
 
   return (
