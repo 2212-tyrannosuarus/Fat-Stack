@@ -77,8 +77,6 @@ const Spending = (props) => {
                             <div className="row">
 
                               <EditModal
-                                // show={modalShow}
-                                // onHide={() => setModalShow(false)}
                                 subCategory={spendingItem.subCategoryName}
                                 budgetedAmount={spendingItem.budgetedAmount}
                                 handleSubmit={handleSubmit}

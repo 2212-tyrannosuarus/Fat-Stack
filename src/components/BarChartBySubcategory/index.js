@@ -10,6 +10,7 @@ import {
 } from "victory";
 import { Select } from "@chakra-ui/react";
 import Button from "react-bootstrap/Button";
+import { v4 as uuidv4 } from "uuid";
 
 const MONTHS = [
   "Jan",
@@ -88,8 +89,9 @@ const BarChartBySubcategory = (props) => {
         }
       }
       console.log("barChartDebit ", barChartDebit);
-
-      setBarChartDebit(barChartDebit.slice(6));
+      barChartDebit = barChartDebit.slice(barChartDebit.length - 5)
+      setBarChartDebit(barChartDebit);
+      console.log("barChartDebit after slice", barChartDebit);
     } else {
       console.log("No data to display");
     }
@@ -155,17 +157,18 @@ const BarChartBySubcategory = (props) => {
 
         {categoriesArr && categoriesArr.length ? (
         <>
-           <h6 class="fw-bold mb-2 mt-2">Choose a sub-category</h6>
+           <h6 className="fw-bold mb-2 mt-2">Choose a sub-category</h6>
           <Select
             name="sub-categories"
             id="subCategory"
             onChange={(evt) => {setSubCategoryName(evt.target.value); handleOvertimeSubcategory(evt.target.value);}}
           >
+
             {categoriesArr && categoriesArr.length
               ? categoriesArr.map((category, index1) => {
                   if (index1 !== categoriesArr.length - 1) {
                     return (
-                      <optgroup label={category} key={`${category}-${index1}`}>
+                      <optgroup label={category} key={uuidv4()}>
                         {categoriesArr[categoriesArr.length - 1].map(
                           (subCategoryArr, index2) => {
                             return (
@@ -175,7 +178,7 @@ const BarChartBySubcategory = (props) => {
                                       return (
                                         <option
                                           value={subCategory}
-                                          key={`${subCategory}-${index2}`}
+                                          key={uuidv4()}
                                         >
                                           {subCategory}
                                         </option>
