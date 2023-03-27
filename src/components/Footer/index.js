@@ -27,7 +27,7 @@ export const Footer = () => {
         align={"center"}
       >
         <Stack direction={"row"} spacing={6}>
-          <Link href={"#"}>Home</Link>
+          <Link href={"/"}>Home</Link>
           <Link href={"#"}>About</Link>
         </Stack>
         <Text>© 2023. All rights reserved</Text>

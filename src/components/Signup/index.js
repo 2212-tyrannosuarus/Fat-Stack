@@ -39,24 +39,50 @@ const Signup = ({ handleSubmit, name, error, isLoggedIn }) => {
             >
               <FormControl>
                 <FormLabel htmlFor="username">Username</FormLabel>
-                <Input id="username" variant="filled" />
+                <Input
+                  id="username"
+                  variant="outline"
+                  bg="white"
+                  borderWidth={2}
+                  borderColor="gray.100"
+                />
               </FormControl>
 
               <FormControl>
                 <FormLabel htmlFor="name">Name</FormLabel>
-                <Input id="name" variant="filled" type="name" />
+                <Input
+                  id="name"
+                  variant="outline"
+                  type="name"
+                  bg="white"
+                  borderWidth={2}
+                  borderColor="gray.100"
+                />
               </FormControl>
 
               <FormControl>
                 <FormLabel htmlFor="email">Email</FormLabel>
-                <Input id="email" variant="filled" type="email" />
+                <Input
+                  id="email"
+                  variant="outline"
+                  type="email"
+                  bg="white"
+                  borderWidth={2}
+                  borderColor="gray.100"
+                />
               </FormControl>
 
               <FormControl>
                 <FormLabel htmlFor="password">Password</FormLabel>
-                <Input id="password" variant="filled" type="password" />
+                <Input
+                  id="password"
+                  variant="outline"
+                  type="password"
+                  bg="white"
+                  borderWidth={2}
+                  borderColor="gray.100"
+                />
               </FormControl>
-
               <Button
                 type="submit"
                 color="white"
@@ -78,7 +104,7 @@ const Signup = ({ handleSubmit, name, error, isLoggedIn }) => {
                 Already have an account?
               </Text>
               <Link to="/login" style={{ color: "#0096FF" }}>
-                Sign in here
+                Sign in
               </Link>
             </Flex>
           </form>

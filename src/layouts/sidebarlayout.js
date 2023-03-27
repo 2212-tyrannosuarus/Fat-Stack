@@ -12,8 +12,8 @@ const SidebarLayout = ({ children }) => {
   };
 
   return (
-    <Box w={"100vw"} h={"100vw"} bg="#f5f5f9">
-      <Box pt={18} ml={navSize == "large" ? 260 : 100} pr={5}>
+    <Box w={"100vw"} h={"100vh"} bg={"#f5f7fb"}>
+      <Box pt={18} ml={navSize == "large" ? 260 : 100}>
         <DashNav />
       </Box>
       <Flex>
