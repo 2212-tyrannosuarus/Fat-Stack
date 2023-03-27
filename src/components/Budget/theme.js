@@ -19,13 +19,6 @@ import {
         },
       },
     },
-    // sizes: {
-    //   md: {
-    //     field: {
-    //       borderRadius: 'none',
-    //     },
-    //   },
-    // },
   };
   
   const theme = extendTheme(
@@ -33,6 +26,7 @@ import {
       colors: {
         brand: {
           50: '#dadaff',
+          100: '#6a6cfe'
         },
       },
       components: {

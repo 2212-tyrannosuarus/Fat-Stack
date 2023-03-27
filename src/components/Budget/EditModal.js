@@ -27,7 +27,6 @@ function EditModal(props) {
 
   return (
     <>
-      {/* <Button onClick={onOpen}>Trigger modal</Button> */}
 
       <Stack direction="row" spacing={0} className="edit-budget col-2 ms-auto" style={{width: "80px"}}>
         <Button

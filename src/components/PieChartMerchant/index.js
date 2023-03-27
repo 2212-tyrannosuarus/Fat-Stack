@@ -57,7 +57,7 @@ const PieChartMerchant = (props) => {
 
   return (
     <div className="row">
-      <div className="col-8 p-0">
+      <div className="col-8 p-0 mr-0">
         {pieChartMerchant && legendMerchant ? (
           <svg width="600" height="800" viewBox="0 0 500 450">
             <VictoryPie
@@ -83,12 +83,12 @@ const PieChartMerchant = (props) => {
               innerRadius={68}
               labelRadius={100}
               labelComponent={<VictoryTooltip />}
-              padding={{left: 30}}
+              padding={{left: 80, right: 0}}
             />
             <VictoryLabel
               textAnchor="middle"
               style={{ fontSize: 20 }}
-              x={215}
+              x={240}
               y={200}
               text="By Merchant"
             />
@@ -99,7 +99,7 @@ const PieChartMerchant = (props) => {
       </div>
       <div className="col-4 mt-n2">
         <div className="" align="center">
-        <h6 class="fw-bold mb-2 mt-2">Pick a date range</h6>
+        <h6 className="fw-bold mb-2 mt-2">Pick a date range</h6>
           <RangeDatepicker
             selectedDates={selectedDates}
             onDateChange={setSelectedDates}

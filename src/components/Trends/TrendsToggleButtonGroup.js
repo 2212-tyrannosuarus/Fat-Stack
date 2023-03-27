@@ -20,7 +20,7 @@ function TrendsToggleButtonGroup(props) {
         <ToggleButton id="tbg-radio-1" value={1} onClick={() => {handleOvertime(); setChecked2(false); setChecked3(false); setChecked4(false); setChecked1(true)}} variant="link" className={checked1 ? "toggle-graph-checked" : "btn-block toggle-graph"}>
           Overtime
         </ToggleButton>
-        <ToggleButton id="tbg-radio-4" value={4} onClick={() => {handleOvertimeSubcategory('Groceries'); setChecked2(false); setChecked3(false); setChecked1(false); setChecked4(true)}} variant="link" className={checked4 ? "toggle-graph-checked" : "btn-block toggle-graph"}>
+        <ToggleButton id="tbg-radio-4" value={4} onClick={() => {handleOvertimeSubcategory('Auto Insurance'); setChecked2(false); setChecked3(false); setChecked1(false); setChecked4(true)}} variant="link" className={checked4 ? "toggle-graph-checked" : "btn-block toggle-graph"}>
           By Subcategory
         </ToggleButton>
         <ToggleButton id="tbg-radio-2" value={2} onClick={() => {handleCategoryPie(); setChecked1(false); setChecked3(false); setChecked4(false); setChecked2(true)}} variant="link" className={checked2 ? "toggle-graph-checked" : "btn-block toggle-graph"}>
