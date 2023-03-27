@@ -35,10 +35,6 @@ import {
           50: '#dadaff',
         },
       },
-      fonts: {
-        heading: `Montserrat, ${base.fonts?.heading}`,
-        body: `Inter, ${base.fonts?.body}`,
-      },
       components: {
         Input: { ...inputSelectStyles },
         Select: { ...inputSelectStyles },

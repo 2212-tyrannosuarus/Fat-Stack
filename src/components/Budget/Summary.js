@@ -17,6 +17,7 @@ const Summary = (props) => {
   const { income, spending, other } = props;
 
   let totalExpenses = 0;
+  let goals = 0;
   if (income !== undefined) {
     console.log("income from summary ", income);
   }
