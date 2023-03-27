@@ -6,12 +6,13 @@ import {
   FormControl,
   FormLabel,
   Grid,
+  Flex,
   Input,
   Card,
   Text,
 } from "@chakra-ui/react";
 import { createUser } from "../../store";
-import { Navigate } from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 const Signup = ({ handleSubmit, name, error, isLoggedIn }) => {
@@ -20,6 +21,9 @@ const Signup = ({ handleSubmit, name, error, isLoggedIn }) => {
     <Container maxW="container.sm" mt={10} mb={10}>
       <Box textAlign="center">
         <Card p={6} boxShadow="lg" borderRadius="md" maxW="md" mx="auto">
+          <Box mx="auto" mb={5}>
+            <img src="/assets/logo.png" alt="Logo" width="100" height="100" />
+          </Box>
           <Box>
             <Text fontSize="xl" fontWeight="bold">
               Sign Up
@@ -39,8 +43,8 @@ const Signup = ({ handleSubmit, name, error, isLoggedIn }) => {
               </FormControl>
 
               <FormControl>
-                <FormLabel htmlFor="password">Password</FormLabel>
-                <Input id="password" variant="filled" type="password" />
+                <FormLabel htmlFor="name">Name</FormLabel>
+                <Input id="name" variant="filled" type="name" />
               </FormControl>
 
               <FormControl>
@@ -49,13 +53,8 @@ const Signup = ({ handleSubmit, name, error, isLoggedIn }) => {
               </FormControl>
 
               <FormControl>
-                <FormLabel htmlFor="name">Name</FormLabel>
-                <Input id="name" variant="filled" type="name" />
-              </FormControl>
-
-              <FormControl>
-                <FormLabel htmlFor="phone_number">Phone Number</FormLabel>
-                <Input id="phone_number" variant="filled" />
+                <FormLabel htmlFor="password">Password</FormLabel>
+                <Input id="password" variant="filled" type="password" />
               </FormControl>
 
               <Button
@@ -65,7 +64,7 @@ const Signup = ({ handleSubmit, name, error, isLoggedIn }) => {
                 _hover={{ bg: "purple.300" }}
                 mt={4}
               >
-                Sign Up
+                Register
               </Button>
 
               {error && error.response && (
@@ -74,6 +73,14 @@ const Signup = ({ handleSubmit, name, error, isLoggedIn }) => {
                 </Text>
               )}
             </Grid>
+            <Flex alignItems="center" justifyContent="center" mt={5}>
+              <Text mb={0} mr={2}>
+                Already have an account?
+              </Text>
+              <Link to="/login" style={{ color: "#0096FF" }}>
+                Sign in here
+              </Link>
+            </Flex>
           </form>
         </Card>
       </Box>
@@ -97,10 +104,7 @@ const mapDispatch = (dispatch) => {
       const email = evt.target.email.value;
       const username = evt.target.username.value;
       const password = evt.target.password.value;
-      const phone_number = evt.target.phone_number.value;
-      dispatch(
-        createUser({ name, username, password, email, phone_number, formName })
-      );
+      dispatch(createUser({ name, username, password, email, formName }));
     },
   };
 };

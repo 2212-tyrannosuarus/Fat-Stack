@@ -72,14 +72,6 @@ const DashNav = ({ user, handleLogout }) => {
             >
               My Profile
             </MenuItem>
-            <MenuItem
-              as={Link}
-              href="/settings"
-              color={"gray.800"}
-              _hover={{ textDecoration: "none", color: "gray.800" }}
-            >
-              Bank Accounts
-            </MenuItem>
             <MenuItem onClick={() => handleLogout()}>Logout</MenuItem>
           </MenuList>
         </Menu>

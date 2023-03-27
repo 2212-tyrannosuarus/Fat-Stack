@@ -41,7 +41,7 @@ const Navbar = (props) => {
         </Box>
       </Box>
       <Box fontWeight="bold" mr="1rem">
-        <Link href="/about" marginRight="2rem">
+        <Link href="/" marginRight="2rem">
           Home
         </Link>
         <Link href="/contact" marginRight="2rem">

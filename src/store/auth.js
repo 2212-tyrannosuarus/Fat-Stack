@@ -35,7 +35,7 @@ export const authenticateUser =
   };
 
 export const createUser =
-  ({ username, password, firstname, lastname, email, phone_number, method }) =>
+  ({ username, password, firstname, lastname, email, phone_number }) =>
   async (dispatch) => {
     try {
       const res = await axios.post(`/auth/signup`, {
