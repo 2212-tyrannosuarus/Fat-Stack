@@ -6,6 +6,11 @@ export const getGoals = createAsyncThunk("goals/getGoalsCategory", async () => {
   return data;
 });
 
+export const getallGoals = createAsyncThunk("goals/getallGoals", async () => {
+  const { data } = await axios.get("/api/goals/goals");
+  return data;
+});
+
 export const getGoal = createAsyncThunk("goals/getGoal", async (id) => {
   const { data } = await axios.get(`/api/goals/${id}`);
   console.log(data);
@@ -70,12 +75,16 @@ export const goalPageSlice = createSlice({
     goalList: [],
     completedGoals: [],
     bankAccounts: [],
+    allGoalList: [],
   },
   reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(getGoals.fulfilled, (state, action) => {
         state.allGoals = action.payload;
+      })
+      .addCase(getallGoals.fulfilled, (state, action) => {
+        state.allGoalList = action.payload;
       })
       .addCase(createGoal.fulfilled, (state, action) => {
         state.goalList.push(action.payload);
@@ -101,5 +110,6 @@ export const selectGoal = (state) => state.goalPage.goal;
 export const selectGoalList = (state) => state.goalPage.goalList;
 export const selectCompeltedGoals = (state) => state.goalPage.completedGoals;
 export const selectBankAccount = (state) => state.goalPage.bankAccounts;
+export const selectAllGoalsList = (state) => state.goalPage.allGoalList;
 
 export default goalPageSlice.reducer;
