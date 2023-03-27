@@ -12,6 +12,15 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+router.get("/goals", async (req, res, next) => {
+  try {
+    const goals = await Goal.findAll();
+    res.send(goals);
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.post("/", async (req, res, next) => {
   try {
     res.status(201).send(await Goal.create(req.body));
