@@ -19,12 +19,9 @@
     "bootstrap": "^5.2.3",
     "chakra-dayzed-datepicker": "^0.2.7",
     "chakra-ui-autocomplete": "^1.4.5",
-<<<<<<< HEAD
     "cors": "^2.8.5",
-=======
     "date-fns": "^2.29.3",
     "dayzed": "^3.2.3",
->>>>>>> main
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "fetch": "^1.1.0",
