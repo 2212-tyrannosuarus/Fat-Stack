@@ -41,6 +41,10 @@ const SingleTransction = () => {
   const { id } = useParams();
   const singleTransaction = useSelector(selectSingleTransaction);
   const allTransactionsStats = useSelector(selectAllTransactions);
+  const formatter = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  });
 
   useEffect(() => {
     const handleFetch = async () => {
@@ -154,7 +158,9 @@ const SingleTransction = () => {
                   <Flex direction="column" mt="3rem">
                     <Stat>
                       <StatLabel>Cumulative Earning</StatLabel>
-                      <StatNumber>${allTransactionsStats.creditSum}</StatNumber>
+                      <StatLabel>
+                        {formatter.format(allTransactionsStats.creditSum)}
+                      </StatLabel>
                       {singleTransaction.credit_debit === "credit" ? (
                         <StatHelpText>
                           <StatArrow type="increase" />
@@ -174,7 +180,9 @@ const SingleTransction = () => {
 
                     <Stat>
                       <StatLabel>Cumulative Spending</StatLabel>
-                      <StatNumber>${allTransactionsStats.debitSum}</StatNumber>
+                      <StatLabel>
+                        {formatter.format(allTransactionsStats.debitSum)}
+                      </StatLabel>
                       {singleTransaction.credit_debit === "debit" ? (
                         <StatHelpText>
                           <StatArrow type="decrease" />

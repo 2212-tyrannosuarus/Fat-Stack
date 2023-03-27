@@ -114,8 +114,7 @@ export default function AddGoals({ goal }) {
               <FormControl>
                 <FormLabel>Name your goal</FormLabel>
                 <FormHelperText>
-                  People who personalize their goals are more likely to achieve
-                  them
+                  People with personalized goals are more likely to achieve them
                 </FormHelperText>
                 <Input
                   value={name}
@@ -126,7 +125,7 @@ export default function AddGoals({ goal }) {
                 />
               </FormControl>
               {showAmt ? (
-                <FormControl>
+                <FormControl mt="2rem">
                   <FormLabel>How much do you want to save?</FormLabel>
                   <FormHelperText>
                     You'll be able to change this later if you need to.
@@ -148,7 +147,7 @@ export default function AddGoals({ goal }) {
                 </FormControl>
               ) : null}
               {showDate ? (
-                <FormControl>
+                <FormControl mt="2rem">
                   <FormLabel>Awesome! When should you begin?</FormLabel>
                   <Input
                     placeholder="Select Date and Time"
@@ -172,7 +171,7 @@ export default function AddGoals({ goal }) {
                 </FormControl>
               ) : null}
               {showSaveAmt ? (
-                <FormControl>
+                <FormControl mt="2rem">
                   <FormLabel>How much can you save each month?</FormLabel>
                   <NumberInput
                     precision={2}
@@ -209,7 +208,7 @@ export default function AddGoals({ goal }) {
               onClick={(e) => {
                 handleFormSubmit(e);
                 onClose();
-                // navigate to a different page?navigate("/goals");
+                window.location.reload();
               }}
             >
               Set Goal

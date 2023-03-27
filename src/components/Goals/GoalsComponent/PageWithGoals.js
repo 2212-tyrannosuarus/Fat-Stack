@@ -61,14 +61,14 @@ export default function PageWithGoals() {
         <Box width="100%">
           {createGoals ? (
             <>
-              <CreateGoal />
-              <Box ml="4rem" mt="3rem">
+              <Box ml="2rem" mt="0rem">
                 {" "}
-                <button onClick={handleAddGoal}>
+                <Button onClick={handleAddGoal}>
                   {" "}
                   <BiArrowToLeft />
-                </button>
+                </Button>
               </Box>
+              <CreateGoal />
             </>
           ) : (
             <>
