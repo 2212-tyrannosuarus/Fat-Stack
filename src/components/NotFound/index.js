@@ -10,10 +10,22 @@ const NotFound = () => {
       alignItems="center"
       justifyContent="center"
       height="100vh"
-      bg="gray.100"
       p={5}
+      position="relative"
     >
-      <Heading as="h1" fontSize="5xl" fontWeight="bold" mb={5}>
+      <Box
+        position="absolute"
+        top="45%"
+        left="50%"
+        transform="translate(-50%, -50%)"
+        zIndex="-1"
+        opacity="0.2"
+      >
+        <Heading as="h1" fontSize="15rem" fontWeight="bold" color="gray.300">
+          404
+        </Heading>
+      </Box>
+      <Heading as="h2" fontSize="5xl" fontWeight="bold" mb={5}>
         Oops! Page not found.
       </Heading>
       <Box textAlign="center" mb={10}>

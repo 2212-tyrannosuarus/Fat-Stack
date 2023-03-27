@@ -8,13 +8,14 @@ import {
   Grid,
   Input,
   Card,
-  Link,
   Text,
 } from "@chakra-ui/react";
 import { createUser } from "../../store";
+import { Navigate } from "react-router-dom";
 import { connect } from "react-redux";
 
-const Signup = ({ handleSubmit, name, error }) => {
+const Signup = ({ handleSubmit, name, error, isLoggedIn }) => {
+  if (isLoggedIn) return <Navigate to="/dashboard" />;
   return (
     <Container maxW="container.sm" mt={10} mb={10}>
       <Box textAlign="center">

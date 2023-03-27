@@ -73,7 +73,7 @@ const SideBar = ({ navSize, handleNavSize, handleLogout }) => {
         alignItems={navSize == "small" ? "center" : "flex-start"}
         as="nav"
       >
-        <Link href="/">
+        <Link href="/dashboard">
           <Box display="flex" alignItems="center" pb="7" navSize={navSize}>
             <img src="/assets/logo.png" alt="Logo" width="50" height="50" />
 
@@ -97,21 +97,16 @@ const SideBar = ({ navSize, handleNavSize, handleLogout }) => {
           title="Home"
           href="/dashboard"
         />
+
         <NavLink
           navSize={navSize}
           icon={FiCreditCard}
-          title="My Accounts"
-          href="/account"
-        />
-        <NavLink
-          navSize={navSize}
-          icon={FiDollarSign}
           title="Transactions"
           href="/transactions"
         />
         <NavLink
           navSize={navSize}
-          icon={FiBriefcase}
+          icon={FiDollarSign}
           title="Budget"
           href="/budget/:userId"
         />

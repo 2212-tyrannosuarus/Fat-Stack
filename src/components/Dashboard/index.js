@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Text, Icon, Flex } from "@chakra-ui/react";
-import { FcDonate, FcDepartment, FcMoneyTransfer } from "react-icons/fc";
-import ChartForOVerview from "../ChartForOverview";
+import { FcDepartment } from "react-icons/fc";
+import ChartForOverview from "../ChartForOverview";
 
 const Dashboard = () => {
   return (
@@ -20,16 +20,8 @@ const Dashboard = () => {
           flexDirection="column"
           boxShadow="md"
         >
-          {/* <Icon as={FcDepartment} w={10} h={10} mb={4} /> */}
           <Box>
-            {/* <Text fontWeight="bold" fontSize="xl" mb={2}>
-              Add Multiple Accounts
-            </Text>
-            <Text fontSize="md">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam
-              viverra justo odio, sit amet mollis massa porttitor id.
-            </Text> */}
-            <ChartForOVerview userId={1} />
+            <ChartForOverview userId={1} />
           </Box>
         </Box>
         <Box

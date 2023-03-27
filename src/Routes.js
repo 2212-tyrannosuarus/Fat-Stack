@@ -20,7 +20,7 @@ import { connect } from "react-redux";
 import { me } from "./store";
 
 const NavigationRoutes = (props) => {
-  const { isLoggedIn, isAdmin, loadInitialData } = props;
+  const { isLoggedIn, loadInitialData } = props;
 
   useEffect(() => {
     loadInitialData();
@@ -112,6 +112,7 @@ const NavigationRoutes = (props) => {
           </SidebarLayout>
         }
       />
+
       <Route
         path="/"
         element={
