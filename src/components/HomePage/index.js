@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Container,
   Stack,
@@ -14,11 +15,9 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import { FcDonate, FcDepartment, FcMoneyTransfer } from "react-icons/fc";
-import { useAuth0 } from "@auth0/auth0-react";
 
 export const Homepage = () => {
-  const { loginWithRedirect } = useAuth0();
-
+  const navigate = useNavigate();
   return (
     <>
       <Box marginX={36} marginY={42}>
@@ -72,7 +71,7 @@ export const Homepage = () => {
                   colorScheme={"red"}
                   bg={"purple.500"}
                   _hover={{ bg: "purple.300" }}
-                  onClick={() => loginWithRedirect()}
+                  onClick={() => navigate("/signup")}
                 >
                   Get started
                 </Button>

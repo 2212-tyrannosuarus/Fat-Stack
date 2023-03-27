@@ -10,15 +10,9 @@ const container = document.getElementById("root");
 const root = createRoot(container);
 
 root.render(
-  <Auth0Provider
-    domain="2212capstone.us.auth0.com"
-    clientId="p8klZZBfHPuGZzqQqMnYlGYb7KUFvxE3"
-    redirectUri="http://localhost:8080/dashboard"
-  >
-    <Provider store={store}>
-      <Router>
-        <App />
-      </Router>
-    </Provider>
-  </Auth0Provider>
+  <Provider store={store}>
+    <Router>
+      <App />
+    </Router>
+  </Provider>
 );
