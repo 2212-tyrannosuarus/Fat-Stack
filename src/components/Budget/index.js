@@ -45,8 +45,8 @@ const MONTHS = [
   "Dec",
 ];
 
-const Budget = () => {
-  const { userId } = useParams();
+const Budget = (props) => {
+  const { userId } = props;
   const dispatch = useDispatch();
 
   let budgetedSpendingFromSlice = useSelector(
