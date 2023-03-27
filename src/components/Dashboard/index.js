@@ -4,11 +4,13 @@ import { Box, Text, Icon, Flex } from "@chakra-ui/react";
 import { FcDepartment } from "react-icons/fc";
 import ChartForOverview from "../ChartForOverview";
 import Dashboardd from "../Goals/GoalsComponent/Dashboard";
+import AccountOverview from "../AllTransactions/AccountOverview";
 
 const Dashboard = () => {
   return (
     <>
       <Flex>
+        <AccountOverview />
         <Box
           bg="white"
           rounded="lg"
