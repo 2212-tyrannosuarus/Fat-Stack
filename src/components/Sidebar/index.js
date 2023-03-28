@@ -26,6 +26,7 @@ const NavLink = ({ navSize, icon, title, href, onClick }) => (
   <Link
     p={3}
     borderRadius={8}
+    my={2}
     _hover={{ bg: "gray.50" }}
     w={navSize === "large" && "100%"}
     href={href}
@@ -64,11 +65,17 @@ export const Sidebar = ({ navSize, handleNavSize, handleLogout }) => {
         pb="16"
         flexDir="column"
         minW={navSize === "small" ? "75px" : "250px"}
-        alignItems="center"
+        alignItems="flex-left"
         as="nav"
       >
         <Link href="/dashboard">
-          <Box display="flex" alignItems="center" pb="7" navSize={navSize}>
+          <Box
+            display="flex"
+            alignItems="center"
+            pt="1"
+            pb="10"
+            navSize={navSize}
+          >
             <img src="/assets/logo.png" alt="Logo" width="50" height="50" />
 
             {navSize === "large" && (

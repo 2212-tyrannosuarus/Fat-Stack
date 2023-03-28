@@ -44,7 +44,6 @@ export default function Dashboard() {
         </Box>
         <Box>
           <Flex direction="row">
-            {" "}
             <Flex direction="column" alignContent="center">
               <Box width="50%"></Box>
 
@@ -57,9 +56,7 @@ export default function Dashboard() {
               </Text>
             </Flex>
             <Flex direction="column" alignContent="center">
-              {" "}
-              <Box width="50%"></Box>
-              <Progress width="50%" />
+              <Progress />
               <Text textAlign="center" mt="2rem">
                 {incompleteCount}
               </Text>
