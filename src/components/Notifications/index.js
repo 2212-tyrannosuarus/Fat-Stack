@@ -30,7 +30,7 @@ const Notifications = () => {
   ]);
 
   return (
-    <Box mr="3">
+    <Box mr="1" mt={0.5}>
       <Menu>
         <MenuButton
           as={IconButton}
@@ -57,7 +57,7 @@ const Notifications = () => {
               minWidth="1.25rem"
               position="absolute"
               right="-0.5rem"
-              top="0.5rem"
+              top="0.2rem"
               zIndex="docked"
             >
               {notifications.length}
