@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import "./AllTransactions.css";
+import { connect } from "react-redux";
 import {
   selectAllTransactions,
   selectAllBankAccounts,
@@ -30,8 +31,9 @@ import {
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 
-const AccountOverview = () => {
+const AccountOverview = ({ user }) => {
   const dispatch = useDispatch();
+  console.log("user in acc", user);
 
   const bankAccounts = useSelector(selectAllBankAccounts);
   const allTransactionsThisWeek = useSelector(selectAllTransactions);
@@ -181,4 +183,10 @@ const AccountOverview = () => {
   );
 };
 
-export default AccountOverview;
+const mapState = (state) => {
+  return {
+    user: state.auth,
+  };
+};
+
+export default connect(mapState, null)(AccountOverview);
