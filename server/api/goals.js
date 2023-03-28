@@ -86,7 +86,7 @@ router.put("/redoContribution", async (req, res, next) => {
 router.get("/goallist", async (req, res, next) => {
   try {
     const goallist = await Goal.findAll({
-      where: { completion_status: false, id: req.params.id },
+      where: { completion_status: false, userId: req.params.id },
     });
     res.send(goallist);
   } catch (err) {
@@ -94,10 +94,10 @@ router.get("/goallist", async (req, res, next) => {
   }
 });
 
-router.get("/goallist/completed", async (req, res, next) => {
+router.get("/goallist/completed/:id", async (req, res, next) => {
   try {
     const goallist = await Goal.findAll({
-      where: { completion_status: true, id: req.params.id },
+      where: { completion_status: true, userId: req.params.id },
     });
     res.send(goallist);
   } catch (err) {
