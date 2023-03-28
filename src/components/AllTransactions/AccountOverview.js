@@ -21,13 +21,11 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 
 const AccountOverview = ({ user }) => {
+  let userId = user.id;
   const dispatch = useDispatch();
-  console.log("user in acc", user);
 
   const bankAccounts = useSelector(selectAllBankAccounts);
   const allTransactionsThisWeek = useSelector(selectAllTransactions);
-  //userId will be passed in via props
-  const userId = 1;
   const today = new Date();
   const oneWeekAgo = new Date();
   oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
@@ -202,4 +200,4 @@ const mapState = (state) => {
   };
 };
 
-export default connect(mapState, null)(AccountOverview);
+export default connect(mapState)(AccountOverview);

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
 import { Flex } from "@chakra-ui/react";
 // import { CUIAutoComplete } from "chakra-ui-autocomplete";
 import {
@@ -17,14 +18,9 @@ import TransactionList from "./TransactionList";
 import Paginator from "./Paginator";
 import FilterBar from "./FilterBar";
 //working on using mapstate to get logged in user
-const mapState = (state) => {
-  return {
-    user: state.auth,
-  };
-};
-const userId = mapState().user;
 
-const AllTransactions = () => {
+const AllTransactions = ({ user }) => {
+  let userId = user.id;
   const dispatch = useDispatch();
   const allTransactions = useSelector(selectAllTransactions);
   const bankAccounts = useSelector(selectAllBankAccounts);
@@ -37,13 +33,13 @@ const AllTransactions = () => {
   });
 
   //userid will come from mapState soon
-  const userId = 1;
+  // const userId = 1;
   const sixMonthsAgo = new Date();
   sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
 
   const [selectedAccount, setSelectedAccount] = useState("all");
   const [selectedCategory, setSelectedCategory] = useState("None");
-  const [loggedInUser, setLoggedInUser] = useState(userId || 0);
+  // const [loggedInUser, setLoggedInUser] = useState(userId || 0);
 
   const [newTransactionAccountId, setNewTransactionAccountId] = useState("");
   const [newTransactionMerchant, setNewTransactionMerchant] = useState("");
@@ -312,4 +308,10 @@ const AllTransactions = () => {
   );
 };
 
-export default AllTransactions;
+const mapState = (state) => {
+  return {
+    user: state.auth,
+  };
+};
+
+export default connect(mapState)(AllTransactions);
