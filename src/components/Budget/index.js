@@ -175,9 +175,7 @@ const Budget = ({ user }) => {
       userId = user.id;
       fetchThisMonthData();
     }
-    if (!window.localStorage.getItem("token")) {
-      navigate("/login");
-    }
+   
   }, [user]);
 
   // filter data for time Range

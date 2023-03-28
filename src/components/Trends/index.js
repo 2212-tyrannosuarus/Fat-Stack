@@ -97,9 +97,7 @@ const Trends = ({ user }) => {
       console.log('userId inside useEffect', userId);
       getSpendingOvertime();
     }
-    if (!window.localStorage.getItem("token")) {
-      navigate("/login");
-    }
+ 
   }, [dispatch, user]);
 
   // fetch data for last 12 months to display income and expenses overtime
