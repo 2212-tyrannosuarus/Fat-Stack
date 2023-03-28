@@ -23,32 +23,26 @@ import {
 } from "react-icons/fi";
 
 const NavLink = ({ navSize, icon, title, href, onClick }) => (
-  <Flex
-    mt={2}
-    flexDir="column"
-    w="100%"
-    alignItems={navSize === "small" ? "center" : "flex-start"}
+  <Link
+    p={3}
+    borderRadius={8}
+    _hover={{ bg: "gray.50" }}
+    w={navSize === "large" && "100%"}
+    href={href}
+    onClick={onClick}
   >
-    <Link
-      p={3}
-      borderRadius={8}
-      _hover={{ bg: "gray.100" }}
-      w={navSize === "large" && "100%"}
-      href={href}
-      onClick={onClick}
-    >
-      <Flex>
-        <Icon as={icon} fontSize="xl" color="gray.600" />
-        <Text
-          ml={5}
-          display={navSize === "small" ? "none" : "flex"}
-          color="gray.600"
-        >
-          {title}
-        </Text>
-      </Flex>
-    </Link>
-  </Flex>
+    <Flex flexDir="row" w="100%" alignItems="center">
+      <Icon as={icon} fontSize="xl" color="gray.600" />
+      <Text
+        as="span"
+        ml={5}
+        display={navSize === "small" ? "none" : "flex"}
+        color="gray.600"
+      >
+        {title}
+      </Text>
+    </Flex>
+  </Link>
 );
 
 export const Sidebar = ({ navSize, handleNavSize, handleLogout }) => {
@@ -58,6 +52,7 @@ export const Sidebar = ({ navSize, handleNavSize, handleLogout }) => {
       minH="100vh"
       flexDir="column"
       bg={"white"}
+      as="span"
       position="fixed"
       top={0}
       left={0}

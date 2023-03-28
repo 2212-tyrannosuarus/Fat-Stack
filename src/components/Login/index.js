@@ -91,7 +91,7 @@ const Login = ({ handleSubmit, name, error, isLoggedIn }) => {
                     </Text>
                   )}
                 </Grid>
-                <Flex alignItems="center" justifyContent="center" mt={5}>
+                <Flex alignItems="center" justifyContent="center" mt={14}>
                   <Text mb={0} mr={2}>
                     Don't have an account?
                   </Text>
