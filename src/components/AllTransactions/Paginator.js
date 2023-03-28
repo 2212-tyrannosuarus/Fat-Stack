@@ -52,7 +52,6 @@ const Paginator = (props) => {
                   key={idx}
                   onClick={() => {
                     setCurrentPage(currentPage - pageDiff);
-                    console.log("current page", currentPage);
                   }}
                 >
                   {currentPage - pageDiff}
@@ -85,7 +84,6 @@ const Paginator = (props) => {
                   key={idx}
                   onClick={() => {
                     setCurrentPage(currentPage + pageDiff);
-                    console.log("current page", currentPage);
                   }}
                 >
                   {currentPage + pageDiff}

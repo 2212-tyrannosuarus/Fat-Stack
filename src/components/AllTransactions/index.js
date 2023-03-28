@@ -17,6 +17,11 @@ import AddTransactionModal from "./AddTransactionModal";
 import TransactionList from "./TransactionList";
 import Paginator from "./Paginator";
 import FilterBar from "./FilterBar";
+const mapState = (state) => {
+  return {
+    user: state.auth,
+  };
+};
 
 const AllTransactions = () => {
   const dispatch = useDispatch();
@@ -24,16 +29,19 @@ const AllTransactions = () => {
   const bankAccounts = useSelector(selectAllBankAccounts);
   const subCategories = useSelector(selectSubCategories);
   const subCategoriesAsStrings = subCategories.map((subCategory) => {
+    //user id will be props soon
     return {
       value: subCategory.sub_category_name,
       label: subCategory.sub_category_name,
     };
   });
+
+  const userId = 1;
   const sixMonthsAgo = new Date();
   sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
 
   const [selectedAccount, setSelectedAccount] = useState("all");
-  const [selectedCategory, setSelectedCategory] = useState("none");
+  const [selectedCategory, setSelectedCategory] = useState("None");
 
   const [newTransactionAccountId, setNewTransactionAccountId] = useState("");
   const [newTransactionMerchant, setNewTransactionMerchant] = useState("");
@@ -86,13 +94,19 @@ const AllTransactions = () => {
     // return { dates: { fromDate, toDate } };
   };
 
+  const formatter = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  });
+
   useEffect(() => {
-    dispatch(fetchAllBankAccounts());
+    dispatch(fetchAllBankAccounts({ userId }));
     dispatch(fetchAllSubCategories());
     const fromDate = formatDateObjects(selectedDates)[0];
     const toDate = formatDateObjects(selectedDates)[1];
     dispatch(
       fetchTransactionsFromDateToDate({
+        userId: userId,
         fromDate: fromDate,
         toDate: toDate,
       })
@@ -106,7 +120,7 @@ const AllTransactions = () => {
           if (
             (selectedAccount === "all" ||
               transaction.bankaccountId === Number(selectedAccount)) &&
-            (selectedCategory === "none" ||
+            (selectedCategory === "None" ||
               Number(selectedCategory) === Number(transaction.subcategoryId))
           ) {
             return true;
@@ -151,7 +165,6 @@ const AllTransactions = () => {
 
   const handleAccountClick = (e) => {
     setSelectedAccount(e.target.value);
-    console.log(selectedAccount);
   };
 
   const handleDelete = async (evt, transactionId) => {
@@ -215,10 +228,10 @@ const AllTransactions = () => {
     //set user, set category, set bank account
     //query for user #1, bank account, and category
     //user magic methods to set these foreign keys
-    console.log(newPostedTransaction);
 
     newPostedTransaction.setUser;
     setPostedTransaction(newPostedTransaction);
+
     // now update the bank account balance
     let avaialableBalanceDifferential = 0;
     if (newPostedTransaction.data.credit_debit === "debit") {

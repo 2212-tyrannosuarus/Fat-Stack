@@ -24,7 +24,6 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 router.put("/:id", async (req, res, next) => {
-  console.log("re body", req.params.id);
   try {
     const bankAccount = await Bank_Account.findByPk(req.params.id);
     res.json(await bankAccount.update(req.body));

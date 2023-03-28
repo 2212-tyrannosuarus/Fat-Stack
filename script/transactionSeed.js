@@ -23,7 +23,6 @@ const convertCsv = async () => {
       accountName: accountName,
     };
   });
-  //   console.log(“cdata”, csvData);
   return csvData;
 };
 convertCsv();

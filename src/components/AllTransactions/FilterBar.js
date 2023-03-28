@@ -53,7 +53,7 @@ const FilterBar = (props) => {
               }}
             >
               All Accounts|
-              {totalAccountBalance}
+              {totalAccountBalance.toFixed(2)}
             </Button>
           </Box>
           {bankAccounts.map((account, idx) => {
@@ -99,6 +99,7 @@ const FilterBar = (props) => {
                 handleCategoryChange(e);
               }}
             >
+              <option>None</option>
               {subCategories.map((category) => {
                 return (
                   <option key={category.id} value={category.id}>

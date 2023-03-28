@@ -3,6 +3,9 @@ const {
   db,
   models: { Transaction },
 } = require("../db");
+const {
+  transactionsByDateQuery,
+} = require("../../script/transactionQueries.js");
 // api/transactions
 router.get("/", async (req, res, next) => {
   try {
@@ -33,30 +36,14 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-router.get("/:fromDate/:toDate", async (req, res, next) => {
-  console.log("testing now");
+router.get("/:userId/:fromDate/:toDate", async (req, res, next) => {
+  const userId = req.params.userId;
   const fromDate = req.params.fromDate;
   const toDate = req.params.toDate;
-  console.log("in the right route", fromDate, toDate);
+  const transactionQuery = transactionsByDateQuery(fromDate, toDate, userId);
   try {
-    const transactionsByDate = await db.query(
-      `select
-*
-   
-from
-  transactions
-  
-  where
-  to_date(date, 'YYYY-MM-DD') >= to_date('${fromDate}', 'YYYY-MM-DD')
-  and to_date(date, 'YYYY-MM-DD') <= to_date('${toDate}', 'YYYY-MM-DD')
-  and "userId" = 1
+    const transactionsByDate = await db.query(`${transactionQuery}`);
 
-order by 
-to_date(date, 'YYYY-MM-DD') desc
-
-
-`
-    );
     res.json(transactionsByDate);
   } catch (err) {
     next(err);
