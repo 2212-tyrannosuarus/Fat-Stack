@@ -8,16 +8,20 @@ import AccountOverview from "../AllTransactions/AccountOverview";
 const Dashboard = () => {
   return (
     <>
-      <Grid templateColumns="repeat(2, 1fr)" gap={6} mb={20} alignItems="start">
+      <Grid
+        templateColumns="repeat(2, 1fr)"
+        gap={12}
+        mb={20}
+        alignItems="start"
+      >
         <Box
           bg="white"
           rounded="lg"
-          w={500}
+          w={600}
           h={400}
           overflow="hidden"
           px={5}
           pt={5}
-          mr={5}
           flexDirection="column"
           boxShadow="md"
         >
@@ -32,12 +36,11 @@ const Dashboard = () => {
         <Box
           bg="white"
           rounded="lg"
-          w={500}
+          w={600}
           h={400}
           overflow="hidden"
           px={5}
           pt={5}
-          mr={5}
           display="flex"
           flexDirection="column"
           boxShadow="md"
@@ -53,17 +56,16 @@ const Dashboard = () => {
         <Box
           bg="white"
           rounded="lg"
-          w={500}
+          w={600}
           h={400}
           overflow="hidden"
           px={5}
           pt={5}
-          mr={5}
           flexDirection="column"
           boxShadow="md"
         >
           <Box>
-            <Text fontWeight="bold" fontSize="xl" mb={10}>
+            <Text fontWeight="bold" fontSize="xl">
               Account overview
             </Text>
             <Divider />
@@ -82,12 +84,11 @@ const Dashboard = () => {
         <Box
           bg="white"
           rounded="lg"
-          w={500}
+          w={600}
           h={400}
           overflow="hidden"
           px={5}
           pt={5}
-          mr={5}
           flexDirection="column"
           boxShadow="md"
         >
