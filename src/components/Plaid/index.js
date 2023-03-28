@@ -4,7 +4,7 @@ import PlaidAuth from "./PlaidAuth";
 import { usePlaidLink } from "react-plaid-link";
 import { connect } from "react-redux";
 
-function Plaid({ isLoggedIn }) {
+function Plaid({ isLoggedIn, user }) {
   const [linkToken, setLinkToken] = useState(null);
   const [bankInfo, setBankInfo] = useState(null);
   const [public_token, setPublic_token] = useState(null);
@@ -47,6 +47,7 @@ function Plaid({ isLoggedIn }) {
 
 const mapState = (state) => {
   return {
+    user: state.auth,
     error: state.auth.error,
     isLoggedIn: !!state.auth.id,
   };

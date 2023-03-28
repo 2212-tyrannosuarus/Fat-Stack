@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
+import { connect } from "react-redux";
 import axios from "axios";
 
-export default function PlaidAuth({ publicToken, user }) {
+export function PlaidAuth({ publicToken, user }) {
   useEffect(() => {
     async function fetchData() {
       let accessToken = await axios.post("/api/plaid/exchange_public_token", {
@@ -10,7 +11,7 @@ export default function PlaidAuth({ publicToken, user }) {
 
       const auth = await axios.post("/api/plaid/accountInfo", {
         access_token: accessToken.data.accessToken,
-        userId: 1,
+        userId: user.id,
       });
       console.log("auth", auth);
     }
@@ -19,3 +20,13 @@ export default function PlaidAuth({ publicToken, user }) {
 
   return <span>{publicToken}</span>;
 }
+
+const mapState = (state) => {
+  return {
+    user: state.auth,
+    error: state.auth.error,
+    isLoggedIn: !!state.auth.id,
+  };
+};
+
+export default connect(mapState)(PlaidAuth);
