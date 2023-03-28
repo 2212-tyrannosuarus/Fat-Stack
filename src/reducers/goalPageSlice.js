@@ -12,14 +12,12 @@ export const getallGoals = createAsyncThunk("goals/getallGoals", async () => {
 });
 
 export const getGoal = createAsyncThunk("goals/getGoal", async (id) => {
-  console.log("this is receiving id", id);
-  const { data } = await axios.get(`/api/goals/${id}`);
+  const { data } = await axios.post(`/api/goals/${id}`);
   return data;
 });
 
 export const deleteGoal = createAsyncThunk("goals/deleteGoal", async (id) => {
   const { data } = await axios.delete(`/api/goals/${id}`);
-  console.log(data);
   return data;
 });
 
@@ -38,15 +36,16 @@ export const createGoalTransaction = createAsyncThunk(
 
 export const getExistingGoals = createAsyncThunk(
   "goals/getGoalsList",
-  async () => {
-    const { data } = await axios.get("/api/goals/goalList");
+  async (id) => {
+    console.log("this is id", id);
+    const { data } = await axios.get(`/api/goals/goalList/${id}`);
     return data;
   }
 );
 export const getCompletedGoals = createAsyncThunk(
   "goals/getCompletedGoalsList",
-  async () => {
-    const { data } = await axios.get("/api/goals/goalList/completed");
+  async (id) => {
+    const { data } = await axios.get(`/api/goals/goalList/completed/${id}`);
     return data;
   }
 );
@@ -76,7 +75,6 @@ export const redoContribution = createAsyncThunk(
 export const updateGoal = createAsyncThunk(
   "goals/updateGoal",
   async ({ id, body }) => {
-    console.log("body", body);
     const { data } = await axios.put(`/api/goals/${id}`, body);
     return data;
   }

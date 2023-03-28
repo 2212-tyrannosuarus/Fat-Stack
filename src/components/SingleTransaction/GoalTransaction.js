@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector, connect } from "react-redux";
 import axios from "axios";
 import moment from "moment";
 import {
@@ -29,7 +29,7 @@ import {
 } from "@chakra-ui/react";
 import { fetchAllBankAccounts } from "../../reducers/allTransactionsPageSlice";
 
-export default function GoalTransaction() {
+export function GoalTransaction({ user }) {
   const [merchant, setTransactionName] = useState("");
   const [account_id, setAccountId] = useState("");
   const [date, setDate] = useState(moment().format("YYYY-MM-DD"));
@@ -92,7 +92,7 @@ export default function GoalTransaction() {
 
   useEffect(() => {
     const handleFetch = async (id = 1) => {
-      await dispatch(getExistingGoals());
+      await dispatch(getExistingGoals(user.id));
       await dispatch(getUserAccount(id));
     };
     handleFetch();
@@ -232,3 +232,11 @@ export default function GoalTransaction() {
     </>
   );
 }
+
+const mapState = (state) => {
+  return {
+    user: state.auth,
+  };
+};
+
+export default connect(mapState)(GoalTransaction);

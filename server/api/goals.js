@@ -86,7 +86,7 @@ router.put("/redoContribution", async (req, res, next) => {
 router.get("/goallist", async (req, res, next) => {
   try {
     const goallist = await Goal.findAll({
-      where: { completion_status: false },
+      where: { completion_status: false, id: req.params.id },
     });
     res.send(goallist);
   } catch (err) {
@@ -97,7 +97,7 @@ router.get("/goallist", async (req, res, next) => {
 router.get("/goallist/completed", async (req, res, next) => {
   try {
     const goallist = await Goal.findAll({
-      where: { completion_status: true },
+      where: { completion_status: true, id: req.params.id },
     });
     res.send(goallist);
   } catch (err) {
@@ -105,9 +105,24 @@ router.get("/goallist/completed", async (req, res, next) => {
   }
 });
 
-router.get("/:id", async (req, res, next) => {
+router.get("/goallist/:id", async (req, res, next) => {
   try {
-    const goal = await Goal.findByPk(req.params.id);
+    const goallist = await Goal.findAll({
+      where: { completion_status: false, userId: req.params.id },
+    });
+
+    res.send(goallist);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post("/:id", async (req, res, next) => {
+  try {
+    const goal = await Goal.findByPk(req.params.id, {
+      where: { userId: req.body.userId },
+    });
+    console.log("goal");
     res.send(goal);
   } catch (err) {
     next(err);
