@@ -53,8 +53,8 @@ export default function Completed() {
             {" "}
             <img
               src="https://cdn-icons-png.flaticon.com/512/1535/1535019.png"
-              width="150px"
-              height="150px"
+              width="100px"
+              height="100px"
             ></img>
           </Link>
         </div>

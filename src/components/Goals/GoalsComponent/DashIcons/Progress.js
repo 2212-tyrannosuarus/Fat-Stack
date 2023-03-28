@@ -29,8 +29,8 @@ export default function Progress() {
             {" "}
             <img
               src="https://cdn-icons-png.flaticon.com/512/5038/5038308.png"
-              width="150px"
-              height="150px"
+              width="100px"
+              height="100px"
             ></img>
           </Link>
         </div>

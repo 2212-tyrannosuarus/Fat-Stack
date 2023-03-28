@@ -6,7 +6,6 @@ import { getExistingGoals, selectGoalList } from "../../reducers/goalPageSlice";
 import PageWithGoals from "./GoalsComponent/PageWithGoals";
 
 export function Goals({ user }) {
-  console.log("asdfasdf", user.id);
   const dispatch = useDispatch();
   const goalList = useSelector(selectGoalList);
 

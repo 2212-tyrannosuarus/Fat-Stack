@@ -45,15 +45,23 @@ export default function Dashboard() {
         <Box>
           <Flex direction="row">
             <Flex direction="column" alignContent="center">
-              <Completed />
+              <Box width="50%"></Box>
+
+              <Completed width="50%" />
               <Text textAlign="center" mt="2rem">
                 {completed}
+              </Text>
+              <Text textAlign="center" mt="2rem">
+                Completed{" "}
               </Text>
             </Flex>
             <Flex direction="column" alignContent="center">
               <Progress />
               <Text textAlign="center" mt="2rem">
                 {incompleteCount}
+              </Text>
+              <Text textAlign="center" mt="2rem">
+                In Progress{" "}
               </Text>
             </Flex>
           </Flex>

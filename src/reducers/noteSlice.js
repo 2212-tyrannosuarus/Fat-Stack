@@ -27,7 +27,6 @@ export const addNote = createAsyncThunk("note/addNote", async ({ body }) => {
 });
 
 export const deleteNote = createAsyncThunk("note/deleteNote", async (id) => {
-  console.log(id);
   const { data } = await axios.delete(`/api/notes/${id}`);
   return id;
 });
