@@ -1,27 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import React, { useEffect } from "react";
 import "./AllTransactions.css";
 import { connect } from "react-redux";
 import {
   selectAllTransactions,
   selectAllBankAccounts,
   fetchAllBankAccounts,
-  selectSubCategories,
-  fetchAllSubCategories,
-  deleteSingleTransaction,
   fetchTransactionsFromDateToDate,
 } from "../../reducers/allTransactionsPageSlice";
 
 import {
-  Box,
-  Container,
   Flex,
-  List,
-  ListItem,
   Text,
-  Button,
-  IconButton,
-  Select,
   Accordion,
   AccordionItem,
   AccordionButton,
@@ -32,12 +21,11 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 
 const AccountOverview = ({ user }) => {
+  let userId = user.id;
   const dispatch = useDispatch();
-  console.log("user in acc", user);
 
   const bankAccounts = useSelector(selectAllBankAccounts);
   const allTransactionsThisWeek = useSelector(selectAllTransactions);
-
   const today = new Date();
   const oneWeekAgo = new Date();
   oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
@@ -69,10 +57,9 @@ const AccountOverview = ({ user }) => {
       return tempDate[3] + "-" + month + "-" + day;
     });
     return formattedDates;
-    // return { dates: { fromDate, toDate } };
   };
   useEffect(() => {
-    dispatch(fetchAllBankAccounts());
+    dispatch(fetchAllBankAccounts({ userId }));
     console.log("dates", oneWeekAgo, today);
     const fromDate = formatDateObjects([oneWeekAgo, today])[0];
     const toDate = formatDateObjects([oneWeekAgo, today])[1];
@@ -83,54 +70,44 @@ const AccountOverview = ({ user }) => {
       })
     );
   }, [dispatch]);
-  if (bankAccounts.length > 0) {
-    let totalAccountBalance = bankAccounts.reduce((accum, account) => {
-      accum += Number(account.available_balance);
-      return accum;
-    }, 0);
-  }
+
+  const getTotalAccountBalance = () => {
+    let balance;
+    if (bankAccounts.length > 0) {
+      balance = bankAccounts.reduce((accum, account) => {
+        accum += Number(account.available_balance);
+        return accum;
+      }, 0);
+    }
+    if (balance) {
+      return balance.toFixed(2);
+    }
+  };
+  const totalAccountBalance = getTotalAccountBalance();
 
   const getWeeklyTotal = (allTransactionsThisWeek, thisAccount) => {
     const accountSpecificTransactions = allTransactionsThisWeek.filter(
       (transaction) => {
-        console.log(
-          "filter comparison",
-          transaction.account_id,
-          thisAccount.account_id
-        );
+        if (thisAccount === true) {
+          return thisAccount;
+        }
         return transaction.account_id === thisAccount.account_id;
       }
     );
     if (accountSpecificTransactions.length > 0) {
-      console.log("one week of transacitons", accountSpecificTransactions);
       const weeklyTotal = accountSpecificTransactions
         .reduce((accum, transaction) => {
           if (transaction.credit_debit === "debit") {
             accum += parseFloat(transaction.amount);
           }
-          console.log(accum);
           return accum;
         }, 0)
         .toFixed(2);
-      console.log("weely totaly", weeklyTotal);
       return weeklyTotal;
     } else return "0";
   };
 
   return bankAccounts.length > 0 ? (
-    // <Box
-    //   bg="white"
-    //   rounded="lg"
-    //   overflow="hidden"
-    //   w={"300px"}
-    //   h={"300px"}
-    //   px={6}
-    //   py={12}
-    //   mr={5}
-    //   display="flex"
-    //   flexDirection="column"
-    //   boxShadow="md"
-    // >
     <Accordion allowToggle>
       <Flex
         direction={"column"}
@@ -139,6 +116,40 @@ const AccountOverview = ({ user }) => {
         rounded="lg"
         overflow="hidden"
       >
+        <AccordionItem>
+          <AccordionButton>
+            <Flex w={"90%"} direction="row">
+              <Text fontWeight={"bold"} w={"50%"} fontSize={"1em"}>
+                {"All Accounts"}
+              </Text>
+              <Text fontWeight={"bold"} w={"50%"} fontSize={"1em"}>
+                ${totalAccountBalance}
+              </Text>
+            </Flex>
+            <AccordionIcon w={"10%"} />
+          </AccordionButton>
+          <AccordionPanel>
+            <Divider />
+            <Flex direction={"row"} justify={"flex-end"} w="90%" h={"50%"}>
+              <Text
+                fontSize={"12px"}
+                fontWeight={"bold"}
+                textAlign={"center"}
+                w={"50%"}
+              >
+                Total spending this week:
+              </Text>
+              <Text
+                fontSize={"12px"}
+                fontWeight={"bold"}
+                textAlign={"center"}
+                w={"50%"}
+              >
+                ${getWeeklyTotal(allTransactionsThisWeek, true)}
+              </Text>
+            </Flex>
+          </AccordionPanel>
+        </AccordionItem>
         {bankAccounts.map((account) => (
           <AccordionItem>
             <AccordionButton>
@@ -189,4 +200,4 @@ const mapState = (state) => {
   };
 };
 
-export default connect(mapState, null)(AccountOverview);
+export default connect(mapState)(AccountOverview);

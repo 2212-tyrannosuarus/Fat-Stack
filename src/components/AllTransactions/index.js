@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Button, Flex, useDisclosure } from "@chakra-ui/react";
+import { connect } from "react-redux";
+import { Flex } from "@chakra-ui/react";
 // import { CUIAutoComplete } from "chakra-ui-autocomplete";
 import {
   selectAllTransactions,
@@ -13,12 +14,13 @@ import {
 
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import AddTransactionModal from "./AddTransactionModal";
 import TransactionList from "./TransactionList";
 import Paginator from "./Paginator";
 import FilterBar from "./FilterBar";
+//working on using mapstate to get logged in user
 
-const AllTransactions = () => {
+const AllTransactions = ({ user }) => {
+  let userId = user.id;
   const dispatch = useDispatch();
   const allTransactions = useSelector(selectAllTransactions);
   const bankAccounts = useSelector(selectAllBankAccounts);
@@ -29,11 +31,15 @@ const AllTransactions = () => {
       label: subCategory.sub_category_name,
     };
   });
+
+  //userid will come from mapState soon
+  // const userId = 1;
   const sixMonthsAgo = new Date();
   sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
 
   const [selectedAccount, setSelectedAccount] = useState("all");
-  const [selectedCategory, setSelectedCategory] = useState("none");
+  const [selectedCategory, setSelectedCategory] = useState("None");
+  // const [loggedInUser, setLoggedInUser] = useState(userId || 0);
 
   const [newTransactionAccountId, setNewTransactionAccountId] = useState("");
   const [newTransactionMerchant, setNewTransactionMerchant] = useState("");
@@ -83,16 +89,22 @@ const AllTransactions = () => {
       return tempDate[3] + "-" + month + "-" + day;
     });
     return formattedDates;
-    // return { dates: { fromDate, toDate } };
   };
 
+  //implementing this today to further format money
+  const formatter = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  });
+
   useEffect(() => {
-    dispatch(fetchAllBankAccounts());
+    dispatch(fetchAllBankAccounts({ userId }));
     dispatch(fetchAllSubCategories());
     const fromDate = formatDateObjects(selectedDates)[0];
     const toDate = formatDateObjects(selectedDates)[1];
     dispatch(
       fetchTransactionsFromDateToDate({
+        userId: userId,
         fromDate: fromDate,
         toDate: toDate,
       })
@@ -106,7 +118,7 @@ const AllTransactions = () => {
           if (
             (selectedAccount === "all" ||
               transaction.bankaccountId === Number(selectedAccount)) &&
-            (selectedCategory === "none" ||
+            (selectedCategory === "None" ||
               Number(selectedCategory) === Number(transaction.subcategoryId))
           ) {
             return true;
@@ -151,7 +163,6 @@ const AllTransactions = () => {
 
   const handleAccountClick = (e) => {
     setSelectedAccount(e.target.value);
-    console.log(selectedAccount);
   };
 
   const handleDelete = async (evt, transactionId) => {
@@ -188,10 +199,6 @@ const AllTransactions = () => {
     setNewTransactionDate(e.target.value);
   };
 
-  //want to make this the filter for categories
-
-  //these functions format the number input field in the new Transaction form
-
   const handleClear = () => {
     setNewTransactionAccountId("");
     setNewTransactionSubCategory("");
@@ -215,10 +222,10 @@ const AllTransactions = () => {
     //set user, set category, set bank account
     //query for user #1, bank account, and category
     //user magic methods to set these foreign keys
-    console.log(newPostedTransaction);
 
     newPostedTransaction.setUser;
     setPostedTransaction(newPostedTransaction);
+
     // now update the bank account balance
     let avaialableBalanceDifferential = 0;
     if (newPostedTransaction.data.credit_debit === "debit") {
@@ -263,8 +270,6 @@ const AllTransactions = () => {
           selectedAccount={selectedAccount}
         />
       </Flex>
-      {/* ADD A GRAPH HERE  */}
-      {/* TRANSACTIONS COMPONENT HERE */}
       <Flex direction={"column"}>
         <TransactionList
           allTransactions={filteredTransactions}
@@ -303,4 +308,10 @@ const AllTransactions = () => {
   );
 };
 
-export default AllTransactions;
+const mapState = (state) => {
+  return {
+    user: state.auth,
+  };
+};
+
+export default connect(mapState)(AllTransactions);

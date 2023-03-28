@@ -1,18 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
 import DeletePopup from "./DeletePopup";
-import {
-  Box,
-  Container,
-  Flex,
-  List,
-  ListItem,
-  Text,
-  Button,
-} from "@chakra-ui/react";
-import axios from "axios";
+import { Box, Flex, List, ListItem, Text } from "@chakra-ui/react";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
-import { current } from "@reduxjs/toolkit";
 import AddTransactionModal from "./AddTransactionModal";
 
 const TransactionList = (props) => {
@@ -22,7 +12,6 @@ const TransactionList = (props) => {
     selectedAccount,
     selectedCategory,
     subCategories,
-    totalPageCount,
     transactionsPerPage,
     currentPage,
     newTransactionAmount,
@@ -43,21 +32,27 @@ const TransactionList = (props) => {
 
   return (
     <List w="1000px" p={"2"} flex="1">
-      <ListItem borderRadius={"20px"} bg={"gray.200"} p={"2"}>
+      <ListItem
+        w={"100%"}
+        justify={"center"}
+        borderRadius={"20px"}
+        bg={"gray.200"}
+        p={"2"}
+      >
         <Flex justify={"space-between"} align={"flex-start"}>
-          <Box w={"21%"} flex="1">
+          <Box w={"21%"} flex="100">
             <Text fontSize="lg">Date</Text>
           </Box>
-          <Box w={"21%"} flex="1">
+          <Box w={"21%"} flex="105">
             <Text fontSize="lg">Description</Text>
           </Box>
-          <Box w={"21%"} flex="1">
+          <Box w={"21%"} flex="100">
             <Text fontSize="lg">Category</Text>
           </Box>
-          <Box w={"21%"} flex="1">
+          <Box w={"21%"} flex="97">
             <Text fontSize="lg">Amount</Text>
           </Box>
-          <Box w={"16%"} flex="1">
+          <Box w={"16%"} flex="90">
             <AddTransactionModal
               subCategories={subCategories}
               newTransactionAmount={newTransactionAmount}
@@ -79,8 +74,6 @@ const TransactionList = (props) => {
         </Flex>
       </ListItem>
       {allTransactions.map((transaction, idx) => {
-        //   console.log("category", transaction.subcategoryId);
-        //   const transactionCategory = await
         let transactionCategory;
         let alternateColor = "";
         if (idx % 2 === 0) {
@@ -98,7 +91,7 @@ const TransactionList = (props) => {
           if (
             (selectedAccount === "all" ||
               transaction.bankaccountId === Number(selectedAccount)) &&
-            (selectedCategory === "none" ||
+            (selectedCategory === "None" ||
               Number(selectedCategory) === Number(transaction.subcategoryId))
           ) {
             return (
@@ -122,7 +115,7 @@ const TransactionList = (props) => {
                     <Text fontSize="lg">{transactionCategory}</Text>
                   </Box>
                   <Box w={"21%"}>
-                    <Text fontSize="lg">{transaction.amount}</Text>
+                    <Text fontSize="lg">${transaction.amount}</Text>
                   </Box>
                   <Box w={"10%"}>
                     <NavLink to={`/transactions/${transaction.id}`}>

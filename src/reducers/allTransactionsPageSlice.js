@@ -1,10 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+
 export const fetchTransactionsFromDateToDate = createAsyncThunk(
   "transactions/fetchByDate",
-  async ({ fromDate, toDate }) => {
+  async ({ userId, fromDate, toDate }) => {
     const { data } = await axios.get(
-      `/api/allTransactions/${fromDate}/${toDate}`
+      `/api/allTransactions/${userId}/${fromDate}/${toDate}`
     );
     return data;
   }
@@ -12,8 +13,8 @@ export const fetchTransactionsFromDateToDate = createAsyncThunk(
 
 export const fetchAllBankAccounts = createAsyncThunk(
   "bankAccounts/fetchAll",
-  async () => {
-    const { data } = await axios.get("/api/bankAccounts");
+  async ({ userId }) => {
+    const { data } = await axios.get(`/api/bankAccounts/user/${userId}`);
     const sortedData = data.sort((a, b) => {
       return a.id > b.id ? 1 : a.id < b.id ? -1 : 0;
     });
