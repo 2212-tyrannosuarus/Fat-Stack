@@ -13,7 +13,6 @@ import {
   selectSpendingOvertimeBySubcategory,
   selectTrendsCategories,
 } from "../../reducers/trendsPageSLice";
-import { useNavigate, useParams } from "react-router-dom";
 import "./Trends.css";
 import PieChartCategory from "../PieChartCategory";
 import PieChartMerchant from "../PieChartMerchant";
@@ -22,7 +21,6 @@ import * as bootstrap from "bootstrap";
 import TrendsToggleButtonGroup from "./TrendsToggleButtonGroup";
 import BarChartBySubcategory from "../BarChartBySubcategory";
 import { connect } from "react-redux";
-import { logout } from "../../store";
 
 const MONTHS = [
   "Jan",
