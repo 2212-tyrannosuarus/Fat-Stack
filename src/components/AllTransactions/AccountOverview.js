@@ -22,6 +22,10 @@ import { useDispatch, useSelector } from "react-redux";
 import Plaid from "../Plaid";
 
 const AccountOverview = ({ user }) => {
+  const formatter = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  });
   let userId = user.id;
   const dispatch = useDispatch();
 
@@ -61,7 +65,6 @@ const AccountOverview = ({ user }) => {
   };
   useEffect(() => {
     dispatch(fetchAllBankAccounts({ userId }));
-    console.log("dates", oneWeekAgo, today);
     const fromDate = formatDateObjects([oneWeekAgo, today])[0];
     const toDate = formatDateObjects([oneWeekAgo, today])[1];
     dispatch(
@@ -126,7 +129,7 @@ const AccountOverview = ({ user }) => {
                   {"All Accounts"}
                 </Text>
                 <Text fontWeight={"bold"} w={"50%"} fontSize={"1em"}>
-                  ${totalAccountBalance}
+                  {formatter.format(totalAccountBalance)}
                 </Text>
               </Flex>
               <AccordionIcon w={"10%"} />
@@ -148,7 +151,9 @@ const AccountOverview = ({ user }) => {
                   textAlign={"center"}
                   w={"50%"}
                 >
-                  ${getWeeklyTotal(allTransactionsThisWeek, true)}
+                  {formatter.format(
+                    getWeeklyTotal(allTransactionsThisWeek, true)
+                  )}
                 </Text>
               </Flex>
             </AccordionPanel>
@@ -161,7 +166,7 @@ const AccountOverview = ({ user }) => {
                     {account.account_name}
                   </Text>
                   <Text fontWeight={"bold"} w={"50%"} fontSize={"1em"}>
-                    ${account.available_balance}
+                    {formatter.format(account.available_balance)}
                   </Text>
                 </Flex>
                 <AccordionIcon w={"10%"} />
