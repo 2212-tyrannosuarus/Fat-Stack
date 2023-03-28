@@ -1,20 +1,14 @@
 import React, { useState } from "react";
-import { Box, Flex, Image, Text, Input, Button } from "@chakra-ui/react";
+import { connect } from "react-redux";
+import { Box, Flex, Text, Input, Button, Avatar } from "@chakra-ui/react";
 
-const Profile = () => {
+const Profile = ({ user }) => {
   return (
     <>
       <Flex alignItems="center">
         <Box w={320} p={8} boxShadow="md" rounded="md" bg={"white"}>
           <Flex justifyContent="center">
-            <Image
-              src={"#"}
-              alt="Profile picture"
-              rounded="full"
-              boxSize="100px"
-              objectFit="cover"
-              mb={5}
-            />
+            <Avatar src={"#"} alt={"user picture"} size="lg" />
           </Flex>
           <Text
             fontSize="xl"
@@ -48,9 +42,14 @@ const Profile = () => {
           </Box>
         </Box>
       </Flex>
-      )}
     </>
   );
 };
 
-export default Profile;
+const mapState = (state) => {
+  return {
+    user: state.auth,
+  };
+};
+
+export default connect(mapState)(Profile);
