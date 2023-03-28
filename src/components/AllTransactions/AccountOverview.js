@@ -66,6 +66,7 @@ const AccountOverview = ({ user }) => {
     const toDate = formatDateObjects([oneWeekAgo, today])[1];
     dispatch(
       fetchTransactionsFromDateToDate({
+        userId: userId,
         fromDate: fromDate,
         toDate: toDate,
       })
@@ -109,57 +110,23 @@ const AccountOverview = ({ user }) => {
   };
 
   return bankAccounts.length > 0 ? (
-    <Accordion allowToggle>
-      <Flex
-        direction={"column"}
-        boxShadow="md"
-        bg="white"
-        rounded="lg"
-        overflow="hidden"
-      >
-        <AccordionItem>
-          <AccordionButton>
-            <Flex w={"90%"} direction="row">
-              <Text fontWeight={"bold"} w={"50%"} fontSize={"1em"}>
-                {"All Accounts"}
-              </Text>
-              <Text fontWeight={"bold"} w={"50%"} fontSize={"1em"}>
-                ${totalAccountBalance}
-              </Text>
-            </Flex>
-            <AccordionIcon w={"10%"} />
-          </AccordionButton>
-          <AccordionPanel>
-            <Divider />
-            <Flex direction={"row"} justify={"flex-end"} w="90%" h={"50%"}>
-              <Text
-                fontSize={"12px"}
-                fontWeight={"bold"}
-                textAlign={"center"}
-                w={"50%"}
-              >
-                Total spending this week:
-              </Text>
-              <Text
-                fontSize={"12px"}
-                fontWeight={"bold"}
-                textAlign={"center"}
-                w={"50%"}
-              >
-                ${getWeeklyTotal(allTransactionsThisWeek, true)}
-              </Text>
-            </Flex>
-          </AccordionPanel>
-        </AccordionItem>
-        {bankAccounts.map((account) => (
+    <>
+      <Accordion allowToggle>
+        <Flex
+          direction={"column"}
+          boxShadow="md"
+          bg="white"
+          rounded="lg"
+          overflow="hidden"
+        >
           <AccordionItem>
             <AccordionButton>
               <Flex w={"90%"} direction="row">
                 <Text fontWeight={"bold"} w={"50%"} fontSize={"1em"}>
-                  {account.account_name}
+                  {"All Accounts"}
                 </Text>
                 <Text fontWeight={"bold"} w={"50%"} fontSize={"1em"}>
-                  ${account.available_balance}
+                  ${totalAccountBalance}
                 </Text>
               </Flex>
               <AccordionIcon w={"10%"} />
@@ -173,7 +140,7 @@ const AccountOverview = ({ user }) => {
                   textAlign={"center"}
                   w={"50%"}
                 >
-                  Spending this week:
+                  Total spending this week:
                 </Text>
                 <Text
                   fontSize={"12px"}
@@ -181,14 +148,51 @@ const AccountOverview = ({ user }) => {
                   textAlign={"center"}
                   w={"50%"}
                 >
-                  ${getWeeklyTotal(allTransactionsThisWeek, account)}
+                  ${getWeeklyTotal(allTransactionsThisWeek, true)}
                 </Text>
               </Flex>
             </AccordionPanel>
           </AccordionItem>
-        ))}
-      </Flex>
-    </Accordion>
+          {bankAccounts.map((account) => (
+            <AccordionItem>
+              <AccordionButton>
+                <Flex w={"90%"} direction="row">
+                  <Text fontWeight={"bold"} w={"50%"} fontSize={"1em"}>
+                    {account.account_name}
+                  </Text>
+                  <Text fontWeight={"bold"} w={"50%"} fontSize={"1em"}>
+                    ${account.available_balance}
+                  </Text>
+                </Flex>
+                <AccordionIcon w={"10%"} />
+              </AccordionButton>
+              <AccordionPanel>
+                <Divider />
+                <Flex direction={"row"} justify={"flex-end"} w="90%" h={"50%"}>
+                  <Text
+                    fontSize={"12px"}
+                    fontWeight={"bold"}
+                    textAlign={"center"}
+                    w={"50%"}
+                  >
+                    Spending this week:
+                  </Text>
+                  <Text
+                    fontSize={"12px"}
+                    fontWeight={"bold"}
+                    textAlign={"center"}
+                    w={"50%"}
+                  >
+                    ${getWeeklyTotal(allTransactionsThisWeek, account)}
+                  </Text>
+                </Flex>
+              </AccordionPanel>
+            </AccordionItem>
+          ))}
+        </Flex>
+      </Accordion>
+      <Plaid />
+    </>
   ) : (
     <>
       <Flex direction={"column"}>
