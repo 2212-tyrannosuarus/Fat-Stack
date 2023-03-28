@@ -1,5 +1,13 @@
 import React from "react";
-import { Box, Text, Icon, Flex, Grid, Divider } from "@chakra-ui/react";
+import {
+  Box,
+  Text,
+  Icon,
+  Flex,
+  Grid,
+  Divider,
+  SimpleGrid,
+} from "@chakra-ui/react";
 import { FcDepartment } from "react-icons/fc";
 import ChartForOverview from "../ChartForOverview";
 import GoalsComponent from "../Goals/GoalsComponent/Dashboard";
@@ -7,17 +15,16 @@ import AccountOverview from "../AllTransactions/AccountOverview";
 
 const Dashboard = () => {
   return (
-    <>
-      <Grid templateColumns="repeat(2, 1fr)" gap={6} mb={20} alignItems="start">
-        <Box
+    <Box maxW="100vw" display="flex" flexWrap="wrap">
+      <SimpleGrid columns={{ base: 2, md: 2 }} spacing={16}>
+        <Flex
           bg="white"
           rounded="lg"
           w={500}
-          h={400}
+          h={"auto"}
           overflow="hidden"
           px={5}
-          pt={5}
-          mr={5}
+          py={10}
           flexDirection="column"
           boxShadow="md"
         >
@@ -28,17 +35,15 @@ const Dashboard = () => {
           <Box>
             <AccountOverview />
           </Box>
-        </Box>
-        <Box
+        </Flex>
+        <Flex
           bg="white"
           rounded="lg"
           w={500}
-          h={400}
+          h={"auto"}
           overflow="hidden"
           px={5}
-          pt={5}
-          mr={5}
-          display="flex"
+          py={10}
           flexDirection="column"
           boxShadow="md"
         >
@@ -47,23 +52,22 @@ const Dashboard = () => {
           </Text>
           <Divider />
           <Box>
-            <ChartForOverview userId={1} />
+            <ChartForOverview />
           </Box>
-        </Box>
-        <Box
+        </Flex>
+        <Flex
           bg="white"
           rounded="lg"
           w={500}
-          h={400}
+          h={"auto"}
           overflow="hidden"
           px={5}
-          pt={5}
-          mr={5}
+          py={10}
           flexDirection="column"
           boxShadow="md"
         >
           <Box>
-            <Text fontWeight="bold" fontSize="xl" mb={10}>
+            <Text fontWeight="bold" fontSize="xl">
               Account overview
             </Text>
             <Divider />
@@ -78,25 +82,24 @@ const Dashboard = () => {
               viverra justo odio, sit amet mollis massa porttitor id.
             </Text>
           </Box>
-        </Box>
-        <Box
+        </Flex>
+        <Flex
           bg="white"
           rounded="lg"
           w={500}
-          h={400}
+          h={"auto"}
           overflow="hidden"
           px={5}
-          pt={5}
-          mr={5}
+          py={10}
           flexDirection="column"
           boxShadow="md"
         >
           <Box>
             <GoalsComponent />
           </Box>
-        </Box>
-      </Grid>
-    </>
+        </Flex>
+      </SimpleGrid>
+    </Box>
   );
 };
 

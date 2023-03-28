@@ -42,7 +42,7 @@ const Notifications = () => {
           fontSize="20px"
           fontWeight="normal"
           _focus={{ boxShadow: "none" }}
-          _hover={{ background: "none" }}
+          _hover={{ background: "gray.50" }}
         >
           {notifications.length > 0 && (
             <Box
@@ -71,7 +71,7 @@ const Notifications = () => {
               onClick={() => {
                 window.location.href = notification.link;
               }}
-              _hover={{ background: "gray.100" }}
+              _hover={{ background: "gray.50" }}
             >
               <Box fontWeight="bold" mb={1}>
                 {notification.source}
@@ -107,7 +107,12 @@ const Notifications = () => {
             </MenuItem>
           ))}
           <MenuDivider />
-          <MenuItem onClick={() => setNotifications([])}>Clear all</MenuItem>
+          <MenuItem
+            onClick={() => setNotifications([])}
+            _hover={{ background: "gray.50" }}
+          >
+            Clear all
+          </MenuItem>
         </MenuList>
       </Menu>
     </Box>

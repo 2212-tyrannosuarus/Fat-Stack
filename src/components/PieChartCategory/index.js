@@ -59,7 +59,7 @@ const PieChartCategory = (props) => {
   return (
     <div className="row">
       <div className="col-8">
-        {pieChart && legend ? (
+        {pieChart && pieChart.length && legend ? (
           <svg width="500" height="700" viewBox="0 0 400 400">
             <VictoryPie
               standalone={false}
@@ -95,7 +95,11 @@ const PieChartCategory = (props) => {
             />
           </svg>
         ) : (
-          "Loading in pie chart"
+          <div className="row border pl-4" align="center" style={{width: "50vw"}}>
+          <div className="col-12">
+          No data to diaplay
+          </div>
+          </div>
         )}
       </div>
       <div className="col-4 mt-n1 ">

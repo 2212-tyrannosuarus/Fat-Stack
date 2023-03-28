@@ -17,14 +17,10 @@ import ChartForOverview from "./components/ChartForOverview";
 import NotFound from "./components/NotFound";
 import { Navigate } from "react-router-dom";
 import { connect } from "react-redux";
-import { me } from "./store";
 
 const NavigationRoutes = (props) => {
-  const { isLoggedIn, loadInitialData } = props;
-
-  useEffect(() => {
-    loadInitialData();
-  }, []);
+  const { isLoggedIn } = props;
+  console.log("LOGGED IN ", isLoggedIn);
 
   function PrivateRoute({ children }) {
     return isLoggedIn ? <>{children}</> : <Navigate to="/" />;
@@ -33,6 +29,7 @@ const NavigationRoutes = (props) => {
   return (
     <Routes>
       <Route
+        exact
         path="/dashboard"
         element={
           <PrivateRoute>
@@ -46,79 +43,86 @@ const NavigationRoutes = (props) => {
       <Route
         path="/transactions"
         element={
-          <SidebarLayout>
-            <AllTransactions />
-          </SidebarLayout>
+          <PrivateRoute>
+            <SidebarLayout>
+              <AllTransactions />
+            </SidebarLayout>
+          </PrivateRoute>
         }
       />
       <Route
         path="/transactions/:id"
         element={
-          <SidebarLayout>
-            <SingleTransaction />
-          </SidebarLayout>
+          <PrivateRoute>
+            <SidebarLayout>
+              <SingleTransaction />
+            </SidebarLayout>
+          </PrivateRoute>
         }
       />
       <Route
         path="/profile"
         element={
-          <SidebarLayout>
-            <Profile />
-          </SidebarLayout>
+          <PrivateRoute>
+            <SidebarLayout>
+              <Profile />
+            </SidebarLayout>
+          </PrivateRoute>
         }
       />
       <Route
         exact
         path="/budget"
         element={
-          <SidebarLayout>
-            <Budget userId={1}/>
-          </SidebarLayout>
+          <PrivateRoute>
+            <SidebarLayout>
+              <Budget  />
+            </SidebarLayout>
+          </PrivateRoute>
         }
       />
       <Route
         exact
         path="/trends"
         element={
-          <SidebarLayout>
-            <Trends userId={1}/>
-          </SidebarLayout>
+          <PrivateRoute>
+            <SidebarLayout>
+              <Trends  />
+            </SidebarLayout>
+          </PrivateRoute>
         }
       />
       <Route
         exact
         path="/goals"
         element={
-          <SidebarLayout>
-            <Goals />
-          </SidebarLayout>
+          <PrivateRoute>
+            <SidebarLayout>
+              <Goals />
+            </SidebarLayout>
+          </PrivateRoute>
         }
       />
       <Route
         exact
         path="/goals/:goalid"
         element={
-          <SidebarLayout>
-            <GoalsID />
-          </SidebarLayout>
+          <PrivateRoute>
+            <SidebarLayout>
+              <GoalsID />
+            </SidebarLayout>
+          </PrivateRoute>
         }
       />
       <Route
         exact
         path="/overviewChart"
         element={
-          <SidebarLayout>
-            <ChartForOverview userId={1} />
-          </SidebarLayout>
-        }
-      />
-
-      <Route
-        path="/"
-        element={
-          <MainLayout>
-            <Homepage />
-          </MainLayout>
+          <PrivateRoute>
+            <SidebarLayout>
+              <ChartForOverview />
+            </SidebarLayout>
+          </PrivateRoute>
         }
       />
 
@@ -141,12 +145,11 @@ const NavigationRoutes = (props) => {
         }
       />
       <Route
-        exact
-        path="/overviewChart"
+        path="/"
         element={
-          <SidebarLayout>
-            <ChartForOverview userId={1} />
-          </SidebarLayout>
+          <MainLayout>
+            <Homepage />
+          </MainLayout>
         }
       />
       <Route
@@ -168,12 +171,4 @@ const mapState = (state) => {
   };
 };
 
-const mapDispatch = (dispatch) => {
-  return {
-    loadInitialData() {
-      dispatch(me());
-    },
-  };
-};
-
-export default connect(mapState, mapDispatch)(NavigationRoutes);
+export default connect(mapState)(NavigationRoutes);

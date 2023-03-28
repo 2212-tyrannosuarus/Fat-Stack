@@ -31,7 +31,6 @@ const DashNav = ({ user, handleLogout }) => {
         alignItems="center"
         p={3}
         bg="white"
-        ml={5}
         mr={45}
         boxShadow="md"
         borderRadius={10}
@@ -44,7 +43,7 @@ const DashNav = ({ user, handleLogout }) => {
           variant="outline"
           borderColor="gray.600"
           borderRadius="10"
-          _hover={{ bg: "gray.100" }}
+          _hover={{ bg: "gray.50" }}
           width="full"
           isOpen={isOpen}
         >
@@ -69,11 +68,16 @@ const DashNav = ({ user, handleLogout }) => {
               as={Link}
               href="/profile"
               color={"gray.800"}
-              _hover={{ textDecoration: "none", color: "gray.800" }}
+              _hover={{ textDecoration: "none", background: "gray.50" }}
             >
               My Profile
             </MenuItem>
-            <MenuItem onClick={() => handleLogout()}>Logout</MenuItem>
+            <MenuItem
+              _hover={{ background: "gray.50" }}
+              onClick={() => handleLogout()}
+            >
+              Logout
+            </MenuItem>
           </MenuList>
         </Menu>
       </Box>
