@@ -52,7 +52,6 @@ const MONTHS = [
 const Budget = ({ user }) => {
   let userId = user.id;
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   let budgetedSpendingFromSlice = useSelector(
     selectBudgetedSpendingFromDateToDate
@@ -60,10 +59,6 @@ const Budget = ({ user }) => {
   let unbudgetedSpending = useSelector(selectUnudgetedSpendingFromDateToDate);
   let budgetedIncome = useSelector(selectIncomeFromDateToDate);
   let categories = useSelector(selectCategories);
-  console.log("categories ", categories);
-  console.log("unbudgetedSpending ", unbudgetedSpending);
-  console.log("budgetedIncome ", budgetedIncome);
-  console.log("budgetedSpendingFromSlice ", budgetedSpendingFromSlice);
 
   const [dateToday, setDateToday] = useState(new Date());
   let [newBudgetedAmount, setNewBudgetedAmount] = useState(0);
@@ -175,7 +170,6 @@ const Budget = ({ user }) => {
       userId = user.id;
       fetchThisMonthData();
     }
-   
   }, [user]);
 
   // filter data for time Range
@@ -201,7 +195,6 @@ const Budget = ({ user }) => {
       startingDate = `${todaysDate[3]}-${currentMonth}-01`;
       endingDate = `${todaysDate[3]}-${currentMonth}-${todaysDate[2]}`;
 
-      console.log("current Month ", currMonth, currYear);
       let thisMonthDiv = document.querySelector(`#${currMonth}`);
       thisMonthDiv.classList.add("selected-month");
 
@@ -275,11 +268,9 @@ const Budget = ({ user }) => {
             lastThreeMonths.push(MONTHS[j]);
           }
         }
-        console.log("last three months ", lastThreeMonths);
       } else {
         for (let i = indexOfCurrMonth - 1; i >= indexOfCurrMonth - 3; i--) {
           lastThreeMonths.push(MONTHS[i]);
-          console.log("last three months ", lastThreeMonths);
         }
       }
 
@@ -406,6 +397,7 @@ const Budget = ({ user }) => {
     );
   }
 
+  // display data by subcategory when subcategory changes, get data for the last 12 months
   async function handleOvertimeSubcategory(subcategory) {
     let todaysDate = (dateToday.toString() + 1).split(" ");
     let currentMonth = "";

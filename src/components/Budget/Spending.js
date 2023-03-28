@@ -3,7 +3,6 @@ import { ProgressBar } from "react-bootstrap";
 import "./Budget.css";
 import EditModal from "./EditModal";
 
-
 const Spending = (props) => {
   const {
     spending,
@@ -13,15 +12,9 @@ const Spending = (props) => {
     setNewBudgetedAmount,
   } = props;
 
-  //   useEffect(() => {
-  if (spending !== undefined) {
-    console.log("spending ", spending.flat().slice(0, -1));
-  }
-  //   });
-
   return (
     <div className="row">
-      {spending !== undefined && spending.flat().slice(0, -1).length? (
+      {spending !== undefined && spending.flat().slice(0, -1).length ? (
         <div class="col-md-12 col-lg-12 order-2 mb-4">
           <div class="card h-100">
             <div class="card-header d-flex align-items-center justify-content-between">
@@ -75,7 +68,6 @@ const Spending = (props) => {
                               style={{ height: "10px" }}
                             />
                             <div className="row">
-
                               <EditModal
                                 subCategory={spendingItem.subCategoryName}
                                 budgetedAmount={spendingItem.budgetedAmount}

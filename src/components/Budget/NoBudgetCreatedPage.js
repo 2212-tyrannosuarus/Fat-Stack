@@ -1,17 +1,22 @@
 import React from "react";
-import { Box, Text, Icon, Flex, ListIcon, ListItem, List } from "@chakra-ui/react";
+import {
+  Box,
+  Text,
+  Icon,
+  ListIcon,
+  ListItem,
+  List,
+} from "@chakra-ui/react";
 import { GiTakeMyMoney } from "react-icons/gi";
-import { IconContext,  } from "react-icons";
+import { IconContext } from "react-icons";
 import { MdCheckCircle } from "react-icons/md";
 
 const NoBudgetCreated = () => {
   return (
-    <div className="col-8" >
+    <div className="col-8">
       <Box
         bg="white"
         rounded="lg"
-        //   w={600}
-        //   h={400}
         overflow="hidden"
         px={6}
         py={12}
@@ -43,24 +48,24 @@ const NoBudgetCreated = () => {
 
             <List spacing={3}>
               <ListItem>
-                <ListIcon as={MdCheckCircle} color="green.500" />
-                A budget can help you save money.
+                <ListIcon as={MdCheckCircle} color="green.500" />A budget can
+                help you save money.
               </ListItem>
               <ListItem>
-                <ListIcon as={MdCheckCircle} color="green.500" />
-                A budget can help you pay off debt.
+                <ListIcon as={MdCheckCircle} color="green.500" />A budget can
+                help you pay off debt.
               </ListItem>
               <ListItem>
-                <ListIcon as={MdCheckCircle} color="green.500" />
-                A budget can help you reach your financial goals.
+                <ListIcon as={MdCheckCircle} color="green.500" />A budget can
+                help you reach your financial goals.
               </ListItem>
               <ListItem>
-                <ListIcon as={MdCheckCircle} color="green.500" />
-                A budget can help you stay on track.
+                <ListIcon as={MdCheckCircle} color="green.500" />A budget can
+                help you stay on track.
               </ListItem>
               <ListItem>
-                <ListIcon as={MdCheckCircle} color="green.500" />
-                A budget can help reduce stress.
+                <ListIcon as={MdCheckCircle} color="green.500" />A budget can
+                help reduce stress.
               </ListItem>
             </List>
           </div>

@@ -31,15 +31,11 @@ const MONTHS = [
   "Dec",
 ];
 
-const ChartForOVerview = ({user}) => {
-  //   const { userId } = useParams();
-  console.log('user ', user);
+const ChartForOVerview = ({ user }) => {
   let userId = user.id;
-  // const { userId } = props;
   const dispatch = useDispatch();
 
   const overviewChartData = useSelector(selectOverviewChartData);
-  console.log("overview chart data ", overviewChartData.flat().slice(0, -1));
   const [dateToday, setDateToday] = useState(new Date());
   let [chartdataLastMonth, setChartDataLastMonth] = useState([]);
   let [chartdataThisMonth, setChartDataThisMonth] = useState([]);
@@ -97,9 +93,6 @@ const ChartForOVerview = ({user}) => {
         }
       }
     }
-
-    console.log("chartdataLastMonth ", chartdataLastMonth);
-    console.log("chartDataThisMonth ", chartdataThisMonth);
 
     lastMonthArr = [];
     thisMonthArr = [];
@@ -184,8 +177,6 @@ const ChartForOVerview = ({user}) => {
       }
     }
 
-    console.log("lastMonthArr ", lastMonthArr);
-
     let lastElement = 0;
     // calculations for thisMonthArr - adding interpolation points that exist in last month arr but not in this month arr
     for (let i = 0; i < chartdataThisMonth.length; i++) {
@@ -228,8 +219,6 @@ const ChartForOVerview = ({user}) => {
       lastElement = thisMonthArr[thisMonthArr.length - 1].x;
     }
 
-    console.log("thisMonthArr after 1st iteration", thisMonthArr);
-
     for (let i = pointerlastMonth + 1; i < chartdataLastMonth.length; i++) {
       let alreadyexists = false;
 
@@ -254,13 +243,12 @@ const ChartForOVerview = ({user}) => {
         }
       }
     }
-    console.log("thisMonthArr ", thisMonthArr);
+
     thisMonthArr.sort((a, b) => a.x - b.x);
     lastMonthArr.sort((a, b) => a.x - b.x);
-    console.log("lastMonthArr before slice", lastMonthArr);
+
     // slicing data set for laxt month to match this month arr length to be able to show data uptil the current date.
     lastMonthArr = lastMonthArr.slice(0, thisMonthArr.length);
-    console.log("lastMonthArr after slice", lastMonthArr);
   }
 
   useEffect(() => {
@@ -285,11 +273,10 @@ const ChartForOVerview = ({user}) => {
         })
       );
     }
-    if (window.localStorage.getItem('token') && user.id !== undefined) {
+    if (window.localStorage.getItem("token") && user.id !== undefined) {
       userId = user.id;
       getOverviewChartData();
     }
-    
 
     setChartDataLastMonth(chartdataLastMonth);
     setChartDataThisMonth(chartdataThisMonth);
@@ -318,7 +305,6 @@ const ChartForOVerview = ({user}) => {
             }
             orientation="horizontal"
             gutter={20}
-            //   style={{ border: { stroke: "black" } }}
             colorScale={["#b5b6ff", "#f8a7dc"]}
             data={[{ name: "This Month" }, { name: "Last Month" }]}
           />
@@ -366,19 +352,10 @@ const ChartForOVerview = ({user}) => {
   );
 };
 
-// export default ChartForOVerview;
 const mapState = (state) => {
   return {
     user: state.auth,
   };
 };
-
-// const mapDispatch = (dispatch) => {
-//   return {
-//     handleLogout() {
-//       dispatch(logout());
-//     },
-//   };
-// };
 
 export default connect(mapState)(ChartForOVerview);

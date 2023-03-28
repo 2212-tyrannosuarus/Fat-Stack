@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
 import {
   Modal,
   ModalOverlay,
@@ -18,7 +17,6 @@ import { Button, Stack } from "@chakra-ui/react";
 import BarChartForModal from "../BarChartForModal";
 import { BsCheckCircleFill } from "react-icons/bs";
 import { IconContext } from "react-icons";
-
 
 function AddBudgetModal(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -104,6 +102,7 @@ function AddBudgetModal(props) {
                   <div className="row">
                     <div className="col-6">
                       <h4 className="mb-3 mt-4">Choose a sub category </h4>
+                      {/* getting categories for which the user has not already set a budget for */}
                       <Select
                         name="sub-categories"
                         id="subCategory"
@@ -160,19 +159,19 @@ function AddBudgetModal(props) {
                         <Card variant="filled" className="mt-4">
                           <CardBody className="row">
                             <div className="col-1">
-                            <IconContext.Provider
-                              value={{ color: "#72dc3a", size: "25px" }}
-                            >
-                              <BsCheckCircleFill />
-                            </IconContext.Provider>
+                              <IconContext.Provider
+                                value={{ color: "#72dc3a", size: "25px" }}
+                              >
+                                <BsCheckCircleFill />
+                              </IconContext.Provider>
                             </div>
                             <div className="col-11">
-                            <Text>
-                              {`We'll set a budget of $${addBudgetAmount} each month for`}{" "}
-                              <strong>{subCategoryName}</strong>{" "}
-                              {` that starts over at the 
+                              <Text>
+                                {`We'll set a budget of $${addBudgetAmount} each month for`}{" "}
+                                <strong>{subCategoryName}</strong>{" "}
+                                {` that starts over at the 
                             beginning of every month.`}
-                            </Text>
+                              </Text>
                             </div>
                           </CardBody>
                         </Card>
@@ -195,7 +194,15 @@ function AddBudgetModal(props) {
                 </ModalBody>
                 <ModalFooter>
                   <Stack direction="row" spacing={4}>
-                    <Button onClick={() => {onClose(); setSubCategoryName(""); setAddBudgetAmount(0)}}>Cancel</Button>
+                    <Button
+                      onClick={() => {
+                        onClose();
+                        setSubCategoryName("");
+                        setAddBudgetAmount(0);
+                      }}
+                    >
+                      Cancel
+                    </Button>
                     <Button
                       type="submit"
                       onClick={onClose}

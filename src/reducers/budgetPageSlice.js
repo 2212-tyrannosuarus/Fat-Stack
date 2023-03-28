@@ -3,67 +3,75 @@ import axios from "axios";
 
 export const fetchIncomeFromDateToDate = createAsyncThunk(
   "userIncomeFromTo/fetch",
-  async ({userId, fromDate, toDate}) => {
+  async ({ userId, fromDate, toDate }) => {
     userId = parseInt(userId);
-    const { data } = await axios.get(`/api/budget/income/${userId}/'${fromDate}'/'${toDate}'`);
+    const { data } = await axios.get(
+      `/api/budget/income/${userId}/'${fromDate}'/'${toDate}'`
+    );
     return data;
   }
 );
 
 export const fetchBudgetedSpendingFromDateToDate = createAsyncThunk(
   "userBudgetSpendingFromTo/fetch",
-  async ({userId, fromDate, toDate}) => {
+  async ({ userId, fromDate, toDate }) => {
     userId = parseInt(userId);
-    const { data } = await axios.get(`/api/budget/budgeted/${userId}/'${fromDate}'/'${toDate}'`);
+    const { data } = await axios.get(
+      `/api/budget/budgeted/${userId}/'${fromDate}'/'${toDate}'`
+    );
     return data;
   }
 );
 
 export const fetchUnbudgetedSpendingFromDateToDate = createAsyncThunk(
   "userUnbudgetedSpendingFromTo/fetch",
-  async ({userId, fromDate, toDate}) => {
+  async ({ userId, fromDate, toDate }) => {
     userId = parseInt(userId);
-    const { data } = await axios.get(`/api/budget/unbudgeted/${userId}/'${fromDate}'/'${toDate}'`);
+    const { data } = await axios.get(
+      `/api/budget/unbudgeted/${userId}/'${fromDate}'/'${toDate}'`
+    );
     return data;
   }
 );
 
-export const updateBudgetBySubCategory= createAsyncThunk(
+export const updateBudgetBySubCategory = createAsyncThunk(
   "budgetBySubCategory/update",
-  async ({userId, subCategoryName, newBudgetedAmount}) => {
+  async ({ userId, subCategoryName, newBudgetedAmount }) => {
     userId = parseInt(userId);
     const { data } = await axios.put(`/api/budget/${userId}`, {
       subCategoryName: subCategoryName,
-      newBudgetedAmount: parseInt(newBudgetedAmount)
+      newBudgetedAmount: parseInt(newBudgetedAmount),
     });
     return data;
   }
 );
 
-export const deleteBudgetBySubCategory= createAsyncThunk(
+export const deleteBudgetBySubCategory = createAsyncThunk(
   "budgetBySubCategory/delete",
-  async ({userId, subCategoryName}) => {
+  async ({ userId, subCategoryName }) => {
     userId = parseInt(userId);
-    const { data } = await axios.delete(`/api/budget/${userId}/${subCategoryName}`);
+    const { data } = await axios.delete(
+      `/api/budget/${userId}/${subCategoryName}`
+    );
     return data;
   }
 );
 
-export const addBudgetBySubCategory= createAsyncThunk(
+export const addBudgetBySubCategory = createAsyncThunk(
   "budgetBySubCategory/add",
-  async ({userId, subCategoryName, budgetAmount}) => {
+  async ({ userId, subCategoryName, budgetAmount }) => {
     userId = parseInt(userId);
     const { data } = await axios.post(`/api/budget/${userId}`, {
       subCategoryName: subCategoryName,
-      budgetAmount: parseInt(budgetAmount)
+      budgetAmount: parseInt(budgetAmount),
     });
     return data;
   }
 );
 
-export const getCategories= createAsyncThunk(
+export const getCategories = createAsyncThunk(
   "categories/get",
-  async ({userId}) => {
+  async ({ userId }) => {
     userId = parseInt(userId);
     const { data } = await axios.get(`/api/budget/categories/${userId}`);
     return data;
@@ -76,29 +84,33 @@ export const budgetPageSlice = createSlice({
     income: [],
     budgetedSpending: [],
     unbudgetedSpending: [],
-    categories: []
+    categories: [],
   },
-  reducers: {
-    
-  },
+  reducers: {},
   extraReducers: (build) => {
     build
-    .addCase(fetchIncomeFromDateToDate.fulfilled, (state, action) => {
-      state.income = action.payload;
-    })
-    .addCase(fetchUnbudgetedSpendingFromDateToDate.fulfilled, (state, action) => {
-      state.unbudgetedSpending = action.payload;
-    })
-    .addCase(fetchBudgetedSpendingFromDateToDate.fulfilled, (state, action) => {
-      state.budgetedSpending = action.payload;
-    })
-    .addCase(getCategories.fulfilled, (state, action) => {
-      state.categories = action.payload;
-    });
+      .addCase(fetchIncomeFromDateToDate.fulfilled, (state, action) => {
+        state.income = action.payload;
+      })
+      .addCase(
+        fetchUnbudgetedSpendingFromDateToDate.fulfilled,
+        (state, action) => {
+          state.unbudgetedSpending = action.payload;
+        }
+      )
+      .addCase(
+        fetchBudgetedSpendingFromDateToDate.fulfilled,
+        (state, action) => {
+          state.budgetedSpending = action.payload;
+        }
+      )
+      .addCase(getCategories.fulfilled, (state, action) => {
+        state.categories = action.payload;
+      });
   },
 });
 
-export const {filterThisMonthsTransactions} = budgetPageSlice.actions
+export const { filterThisMonthsTransactions } = budgetPageSlice.actions;
 
 export const selectIncomeFromDateToDate = (state) => {
   return state.budgetPage.income;

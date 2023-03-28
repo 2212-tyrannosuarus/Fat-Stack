@@ -42,7 +42,6 @@ const MONTHS = [
 const Trends = ({ user }) => {
   let userId = user.id;
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   let spendingOvertime = useSelector(selectSpendingOvertime);
   let spendingByCategoryPie = useSelector(selectSpendingByCategoryPie);
   let spendingByMerchantPie = useSelector(selectSpendingByMerchantPie);
@@ -94,10 +93,8 @@ const Trends = ({ user }) => {
 
     if (window.localStorage.getItem("token") && user.id !== undefined) {
       userId = user.id;
-      console.log('userId inside useEffect', userId);
       getSpendingOvertime();
     }
- 
   }, [dispatch, user]);
 
   // fetch data for last 12 months to display income and expenses overtime

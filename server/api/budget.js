@@ -40,39 +40,6 @@ router.get("/budgeted/:userId/:fromDate/:toDate", async (req, res, next) => {
       req.params.fromDate,
       req.params.toDate
     );
-    // const budgetedSpending = await db.query(`select
-    // budgets.budget_name as "budgetName",
-    // budgets.amount *
-    // ((EXTRACT(year FROM age(to_date(${req.params.toDate},'YYYY-MM-DD'),to_date(${req.params.fromDate},'YYYY-MM-DD')))*12 + EXTRACT(month FROM age(to_date(${req.params.toDate},'YYYY-MM-DD'),to_date(${req.params.fromDate},'YYYY-MM-DD')))) +1)
-    // as "budgetedAmount",
-    // budgets.date_started as "budgetStartDate",
-    // subcategories.sub_category_name as "subCategoryName",
-    // subcategories.id as "subCategoryId",
-    // categories.category_name as "categoryName",
-    // categories.id as "categoryId",
-    // sum(transactions.amount) as "transactionAmount"
-    // from
-    // budgets,
-    // subcategories,
-    // categories,
-    // transactions
-    // where
-    // subcategories.id=budgets."subcategoryId"
-    // and categories.id=subcategories."categoryId"
-    // and transactions."subcategoryId"=subcategories.id
-    // and transactions.credit_debit= 'debit'
-    // and to_date(date,'YYYY-MM-DD') >= to_date(${req.params.fromDate},'YYYY-MM-DD')
-    // and to_date(date,'YYYY-MM-DD') <= to_date(${req.params.toDate},'YYYY-MM-DD')
-    // and transactions."userId"=${req.params.userId}
-    // and budgets."userId"=${req.params.userId}
-    // group by
-    // budgets.budget_name,
-    // budgets.amount,
-    // budgets.date_started,
-    // subcategories.sub_category_name,
-    // subcategories.id,
-    // categories.category_name,
-    // categories.id`);
 
     const budgetedSpending = await db.query(`${budgetedSpendingQuery}`);
 
@@ -91,30 +58,6 @@ router.get("/unbudgeted/:userId/:fromDate/:toDate", async (req, res, next) => {
       req.params.toDate
     );
 
-    // const unbudgetedSpending = await db.query(`select
-    // subcategories.sub_category_name as "subCategoryName",
-    // subcategories.id as "subCategoryId",
-    // categories.category_name as "categoryName",
-    // categories.id as "categoryId",
-    // sum(transactions.amount) as "transactionAmount"
-    // from
-    // transactions,
-    // subcategories,
-    // categories
-    // where
-    // to_date(date,'YYYY-MM-DD') >= to_date(${req.params.fromDate},'YYYY-MM-DD')
-    // and to_date(date,'YYYY-MM-DD') <= to_date(${req.params.toDate},'YYYY-MM-DD')
-    // and not exists (select 1 from budgets where budgets."subcategoryId" = subcategories.id)
-    // and subcategories.id=transactions."subcategoryId"
-    // and categories.id=subcategories."categoryId"
-    // and transactions."userId"=${req.params.userId}
-    // and transactions.credit_debit= 'debit'
-    // group by
-    // subcategories.sub_category_name,
-    // subcategories.id,
-    // categories.category_name,
-    // categories.id`);
-
     const unbudgetedSpending = await db.query(unbudgetedSpendingQuery);
 
     res.json(unbudgetedSpending);
@@ -131,40 +74,6 @@ router.get("/income/:userId/:fromDate/:toDate", async (req, res, next) => {
       req.params.fromDate,
       req.params.toDate
     );
-
-    // const budgetedIncome = await db.query(`select
-    // budgets.budget_name as "budgetName",
-    // budgets.amount *
-    // ((EXTRACT(year FROM age(to_date(${req.params.toDate},'YYYY-MM-DD'),to_date(${req.params.fromDate},'YYYY-MM-DD')))*12 + EXTRACT(month FROM age(to_date(${req.params.toDate},'YYYY-MM-DD'),to_date(${req.params.fromDate},'YYYY-MM-DD')))) +1)
-    // as "budgetedAmount",
-    // budgets.date_started as "budgetStartDate",
-    // subcategories.sub_category_name as "subCategoryName",
-    // subcategories.id as "subCategoryId",
-    // categories.category_name as "categoryName",
-    // categories.id as "categoryId",
-    // sum(transactions.amount) as "transactionAmount"
-    // from
-    // budgets,
-    // subcategories,
-    // categories,
-    // transactions
-    // where
-    // subcategories.id=budgets."subcategoryId"
-    // and categories.id=subcategories."categoryId"
-    // and transactions."subcategoryId"=subcategories.id
-    // and transactions.credit_debit= 'credit'
-    // and to_date(date,'YYYY-MM-DD') >= to_date(${req.params.fromDate},'YYYY-MM-DD')
-    // and to_date(date,'YYYY-MM-DD') <= to_date(${req.params.toDate},'YYYY-MM-DD')
-    // and transactions."userId"=${req.params.userId}
-    // and budgets."userId"=${req.params.userId}
-    // group by
-    // budgets.budget_name,
-    // budgets.amount,
-    // budgets.date_started,
-    // subcategories.sub_category_name,
-    // subcategories.id,
-    // categories.category_name,
-    // categories.id`);
 
     const budgetedIncome = await db.query(budgetedIncomeQuery);
 
@@ -244,7 +153,6 @@ router.post("/:userId", async (req, res, next) => {
     let currYear = todaysDate.toString().split(" ")[3];
     let currMonth =
       MONTHS.indexOf(todaysDate.toString().split(" ")[1].toString()) + 1;
-    console.log("curr month ", currMonth.toString().length);
     if (currMonth.toString().length === 1) currMonth = `0${currMonth}`;
     let currDay = todaysDate.toString().split(" ")[2];
     if (currDay.length === 1) currDay = `0${currDay}`;
@@ -301,29 +209,6 @@ router.post("/:userId", async (req, res, next) => {
 router.get("/categories/:userId", async (req, res, next) => {
   try {
     let budgetCategoriesQuery = budgetCategoriesFunc(req.params.userId);
-
-    // const categories = await db.query(`	SELECT
-    // categories.category_name AS "categoryName",
-    // subcategories.sub_category_name AS "subCategoryName"
-    // FROM
-    // subcategories,
-    // categories
-    // WHERE
-    // categories.id = subcategories."categoryId"
-    // AND NOT EXISTS (
-    // 	SELECT
-    // 		1
-    // 	FROM
-    // 		budgets
-    // 	WHERE
-    // 		budgets."subcategoryId" = subcategories.id
-    // 		AND budgets."userId" = ${req.params.userId})
-    // GROUP BY
-    // categories.category_name,
-    // subcategories.sub_category_name
-    // ORDER BY
-    // categories.category_name ASC,
-    // subcategories.sub_category_name ASC`);
 
     const categories = await db.query(budgetCategoriesQuery)
 
