@@ -22,6 +22,7 @@ const mapState = (state) => {
     user: state.auth,
   };
 };
+const userId = mapState().user;
 
 const AllTransactions = () => {
   const dispatch = useDispatch();
@@ -42,6 +43,7 @@ const AllTransactions = () => {
 
   const [selectedAccount, setSelectedAccount] = useState("all");
   const [selectedCategory, setSelectedCategory] = useState("None");
+  const [loggedInUser, setLoggedInUser] = useState(userId || 0);
 
   const [newTransactionAccountId, setNewTransactionAccountId] = useState("");
   const [newTransactionMerchant, setNewTransactionMerchant] = useState("");
