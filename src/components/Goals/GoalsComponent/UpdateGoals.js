@@ -49,9 +49,21 @@ export default function UpdateGoals({ goalid }) {
   }, [goal]);
 
   const handleUpdate = async (event) => {
+    const completionStatus = false;
+    if (goalid.contributedamount > amount) {
+      completionStatus = true;
+    }
+
     event.preventDefault();
     await dispatch(
-      updateGoal({ id: goalid, body: { goal_date: date, goalamount: amount } })
+      updateGoal({
+        id: goalid,
+        body: {
+          goal_date: date,
+          goalamount: amount,
+          completion_status: completionStatus,
+        },
+      })
     );
   };
 

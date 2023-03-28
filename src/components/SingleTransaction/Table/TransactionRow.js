@@ -20,6 +20,11 @@ function TransactionRow(props) {
     handleSubFetch();
   }, [transaction]);
 
+  const formatter = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  });
+
   return (
     <Flex my="1rem" justifyContent="space-between">
       <Flex alignItems="">
@@ -73,7 +78,7 @@ function TransactionRow(props) {
           fontWeight="bold"
           color={credit === "debit" ? "red" : "green"}
         >
-          ${price}
+          {formatter.format(price)}
         </Text>
       </Box>
     </Flex>

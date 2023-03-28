@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector, connect } from "react-redux";
 import GoalBox from "./GoalBox";
 import CreateGoal from "./CreateGoal";
 import { v4 as uuidv4 } from "uuid";
@@ -27,7 +27,7 @@ import {
 } from "../../../reducers/openAiSlice";
 import { BiArrowToLeft } from "react-icons/bi";
 
-export default function PageWithGoals() {
+export function PageWithGoals({ user }) {
   const [createGoals, setCreateGoals] = useState(false);
   const dispatch = useDispatch();
   const goalList = useSelector(selectGoalList);
@@ -37,8 +37,8 @@ export default function PageWithGoals() {
 
   useEffect(() => {
     const handleFetch = async () => {
-      await dispatch(getExistingGoals());
-      await dispatch(getCompletedGoals());
+      await dispatch(getExistingGoals(user.id));
+      await dispatch(getCompletedGoals(user.id));
       await dispatch(getInspirationQuote());
       await dispatch(getGoalDirection());
     };
@@ -133,3 +133,11 @@ export default function PageWithGoals() {
     </>
   );
 }
+
+const mapState = (state) => {
+  return {
+    user: state.auth,
+  };
+};
+
+export default connect(mapState)(PageWithGoals);
