@@ -24,12 +24,8 @@ export const Footer = () => {
         direction={"row"}
         spacing={4}
         justify={"space-between"}
-        align={"center"}
+        justifyContent={"center"}
       >
-        <Stack direction={"row"} spacing={6}>
-          <Link href={"#"}>Home</Link>
-          <Link href={"#"}>About</Link>
-        </Stack>
         <Text>© 2023. All rights reserved</Text>
       </Container>
     </Box>

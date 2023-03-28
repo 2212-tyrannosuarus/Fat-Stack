@@ -31,7 +31,6 @@ const DashNav = ({ user, handleLogout }) => {
         alignItems="center"
         p={3}
         bg="white"
-        ml={5}
         mr={45}
         boxShadow="md"
         borderRadius={10}
@@ -44,16 +43,17 @@ const DashNav = ({ user, handleLogout }) => {
           variant="outline"
           borderColor="gray.600"
           borderRadius="10"
-          _hover={{ bg: "gray.100" }}
+          _hover={{ bg: "gray.50" }}
           width="full"
           isOpen={isOpen}
         >
           <MenuButton cursor="pointer" onClick={toggleIcon}>
             <Flex alignItems="center">
-              <Avatar src={"#"} alt={"#"} size="sm" />
+              <Avatar src={"#"} alt={"user picture"} size="sm" />
               <Text
                 ml={2}
                 mr={2}
+                justifyContent={"center"}
                 fontWeight="bold"
                 fontSize={15}
                 color={"gray.800"}
@@ -68,19 +68,16 @@ const DashNav = ({ user, handleLogout }) => {
               as={Link}
               href="/profile"
               color={"gray.800"}
-              _hover={{ textDecoration: "none", color: "gray.800" }}
+              _hover={{ textDecoration: "none", background: "gray.50" }}
             >
               My Profile
             </MenuItem>
             <MenuItem
-              as={Link}
-              href="/settings"
-              color={"gray.800"}
-              _hover={{ textDecoration: "none", color: "gray.800" }}
+              _hover={{ background: "gray.50" }}
+              onClick={() => handleLogout()}
             >
-              Bank Accounts
+              Logout
             </MenuItem>
-            <MenuItem onClick={() => handleLogout()}>Logout</MenuItem>
           </MenuList>
         </Menu>
       </Box>

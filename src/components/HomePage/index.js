@@ -20,7 +20,7 @@ export const Homepage = () => {
   const navigate = useNavigate();
   return (
     <>
-      <Box marginX={36} marginY={42}>
+      <Box marginX={36} marginY={50}>
         <Container maxW={"7xl"}>
           <Stack
             align={"center"}
@@ -108,10 +108,10 @@ export const Homepage = () => {
           </Stack>
         </Container>
       </Box>
-      <Box bg="gray.50" py={20}>
-        <Container maxW="7xl">
+      <Box bg="gray.50" py={36}>
+        <Container maxW="8xl">
           <Box>
-            <SimpleGrid columns={{ base: 1, md: 3 }} spacing={12}>
+            <SimpleGrid columns={{ base: 1, md: 3 }} spacing={16}>
               <Box
                 bg="white"
                 rounded="lg"
@@ -183,7 +183,7 @@ export const Homepage = () => {
         </Container>
       </Box>
 
-      <Box maxW="600px" mx="auto" textAlign="center" my={16}>
+      <Box maxW="600px" mx="auto" textAlign="center" my={36}>
         <Heading as="h2" fontSize="3xl" mb="6">
           Contact Us
         </Heading>

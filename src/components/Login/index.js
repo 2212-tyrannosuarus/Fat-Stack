@@ -40,7 +40,7 @@ const Login = ({ handleSubmit, name, error, isLoggedIn }) => {
               </Box>
               <Box>
                 <Text fontSize="xl" fontWeight="bold">
-                  Sign In
+                  Welcome Back!
                 </Text>
               </Box>
               <form onSubmit={handleSubmit} name={name}>
@@ -53,12 +53,25 @@ const Login = ({ handleSubmit, name, error, isLoggedIn }) => {
                 >
                   <FormControl>
                     <FormLabel htmlFor="username">Username</FormLabel>
-                    <Input id="username" variant="filled" />
+                    <Input
+                      id="username"
+                      variant="outline"
+                      bg="white"
+                      borderWidth={2}
+                      borderColor="gray.100"
+                    />
                   </FormControl>
 
                   <FormControl>
                     <FormLabel htmlFor="password">Password</FormLabel>
-                    <Input id="password" variant="filled" type="password" />
+                    <Input
+                      id="password"
+                      variant="outline"
+                      bg="white"
+                      borderWidth={2}
+                      borderColor="gray.100"
+                      type="password"
+                    />
                   </FormControl>
 
                   <Button
@@ -78,7 +91,7 @@ const Login = ({ handleSubmit, name, error, isLoggedIn }) => {
                     </Text>
                   )}
                 </Grid>
-                <Flex alignItems="center" justifyContent="center" mt={5}>
+                <Flex alignItems="center" justifyContent="center" mt={14}>
                   <Text mb={0} mr={2}>
                     Don't have an account?
                   </Text>

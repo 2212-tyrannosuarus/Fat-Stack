@@ -15,8 +15,9 @@ export const me = () => async (dispatch) => {
         authorization: token,
       },
     });
-    return dispatch(setAuth(res.data));
+    return dispatch(setAuth({ isLoading: false, ...res.data }));
   }
+  return dispatch(setAuth({ isLoading: false }));
 };
 
 export const authenticateUser =
@@ -35,7 +36,7 @@ export const authenticateUser =
   };
 
 export const createUser =
-  ({ username, password, firstname, lastname, email, phone_number, method }) =>
+  ({ username, password, firstname, lastname, email, phone_number }) =>
   async (dispatch) => {
     try {
       const res = await axios.post(`/auth/signup`, {
@@ -62,7 +63,12 @@ export const logout = () => {
   };
 };
 
-export default function (state = {}, action) {
+export default function (
+  state = {
+    isLoading: true,
+  },
+  action
+) {
   switch (action.type) {
     case SET_AUTH:
       return action.auth;

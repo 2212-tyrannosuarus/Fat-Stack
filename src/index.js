@@ -4,7 +4,6 @@ import App from "./App";
 import { Provider } from "react-redux";
 import store from "./store/index";
 import { BrowserRouter as Router } from "react-router-dom";
-import { Auth0Provider } from "@auth0/auth0-react";
 
 const container = document.getElementById("root");
 const root = createRoot(container);

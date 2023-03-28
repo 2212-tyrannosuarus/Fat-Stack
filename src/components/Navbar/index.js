@@ -1,21 +1,9 @@
-import React, { useState } from "react";
-import {
-  Avatar,
-  Box,
-  Button,
-  Flex,
-  Link,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-} from "@chakra-ui/react";
-import { logout } from "../../store";
+import React from "react";
+import { Box, Button, Flex, Link } from "@chakra-ui/react";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-const Navbar = (props) => {
-  const { handleLogout, isLoggedIn, user } = props;
+const Navbar = () => {
   const navigate = useNavigate();
 
   return (
@@ -41,13 +29,29 @@ const Navbar = (props) => {
         </Box>
       </Box>
       <Box fontWeight="bold" mr="1rem">
-        <Link href="/about" marginRight="2rem">
+        <Link href="/" marginRight="2rem">
           Home
         </Link>
-        <Link href="/contact" marginRight="2rem">
+        <Link
+          marginRight="2rem"
+          onClick={() =>
+            window.scroll({
+              top: 575,
+              behavior: "smooth",
+            })
+          }
+        >
           Features
         </Link>
-        <Link href="/contact" marginRight="2rem">
+        <Link
+          marginRight="2rem"
+          onClick={() =>
+            window.scroll({
+              top: 1075,
+              behavior: "smooth",
+            })
+          }
+        >
           Contact Us
         </Link>
         <Button
@@ -56,8 +60,8 @@ const Navbar = (props) => {
           bg="white"
           colorScheme="gray"
           variant="outline"
-          borderColor="gray.300"
-          _hover={{ bg: "gray.100" }}
+          borderColor="gray.200"
+          _hover={{ bg: "gray.50" }}
           onClick={() => navigate("/login")}
         >
           Sign In

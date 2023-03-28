@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { logout } from "../../store";
 import { connect } from "react-redux";
 import {
@@ -13,7 +13,6 @@ import {
 import {
   FiChevronsLeft,
   FiChevronsRight,
-  FiBriefcase,
   FiDollarSign,
   FiHome,
   FiCreditCard,
@@ -24,41 +23,36 @@ import {
 } from "react-icons/fi";
 
 const NavLink = ({ navSize, icon, title, href, onClick }) => (
-  <Flex
-    mt={2}
-    p={1}
-    flexDir="column"
-    w="100%"
-    alignItems={navSize === "small" ? "center" : "flex-start"}
+  <Link
+    p={3}
+    borderRadius={8}
+    _hover={{ bg: "gray.50" }}
+    w={navSize === "large" && "100%"}
+    href={href}
+    onClick={onClick}
   >
-    <Link
-      borderRadius={8}
-      _hover={{ bg: "gray.100" }}
-      w={navSize === "large" && "100%"}
-      href={href}
-      onClick={onClick}
-    >
-      <Flex>
-        <Icon as={icon} fontSize="xl" color="gray.600" />
-        <Text
-          ml={5}
-          display={navSize === "small" ? "none" : "flex"}
-          color="gray.600"
-        >
-          {title}
-        </Text>
-      </Flex>
-    </Link>
-  </Flex>
+    <Flex flexDir="row" w="100%" alignItems="center">
+      <Icon as={icon} fontSize="xl" color="gray.600" />
+      <Text
+        as="span"
+        ml={5}
+        display={navSize === "small" ? "none" : "flex"}
+        color="gray.600"
+      >
+        {title}
+      </Text>
+    </Flex>
+  </Link>
 );
 
-const SideBar = ({ navSize, handleNavSize, handleLogout }) => {
+export const Sidebar = ({ navSize, handleNavSize, handleLogout }) => {
   return (
     <Flex
       boxShadow="md"
       minH="100vh"
       flexDir="column"
       bg={"white"}
+      as="span"
       position="fixed"
       top={0}
       left={0}
@@ -69,8 +63,8 @@ const SideBar = ({ navSize, handleNavSize, handleLogout }) => {
         pt="8"
         pb="16"
         flexDir="column"
-        minW={navSize == "small" ? "75px" : "250px"}
-        alignItems={navSize == "small" ? "center" : "flex-start"}
+        minW={navSize === "small" ? "75px" : "250px"}
+        alignItems="center"
         as="nav"
       >
         <Link href="/dashboard">
@@ -80,6 +74,7 @@ const SideBar = ({ navSize, handleNavSize, handleLogout }) => {
             {navSize === "large" && (
               <Box
                 ml="3"
+                justifyContent={"center"}
                 fontWeight="bold"
                 pt={1}
                 fontSize={26}
@@ -125,10 +120,10 @@ const SideBar = ({ navSize, handleNavSize, handleLogout }) => {
       </Flex>
 
       <Flex
-        p="5%"
+        p="2"
         flexDir="column"
         w="100%"
-        alignItems={navSize == "small" ? "center" : "flex-start"}
+        alignItems={navSize === "small" ? "center" : "flex-start"}
         mb={4}
       >
         <Divider />
@@ -163,4 +158,4 @@ const mapDispatch = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispatch)(SideBar);
+export default connect(null, mapDispatch)(Sidebar);
