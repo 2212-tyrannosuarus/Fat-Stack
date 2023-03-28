@@ -34,18 +34,24 @@ const FilterBar = (props) => {
         </Text>
         <Flex direction={"column"} paddingTop={"1em"}>
           <Box bg={"purple.200"} borderRadius={"20px"}>
-            <Button
-              size={"lg"}
-              w={"100%"}
-              variant={"ghost"}
-              value={"all"}
-              onClick={(e) => {
-                handleAccountClick(e);
-              }}
-            >
-              All Accounts|
-              {totalAccountBalance.toFixed(2)}
-            </Button>
+            {bankAccounts.length > 0 ? (
+              <Button
+                size={"lg"}
+                w={"100%"}
+                variant={"ghost"}
+                value={"all"}
+                onClick={(e) => {
+                  handleAccountClick(e);
+                }}
+              >
+                All Accounts|
+                {totalAccountBalance.toFixed(2)}
+              </Button>
+            ) : (
+              <Button size={"lg"} w={"100%"} variant={"ghost"} value={"all"}>
+                No Connected Accounts
+              </Button>
+            )}
           </Box>
           {bankAccounts.map((account, idx) => {
             let varyColor = 200;
@@ -74,58 +80,64 @@ const FilterBar = (props) => {
           })}
         </Flex>
       </ListItem>
-      <ListItem paddingTop={"1em"}>
-        <Text>
-          <Box fontSize={"2xl"} flex="1" textAlign={"left"}>
-            Filters
-          </Box>
-        </Text>
-        <Flex direction={"column"}>
-          <Box>
-            <Text fontSize={"lg"}>Category</Text>
+      {bankAccounts.length > 0 ? (
+        <>
+          <ListItem paddingTop={"1em"}>
+            <Text>
+              <Box fontSize={"2xl"} flex="1" textAlign={"left"}>
+                Filters
+              </Box>
+            </Text>
+            <Flex direction={"column"}>
+              <Box>
+                <Text fontSize={"lg"}>Category</Text>
 
-            <Select
-              id="category"
-              onChange={(e) => {
-                handleCategoryChange(e);
-              }}
-            >
-              <option>None</option>
-              {subCategories.map((category) => {
-                return (
-                  <option key={category.id} value={category.id}>
-                    {category.sub_category_name}
-                  </option>
-                );
-              })}
-            </Select>
-          </Box>
-          <Box>
-            <Text fontSize={"lg"}>Date</Text>
-            <RangeDatepicker
-              selectedDates={selectedDates}
-              onDateChange={setSelectedDates}
-              propsConfigs={{
-                inputProps: {
-                  size: "lg",
-                  _active: {
-                    border: "purple",
-                  },
-                  _visited: {
-                    border: "purple",
-                  },
-                  _focus: {
-                    border: "none",
-                  },
-                },
-              }}
-            />
-          </Box>
-        </Flex>
-      </ListItem>
-      <ListItem paddingTop={"2em"}>
-        <GoalTransaction />
-      </ListItem>
+                <Select
+                  id="category"
+                  onChange={(e) => {
+                    handleCategoryChange(e);
+                  }}
+                >
+                  <option>None</option>
+                  {subCategories.map((category) => {
+                    return (
+                      <option key={category.id} value={category.id}>
+                        {category.sub_category_name}
+                      </option>
+                    );
+                  })}
+                </Select>
+              </Box>
+              <Box>
+                <Text fontSize={"lg"}>Date</Text>
+                <RangeDatepicker
+                  selectedDates={selectedDates}
+                  onDateChange={setSelectedDates}
+                  propsConfigs={{
+                    inputProps: {
+                      size: "lg",
+                      _active: {
+                        border: "purple",
+                      },
+                      _visited: {
+                        border: "purple",
+                      },
+                      _focus: {
+                        border: "none",
+                      },
+                    },
+                  }}
+                />
+              </Box>
+            </Flex>
+          </ListItem>
+          <ListItem paddingTop={"2em"}>
+            <GoalTransaction />
+          </ListItem>
+        </>
+      ) : (
+        <></>
+      )}
     </List>
   ) : (
     <></>

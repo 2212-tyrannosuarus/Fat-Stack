@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import PlaidAuth from "./PlaidAuth";
-import { useAuth0 } from "@auth0/auth0-react";
 import { usePlaidLink } from "react-plaid-link";
+import { connect } from "react-redux";
 
-export default function Plaid() {
-  const { isAuthenticated, loginWithRedirect, logout, user } = useAuth0();
+function Plaid({ isLoggedIn }) {
   const [linkToken, setLinkToken] = useState(null);
   const [bankInfo, setBankInfo] = useState(null);
   const [public_token, setPublic_token] = useState(null);
@@ -27,10 +26,10 @@ export default function Plaid() {
       setBankConnected(true);
     },
   });
-
+  console.log("is logged in", isLoggedIn, "public token", public_token);
   return (
     <div>
-      {isAuthenticated ? (
+      {isLoggedIn ? (
         public_token ? (
           <PlaidAuth publicToken={public_token} user={user} />
         ) : (
@@ -45,3 +44,12 @@ export default function Plaid() {
     </div>
   );
 }
+
+const mapState = (state) => {
+  return {
+    error: state.auth.error,
+    isLoggedIn: !!state.auth.id,
+  };
+};
+
+export default connect(mapState)(Plaid);
