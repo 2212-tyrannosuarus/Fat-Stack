@@ -72,7 +72,7 @@ const NavigationRoutes = (props) => {
         path="/budget"
         element={
           <SidebarLayout>
-            <Budget userId={1}/>
+            <Budget />
           </SidebarLayout>
         }
       />
@@ -81,7 +81,7 @@ const NavigationRoutes = (props) => {
         path="/trends"
         element={
           <SidebarLayout>
-            <Trends userId={1}/>
+            <Trends />
           </SidebarLayout>
         }
       />
@@ -108,7 +108,7 @@ const NavigationRoutes = (props) => {
         path="/overviewChart"
         element={
           <SidebarLayout>
-            <ChartForOverview userId={1} />
+            <ChartForOverview />
           </SidebarLayout>
         }
       />
@@ -145,7 +145,7 @@ const NavigationRoutes = (props) => {
         path="/overviewChart"
         element={
           <SidebarLayout>
-            <ChartForOverview userId={1} />
+            <ChartForOverview />
           </SidebarLayout>
         }
       />

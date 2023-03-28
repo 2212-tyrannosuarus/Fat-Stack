@@ -14,6 +14,7 @@ import {
   VictoryLegend,
   VictoryAxis,
 } from "victory";
+import { connect } from "react-redux";
 
 const MONTHS = [
   "Jan",
@@ -30,9 +31,11 @@ const MONTHS = [
   "Dec",
 ];
 
-const ChartForOVerview = (props) => {
+const ChartForOVerview = ({user}) => {
   //   const { userId } = useParams();
-  const { userId } = props;
+  console.log('user ', user);
+  let userId = user.id;
+  // const { userId } = props;
   const dispatch = useDispatch();
 
   const overviewChartData = useSelector(selectOverviewChartData);
@@ -282,7 +285,11 @@ const ChartForOVerview = (props) => {
         })
       );
     }
-    getOverviewChartData();
+    if (window.localStorage.getItem('token') && user.id !== undefined) {
+      userId = user.id;
+      getOverviewChartData();
+    }
+    
 
     setChartDataLastMonth(chartdataLastMonth);
     setChartDataThisMonth(chartdataThisMonth);
@@ -359,4 +366,19 @@ const ChartForOVerview = (props) => {
   );
 };
 
-export default ChartForOVerview;
+// export default ChartForOVerview;
+const mapState = (state) => {
+  return {
+    user: state.auth,
+  };
+};
+
+// const mapDispatch = (dispatch) => {
+//   return {
+//     handleLogout() {
+//       dispatch(logout());
+//     },
+//   };
+// };
+
+export default connect(mapState)(ChartForOVerview);

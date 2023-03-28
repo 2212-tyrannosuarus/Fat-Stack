@@ -161,6 +161,7 @@ const BarChartBySubcategory = (props) => {
           <Select
             name="sub-categories"
             id="subCategory"
+            value={subCategoryName}
             onChange={(evt) => {setSubCategoryName(evt.target.value); handleOvertimeSubcategory(evt.target.value);}}
           >
 
@@ -203,7 +204,11 @@ const BarChartBySubcategory = (props) => {
           </div>
         </div>
       ) : (
-        "No data to diaplay"
+        <div className="row border pl-4" align="center" style={{width: "50vw"}}>
+          <div className="col-12">
+          No data to diaplay
+          </div>
+          </div>
       )}
     </div>
   );

@@ -13,7 +13,7 @@ import {
   selectSpendingOvertimeBySubcategory,
   selectTrendsCategories,
 } from "../../reducers/trendsPageSLice";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "./Trends.css";
 import PieChartCategory from "../PieChartCategory";
 import PieChartMerchant from "../PieChartMerchant";
@@ -21,8 +21,8 @@ import "../../scss/styles.scss";
 import * as bootstrap from "bootstrap";
 import TrendsToggleButtonGroup from "./TrendsToggleButtonGroup";
 import BarChartBySubcategory from "../BarChartBySubcategory";
-// import theme from '../Budget/theme.js'
-// import { ChakraProvider } from "@chakra-ui/react";
+import { connect } from "react-redux";
+import { logout } from "../../store";
 
 const MONTHS = [
   "Jan",
@@ -39,9 +39,10 @@ const MONTHS = [
   "Dec",
 ];
 
-const Trends = (props) => {
-  const { userId } = props;
+const Trends = ({ user }) => {
+  let userId = user.id;
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   let spendingOvertime = useSelector(selectSpendingOvertime);
   let spendingByCategoryPie = useSelector(selectSpendingByCategoryPie);
   let spendingByMerchantPie = useSelector(selectSpendingByMerchantPie);
@@ -49,22 +50,14 @@ const Trends = (props) => {
     selectSpendingOvertimeBySubcategory
   );
   const trendsCategories = useSelector(selectTrendsCategories);
-  console.log('trends categories ', trendsCategories);
-
-  console.log("spending overtime ", spendingOvertime);
-  console.log("spending by category ", spendingByCategoryPie);
-  console.log("spending by merchant ", spendingByMerchantPie);
 
   let [dataToChartOvertime, setDataToChartOvertime] = useState([]);
   let [dataToChartCategoryPie, setDataToChartCategoryPie] = useState([]);
   let [dataToChartMerchantPie, setDataToChartMerchantPie] = useState([]);
-  let [dataToChartOvertimeBySubcategory, setDataToChartOvertimeBySubcategory] = useState([]);
+  let [dataToChartOvertimeBySubcategory, setDataToChartOvertimeBySubcategory] =
+    useState([]);
   let [subCategoryName, setSubCategoryName] = useState("Auto Insurance");
-
   const [selectedDates, setSelectedDates] = useState([new Date(), new Date()]);
-  console.log("selected dates ", selectedDates);
-  console.log("dataToChartMerchantPie ", dataToChartMerchantPie);
-
   const [dateToday, setDateToday] = useState(new Date());
 
   useEffect(() => {
@@ -90,11 +83,26 @@ const Trends = (props) => {
       setDataToChartMerchantPie(null);
       setDataToChartOvertimeBySubcategory(null);
       setDataToChartOvertime(spendingOvertime);
-      await dispatch(fetchTrendsCategories({userId: userId, fromDate: startingDate, toDate: endingDate}));
-    } 
-    getSpendingOvertime();
-  }, [dispatch]);
+      await dispatch(
+        fetchTrendsCategories({
+          userId: userId,
+          fromDate: startingDate,
+          toDate: endingDate,
+        })
+      );
+    }
 
+    if (window.localStorage.getItem("token") && user.id !== undefined) {
+      userId = user.id;
+      console.log('userId inside useEffect', userId);
+      getSpendingOvertime();
+    }
+    if (!window.localStorage.getItem("token")) {
+      navigate("/login");
+    }
+  }, [dispatch, user]);
+
+  // fetch data for last 12 months to display income and expenses overtime
   async function handleOvertime() {
     let todaysDate = (dateToday.toString() + 1).split(" ");
     let currentMonth = "";
@@ -118,6 +126,7 @@ const Trends = (props) => {
     setDataToChartOvertime(spendingOvertime);
   }
 
+  // fetch data for this month to display data by category
   async function handleCategoryPie() {
     setSelectedDates([new Date(), new Date()]);
     let todaysDate = (dateToday.toString() + 1).split(" ");
@@ -142,6 +151,7 @@ const Trends = (props) => {
     setDataToChartCategoryPie(spendingByCategoryPie);
   }
 
+  // fetch data for this month to display data by merchant
   async function handleMerchantPie() {
     setSelectedDates([new Date(), new Date()]);
     let todaysDate = (dateToday.toString() + 1).split(" ");
@@ -166,6 +176,7 @@ const Trends = (props) => {
     setDataToChartMerchantPie(spendingByMerchantPie);
   }
 
+  // fetch data for this month to display data by category when a date range is selected
   async function handleDateChangePieCategory(selectedDates) {
     let startingDate = "";
     let endingDate = "";
@@ -200,6 +211,7 @@ const Trends = (props) => {
     setDataToChartCategoryPie(spendingByCategoryPie);
   }
 
+  // fetch data for this month to display data by merchant when a date range is selected
   async function handleDateChangePieMerchant(selectedDates) {
     let startingDate = "";
     let endingDate = "";
@@ -234,7 +246,8 @@ const Trends = (props) => {
     setDataToChartMerchantPie(spendingByMerchantPie);
   }
 
-  async function handleOvertimeSubcategory (subcategory) {
+  // fetch data for last 12 months to display data by category when a subcategory is selected
+  async function handleOvertimeSubcategory(subcategory) {
     let todaysDate = (dateToday.toString() + 1).split(" ");
     let currentMonth = "";
     if ((dateToday.getMonth() + 1).toString().length === 1) {
@@ -249,18 +262,17 @@ const Trends = (props) => {
         userId: userId,
         fromDate: startingDate,
         toDate: endingDate,
-        subcategory: subcategory
+        subcategory: subcategory,
       })
     );
     setDataToChartCategoryPie(null);
     setDataToChartMerchantPie(null);
     setDataToChartOvertime(null);
+    setSubCategoryName(subcategory);
     setDataToChartOvertimeBySubcategory(spendingOvertimeBySubcategory);
-    
   }
 
   return (
-
     <div className="container trends-container">
       <div className="row">
         <TrendsToggleButtonGroup
@@ -276,7 +288,8 @@ const Trends = (props) => {
               <BarChart chartData={spendingOvertime} />
             ) : null}
 
-            {dataToChartOvertimeBySubcategory && dataToChartOvertimeBySubcategory.length !== undefined ? (
+            {dataToChartOvertimeBySubcategory &&
+            dataToChartOvertimeBySubcategory.length !== undefined ? (
               <BarChartBySubcategory
                 chartData={spendingOvertimeBySubcategory}
                 handleOvertimeSubcategory={handleOvertimeSubcategory}
@@ -309,8 +322,13 @@ const Trends = (props) => {
         </div>
       </div>
     </div>
-   
   );
 };
 
-export default Trends;
+const mapState = (state) => {
+  return {
+    user: state.auth,
+  };
+};
+
+export default connect(mapState)(Trends);
