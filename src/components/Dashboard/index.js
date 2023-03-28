@@ -52,7 +52,7 @@ const Dashboard = () => {
           </Text>
           <Divider />
           <Box>
-            <ChartForOverview userId={1} />
+            <ChartForOverview />
           </Box>
         </Flex>
         <Flex

@@ -76,7 +76,7 @@ const NavigationRoutes = (props) => {
         element={
           <PrivateRoute>
             <SidebarLayout>
-              <Budget userId={1} />
+              <Budget  />
             </SidebarLayout>
           </PrivateRoute>
         }
@@ -87,7 +87,7 @@ const NavigationRoutes = (props) => {
         element={
           <PrivateRoute>
             <SidebarLayout>
-              <Trends userId={1} />
+              <Trends  />
             </SidebarLayout>
           </PrivateRoute>
         }
@@ -120,19 +120,7 @@ const NavigationRoutes = (props) => {
         element={
           <PrivateRoute>
             <SidebarLayout>
-              <ChartForOverview userId={1} />
-            </SidebarLayout>
-          </PrivateRoute>
-        }
-      />
-
-      <Route
-        exact
-        path="/overviewChart"
-        element={
-          <PrivateRoute>
-            <SidebarLayout>
-              <ChartForOverview userId={1} />
+              <ChartForOverview />
             </SidebarLayout>
           </PrivateRoute>
         }
