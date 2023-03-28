@@ -19,6 +19,7 @@ import {
   Divider,
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
+import Plaid from "../Plaid";
 
 const AccountOverview = ({ user }) => {
   let userId = user.id;
@@ -189,8 +190,12 @@ const AccountOverview = ({ user }) => {
       </Flex>
     </Accordion>
   ) : (
-    // </Box>
-    <></>
+    <>
+      <Flex direction={"column"}>
+        <Text>No accounts connected!</Text>
+        <Plaid />
+      </Flex>
+    </>
   );
 };
 

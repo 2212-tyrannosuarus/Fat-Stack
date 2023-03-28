@@ -6,7 +6,7 @@ import { Box, Container, Flex, Button } from "@chakra-ui/react";
 const Paginator = (props) => {
   const { totalPageCount, currentPage, setCurrentPage } = props;
 
-  return (
+  return totalPageCount > 0 ? (
     <>
       <Container>
         <Flex direction={"row"}>
@@ -14,7 +14,9 @@ const Paginator = (props) => {
             _hover={{ bg: "purple.100" }}
             as="button"
             id="first"
-            onClick={() => setCurrentPage(1)}
+            onClick={() => {
+              setCurrentPage(1);
+            }}
           >
             First
           </Button>
@@ -97,6 +99,8 @@ const Paginator = (props) => {
         </Flex>
       </Container>
     </>
+  ) : (
+    <></>
   );
 };
 

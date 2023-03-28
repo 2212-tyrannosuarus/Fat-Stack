@@ -32,15 +32,11 @@ const AllTransactions = ({ user }) => {
     };
   });
 
-  //userid will come from mapState soon
-  // const userId = 1;
   const sixMonthsAgo = new Date();
   sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
 
   const [selectedAccount, setSelectedAccount] = useState("all");
   const [selectedCategory, setSelectedCategory] = useState("None");
-  // const [loggedInUser, setLoggedInUser] = useState(userId || 0);
-
   const [newTransactionAccountId, setNewTransactionAccountId] = useState("");
   const [newTransactionMerchant, setNewTransactionMerchant] = useState("");
   const [newTransactionDate, setNewTransactionDate] = useState("");
