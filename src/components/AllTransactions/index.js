@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Flex } from "@chakra-ui/react";
+
 // import { CUIAutoComplete } from "chakra-ui-autocomplete";
 import {
   selectAllTransactions,
@@ -211,15 +212,24 @@ const AllTransactions = ({ user }) => {
       amount: newTransactionAmount,
       credit_debit: newTransactionCreditDebit,
     };
+    console.log(
+      "test",
+      userId,
+      newTransactionAccountId,
+      newTransactionSubCategory
+    );
     const newPostedTransaction = await axios.post(
-      "/api/allTransactions",
+      `/api/allTransactions/${userId}/${newTransactionAccountId}/${newTransactionSubCategory}`,
       newTransaction
     );
     //set user, set category, set bank account
     //query for user #1, bank account, and category
     //user magic methods to set these foreign keys
 
-    newPostedTransaction.setUser;
+    // const connectTransactionToTables = async () => {
+    //   const user = await User.findByPk(userId);
+    //   console.log("new transac sub cat", newTransactionSubCategory);
+    // };
     setPostedTransaction(newPostedTransaction);
 
     // now update the bank account balance
@@ -255,6 +265,7 @@ const AllTransactions = ({ user }) => {
         alignItems={"flex-start"}
       >
         <FilterBar
+          formatter={formatter}
           selectedCategory={selectedCategory}
           handleAccountClick={handleAccountClick}
           totalAccountBalance={totalAccountBalance}

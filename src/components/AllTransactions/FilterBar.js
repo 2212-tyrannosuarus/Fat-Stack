@@ -22,6 +22,7 @@ const FilterBar = (props) => {
     handleAccountClick,
     totalAccountBalance,
     bankAccounts,
+    formatter,
   } = props;
 
   return subCategories.length > 0 ? (
@@ -32,11 +33,11 @@ const FilterBar = (props) => {
             Your Accounts
           </Box>
         </Text>
-        <Flex direction={"column"} paddingTop={"1em"}>
+        <Flex direction={"column"} paddingTop={"5px"}>
           <Box bg={"purple.200"} borderRadius={"20px"}>
             {bankAccounts.length > 0 ? (
               <Button
-                size={"lg"}
+                size={"md"}
                 w={"100%"}
                 variant={"ghost"}
                 value={"all"}
@@ -48,7 +49,7 @@ const FilterBar = (props) => {
                 {totalAccountBalance.toFixed(2)}
               </Button>
             ) : (
-              <Button size={"lg"} w={"100%"} variant={"ghost"} value={"all"}>
+              <Button size={"md"} w={"100%"} variant={"ghost"} value={"all"}>
                 No Connected Accounts
               </Button>
             )}
@@ -66,14 +67,15 @@ const FilterBar = (props) => {
               >
                 <Button
                   variant={"ghost"}
-                  size={"lg"}
+                  size={"md"}
                   w={"100%"}
                   value={account.id}
                   onClick={(e) => {
                     handleAccountClick(e);
                   }}
                 >
-                  {account.account_name}|{account.available_balance}
+                  {account.account_name}|
+                  {formatter.format(account.available_balance)}
                 </Button>
               </Box>
             );
