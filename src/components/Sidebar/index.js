@@ -26,7 +26,7 @@ const NavLink = ({ navSize, icon, title, href, onClick }) => (
   <Link
     p={3}
     borderRadius={8}
-    _hover={{ bg: "gray.100" }}
+    _hover={{ bg: "gray.50" }}
     w={navSize === "large" && "100%"}
     href={href}
     onClick={onClick}

@@ -12,13 +12,25 @@ const SidebarLayout = ({ children }) => {
   };
 
   return (
-    <Box w={"100%"} h={"100%"} bg={"#f5f7fb"}>
-      <Box pt={18} px={12} ml={navSize == "large" ? 260 : 100}>
+    <Box w={"100vw"} h={"100vw"} bg={"#f5f7fb"}>
+      <Box
+        pt={6}
+        px={12}
+        ml={navSize == "large" ? 260 : 100}
+        pr={12}
+        // maxWidth="calc(100% - 280px)"
+      >
         <DashNav />
       </Box>
       <Flex>
         <Sidebar navSize={navSize} handleNavSize={handleNavSize} />
-        <Box pt={12} px={12} ml={navSize == "large" ? 260 : 100}>
+        <Box
+          pt={12}
+          px={12}
+          ml={navSize == "large" ? 260 : 100}
+          pr={12}
+          // maxWidth="calc(100% - 280px)"
+        >
           {children}
         </Box>
       </Flex>
