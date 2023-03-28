@@ -75,21 +75,21 @@ function budgetedIncomeFunc(userId, fromDate, toDate) {
     subcategories.id as "subCategoryId",
     categories.category_name as "categoryName", 
     categories.id as "categoryId",
-    sum(transactions.amount) as "transactionAmount"
+    coalesce(sum(transactions.amount),0) as "transactionAmount"
     from
     budgets,
-    subcategories,
-    categories,
-    transactions
+    subcategories left outer join
+    transactions on transactions."subcategoryId"=subcategories.id
+    and transactions."userId"=${userId}
+    and transactions.credit_debit = 'credit'
+    and to_date(date,'YYYY-MM-DD') >= to_date(${fromDate},'YYYY-MM-DD')
+    and to_date(date,'YYYY-MM-DD') <= to_date(${toDate},'YYYY-MM-DD'),
+    categories
     where
     subcategories.id=budgets."subcategoryId"
     and categories.id=subcategories."categoryId"
-    and transactions."subcategoryId"=subcategories.id
-    and transactions.credit_debit= 'credit'
-    and to_date(date,'YYYY-MM-DD') >= to_date(${fromDate},'YYYY-MM-DD')
-    and to_date(date,'YYYY-MM-DD') <= to_date(${toDate},'YYYY-MM-DD')
-    and transactions."userId"=${userId}
     and budgets."userId"=${userId}
+    and categories.category_name='Income'
     group by 
     budgets.budget_name, 
     budgets.amount, 
