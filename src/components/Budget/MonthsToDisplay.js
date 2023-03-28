@@ -2,7 +2,6 @@ import React from "react";
 
 const MonthsToDisplay = (props) => {
   const { monthsToDisplay, handleIndividualMonth } = props;
-  console.log("months to display ", monthsToDisplay);
   return (
     <div className="row">
       <div className="row col-9 individual-month">

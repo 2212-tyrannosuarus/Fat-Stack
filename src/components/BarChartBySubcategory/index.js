@@ -199,7 +199,7 @@ const BarChartBySubcategory = (props) => {
         </div>
       ) : (
         <div className="row pl-4" align="center" style={{ width: "50vw" }}>
-          <div className="col-12">No data to diaplay</div>
+          <div className="col-12">No data to display</div>
         </div>
       )}
     </div>
