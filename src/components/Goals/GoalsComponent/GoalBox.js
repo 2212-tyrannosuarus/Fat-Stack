@@ -8,6 +8,10 @@ export default function GoalBox({ goal }) {
   const [weekContribution, setWeekContribution] = useState(0);
   const [monthContribution, setMonthContribution] = useState(0);
   const [weekLeft, setWeekLeft] = useState(0);
+  const formatter = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  });
 
   const calculateMoneyPerMonth = () => {
     let currentDate = moment();
@@ -51,14 +55,19 @@ export default function GoalBox({ goal }) {
                       </h6>
                     ) : (
                       <h6 className="text-muted d-block mb-1">
-                        ${weekContribution} a week or ${monthContribution} a
-                        month to reach your goal!
+                        {formatter.format(weekContribution)} a week or{" "}
+                        {formatter.format(monthContribution)} a month to reach
+                        your goal!
                       </h6>
                     )}
                   </div>
                   <div className="user-progress d-flex align-items-center gap-1">
-                    <h6 className="mb-0">${goal.contributedamount}</h6>{" "}
-                    <span className="text-muted">of ${goal.goalamount}</span>
+                    <h6 className="mb-0">
+                      {formatter.format(goal.contributedamount)}
+                    </h6>{" "}
+                    <span className="text-muted">
+                      of {formatter.format(goal.goalamount)}
+                    </span>
                   </div>
                 </div>
               </li>

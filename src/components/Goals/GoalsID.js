@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch, connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import {
@@ -29,7 +29,7 @@ import {
   getGoalDirection,
 } from "../../reducers/openAiSlice";
 
-export default function GoalsID({ name }) {
+export function GoalsID({ name, user }) {
   const { goalid } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -39,17 +39,19 @@ export default function GoalsID({ name }) {
   const goalDirections = useSelector(selectGoalDirection);
 
   useEffect(() => {
+    console.log("this is goal", goal);
     const handleFetch = async () => {
       await dispatch(getGoal(goalid));
       await dispatch(getInspirationQuote());
       await dispatch(getGoalDirection());
     };
+
     handleFetch();
   }, []);
 
   useEffect(() => {
     const handleFetch = async () => {
-      await dispatch(getGoalsTransaction({ name: goal.name }));
+      await dispatch(getGoalsTransaction({ name: goal.name, id: user.id }));
     };
     if (goal.id) {
       handleFetch();
@@ -111,3 +113,11 @@ export default function GoalsID({ name }) {
     </>
   );
 }
+
+const mapState = (state) => {
+  return {
+    user: state.auth,
+  };
+};
+
+export default connect(mapState)(GoalsID);

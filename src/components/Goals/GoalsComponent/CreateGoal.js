@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import AddGoals from "./AddGoals";
 import { getGoals, selectAllGoals } from "../../../reducers/goalPageSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector, connect } from "react-redux";
 import "./GoalsIcon/goalicon.css";
 import { v4 as uuidv4 } from "uuid";
 import {
@@ -22,7 +22,7 @@ import {
   getGoalDirection,
 } from "../../../reducers/openAiSlice";
 
-const CreateGoal = () => {
+export const CreateGoal = ({ user }) => {
   const dispatch = useDispatch();
   const goals = useSelector(selectAllGoals);
   const inspiringQuote = useSelector(selectInspiringQuote);
@@ -76,4 +76,10 @@ const CreateGoal = () => {
   );
 };
 
-export default CreateGoal;
+const mapState = (state) => {
+  return {
+    user: state.auth,
+  };
+};
+
+export default connect(mapState)(CreateGoal);

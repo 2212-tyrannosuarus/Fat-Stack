@@ -20,7 +20,7 @@ router.get("/subcategory", async (req, res, next) => {
 router.post("/goalstransaction", async (req, res, next) => {
   try {
     const transactions = await Transaction.findAll({
-      where: { merchant: req.body.name },
+      where: { merchant: req.body.name, userId: req.body.id },
     });
     res.json(transactions);
   } catch (err) {
@@ -87,7 +87,6 @@ router.get("/:id", async (req, res, next) => {
 });
 
 router.delete("/:id", async (req, res, next) => {
-  console.log("req.params.id", req.params.id);
   const deletedTransaction = await Transaction.findByPk(req.params.id);
   try {
     await Transaction.destroy({

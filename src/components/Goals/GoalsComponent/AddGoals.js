@@ -21,11 +21,11 @@ import {
   NumberDecrementStepper,
 } from "@chakra-ui/react";
 import { createGoal, selectGoal } from "../../../reducers/goalPageSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, connect } from "react-redux";
 import Rainy from "./GoalsIcon/Rainy";
 import "./GoalsIcon/goalicon.css";
 
-export default function AddGoals({ goal }) {
+export function AddGoals({ goal, user }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [name, setName] = useState("");
@@ -76,16 +76,16 @@ export default function AddGoals({ goal }) {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-
     await dispatch(
       createGoal({
-        userId: 1,
+        userId: user.id,
         goalCategoryId: goal.id,
         name,
         goalamount,
         contributedamount,
         goal_date,
         start_date,
+        completion_status: false,
       })
     );
   };
@@ -211,3 +211,11 @@ export default function AddGoals({ goal }) {
     </>
   );
 }
+
+const mapState = (state) => {
+  return {
+    user: state.auth,
+  };
+};
+
+export default connect(mapState)(AddGoals);

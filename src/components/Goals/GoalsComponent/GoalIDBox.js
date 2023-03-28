@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, ProgressBar } from "react-bootstrap";
 import "../../Budget/Budget.css";
-
+import { connect } from "react-redux";
 import moment from "moment";
 import {
   Heading,
@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 import LineCart from "../Charts/LineCart";
 import UpdateGoals from "./UpdateGoals";
 
-export default function GoalIDBox({ goal }) {
+export function GoalIDBox({ goal, user }) {
   const [weekContribution, setWeekContribution] = useState(0);
   const [monthContribution, setMonthContribution] = useState(0);
   const [weekLeft, setWeekLeft] = useState(0);
@@ -136,3 +136,11 @@ export default function GoalIDBox({ goal }) {
     </div>
   );
 }
+
+const mapState = (state) => {
+  return {
+    user: state.auth,
+  };
+};
+
+export default connect(mapState)(GoalIDBox);
