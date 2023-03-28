@@ -78,7 +78,7 @@ const PieChartCategory = (props) => {
             align="center"
             style={{ width: "50vw" }}
           >
-            <div className="col-12">No data to diaplay</div>
+            <div className="col-12">No data to display</div>
           </div>
         )}
       </div>
