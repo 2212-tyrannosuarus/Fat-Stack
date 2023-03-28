@@ -1,15 +1,39 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Routes from "./Routes";
 import { ChakraProvider } from "@chakra-ui/react";
 import "./scss/styles.scss";
-import * as bootstrap from "bootstrap";
+import { connect } from "react-redux";
+import { me } from "./store";
 
-const App = () => {
+const App = (props) => {
+  const { loadInitialData, isLoading } = props;
+  console.log(isLoading);
+
+  useEffect(() => {
+    loadInitialData();
+  }, []);
+
   return (
-    <ChakraProvider>
-      <Routes />
-    </ChakraProvider>
+    !isLoading && (
+      <ChakraProvider>
+        <Routes />
+      </ChakraProvider>
+    )
   );
 };
 
-export default App;
+const mapState = (state) => {
+  return {
+    isLoading: state.auth.isLoading,
+  };
+};
+
+const mapDispatch = (dispatch) => {
+  return {
+    loadInitialData() {
+      dispatch(me());
+    },
+  };
+};
+
+export default connect(mapState, mapDispatch)(App);

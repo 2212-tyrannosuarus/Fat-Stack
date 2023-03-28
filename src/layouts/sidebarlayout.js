@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Sidebar from "../components/Sidebar";
-import { Flex, Box } from "@chakra-ui/react";
+import { Flex, Box, Container } from "@chakra-ui/react";
 import DashNav from "../components/DashNav";
 
 const SidebarLayout = ({ children }) => {

@@ -31,7 +31,6 @@ const DashNav = ({ user, handleLogout }) => {
         alignItems="center"
         p={3}
         bg="white"
-        ml={5}
         mr={45}
         boxShadow="md"
         borderRadius={10}
