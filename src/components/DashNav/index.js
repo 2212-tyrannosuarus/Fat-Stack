@@ -29,7 +29,7 @@ const DashNav = ({ user, handleLogout }) => {
         display="flex"
         justifyContent={"flex-end"}
         alignItems="center"
-        p={3}
+        p={2}
         bg="white"
         mr={45}
         boxShadow="md"
@@ -52,10 +52,10 @@ const DashNav = ({ user, handleLogout }) => {
               <Avatar src={"#"} alt={"user picture"} size="sm" />
               <Text
                 ml={2}
-                mr={2}
+                mr={3}
+                mt={3}
                 justifyContent={"center"}
                 fontWeight="bold"
-                fontSize={15}
                 color={"gray.800"}
               >
                 Hi, {user.username}!
