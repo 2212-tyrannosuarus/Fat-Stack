@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { Button, Stack } from "@chakra-ui/react";
 import { BsPencil } from "react-icons/bs";
-import {DeleteIcon} from '@chakra-ui/icons';
+import { DeleteIcon } from "@chakra-ui/icons";
 
 function EditModal(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -27,14 +27,18 @@ function EditModal(props) {
 
   return (
     <>
-
-      <Stack direction="row" spacing={0} className="edit-budget col-2 ms-auto" style={{width: "80px"}}>
+      <Stack
+        direction="row"
+        spacing={0}
+        className="edit-budget col-2 ms-auto"
+        style={{ width: "80px" }}
+      >
         <Button
           leftIcon={<BsPencil />}
           colorScheme="purple"
           variant="link"
           onClick={onOpen}
-          style={{height: "5px"}}
+          style={{ height: "5px" }}
         >
           Edit
         </Button>
@@ -63,23 +67,35 @@ function EditModal(props) {
                 onChange={(evt) => setNewBudgetedAmount(evt.target.value)}
               />
 
-<Stack direction="row" spacing={0} className="edit-budget col-2 mt-2">
-        <Button
-          leftIcon={<DeleteIcon />}
-          colorScheme="purple"
-          variant="link"
-          onClick={(evt) => {handleDeleteBudget(evt, subCategory); onClose()}}
-        >
-          Delete
-        </Button>
-      </Stack>
+              <Stack
+                direction="row"
+                spacing={0}
+                className="edit-budget col-2 mt-2"
+              >
+                <Button
+                  leftIcon={<DeleteIcon />}
+                  colorScheme="purple"
+                  variant="link"
+                  onClick={(evt) => {
+                    handleDeleteBudget(evt, subCategory);
+                    onClose();
+                  }}
+                >
+                  Delete
+                </Button>
+              </Stack>
             </ModalBody>
             <ModalFooter>
-            <Stack direction='row' spacing={4}>
-              <Button onClick={onClose} >Cancel</Button>
-              <Button type="submit" onClick={onClose} colorScheme='purple' variant='solid'>
-                Save
-              </Button>
+              <Stack direction="row" spacing={4}>
+                <Button onClick={onClose}>Cancel</Button>
+                <Button
+                  type="submit"
+                  onClick={onClose}
+                  colorScheme="purple"
+                  variant="solid"
+                >
+                  Save
+                </Button>
               </Stack>
             </ModalFooter>
           </form>
