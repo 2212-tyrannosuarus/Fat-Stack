@@ -33,7 +33,7 @@ export function GoalIDBox({ goal, user }) {
     setWeekLeft(weekDiff.toFixed(0));
     let monthAmt = (amountNeeded / monthDiff).toFixed(2);
     let weekAmt = (amountNeeded / weekDiff).toFixed(2);
-    console.log(monthAmt, weekAmt);
+
     if (parseInt(monthAmt) > parseInt(goal.goalamount)) {
       setMonthContribution(goal.goalamount);
     } else {

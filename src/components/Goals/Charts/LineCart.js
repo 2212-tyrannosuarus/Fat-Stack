@@ -97,7 +97,6 @@ export default function LineCart({ id, goal }) {
     let now = moment();
     let timePass = now.diff(start, "days", true);
     let dayDiff = end.diff(start, "days", true);
-    console.log("timePass", timePass);
 
     let ProjectedIncr = (parseInt(goal.contributedamount) / timePass).toFixed(
       2
@@ -105,7 +104,6 @@ export default function LineCart({ id, goal }) {
 
     let RecommendedIncr = (parseInt(goal.goalamount) / dayDiff).toFixed(2);
 
-    console.log("weekDiff", dayDiff);
     for (let i = 0; i < dayDiff; i++) {
       setDateArr(dateArr.push(start.add(1, "days").format("YYYY MM DD")));
       ProjectedData.push(parseInt((i * ProjectedIncr).toFixed(2)));

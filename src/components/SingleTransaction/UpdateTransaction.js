@@ -185,7 +185,6 @@ export default function UpdateTransaction() {
                 value={subcategoryId}
                 onChange={(e) => {
                   setCategoryId(e.target.value);
-                  console.log(subcategoryId);
                 }}
               >
                 {allSubCategories.map((option) => (

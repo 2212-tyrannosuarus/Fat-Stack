@@ -39,7 +39,6 @@ export function GoalsID({ name, user }) {
   const goalDirections = useSelector(selectGoalDirection);
 
   useEffect(() => {
-    console.log("this is goal", goal);
     const handleFetch = async () => {
       await dispatch(getGoal(goalid));
       await dispatch(getInspirationQuote());

@@ -37,7 +37,6 @@ export const createGoalTransaction = createAsyncThunk(
 export const getExistingGoals = createAsyncThunk(
   "goals/getGoalsList",
   async (id) => {
-    console.log("this is id", id);
     const { data } = await axios.get(`/api/goals/goalList/${id}`);
     return data;
   }

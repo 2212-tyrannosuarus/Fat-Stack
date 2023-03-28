@@ -122,7 +122,6 @@ router.post("/:id", async (req, res, next) => {
     const goal = await Goal.findByPk(req.params.id, {
       where: { userId: req.body.userId },
     });
-    console.log("goal");
     res.send(goal);
   } catch (err) {
     next(err);
