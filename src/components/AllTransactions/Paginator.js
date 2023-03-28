@@ -1,25 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
-import ReactPaginate from "react-paginate";
+import React from "react";
 import "./AllTransactions.css";
 
-import {
-  Box,
-  Container,
-  Flex,
-  List,
-  ListItem,
-  Text,
-  Button,
-  IconButton,
-} from "@chakra-ui/react";
-
-const radiusOfClickablePagesDisplayed = 2;
-const arrayToMapOverForPageNumbers = Array(radiusOfClickablePagesDisplayed);
+import { Box, Container, Flex, Button } from "@chakra-ui/react";
 
 const Paginator = (props) => {
-  const { handlePageChange, totalPageCount, currentPage, setCurrentPage } =
-    props;
+  const { totalPageCount, currentPage, setCurrentPage } = props;
 
   return (
     <>

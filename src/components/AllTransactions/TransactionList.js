@@ -1,19 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
 import DeletePopup from "./DeletePopup";
-import {
-  Box,
-  Container,
-  Flex,
-  List,
-  ListItem,
-  Text,
-  Button,
-  HStack,
-} from "@chakra-ui/react";
-import axios from "axios";
+import { Box, Flex, List, ListItem, Text } from "@chakra-ui/react";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
-import { current } from "@reduxjs/toolkit";
 import AddTransactionModal from "./AddTransactionModal";
 
 const TransactionList = (props) => {
@@ -23,7 +12,6 @@ const TransactionList = (props) => {
     selectedAccount,
     selectedCategory,
     subCategories,
-    totalPageCount,
     transactionsPerPage,
     currentPage,
     newTransactionAmount,

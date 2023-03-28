@@ -1,24 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import React from "react";
 import { RangeDatepicker } from "chakra-dayzed-datepicker";
 import "./AllTransactions.css";
 import GoalTransaction from "../SingleTransaction/GoalTransaction";
 
 import {
   Box,
-  Container,
   Flex,
   List,
   ListItem,
   Text,
   Button,
-  IconButton,
   Select,
-  Accordion,
-  AccordionItem,
-  AccordionButton,
-  AccordionPanel,
-  AccordionIcon,
 } from "@chakra-ui/react";
 
 const FilterBar = (props) => {
@@ -30,7 +22,6 @@ const FilterBar = (props) => {
     handleAccountClick,
     totalAccountBalance,
     bankAccounts,
-    selectedAccount,
   } = props;
 
   return subCategories.length > 0 ? (

@@ -1,26 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import React, { useEffect } from "react";
 import "./AllTransactions.css";
 import {
   selectAllTransactions,
   selectAllBankAccounts,
   fetchAllBankAccounts,
-  selectSubCategories,
-  fetchAllSubCategories,
-  deleteSingleTransaction,
   fetchTransactionsFromDateToDate,
 } from "../../reducers/allTransactionsPageSlice";
 
 import {
-  Box,
-  Container,
   Flex,
-  List,
-  ListItem,
   Text,
-  Button,
-  IconButton,
-  Select,
   Accordion,
   AccordionItem,
   AccordionButton,
@@ -68,7 +57,6 @@ const AccountOverview = () => {
       return tempDate[3] + "-" + month + "-" + day;
     });
     return formattedDates;
-    // return { dates: { fromDate, toDate } };
   };
   useEffect(() => {
     dispatch(fetchAllBankAccounts({ userId }));
@@ -120,19 +108,6 @@ const AccountOverview = () => {
   };
 
   return bankAccounts.length > 0 ? (
-    // <Box
-    //   bg="white"
-    //   rounded="lg"
-    //   overflow="hidden"
-    //   w={"300px"}
-    //   h={"300px"}
-    //   px={6}
-    //   py={12}
-    //   mr={5}
-    //   display="flex"
-    //   flexDirection="column"
-    //   boxShadow="md"
-    // >
     <Accordion allowToggle>
       <Flex
         direction={"column"}

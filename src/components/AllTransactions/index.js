@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Flex, useDisclosure } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 // import { CUIAutoComplete } from "chakra-ui-autocomplete";
 import {
   selectAllTransactions,
@@ -13,10 +13,10 @@ import {
 
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import AddTransactionModal from "./AddTransactionModal";
 import TransactionList from "./TransactionList";
 import Paginator from "./Paginator";
 import FilterBar from "./FilterBar";
+//working on using mapstate to get logged in user
 const mapState = (state) => {
   return {
     user: state.auth,
@@ -29,13 +29,13 @@ const AllTransactions = () => {
   const bankAccounts = useSelector(selectAllBankAccounts);
   const subCategories = useSelector(selectSubCategories);
   const subCategoriesAsStrings = subCategories.map((subCategory) => {
-    //user id will be props soon
     return {
       value: subCategory.sub_category_name,
       label: subCategory.sub_category_name,
     };
   });
 
+  //userid will come from mapState soon
   const userId = 1;
   const sixMonthsAgo = new Date();
   sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
@@ -91,9 +91,9 @@ const AllTransactions = () => {
       return tempDate[3] + "-" + month + "-" + day;
     });
     return formattedDates;
-    // return { dates: { fromDate, toDate } };
   };
 
+  //implementing this today to further format money
   const formatter = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
@@ -201,10 +201,6 @@ const AllTransactions = () => {
     setNewTransactionDate(e.target.value);
   };
 
-  //want to make this the filter for categories
-
-  //these functions format the number input field in the new Transaction form
-
   const handleClear = () => {
     setNewTransactionAccountId("");
     setNewTransactionSubCategory("");
@@ -276,8 +272,6 @@ const AllTransactions = () => {
           selectedAccount={selectedAccount}
         />
       </Flex>
-      {/* ADD A GRAPH HERE  */}
-      {/* TRANSACTIONS COMPONENT HERE */}
       <Flex direction={"column"}>
         <TransactionList
           allTransactions={filteredTransactions}

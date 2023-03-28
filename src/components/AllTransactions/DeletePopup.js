@@ -1,18 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import React from "react";
 import { DeleteIcon } from "@chakra-ui/icons";
-import {
-  Box,
-  Container,
-  Flex,
-  List,
-  ListItem,
-  Text,
-  Button,
-  IconButton,
-} from "@chakra-ui/react";
-import { deleteSingleTransaction } from "../../reducers/allTransactionsPageSlice";
-import axios from "axios";
+import { IconButton } from "@chakra-ui/react";
 
 const DeletePopup = (props) => {
   const { transactionId, handleDelete } = props;
