@@ -22,7 +22,6 @@ const DashNav = ({ user, handleLogout }) => {
     setIsOpen(!isOpen);
   };
 
-  console.log(user);
   return (
     <>
       <Box

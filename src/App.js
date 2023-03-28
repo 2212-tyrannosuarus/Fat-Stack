@@ -7,7 +7,6 @@ import { me } from "./store";
 
 const App = (props) => {
   const { loadInitialData, isLoading } = props;
-  console.log(isLoading);
 
   useEffect(() => {
     loadInitialData();
