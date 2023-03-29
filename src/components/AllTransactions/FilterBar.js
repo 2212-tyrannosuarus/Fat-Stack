@@ -15,6 +15,10 @@ import {
 
 const FilterBar = (props) => {
   const {
+    setNewGoal,
+    handleGoalSubmit,
+    fromDate,
+    toDate,
     subCategories,
     handleCategoryChange,
     selectedDates,
@@ -34,7 +38,7 @@ const FilterBar = (props) => {
           </Box>
         </Text>
         <Flex direction={"column"} paddingTop={"5px"}>
-          <Box bg={"purple.200"} borderRadius={"20px"}>
+          <Box bg={"purple.200"} borderRadius={"15px"}>
             {bankAccounts.length > 0 ? (
               <Button
                 size={"md"}
@@ -46,7 +50,7 @@ const FilterBar = (props) => {
                 }}
               >
                 All Accounts|
-                {totalAccountBalance.toFixed(2)}
+                {formatter.format(totalAccountBalance.toFixed(2))}
               </Button>
             ) : (
               <Button size={"md"} w={"100%"} variant={"ghost"} value={"all"}>
@@ -62,7 +66,7 @@ const FilterBar = (props) => {
             return (
               <Box
                 bg={`purple.${varyColor}`}
-                borderRadius={"20"}
+                borderRadius={"15"}
                 key={account.account_id}
               >
                 <Button
@@ -74,8 +78,10 @@ const FilterBar = (props) => {
                     handleAccountClick(e);
                   }}
                 >
-                  {account.account_name}|
-                  {formatter.format(account.available_balance)}
+                  {account.account_name.length > 15
+                    ? account.account_name.substring(0, 14) + "..."
+                    : account.account_name}
+                  |{formatter.format(account.available_balance)}
                 </Button>
               </Box>
             );
@@ -134,7 +140,12 @@ const FilterBar = (props) => {
             </Flex>
           </ListItem>
           <ListItem paddingTop={"2em"}>
-            <GoalTransaction />
+            <GoalTransaction
+              setNewGoal={setNewGoal}
+              handleGoalSubmit={handleGoalSubmit}
+              fromDate={fromDate}
+              toDate={toDate}
+            />
           </ListItem>
         </>
       ) : (

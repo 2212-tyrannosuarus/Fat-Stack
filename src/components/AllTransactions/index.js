@@ -50,10 +50,14 @@ const AllTransactions = ({ user }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [deletedTransaction, setDeletedTransaction] = useState({});
   const [postedTransaction, setPostedTransaction] = useState({});
+  const [toDate, setToDate] = useState("");
+  const [fromDate, setFromDate] = useState("");
+  const [newGoal, setNewGoal] = useState({});
   const [selectedDates, setSelectedDates] = useState([
     sixMonthsAgo,
     new Date(),
   ]);
+  const [datesFiltered, setDatesFiltered] = useState(false);
   const [filteredTransactions, setFilteredTransactions] = useState(
     allTransactions || []
   );
@@ -97,18 +101,29 @@ const AllTransactions = ({ user }) => {
   useEffect(() => {
     dispatch(fetchAllBankAccounts({ userId }));
     dispatch(fetchAllSubCategories());
-    const fromDate = formatDateObjects(selectedDates)[0];
-    const toDate = formatDateObjects(selectedDates)[1];
+    dispatch(fetchAllSubCategories());
+    let newFromDate = formatDateObjects(selectedDates)[0];
+    setFromDate(newFromDate);
+    let newToDate = formatDateObjects(selectedDates)[1];
+    setToDate(newToDate);
+    console.log(
+      "userId, fromDate, toDate, TWO",
+      user.id,
+      newFromDate,
+      "|",
+      newToDate
+    );
     dispatch(
       fetchTransactionsFromDateToDate({
         userId: userId,
-        fromDate: fromDate,
-        toDate: toDate,
+        fromDate: newFromDate,
+        toDate: newToDate,
       })
     );
-  }, [dispatch, deletedTransaction, postedTransaction, selectedDates]);
+  }, [dispatch, newGoal, deletedTransaction, postedTransaction, selectedDates]);
 
   useEffect(() => {
+    console.log(allTransactions);
     setFilteredTransactions(
       allTransactions
         .filter((transaction) => {
@@ -146,6 +161,10 @@ const AllTransactions = ({ user }) => {
   }, [filteredTransactions]);
 
   useEffect(() => {
+    setDatesFiltered(true);
+  }, [selectedDates]);
+
+  useEffect(() => {
     if (currentPage > totalPageCount) {
       setCurrentPage(totalPageCount);
     } else {
@@ -160,6 +179,11 @@ const AllTransactions = ({ user }) => {
 
   const handleAccountClick = (e) => {
     setSelectedAccount(e.target.value);
+  };
+
+  const handleGoalSubmit = (goalTransaction) => {
+    console.log("setting new goal", goalTransaction);
+    setNewGoal(goalTransaction);
   };
 
   const handleDelete = async (evt, transactionId) => {
@@ -258,13 +282,12 @@ const AllTransactions = ({ user }) => {
 
   return subCategories.length > 0 ? (
     <Flex direction={"row"}>
-      <Flex
-        direction={"column"}
-        padding={"10px"}
-        w="20%"
-        alignItems={"flex-start"}
-      >
+      <Flex direction={"column"} w="25%" alignItems={"flex-start"}>
         <FilterBar
+          handleGoalSubmit={handleGoalSubmit}
+          setNewGoal={setNewGoal}
+          fromDate={fromDate}
+          toDate={toDate}
           formatter={formatter}
           selectedCategory={selectedCategory}
           handleAccountClick={handleAccountClick}
