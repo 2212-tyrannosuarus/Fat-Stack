@@ -20,8 +20,13 @@ export const getGoalDirection = createAsyncThunk(
 export const openAISlice = createSlice({
   name: "openAI",
   initialState: {
-    inspiringQuote: "",
-    goalDirections: [],
+    inspiringQuote:
+      '"A goal without a plan is just a wish. Make a plan to save towards your goals." - Antoine de Saint-Exupéry',
+    goalDirections: [
+      "Set a specific goal: Start by deciding what you want to save for and how much you need to save. Be specific about the amount and the timeline.",
+      "Create a budget: Determine how much you can realistically save each month by reviewing your income and expenses. Look for areas where you can cut back on unnecessary spending and redirect those funds towards your savings goal.",
+      "Automate your savings: Set up automatic transfers from your checking account to a savings account each month. This will ensure that you save consistently without having to think about it. Over time, your savings will grow and you'll be closer to achieving your goal.",
+    ],
   },
   reducers: {},
   extraReducers: (builder) => {
