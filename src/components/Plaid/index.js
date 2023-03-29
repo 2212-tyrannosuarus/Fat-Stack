@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import PlaidAuth from "./PlaidAuth";
+import { Button } from "@chakra-ui/react";
 import { usePlaidLink } from "react-plaid-link";
 import { connect } from "react-redux";
 
@@ -33,12 +34,20 @@ function Plaid({ isLoggedIn, user }) {
         public_token ? (
           <PlaidAuth publicToken={public_token} user={user} />
         ) : (
-          <div>
-            {" "}
-            <button onClick={() => open()} disabled={!ready}>
-              Connect a bank account
-            </button>
-          </div>
+          <Button
+            onClick={() => open()}
+            rounded={"full"}
+            size={"lg"}
+            fontWeight="bold"
+            mt={5}
+            px={6}
+            colorScheme={"red"}
+            bg={"purple.500"}
+            _hover={{ bg: "purple.300" }}
+            disabled={!ready}
+          >
+            Connect a bank account
+          </Button>
         )
       ) : null}
     </div>
