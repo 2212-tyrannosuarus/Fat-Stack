@@ -57,6 +57,7 @@ const AllTransactions = ({ user }) => {
     sixMonthsAgo,
     new Date(),
   ]);
+  const [datesFiltered, setDatesFiltered] = useState(false);
   const [filteredTransactions, setFilteredTransactions] = useState(
     allTransactions || []
   );
@@ -100,17 +101,17 @@ const AllTransactions = ({ user }) => {
   useEffect(() => {
     dispatch(fetchAllBankAccounts({ userId }));
     dispatch(fetchAllSubCategories());
-    const newFromDate = formatDateObjects(selectedDates)[0];
+    dispatch(fetchAllSubCategories());
+    let newFromDate = formatDateObjects(selectedDates)[0];
     setFromDate(newFromDate);
-    const newToDate = formatDateObjects(selectedDates)[1];
+    let newToDate = formatDateObjects(selectedDates)[1];
     setToDate(newToDate);
-
     console.log(
       "userId, fromDate, toDate, TWO",
       user.id,
-      fromDate,
+      newFromDate,
       "|",
-      toDate
+      newToDate
     );
     dispatch(
       fetchTransactionsFromDateToDate({
@@ -158,6 +159,10 @@ const AllTransactions = ({ user }) => {
       Math.floor(filteredTransactions.length / transactionsPerPage) + extraPage
     );
   }, [filteredTransactions]);
+
+  useEffect(() => {
+    setDatesFiltered(true);
+  }, [selectedDates]);
 
   useEffect(() => {
     if (currentPage > totalPageCount) {
@@ -277,12 +282,7 @@ const AllTransactions = ({ user }) => {
 
   return subCategories.length > 0 ? (
     <Flex direction={"row"}>
-      <Flex
-        direction={"column"}
-        padding={"10px"}
-        w="20%"
-        alignItems={"flex-start"}
-      >
+      <Flex direction={"column"} w="25%" alignItems={"flex-start"}>
         <FilterBar
           handleGoalSubmit={handleGoalSubmit}
           setNewGoal={setNewGoal}
