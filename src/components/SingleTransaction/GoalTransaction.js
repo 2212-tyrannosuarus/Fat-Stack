@@ -27,9 +27,13 @@ import {
   Select,
   FormHelperText,
 } from "@chakra-ui/react";
-import { fetchAllBankAccounts } from "../../reducers/allTransactionsPageSlice";
+import {
+  fetchAllBankAccounts,
+  fetchTransactionsFromDateToDate,
+} from "../../reducers/allTransactionsPageSlice";
 
-export function GoalTransaction({ user }) {
+export function GoalTransaction(props) {
+  const { user, fromDate, toDate, handleGoalSubmit, setNewGoal } = props;
   const [merchant, setTransactionName] = useState("");
   const [account_id, setAccountId] = useState("");
   const [date, setDate] = useState(moment().format("YYYY-MM-DD"));
@@ -56,7 +60,7 @@ export function GoalTransaction({ user }) {
       (account) => account.account_id === account_id
     );
     let newAmount = parseFloat(amount);
-    await dispatch(
+    const newGoal = await dispatch(
       createGoalTransaction({
         account_id,
         merchant,
@@ -88,6 +92,16 @@ export function GoalTransaction({ user }) {
       { available_balance: newAccountBalance }
     );
     setUpdatedBankAccount(update);
+    handleGoalSubmit(newGoal);
+    setNewGoal(newGoal);
+    console.log("userId, fromDate, toDate", user.id, fromDate, toDate);
+    dispatch(
+      fetchTransactionsFromDateToDate({
+        userId: user.id,
+        fromDate: fromDate,
+        toDate: toDate,
+      })
+    );
   };
 
   useEffect(() => {

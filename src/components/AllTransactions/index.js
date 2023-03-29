@@ -50,6 +50,9 @@ const AllTransactions = ({ user }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [deletedTransaction, setDeletedTransaction] = useState({});
   const [postedTransaction, setPostedTransaction] = useState({});
+  const [toDate, setToDate] = useState("");
+  const [fromDate, setFromDate] = useState("");
+  const [newGoal, setNewGoal] = useState({});
   const [selectedDates, setSelectedDates] = useState([
     sixMonthsAgo,
     new Date(),
@@ -97,18 +100,29 @@ const AllTransactions = ({ user }) => {
   useEffect(() => {
     dispatch(fetchAllBankAccounts({ userId }));
     dispatch(fetchAllSubCategories());
-    const fromDate = formatDateObjects(selectedDates)[0];
-    const toDate = formatDateObjects(selectedDates)[1];
+    const newFromDate = formatDateObjects(selectedDates)[0];
+    setFromDate(newFromDate);
+    const newToDate = formatDateObjects(selectedDates)[1];
+    setToDate(newToDate);
+
+    console.log(
+      "userId, fromDate, toDate, TWO",
+      user.id,
+      fromDate,
+      "|",
+      toDate
+    );
     dispatch(
       fetchTransactionsFromDateToDate({
         userId: userId,
-        fromDate: fromDate,
-        toDate: toDate,
+        fromDate: newFromDate,
+        toDate: newToDate,
       })
     );
-  }, [dispatch, deletedTransaction, postedTransaction, selectedDates]);
+  }, [dispatch, newGoal, deletedTransaction, postedTransaction, selectedDates]);
 
   useEffect(() => {
+    console.log(allTransactions);
     setFilteredTransactions(
       allTransactions
         .filter((transaction) => {
@@ -160,6 +174,11 @@ const AllTransactions = ({ user }) => {
 
   const handleAccountClick = (e) => {
     setSelectedAccount(e.target.value);
+  };
+
+  const handleGoalSubmit = (goalTransaction) => {
+    console.log("setting new goal", goalTransaction);
+    setNewGoal(goalTransaction);
   };
 
   const handleDelete = async (evt, transactionId) => {
@@ -265,6 +284,10 @@ const AllTransactions = ({ user }) => {
         alignItems={"flex-start"}
       >
         <FilterBar
+          handleGoalSubmit={handleGoalSubmit}
+          setNewGoal={setNewGoal}
+          fromDate={fromDate}
+          toDate={toDate}
           formatter={formatter}
           selectedCategory={selectedCategory}
           handleAccountClick={handleAccountClick}

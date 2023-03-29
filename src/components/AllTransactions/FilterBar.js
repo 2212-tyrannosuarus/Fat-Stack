@@ -15,6 +15,10 @@ import {
 
 const FilterBar = (props) => {
   const {
+    setNewGoal,
+    handleGoalSubmit,
+    fromDate,
+    toDate,
     subCategories,
     handleCategoryChange,
     selectedDates,
@@ -134,7 +138,12 @@ const FilterBar = (props) => {
             </Flex>
           </ListItem>
           <ListItem paddingTop={"2em"}>
-            <GoalTransaction />
+            <GoalTransaction
+              setNewGoal={setNewGoal}
+              handleGoalSubmit={handleGoalSubmit}
+              fromDate={fromDate}
+              toDate={toDate}
+            />
           </ListItem>
         </>
       ) : (
