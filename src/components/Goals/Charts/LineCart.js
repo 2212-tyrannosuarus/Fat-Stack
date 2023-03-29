@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-
+import { Spinner, Box } from "@chakra-ui/react";
 import ReactApexChart from "react-apexcharts";
 import moment from "moment";
 
 export default function LineCart({ id, goal }) {
+  const [finishedCalc, setfinishedCalc] = useState(true);
   const [dateArr, setDateArr] = useState([]);
   const [chartData, setChartData] = useState([
     {
@@ -106,8 +107,8 @@ export default function LineCart({ id, goal }) {
 
     for (let i = 0; i < dayDiff; i++) {
       setDateArr(dateArr.push(start.add(1, "days").format("YYYY MM DD")));
-      ProjectedData.push(parseInt((i * ProjectedIncr).toFixed(2)));
-      RecommendedData.push(parseInt((i * RecommendedIncr).toFixed(2)));
+      await ProjectedData.push(parseInt((i * ProjectedIncr).toFixed(2)));
+      await RecommendedData.push(parseInt((i * RecommendedIncr).toFixed(2)));
     }
 
     setChartData([
@@ -180,6 +181,7 @@ export default function LineCart({ id, goal }) {
       },
       colors: ["#fff", "#3182CE"],
     });
+    setfinishedCalc(false);
   };
 
   useEffect(() => {
@@ -190,7 +192,15 @@ export default function LineCart({ id, goal }) {
 
   return (
     <>
-      {goal ? (
+      {finishedCalc ? (
+        <Spinner
+          thickness="4px"
+          speed="0.65s"
+          emptyColor="purple.50"
+          color="teal.100"
+          size="xl"
+        />
+      ) : goal ? (
         <ReactApexChart
           options={options}
           series={chartData}
