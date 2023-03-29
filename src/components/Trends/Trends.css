@@ -1,3 +1,9 @@
+.trends-container {
+  width: 100vw;
+  height: 1000px;
+  background-color: trends-container;
+}
+
 .trends-title {
     font-size: 20px;
     font-weight: bold;
