@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import PlaidAuth from "./PlaidAuth";
-import { Button } from "@chakra-ui/react";
+import { Button, Box } from "@chakra-ui/react";
 import { usePlaidLink } from "react-plaid-link";
 import { connect } from "react-redux";
 
@@ -27,9 +27,10 @@ function Plaid({ isLoggedIn, user }) {
       setBankConnected(true);
     },
   });
-  console.log("is logged in", isLoggedIn, "public token", public_token);
+
   return (
-    <div>
+    <Box alignItems="center" className="asdfasdf">
+      {" "}
       {isLoggedIn ? (
         public_token ? (
           <PlaidAuth publicToken={public_token} user={user} />
@@ -50,7 +51,7 @@ function Plaid({ isLoggedIn, user }) {
           </Button>
         )
       ) : null}
-    </div>
+    </Box>
   );
 }
 

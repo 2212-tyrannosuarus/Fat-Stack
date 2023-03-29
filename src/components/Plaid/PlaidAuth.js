@@ -18,7 +18,7 @@ export function PlaidAuth({ publicToken, user }) {
     fetchData();
   });
 
-  return <span>{publicToken}</span>;
+  return <span>Successfully Connected!</span>;
 }
 
 const mapState = (state) => {
