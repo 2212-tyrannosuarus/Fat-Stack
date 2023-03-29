@@ -300,7 +300,7 @@ const AllTransactions = ({ user }) => {
           selectedAccount={selectedAccount}
         />
       </Flex>
-      <Flex direction={"column"}>
+      <Flex direction={"column-reverse"} alignItems={"center"}>
         <TransactionList
           allTransactions={filteredTransactions}
           selectedAccount={selectedAccount}

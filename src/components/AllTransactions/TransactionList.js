@@ -35,9 +35,10 @@ const TransactionList = (props) => {
     currency: "USD",
   });
   return (
-    <List w="1000px" p={"2"} flex="1">
+    <List w={"1000px"} p={"2"} flex="1">
       <ListItem
         w={"100%"}
+        h={"auto"}
         justify={"center"}
         borderRadius={"20px"}
         bg={"gray.200"}
@@ -57,27 +58,23 @@ const TransactionList = (props) => {
             <Text fontSize="lg">Amount</Text>
           </Box>
           <Box w={"16%"} flex="90">
-            {bankAccounts.length > 0 ? (
-              <AddTransactionModal
-                subCategories={subCategories}
-                newTransactionAmount={newTransactionAmount}
-                newTransactionDate={newTransactionDate}
-                newTransactionMerchant={newTransactionMerchant}
-                newTransactionSubCategory={newTransactionSubCategory}
-                bankAccounts={bankAccounts}
-                subCategoriesAsStrings={subCategoriesAsStrings}
-                handleNewTransactionSubmit={handleNewTransactionSubmit}
-                handleNewMerchantChange={handleNewMerchantChange}
-                handleNewAccountChange={handleNewAccountChange}
-                handleNewCategoryChange={handleNewCategoryChange}
-                handleNewCreditDebitChange={handleNewCreditDebitChange}
-                handleNewDateChange={handleNewDateChange}
-                handleClear={handleClear}
-                setNewTransactionAmount={setNewTransactionAmount}
-              />
-            ) : (
-              <></>
-            )}
+            <AddTransactionModal
+              subCategories={subCategories}
+              newTransactionAmount={newTransactionAmount}
+              newTransactionDate={newTransactionDate}
+              newTransactionMerchant={newTransactionMerchant}
+              newTransactionSubCategory={newTransactionSubCategory}
+              bankAccounts={bankAccounts}
+              subCategoriesAsStrings={subCategoriesAsStrings}
+              handleNewTransactionSubmit={handleNewTransactionSubmit}
+              handleNewMerchantChange={handleNewMerchantChange}
+              handleNewAccountChange={handleNewAccountChange}
+              handleNewCategoryChange={handleNewCategoryChange}
+              handleNewCreditDebitChange={handleNewCreditDebitChange}
+              handleNewDateChange={handleNewDateChange}
+              handleClear={handleClear}
+              setNewTransactionAmount={setNewTransactionAmount}
+            />
           </Box>
         </Flex>
       </ListItem>
