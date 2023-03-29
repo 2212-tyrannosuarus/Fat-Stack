@@ -3,12 +3,11 @@ import { Box, Text, Flex } from "@chakra-ui/react";
 import ChartForOverview from "../ChartForOverview";
 import GoalsComponent from "../Goals/GoalsComponent/Dashboard";
 import DashIncome from "../Budget/DashIncome";
-
 import AccountOverview from "../AllTransactions/AccountOverview";
 
 const Dashboard = ({ goals }) => {
   return (
-    <Box maxW="100vw" display="flex" flexWrap="wrap">
+    <Box maxW="100%" maxH="100%" bg={"#f5f7fb"} display="flex" flexWrap="wrap">
       <Box display="flex" flexWrap="wrap">
         <Flex
           bg="white"
@@ -30,23 +29,30 @@ const Dashboard = ({ goals }) => {
             <AccountOverview />
           </Box>
         </Flex>
-        <Flex
-          bg="white"
-          rounded="lg"
-          w={800}
-          h={"auto"}
-          overflow="hidden"
-          px={5}
-          py={5}
-          mb={12}
-          flexDirection="column"
-          boxShadow="md"
+        <Box
+          maxW={{ base: "100%", sm: "100%", md: "800px", lg: "850px" }}
+          minW={{ base: "100%", sm: "100%", md: "300px", lg: "500px" }}
+          flex="1"
         >
-          <Text fontWeight="bold" fontSize="xl">
-            Goals
-          </Text>
-          <GoalsComponent />
-        </Flex>
+          <Flex
+            bg="white"
+            rounded="lg"
+            w="100%"
+            h={"auto"}
+            overflow="hidden"
+            px={5}
+            mr={12}
+            py={5}
+            mb={12}
+            flexDirection="column"
+            boxShadow="md"
+          >
+            <Text fontWeight="bold" fontSize="xl">
+              Goals
+            </Text>
+            <GoalsComponent />
+          </Flex>
+        </Box>
         <Flex
           bg="white"
           rounded="lg"
@@ -61,7 +67,7 @@ const Dashboard = ({ goals }) => {
           boxShadow="md"
         >
           <Text fontWeight="bold" fontSize="xl">
-            Budget Overview
+            Your Spending
           </Text>
           <Box>
             <ChartForOverview />
@@ -75,13 +81,13 @@ const Dashboard = ({ goals }) => {
           overflow="hidden"
           px={5}
           py={5}
+          mb={12}
+          mr={12}
           flexDirection="column"
           boxShadow="md"
-          mr={12}
-          mb={12}
         >
           <Text fontWeight="bold" fontSize="xl">
-            My Accounts
+            Your Spending
           </Text>
           <Box>
             <DashIncome />
