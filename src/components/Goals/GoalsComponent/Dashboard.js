@@ -1,19 +1,25 @@
-import React, { useEffect, useState } from "react";
-import Title from "./DashIcons/Title";
-import Completed from "./DashIcons/Completed";
-import Progress from "./DashIcons/Progress";
-import { Flex, Box, Text } from "@chakra-ui/react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector, connect } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import DashGoal from "./DashGoal";
 import {
   getallGoals,
-  selectAllGoalsList,
+  getExistingGoals,
+  selectGoalList,
 } from "../../../reducers/goalPageSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { Box, Button, Flex, Text } from "@chakra-ui/react";
 
-export default function Dashboard() {
+export function Dashboard({ user }) {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const goals = useSelector(selectAllGoalsList);
-  const [completed, setCompleted] = useState(0);
-  const [incompleteCount, setIncompleteCount] = useState(0);
+  const goalList = useSelector(selectGoalList);
+
+  useEffect(() => {
+    const handleFetch = async () => {
+      await dispatch(getExistingGoals(user.id));
+    };
+    handleFetch();
+  }, []);
 
   useEffect(() => {
     const handleGoals = async () => {
@@ -22,51 +28,41 @@ export default function Dashboard() {
     handleGoals();
   }, []);
 
-  useEffect(() => {
-    let completeCount = 0;
-    let incompleteCount = 0;
-    goals.forEach((goal) => {
-      if (goal.completion_status === true) {
-        completeCount += 1;
-      } else {
-        incompleteCount += 1;
-      }
-    });
-    setIncompleteCount(incompleteCount);
-    setCompleted(completeCount);
-  }, [goals]);
+  if (goalList.length === 0) {
+    return (
+      <>
+        <Text fontWeight={"bold"}>You don't have any goals yet!</Text>
+        <Flex alignItems="center" mt={5}>
+          <Button
+            rounded={"full"}
+            size={"lg"}
+            fontWeight="bold"
+            px={6}
+            colorScheme={"red"}
+            bg={"purple.500"}
+            _hover={{ bg: "purple.300" }}
+            onClick={() => navigate("/goals")}
+          >
+            Set a Goal
+          </Button>
+        </Flex>
+      </>
+    );
+  }
 
   return (
-    <>
-      <Flex alignContent="center" direction="column">
-        <Box>
-          <Title />
-        </Box>
-        <Box>
-          <Flex direction="row">
-            <Flex direction="column" alignContent="center">
-              <Box width="50%"></Box>
-
-              <Completed width="50%" />
-              <Text textAlign="center" mt="2rem">
-                {completed}
-              </Text>
-              <Text textAlign="center" mt="2rem">
-                Completed{" "}
-              </Text>
-            </Flex>
-            <Flex direction="column" alignContent="center">
-              <Progress />
-              <Text textAlign="center" mt="2rem">
-                {incompleteCount}
-              </Text>
-              <Text textAlign="center" mt="2rem">
-                In Progress{" "}
-              </Text>
-            </Flex>
-          </Flex>
-        </Box>
-      </Flex>
-    </>
+    <Box>
+      {goalList.map((goal) => (
+        <DashGoal key={goal.id} goal={goal} />
+      ))}
+    </Box>
   );
 }
+
+const mapState = (state) => {
+  return {
+    user: state.auth,
+  };
+};
+
+export default connect(mapState)(Dashboard);

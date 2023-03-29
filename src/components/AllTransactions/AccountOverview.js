@@ -200,8 +200,8 @@ const AccountOverview = ({ user }) => {
     </>
   ) : (
     <>
-      <Flex direction={"column"}>
-        <Text>No accounts connected!</Text>
+      <Flex direction={"column"} justifyContent={"center"}>
+        <Text fontWeight={"bold"}>You haven't connected an account!</Text>
         <Plaid />
       </Flex>
     </>
