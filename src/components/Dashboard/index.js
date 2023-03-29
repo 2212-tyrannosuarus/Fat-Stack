@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Text, Flex } from "@chakra-ui/react";
 import ChartForOverview from "../ChartForOverview";
 import GoalsComponent from "../Goals/GoalsComponent/Dashboard";
-import DashIncome from "../Budget/DashIncome";
+import DashBudget from "../Budget/DashBudget";
 import AccountOverview from "../AllTransactions/AccountOverview";
 
 const Dashboard = ({ goals }) => {
@@ -73,26 +73,7 @@ const Dashboard = ({ goals }) => {
             <ChartForOverview />
           </Box>
         </Flex>
-        <Flex
-          bg="white"
-          rounded="lg"
-          w={500}
-          h={"auto"}
-          overflow="hidden"
-          px={5}
-          py={5}
-          mb={12}
-          mr={12}
-          flexDirection="column"
-          boxShadow="md"
-        >
-          <Text fontWeight="bold" fontSize="xl">
-            Your Spending
-          </Text>
-          <Box>
-            <DashIncome />
-          </Box>
-        </Flex>
+        <DashBudget />
       </Box>
     </Box>
   );

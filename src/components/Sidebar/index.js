@@ -87,7 +87,7 @@ export const Sidebar = ({ navSize, handleNavSize, handleLogout }) => {
                 fontSize={26}
                 color="grey.800"
               >
-                BANK
+                FAT STACK
               </Box>
             )}
           </Box>

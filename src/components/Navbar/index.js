@@ -25,7 +25,7 @@ const Navbar = () => {
           <img src="/assets/logo.png" alt="Logo" width="40" height="40" />
         </Link>
         <Box ml="3" fontWeight="bold" mr="1rem">
-          FINANCE
+          FAT STACK
         </Box>
       </Box>
       <Box fontWeight="bold" mr="1rem">
