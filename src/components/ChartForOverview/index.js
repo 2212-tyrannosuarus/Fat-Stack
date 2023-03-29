@@ -123,15 +123,29 @@ const ChartForOVerview = ({ user }) => {
             alreadyexists = true;
         }
         if (!alreadyexists) {
-          lastMonthArr.push({
-            x: chartdataThisMonth[pointerThisMonth].x,
-            y: chartdataLastMonth[i - 1].y,
-          });
-          lastMonthArr.push({
-            x: chartdataLastMonth[i].x,
-            y: chartdataLastMonth[i].y,
-          });
-          pointerThisMonth++;
+          if (i === 0) {
+            lastMonthArr.push({
+              x: chartdataThisMonth[pointerThisMonth].x,
+              y: chartdataLastMonth[i].y,
+            });
+            lastMonthArr.push({
+              x: chartdataLastMonth[i].x,
+              y: chartdataLastMonth[i].y,
+            });
+            pointerThisMonth++;
+          }
+          else {
+            lastMonthArr.push({
+              x: chartdataThisMonth[pointerThisMonth].x,
+              y: chartdataLastMonth[i - 1].y,
+            });
+            lastMonthArr.push({
+              x: chartdataLastMonth[i].x,
+              y: chartdataLastMonth[i].y,
+            });
+            pointerThisMonth++;
+          }
+          
         } else {
           lastMonthArr.push({
             x: chartdataLastMonth[i].x,
