@@ -25,7 +25,7 @@ const PieChartMerchant = (props) => {
     let legendMerchantArr = [];
     for (let i = 0; i < chartArr.length; i++) {
       pieChartMerchantArr.push({
-        x: chartArr[i].merchant,
+        x: chartArr[i].merchant.slice(0, 20),
         y: parseInt(chartArr[i].transactionAmount),
       });
       legendMerchantArr.push({ name: chartArr[i].merchant });
