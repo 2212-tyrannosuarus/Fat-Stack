@@ -50,6 +50,9 @@ const ChartForOVerview = ({ user }) => {
       chartDataArr[chartDataArr.length - 1].yearmonthday.split("-")[1];
     chartdataLastMonth = [];
     chartdataThisMonth = [];
+    console.log('overviewChartData', overviewChartData);
+    console.log('chartDataArr', chartDataArr);
+    console.log('thisMonth ', thisMonth)
 
     // creating two arrays with data from last month and data from this month and aggregating each successive y value
     let newMonthStarted = false;
@@ -73,6 +76,7 @@ const ChartForOVerview = ({ user }) => {
           });
         }
       } else if (chartDataArr[i].yearmonthday.split("-")[1] === thisMonth) {
+        console.log('thisMonth ', thisMonth)
         if (newMonthStarted === false) {
           let date = new Date();
           date.setDate(parseInt(chartDataArr[i].yearmonthday.split("-")[2]));
@@ -80,6 +84,7 @@ const ChartForOVerview = ({ user }) => {
             x: date.getDate(),
             y: parseInt(chartDataArr[i].transactionAmount),
           });
+          console.log('chartdataThisMonth 1', chartdataThisMonth)
           newMonthStarted = true;
         } else {
           let date = new Date();
@@ -90,10 +95,11 @@ const ChartForOVerview = ({ user }) => {
               parseInt(chartDataArr[i].transactionAmount) +
               parseInt(chartdataThisMonth[chartdataThisMonth.length - 1].y),
           });
+          console.log('chartdataThisMonth 2', chartdataThisMonth)
         }
       }
     }
-
+    console.log('chartdataThisMonth', chartdataThisMonth)
     lastMonthArr = [];
     thisMonthArr = [];
 
