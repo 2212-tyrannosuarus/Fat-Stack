@@ -35,7 +35,7 @@ function EditModal(props) {
       >
         <Button
           leftIcon={<BsPencil />}
-          colorScheme="purple"
+          colorScheme="purple.500"
           variant="link"
           onClick={onOpen}
           style={{ height: "5px" }}
