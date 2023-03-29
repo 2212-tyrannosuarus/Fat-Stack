@@ -190,6 +190,7 @@ const transactionToDB = async (arr, userId, accounts) => {
     let catId = 109;
     if (arr[i].amount < 0) {
       credit = "credit";
+      arr[i].amount = arr[i].amount * -1;
     }
 
     if (plaidMap.hasOwnProperty(arr[i].category[arr[i].category.length - 1])) {

@@ -123,15 +123,29 @@ const ChartForOVerview = ({ user }) => {
             alreadyexists = true;
         }
         if (!alreadyexists) {
-          lastMonthArr.push({
-            x: chartdataThisMonth[pointerThisMonth].x,
-            y: chartdataLastMonth[i - 1].y,
-          });
-          lastMonthArr.push({
-            x: chartdataLastMonth[i].x,
-            y: chartdataLastMonth[i].y,
-          });
-          pointerThisMonth++;
+          if (i === 0) {
+            lastMonthArr.push({
+              x: chartdataThisMonth[pointerThisMonth].x,
+              y: chartdataLastMonth[i].y,
+            });
+            lastMonthArr.push({
+              x: chartdataLastMonth[i].x,
+              y: chartdataLastMonth[i].y,
+            });
+            pointerThisMonth++;
+          }
+          else {
+            lastMonthArr.push({
+              x: chartdataThisMonth[pointerThisMonth].x,
+              y: chartdataLastMonth[i - 1].y,
+            });
+            lastMonthArr.push({
+              x: chartdataLastMonth[i].x,
+              y: chartdataLastMonth[i].y,
+            });
+            pointerThisMonth++;
+          }
+          
         } else {
           lastMonthArr.push({
             x: chartdataLastMonth[i].x,
@@ -289,7 +303,7 @@ const ChartForOVerview = ({ user }) => {
           <VictoryLegend
             x={125}
             y={10}
-            style={{ border: { stroke: "black" }, title: { fontSize: 20 } }}
+            style={{ title: { fontSize: 20 } }}
             title={
               thisMonthArr[thisMonthArr.length - 1].y -
                 lastMonthArr[lastMonthArr.length - 1].y >

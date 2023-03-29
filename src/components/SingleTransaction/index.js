@@ -69,7 +69,7 @@ const SingleTransction = () => {
               <Stat>
                 <Flex
                   direction="column"
-                  width={["35vw", "40vw", "50vw", "75vw"]}
+                  width={["35vw", "40vw", "45vw", "50vw", "55vw", "75vw"]}
                 >
                   <Flex
                     direction={{ sm: "column", lg: "row" }}

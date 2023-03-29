@@ -53,7 +53,6 @@ async function seed() {
     "73OYBP3ZRDKKJMC7CX66HJLFX72RFGUEHRYDM",
   ];
   await db.sync({ force: true }); // clears db and matches models to tables
-  console.log("db synced!");
   //*******START OF DEMO DATA */
   const bulkGoalCategoryObjArr = goalCategoryArr.map((goal) => {
     return { name: goal };
@@ -715,6 +714,7 @@ async function seed() {
 async function runSeed() {
   try {
     await seed();
+    console.log("db synced!");
   } catch (err) {
     console.error(err);
     process.exitCode = 1;

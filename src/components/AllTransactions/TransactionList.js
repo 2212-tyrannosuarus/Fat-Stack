@@ -30,6 +30,10 @@ const TransactionList = (props) => {
     setNewTransactionAmount,
   } = props;
 
+  const formatter = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  });
   return (
     <List w="1000px" p={"2"} flex="1">
       <ListItem
@@ -120,7 +124,15 @@ const TransactionList = (props) => {
                       <Text fontSize="lg">{transactionCategory}</Text>
                     </Box>
                     <Box w={"21%"}>
-                      <Text fontSize="lg">${transaction.amount}</Text>
+                      {transaction.credit_debit === "credit" ? (
+                        <Text fontSize={"lg"} textColor={"green.400"}>
+                          {formatter.format(transaction.amount)}
+                        </Text>
+                      ) : (
+                        <Text fontSize={"lg"}>
+                          -{formatter.format(transaction.amount)}
+                        </Text>
+                      )}
                     </Box>
                     <Box w={"10%"}>
                       <NavLink to={`/transactions/${transaction.id}`}>
