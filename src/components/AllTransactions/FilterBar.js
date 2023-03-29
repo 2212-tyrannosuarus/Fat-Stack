@@ -46,7 +46,7 @@ const FilterBar = (props) => {
                 }}
               >
                 All Accounts|
-                {totalAccountBalance.toFixed(2)}
+                {formatter.format(totalAccountBalance.toFixed(2))}
               </Button>
             ) : (
               <Button size={"md"} w={"100%"} variant={"ghost"} value={"all"}>
