@@ -303,7 +303,7 @@ const ChartForOVerview = ({ user }) => {
           <VictoryLegend
             x={125}
             y={10}
-            style={{ border: { stroke: "black" }, title: { fontSize: 20 } }}
+            style={{ title: { fontSize: 20 } }}
             title={
               thisMonthArr[thisMonthArr.length - 1].y -
                 lastMonthArr[lastMonthArr.length - 1].y >
