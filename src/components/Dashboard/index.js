@@ -1,8 +1,9 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { Box, Text, Flex, Divider, SimpleGrid } from "@chakra-ui/react";
+import { Box, Text, Flex } from "@chakra-ui/react";
 import ChartForOverview from "../ChartForOverview";
 import GoalsComponent from "../Goals/GoalsComponent/Dashboard";
+import DashIncome from "../Budget/DashIncome";
+
 import AccountOverview from "../AllTransactions/AccountOverview";
 
 const Dashboard = ({ goals }) => {
@@ -54,6 +55,8 @@ const Dashboard = ({ goals }) => {
           overflow="hidden"
           px={5}
           py={5}
+          mb={12}
+          mr={12}
           flexDirection="column"
           boxShadow="md"
         >
@@ -62,6 +65,26 @@ const Dashboard = ({ goals }) => {
           </Text>
           <Box>
             <ChartForOverview />
+          </Box>
+        </Flex>
+        <Flex
+          bg="white"
+          rounded="lg"
+          w={500}
+          h={"auto"}
+          overflow="hidden"
+          px={5}
+          py={5}
+          flexDirection="column"
+          boxShadow="md"
+          mr={12}
+          mb={12}
+        >
+          <Text fontWeight="bold" fontSize="xl">
+            My Accounts
+          </Text>
+          <Box>
+            <DashIncome />
           </Box>
         </Flex>
       </Box>

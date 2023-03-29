@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Progress, Flex, Box, Image, Heading, Text } from "@chakra-ui/react";
+import { Progress, Flex, Box, Heading, Text } from "@chakra-ui/react";
 import {
   FcPuzzle,
   FcKey,
