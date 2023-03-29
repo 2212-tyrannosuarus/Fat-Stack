@@ -14,6 +14,7 @@ import LineCart from "../Charts/LineCart";
 import UpdateGoals from "./UpdateGoals";
 
 export function GoalIDBox({ goal, user }) {
+  const [loading, setLoading] = useState(true);
   const [weekContribution, setWeekContribution] = useState(0);
   const [monthContribution, setMonthContribution] = useState(0);
   const [weekLeft, setWeekLeft] = useState(0);
@@ -23,7 +24,7 @@ export function GoalIDBox({ goal, user }) {
     currency: "USD",
   });
 
-  const calculateMoneyPerMonth = () => {
+  const calculateMoneyPerMonth = async () => {
     let currentDate = moment();
     let goalDate = moment(goal.goal_date);
     let amountNeeded =
@@ -31,8 +32,8 @@ export function GoalIDBox({ goal, user }) {
     let monthDiff = goalDate.diff(currentDate, "months", true);
     let weekDiff = goalDate.diff(currentDate, "weeks", true);
     setWeekLeft(weekDiff.toFixed(0));
-    let monthAmt = (amountNeeded / monthDiff).toFixed(2);
-    let weekAmt = (amountNeeded / weekDiff).toFixed(2);
+    let monthAmt = await (amountNeeded / monthDiff).toFixed(2);
+    let weekAmt = await (amountNeeded / weekDiff).toFixed(2);
 
     if (parseInt(monthAmt) > parseInt(goal.goalamount)) {
       setMonthContribution(goal.goalamount);
@@ -44,6 +45,7 @@ export function GoalIDBox({ goal, user }) {
     } else {
       setWeekContribution(weekAmt);
     }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -79,67 +81,77 @@ export function GoalIDBox({ goal, user }) {
               </h5>
             </div>
           </div>
-          <div className="card-body">
-            <ul className="p-0 m-0">
-              <li className="d-flex mb-2 pb-1">
-                <div className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                  <div className="me-2">
-                    {goal.completion_status ? (
-                      <h6 className="text-muted d-block mb-1">
-                        Congrats on achieving your goal!
-                      </h6>
-                    ) : (
-                      <h6 className="text-muted d-block mb-1">
-                        {formatter.format(weekContribution)} a week or{" "}
-                        {formatter.format(monthContribution)} a month to reach
-                        your goal!
-                      </h6>
-                    )}
-                  </div>
-                  <div className="user-progress d-flex align-items-center gap-1">
-                    <h6 className="mb-0">
-                      {formatter.format(goal.contributedamount)}
-                    </h6>{" "}
-                    <span className="text-muted">
-                      of {formatter.format(goal.goalamount)}
-                    </span>
-                  </div>
-                </div>
-              </li>
-              <li className="mb-2 pb-0 income-progress-bar">
-                <Progress
-                  colorScheme={
-                    (goal.contributedamount / goal.goalamount) * 100 < 25
-                      ? "red"
-                      : (goal.contributedamount / goal.goalamount) * 100 < 50
-                      ? "yellow"
-                      : (goal.contributedamount / goal.goalamount) * 100 < 75
-                      ? "blue"
-                      : "green"
-                  }
-                  height="32px"
-                  value={(goal.contributedamount / goal.goalamount) * 100}
-                />
-              </li>
-              {goal.completion_status ? null : (
+          {loading ? (
+            <Progress
+              size="lg"
+              colorScheme="blackAlpha"
+              isIndeterminate
+              mt="2rem"
+              mb="2rem"
+            />
+          ) : (
+            <div className="card-body">
+              <ul className="p-0 m-0">
                 <li className="d-flex mb-2 pb-1">
                   <div className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                    <div className="row mt-2">
-                      <h6 className="text-muted d-block mb-1">
-                        Projected Date: {goal.goal_date}
-                      </h6>
+                    <div className="me-2">
+                      {goal.completion_status ? (
+                        <h6 className="text-muted d-block mb-1">
+                          Congrats on achieving your goal!
+                        </h6>
+                      ) : (
+                        <h6 className="text-muted d-block mb-1">
+                          {formatter.format(weekContribution)} a week or{" "}
+                          {formatter.format(monthContribution)} a month to reach
+                          your goal!
+                        </h6>
+                      )}
                     </div>
-                    <div className="row mt-2">
-                      <h6 className="text-muted d-block mb-1">
-                        Weeks Remaining: {weekLeft}
-                      </h6>
+                    <div className="user-progress d-flex align-items-center gap-1">
+                      <h6 className="mb-0">
+                        {formatter.format(goal.contributedamount)}
+                      </h6>{" "}
+                      <span className="text-muted">
+                        of {formatter.format(goal.goalamount)}
+                      </span>
                     </div>
                   </div>
                 </li>
-              )}
-              <LineCart id={goal.id} goal={goal} />
-            </ul>
-          </div>
+                <li className="mb-2 pb-0 income-progress-bar">
+                  <Progress
+                    colorScheme={
+                      (goal.contributedamount / goal.goalamount) * 100 < 25
+                        ? "red"
+                        : (goal.contributedamount / goal.goalamount) * 100 < 50
+                        ? "yellow"
+                        : (goal.contributedamount / goal.goalamount) * 100 < 75
+                        ? "blue"
+                        : "green"
+                    }
+                    height="32px"
+                    value={(goal.contributedamount / goal.goalamount) * 100}
+                  />
+                </li>
+                {goal.completion_status ? null : (
+                  <li className="d-flex mb-2 pb-1">
+                    <div className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                      <div className="row mt-2">
+                        <h6 className="text-muted d-block mb-1">
+                          Projected Date: {goal.goal_date}
+                        </h6>
+                      </div>
+                      <div className="row mt-2">
+                        <h6 className="text-muted d-block mb-1">
+                          Weeks Remaining: {weekLeft}
+                        </h6>
+                      </div>
+                    </div>
+                  </li>
+                )}
+                <LineCart id={goal.id} goal={goal} />
+              </ul>
+            </div>
+          )}
         </div>
       </div>
     </div>
