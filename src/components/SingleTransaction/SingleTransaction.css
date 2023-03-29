@@ -1,3 +1,8 @@
 .single-transaction-container {
   margin: 20px;
 }
+
+.singletransactionbox {
+  height: 100vh;
+  width: 100vw;
+}
