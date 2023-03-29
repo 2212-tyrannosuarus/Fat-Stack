@@ -281,8 +281,8 @@ const AllTransactions = ({ user }) => {
   };
 
   return subCategories.length > 0 ? (
-    <Flex direction={"row"}>
-      <Flex direction={"column"} w="25%" alignItems={"flex-start"}>
+    <Flex direction={"row"} w={"100vw"} h={"100vh"} bg={"#F5F7FB"}>
+      <Flex direction={"column"} w="20%" alignItems={"flex-start"}>
         <FilterBar
           handleGoalSubmit={handleGoalSubmit}
           setNewGoal={setNewGoal}

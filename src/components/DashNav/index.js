@@ -30,9 +30,9 @@ const DashNav = ({ user, handleLogout }) => {
         alignItems="center"
         p={2}
         bg="white"
-        mr={45}
         boxShadow="md"
         borderRadius={10}
+        maxW={{ base: "100%", sm: "100%", md: "800px", lg: "1400px" }}
       >
         <Notifications />
         <Menu

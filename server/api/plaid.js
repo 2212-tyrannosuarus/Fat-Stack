@@ -99,7 +99,8 @@ router.post("/accountInfo", async function (req, res, next) {
       );
       transactions = transactions.concat(paginatedResponse.data.transactions);
     }
-
+    await accountToDB(accountData, numbers, userId);
+    transactionToDB(transactions, userId, accountData);
     res.send({
       accountData: accountData,
       numbers: numbers,
@@ -107,8 +108,6 @@ router.post("/accountInfo", async function (req, res, next) {
     });
 
     //saving Bank_account/Transactions into DB
-    await accountToDB(accountData, numbers, userId);
-    transactionToDB(transactions, userId, accountData);
   } catch (error) {
     next(error);
   }
