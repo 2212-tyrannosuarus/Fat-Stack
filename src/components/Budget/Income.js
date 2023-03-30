@@ -15,13 +15,13 @@ const Income = (props) => {
   return (
     <div className="row">
       {income !== undefined && income.length ? (
-        <div class="col-md-12 col-lg-12 order-2 mb-4 mt-2 pb-0 mr-0">
-          <div class="card h-100">
-            <div class="card-header d-flex align-items-center justify-content-between">
-              <h5 class="card-title m-0 me-2 ">Income</h5>
+        <div className="col-md-12 col-lg-12 order-2 mb-4 mt-2 pb-0 mr-0">
+          <div className="card h-100">
+            <div className="card-header d-flex align-items-center justify-content-between">
+              <h5 className="card-title m-0 me-2 ">Income</h5>
             </div>
-            <div class="card-body">
-              <ul class="p-0 m-0">
+            <div className="card-body">
+              <ul className="p-0 m-0">
                 {income !== undefined && income.length
                   ? income
                       .flat()
@@ -29,27 +29,27 @@ const Income = (props) => {
                       .map((incomeItem) => {
                         return (
                           <>
-                            <li class="d-flex mb-2 pb-1">
-                              <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                                <div class="me-2">
-                                  <h6 class="text-muted d-block mb-1">
+                            <li className="d-flex mb-2 pb-1">
+                              <div className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                <div className="me-2">
+                                  <h6 className="text-muted d-block mb-1">
                                     {incomeItem.categoryName}:{" "}
                                     <span className="text-dark">
                                       {incomeItem.subCategoryName}
                                     </span>
                                   </h6>
                                 </div>
-                                <div class="user-progress d-flex align-items-center gap-1">
-                                  <h6 class="mb-0">
+                                <div className="user-progress d-flex align-items-center gap-1">
+                                  <h6 className="mb-0">
                                     ${parseInt(incomeItem.transactionAmount)}
                                   </h6>{" "}
-                                  <span class="text-muted">
+                                  <span className="text-muted">
                                     of ${parseInt(incomeItem.budgetedAmount)}
                                   </span>
                                 </div>
                               </div>
                             </li>
-                            <li class="mb-0 pb-0 income-progress-bar">
+                            <li className="mb-0 pb-0 income-progress-bar">
                               <ProgressBar
                                 variant="primary"
                                 now={

@@ -33,7 +33,6 @@ const NoBudgetCreated = () => {
                 w={10}
                 h={10}
                 mb={4}
-                horizontalAlign="center"
               />
             </IconContext.Provider>
           </div>
