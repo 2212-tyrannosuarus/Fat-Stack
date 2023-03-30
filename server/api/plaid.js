@@ -100,7 +100,8 @@ router.post("/accountInfo", async function (req, res, next) {
       transactions = transactions.concat(paginatedResponse.data.transactions);
     }
     await accountToDB(accountData, numbers, userId);
-    transactionToDB(transactions, userId, accountData);
+    await transactionToDB(transactions, userId, accountData);
+
     res.send({
       accountData: accountData,
       numbers: numbers,
