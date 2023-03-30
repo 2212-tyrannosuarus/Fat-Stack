@@ -80,7 +80,7 @@ function AddBudgetModal(props) {
       {categoriesForAddBudget && categoriesForAddBudget.length ? (
         <>
           <button
-            class="btn btn-sm btn-outline-primary col-2 ml-0"
+            className="btn btn-sm btn-outline-primary col-2 ml-0"
             onClick={onOpen}
           >
             + Add Budget

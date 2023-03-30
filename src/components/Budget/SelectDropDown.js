@@ -4,11 +4,11 @@ const SelectDropDown = (props) => {
   const { handleThisMonth } = props;
   return (
     <div className="col">
-      <div class="card-body">
-        <div class="text-center">
-          <div class="dropdown">
+      <div className="card-body">
+        <div className="text-center">
+          <div className="dropdown">
             <button
-              class="btn btn-sm btn-outline-primary dropdown-toggle"
+              className="btn btn-sm btn-outline-primary dropdown-toggle"
               type="button"
               id="growthReportId"
               data-bs-toggle="dropdown"
@@ -18,7 +18,7 @@ const SelectDropDown = (props) => {
               Select Month
             </button>
             <div
-              class="dropdown-menu dropdown-menu-end"
+              className="dropdown-menu dropdown-menu-end"
               aria-labelledby="growthReportId"
             >
               <button
@@ -29,13 +29,13 @@ const SelectDropDown = (props) => {
                 This month
               </button>
               <button
-                class="dropdown-item"
+                className="dropdown-item"
                 onClick={() => handleThisMonth("last month")}
               >
                 Last month
               </button>
               <button
-                class="dropdown-item"
+                className="dropdown-item"
                 onClick={() => handleThisMonth("last three months")}
               >
                 Last 3 months
