@@ -148,15 +148,15 @@ export default function LineCart({ id, goal }) {
         labels: {
           style: {
             colors: "#fff",
-            fontSize: "12px",
+            fontSize: "0px",
           },
         },
       },
       yaxis: {
         labels: {
           style: {
-            colors: "#fff",
-            fontSize: "12px",
+            colors: "#666",
+            fontSize: "10px",
           },
         },
       },
