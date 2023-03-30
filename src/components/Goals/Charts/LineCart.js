@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Spinner, Box } from "@chakra-ui/react";
+import { Spinner, Center } from "@chakra-ui/react";
 import ReactApexChart from "react-apexcharts";
 import moment from "moment";
 
@@ -193,13 +193,15 @@ export default function LineCart({ id, goal }) {
   return (
     <>
       {finishedCalc ? (
-        <Spinner
-          thickness="4px"
-          speed="0.65s"
-          emptyColor="purple.50"
-          color="teal.100"
-          size="xl"
-        />
+        <Center className="i" width="100%" alignContent="center">
+          <Spinner
+            thickness="4px"
+            speed="0.65s"
+            emptyColor="purple.50"
+            color="teal.100"
+            size="xl"
+          />
+        </Center>
       ) : goal ? (
         <ReactApexChart
           options={options}
