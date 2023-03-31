@@ -4,6 +4,7 @@ import DeletePopup from "./DeletePopup";
 import { Box, Flex, List, ListItem, Text } from "@chakra-ui/react";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import AddTransactionModal from "./AddTransactionModal";
+import Paginator from "./Paginator";
 
 const TransactionList = (props) => {
   const {
@@ -28,12 +29,15 @@ const TransactionList = (props) => {
     handleNewDateChange,
     handleClear,
     setNewTransactionAmount,
+    setCurrentPage,
+    totalPageCount,
   } = props;
 
   const formatter = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
   });
+  console.log("final test", allTransactions);
   return (
     <List w={"1000px"} p={"2"} flex="1">
       <ListItem
@@ -154,6 +158,11 @@ const TransactionList = (props) => {
           No Transactions To Display!
         </Text>
       )}
+      <Paginator
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        totalPageCount={totalPageCount}
+      />
     </List>
   );
 };
