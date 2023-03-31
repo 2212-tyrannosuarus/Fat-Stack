@@ -113,45 +113,11 @@ const Dashboard = ({ user }) => {
 
   return (
     <>
-      {/* if budgeted spending is not present and budgeted income is not present */}
-      {budgetedSpendingFromSlice &&
-      budgetedSpendingFromSlice.flat().slice(0, -1).length === 0 &&
-      budgetedIncome &&
-      budgetedIncome.flat().slice(0, -1)[0] === undefined ? (
-        <NoBudgetCreated />
-      ) : //if budgeted spending is present but not budgeted income
-      budgetedSpendingFromSlice &&
-        budgetedSpendingFromSlice[0] &&
-        budgetedSpendingFromSlice[0].length &&
-        budgetedIncome &&
-        budgetedIncome.flat().slice(0, -1)[0] === undefined ? (
-        <DashSummary
-          income={budgetedIncome}
-          spending={budgetedSpendingFromSlice}
-          other={unbudgetedSpending}
-        />
-      ) : // if budgeted income is present but not budgeted spending
-      budgetedIncome &&
-        budgetedIncome.flat().slice(0, -1)[0] &&
-        budgetedSpendingFromSlice &&
-        budgetedSpendingFromSlice.flat().slice(0, -1).length === 0 ? (
-        <DashSummary
-          income={budgetedIncome}
-          spending={budgetedSpendingFromSlice}
-          other={unbudgetedSpending}
-        />
-      ) : // if both budgeted income and budgeted spending are present
-      budgetedSpendingFromSlice.length &&
-        unbudgetedSpending.length &&
-        budgetedIncome.length ? (
-        <DashSummary
-          income={budgetedIncome}
-          spending={budgetedSpendingFromSlice}
-          other={unbudgetedSpending}
-        />
-      ) : (
-        "You have not yet created a budget"
-      )}
+      <DashSummary
+        income={budgetedIncome}
+        spending={budgetedSpendingFromSlice}
+        other={unbudgetedSpending}
+      />
     </>
   );
 };

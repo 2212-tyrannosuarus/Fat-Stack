@@ -67,7 +67,7 @@ export function PageWithGoals({ user }) {
           ) : (
             <>
               <Flex>
-                <Box mt="3rem" mb="4rem" width="100%" pl="3rem" pr="10rem">
+                <Box mt="3rem" mb="4rem" width="100%" pl="3rem" mr={2}>
                   <Box width="100%">
                     <Flex justifyContent="space-between">
                       <Box>

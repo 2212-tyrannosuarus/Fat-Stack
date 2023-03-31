@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Text } from "@chakra-ui/react";
 import {
   fetchOverviewChartData,
   selectOverviewChartData,
@@ -9,7 +9,6 @@ import {
   VictoryChart,
   VictoryArea,
   VictoryGroup,
-  VictoryStack,
   VictoryLine,
   VictoryLegend,
   VictoryAxis,
@@ -373,14 +372,14 @@ const ChartForOVerview = ({ user }) => {
           />
         </VictoryChart>
       ) : (
-        <>
+        <Text fontWeight={"bold"}>
           Not enough data to display
           <img
             src="./assets/overviewPlaceholder.jpeg"
             alt=""
             className="mt-4 pt-4"
           />
-        </>
+        </Text>
       )}
     </>
   );

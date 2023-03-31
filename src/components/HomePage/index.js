@@ -20,12 +20,13 @@ export const Homepage = () => {
   const navigate = useNavigate();
   return (
     <>
-      <Box marginX={36} marginY={50}>
-        <Container maxW={"7xl"}>
+      <Box px={36} py={50} bg={"white"}>
+        <Container maxW={"7xl"} bg={"white"}>
           <Stack
             align={"center"}
             spacing={{ base: 8, md: 10 }}
-            py={{ base: 20, md: 28 }}
+            pt={{ base: 10 }}
+            pb={{ base: 20 }}
             direction={{ base: "column", md: "row" }}
           >
             <Stack flex={1} spacing={{ base: 5, md: 10 }}>
@@ -44,20 +45,19 @@ export const Homepage = () => {
                     position: "absolute",
                     bottom: 1,
                     left: 0,
-                    bg: "purple.200",
-                    zIndex: -1,
+                    color: "grey.600",
                   }}
                 >
-                  We are the #1
+                  Take Control of
                 </Text>
                 <br />
                 <Text as={"span"} color={"purple.500"}>
-                  Finance App
+                  Your Finances
                 </Text>
               </Heading>
               <Text color={"gray.500"}>
-                This is just an example of what we can write here. I'm gauging
-                the length of how long this paragraph should be. We are Farmers
+                Whether you are looking to save for a rainy day, pay off debt,{" "}
+                <br /> or invest for the future, Fat Stack has got you covered.
               </Text>
               <Stack
                 spacing={{ base: 4, sm: 6 }}
@@ -87,9 +87,7 @@ export const Homepage = () => {
             >
               <Box
                 position={"space-between"}
-                height={"300px"}
                 rounded={"2xl"}
-                boxShadow={"2xl"}
                 width={"full"}
                 overflow={"hidden"}
               >
@@ -97,18 +95,14 @@ export const Homepage = () => {
                   alt={"Hero Image"}
                   fit={"cover"}
                   align={"center"}
-                  w={"100%"}
-                  h={"100%"}
-                  src={
-                    "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=800&q=80"
-                  }
+                  src={"/assets/homepage.png"}
                 />
               </Box>
             </Flex>
           </Stack>
         </Container>
       </Box>
-      <Box bg="gray.50" py={36}>
+      <Box bg="gray.50" py={36} mx={10}>
         <Container maxW="8xl">
           <Box>
             <SimpleGrid columns={{ base: 1, md: 3 }} spacing={16}>
@@ -128,9 +122,8 @@ export const Homepage = () => {
                     Add Multiple Accounts
                   </Text>
                   <Text fontSize="md">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Etiam viverra justo odio, sit amet mollis massa porttitor
-                    id.
+                    We simplify your financial management by allowing you to add
+                    and monitor multiple accounts in one place.
                   </Text>
                 </Box>
               </Box>
@@ -150,9 +143,8 @@ export const Homepage = () => {
                     Manage Subscriptions
                   </Text>
                   <Text fontSize="md">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Etiam viverra justo odio, sit amet mollis massa porttitor
-                    id.
+                    Always forgetting about those pesky subscriptions? Our app
+                    will notify you when they are due.
                   </Text>
                 </Box>
               </Box>
@@ -172,9 +164,9 @@ export const Homepage = () => {
                     Set New Goals
                   </Text>
                   <Text fontSize="md">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Etiam viverra justo odio, sit amet mollis massa porttitor
-                    id.
+                    Whether you're saving for a down payment on a home, planning
+                    a dream vacation, or paying off debt, we make it simple to
+                    set realistic goals and track your progress.
                   </Text>
                 </Box>
               </Box>
@@ -183,11 +175,11 @@ export const Homepage = () => {
         </Container>
       </Box>
 
-      <Box maxW="600px" mx="auto" textAlign="center" my={36}>
+      <Box mx="auto" textAlign="center" pt={24} pb={12} bg={"white"}>
         <Heading as="h2" fontSize="3xl" mb="6">
           Contact Us
         </Heading>
-        <Box as="form" mb="8">
+        <Box as="form" mb="8" maxW="600px" mx="auto">
           <Input placeholder="Your email" mb="4" />
           <Textarea placeholder="Your message" mb="4" />
           <Button

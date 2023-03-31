@@ -76,7 +76,7 @@ const NavigationRoutes = (props) => {
         element={
           <PrivateRoute>
             <SidebarLayout>
-              <Budget  />
+              <Budget />
             </SidebarLayout>
           </PrivateRoute>
         }
@@ -87,7 +87,7 @@ const NavigationRoutes = (props) => {
         element={
           <PrivateRoute>
             <SidebarLayout>
-              <Trends  />
+              <Trends />
             </SidebarLayout>
           </PrivateRoute>
         }
