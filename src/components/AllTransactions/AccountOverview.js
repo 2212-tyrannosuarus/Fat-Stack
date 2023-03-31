@@ -17,6 +17,7 @@ import {
   AccordionPanel,
   AccordionIcon,
   Divider,
+  Center,
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import Plaid from "../Plaid";
@@ -196,7 +197,10 @@ const AccountOverview = ({ user }) => {
           ))}
         </Flex>
       </Accordion>
-      <Plaid />
+      <Center>
+        {" "}
+        <Plaid />
+      </Center>
     </>
   ) : (
     <>
