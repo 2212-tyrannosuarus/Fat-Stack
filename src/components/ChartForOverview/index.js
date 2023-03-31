@@ -372,14 +372,14 @@ const ChartForOVerview = ({ user }) => {
           />
         </VictoryChart>
       ) : (
-        <>
+        <Text fontWeight={"bold"}>
           Not enough data to display
           <img
             src="./assets/overviewPlaceholder.jpeg"
             alt=""
             className="mt-4 pt-4"
           />
-        </>
+        </Text>
       )}
     </>
   );
