@@ -266,7 +266,7 @@ const Budget = ({ user }) => {
       endingDate = `${currYear}-${currentMonth}-${todaysDate[2]}`;
 
       let lastThreeMonths = [];
-      indexOfCurrMonth = indexOfCurrMonth - 1
+      // indexOfCurrMonth = indexOfCurrMonth - 1
       if (indexOfCurrMonth <= 2) {
         for (let i = indexOfCurrMonth - 1; i >= 0; i--) {
           lastThreeMonths.push(MONTHS[i]);
