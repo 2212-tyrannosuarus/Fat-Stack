@@ -79,14 +79,7 @@ export const Sidebar = ({ navSize, handleNavSize, handleLogout }) => {
             <img src="/assets/logo.png" alt="Logo" width="50" height="50" />
 
             {navSize === "large" && (
-              <Box
-                ml="3"
-                justifyContent={"center"}
-                fontWeight="bold"
-                pt={1}
-                fontSize={26}
-                color="grey.800"
-              >
+              <Box ml="3" fontWeight="bold">
                 FAT STACK
               </Box>
             )}

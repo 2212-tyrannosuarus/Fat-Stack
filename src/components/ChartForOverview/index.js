@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Text } from "@chakra-ui/react";
 import {
   fetchOverviewChartData,
   selectOverviewChartData,
@@ -9,7 +9,6 @@ import {
   VictoryChart,
   VictoryArea,
   VictoryGroup,
-  VictoryStack,
   VictoryLine,
   VictoryLegend,
   VictoryAxis,
@@ -133,8 +132,7 @@ const ChartForOVerview = ({ user }) => {
               y: chartdataLastMonth[i].y,
             });
             pointerThisMonth++;
-          }
-          else {
+          } else {
             lastMonthArr.push({
               x: chartdataThisMonth[pointerThisMonth].x,
               y: chartdataLastMonth[i - 1].y,
@@ -145,7 +143,6 @@ const ChartForOVerview = ({ user }) => {
             });
             pointerThisMonth++;
           }
-          
         } else {
           lastMonthArr.push({
             x: chartdataLastMonth[i].x,
@@ -360,7 +357,9 @@ const ChartForOVerview = ({ user }) => {
           />
         </VictoryChart>
       ) : (
-        "Loading"
+        <Text color={"lightgrey"} fontWeight={"bold"}>
+          Please add a Bank Account or Transaction for data to show
+        </Text>
       )}
     </>
   );
