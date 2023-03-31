@@ -60,9 +60,15 @@ router.put("/contribute", async (req, res, next) => {
 router.put("/redoContribution", async (req, res, next) => {
   try {
     const goal = await Goal.findOne({ where: { name: req.body.name } });
+
+    if (goal === null) {
+      return;
+    }
+
     const transactions = await Transaction.findAll({
       where: { merchant: req.body.name },
     });
+    console.log("goals", transactions[0]);
 
     let newBalance = transactions.reduce(
       (acc, current) => acc + parseInt(current.amount),
