@@ -73,7 +73,24 @@ const Dashboard = ({ goals }) => {
             <ChartForOverview />
           </Box>
         </Flex>
-        <DashBudget />
+        <Box
+          maxW={{ base: "100%", sm: "100%", md: "200px", lg: "850px" }}
+          flex="1"
+        >
+          <Flex
+            rounded="lg"
+            w="100%"
+            h={"auto"}
+            overflow="hidden"
+            mr={12}
+            pb={5}
+            mb={12}
+            flexDirection="column"
+            justifyContent="space-evenly"
+          >
+            <DashBudget />
+          </Flex>
+        </Box>
       </Box>
     </Box>
   );

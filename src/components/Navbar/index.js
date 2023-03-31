@@ -14,17 +14,13 @@ const Navbar = () => {
       wrap="wrap"
       padding="1.0rem"
       bg="white"
-      boxShadow="sm"
-      top="0"
-      left="0"
-      right="0"
-      zIndex="9999"
+      pt={10}
     >
-      <Box display="flex" alignItems="center" ml="1rem">
+      <Box display="flex" alignItems="center" ml={10}>
         <Link href="/">
           <img src="/assets/logo.png" alt="Logo" width="40" height="40" />
         </Link>
-        <Box ml="3" fontWeight="bold" mr="1rem">
+        <Box ml="3" fontWeight="bold">
           FAT STACK
         </Box>
       </Box>
@@ -36,7 +32,7 @@ const Navbar = () => {
           marginRight="2rem"
           onClick={() =>
             window.scroll({
-              top: 575,
+              top: 650,
               behavior: "smooth",
             })
           }
@@ -47,7 +43,7 @@ const Navbar = () => {
           marginRight="2rem"
           onClick={() =>
             window.scroll({
-              top: 1075,
+              top: 1250,
               behavior: "smooth",
             })
           }
