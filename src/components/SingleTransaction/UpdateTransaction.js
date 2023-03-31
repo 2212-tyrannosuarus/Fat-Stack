@@ -60,9 +60,9 @@ export default function UpdateTransaction() {
         updateAllTransactionCat({
           name: transaction.merchant,
           body: {
-            merchant,
-            date,
-            amount,
+            // merchant,
+            // date,
+            // amount,
             hide_from_budget: hideFromBudget,
             subcategoryId,
           },
