@@ -25,18 +25,14 @@ const Login = ({ handleSubmit, name, error, isLoggedIn }) => {
           <Box textAlign="center">
             <Card
               p={6}
-              boxShadow="lg"
+              pt={6}
+              boxShadow="md"
               borderRadius="md"
               mb={125}
               style={{ margin: "auto" }}
             >
               <Box mx="auto" mb={5}>
-                <img
-                  src="/assets/logo.png"
-                  alt="Logo"
-                  width="100"
-                  height="100"
-                />
+                <img src="/assets/logo.png" alt="Logo" width="75" height="75" />
               </Box>
               <Box>
                 <Text fontSize="xl" fontWeight="bold">

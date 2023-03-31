@@ -76,7 +76,9 @@ export const Sidebar = ({ navSize, handleNavSize, handleLogout }) => {
             pb="10"
             navSize={navSize}
           >
-            <img src="/assets/logo.png" alt="Logo" width="50" height="50" />
+            <Link href="/">
+              <img src="/assets/logo.png" alt="Logo" width="40" height="40" />
+            </Link>
 
             {navSize === "large" && (
               <Box ml="3" fontWeight="bold">
