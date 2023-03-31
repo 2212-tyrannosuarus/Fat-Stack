@@ -46,21 +46,21 @@ const Summary = (props) => {
       spending[0].length &&
       other !== undefined ? (
         <>
-          <div class="col-md-12 col-lg-12 order-2 mb-4">
-            <div class="card h-100">
-              <div class="card-header d-flex align-items-center justify-content-between">
-                <h5 class="card-title m-0 me-2">Summary</h5>
+          <div className="col-md-12 col-lg-12 order-2 mb-4">
+            <div className="card h-100">
+              <div className="card-header d-flex align-items-center justify-content-between">
+                <h5 className="card-title m-0 me-2">Summary</h5>
               </div>
-              <div class="card-body">
-                <ul class="p-0 m-0">
-                  <li class="d-flex mb-2 pb-1">
-                    <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                      <div class="me-2">
+              <div className="card-body">
+                <ul className="p-0 m-0">
+                  <li className="d-flex mb-2 pb-1">
+                    <div className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                      <div className="me-2">
                         {/* <small class="text-muted d-block mb-1">Paypal</small> */}
-                        <h6 class="mb-0">Total Income</h6>
+                        <h6 className="mb-0">Total Income</h6>
                       </div>
-                      <div class="user-progress d-flex align-items-center gap-1">
-                        <h6 class="mb-0">
+                      <div className="user-progress d-flex align-items-center gap-1">
+                        <h6 className="mb-0">
                           + ${parseInt(income.flat()[0].transactionAmount)}
                         </h6>{" "}
                         {/* <span class="text-muted">USD</span> */}
@@ -68,42 +68,42 @@ const Summary = (props) => {
                     </div>
                   </li>
 
-                  <li class="d-flex mb-2 pb-1">
-                    <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                      <div class="me-2">
+                  <li className="d-flex mb-2 pb-1">
+                    <div className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                      <div className="me-2">
                         {/* <small class="text-muted d-block mb-1">Paypal</small> */}
-                        <h6 class="mb-0">Total Expenses</h6>
+                        <h6 className="mb-0">Total Expenses</h6>
                       </div>
-                      <div class="user-progress d-flex align-items-center gap-1">
-                        <h6 class="mb-0">- ${parseInt(totalExpenses)}</h6>{" "}
+                      <div className="user-progress d-flex align-items-center gap-1">
+                        <h6 className="mb-0">- ${parseInt(totalExpenses)}</h6>{" "}
                         {/* <span class="text-muted">USD</span> */}
                       </div>
                     </div>
                   </li>
 
                   {goals > 0 ? (
-                    <li class="d-flex mb-2 pb-1">
-                      <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                        <div class="me-2">
+                    <li className="d-flex mb-2 pb-1">
+                      <div className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                        <div className="me-2">
                           {/* <small class="text-muted d-block mb-1">Paypal</small> */}
-                          <h6 class="mb-0">Goals</h6>
+                          <h6 className="mb-0">Goals</h6>
                         </div>
-                        <div class="user-progress d-flex align-items-center gap-1">
-                          <h6 class="mb-0">- ${parseInt(goals)}</h6>{" "}
+                        <div className="user-progress d-flex align-items-center gap-1">
+                          <h6 className="mb-0">- ${parseInt(goals)}</h6>{" "}
                           {/* <span class="text-muted">USD</span> */}
                         </div>
                       </div>
                     </li>
                   ) : null}
                   <hr />
-                  <li class="d-flex mb-2 pb-1 mt-2">
-                    <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                      <div class="me-2">
+                  <li className="d-flex mb-2 pb-1 mt-2">
+                    <div className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                      <div className="me-2">
                         {/* <small class="text-muted d-block mb-1">Paypal</small> */}
-                        <h6 class="mb-0">Leftover</h6>
+                        <h6 className="mb-0">Leftover</h6>
                       </div>
-                      <div class="user-progress d-flex align-items-center gap-1">
-                        <h6 class="mb-0">
+                      <div className="user-progress d-flex align-items-center gap-1">
+                        <h6 className="mb-0">
                           {parseInt(income.flat()[0].transactionAmount) -
                             parseInt(totalExpenses) -
                             parseInt(goals) >
@@ -146,7 +146,6 @@ const Summary = (props) => {
                   w={10}
                   h={10}
                   mb={4}
-                  horizontalAlign="center"
                 />
               </IconContext.Provider>
             </div>

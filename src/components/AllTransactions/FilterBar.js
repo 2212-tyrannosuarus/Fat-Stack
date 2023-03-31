@@ -38,7 +38,7 @@ const FilterBar = (props) => {
           </Box>
         </Text>
         <Flex direction={"column"} paddingTop={"5px"}>
-          <Box bg={"purple.200"} borderRadius={"15px"}>
+          <Box bg={"purple.200"} borderRadius={"10"}>
             {bankAccounts.length > 0 ? (
               <Button
                 size={"md"}
@@ -66,7 +66,7 @@ const FilterBar = (props) => {
             return (
               <Box
                 bg={`purple.${varyColor}`}
-                borderRadius={"15"}
+                borderRadius={"10"}
                 key={account.account_id}
               >
                 <Button

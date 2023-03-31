@@ -212,6 +212,7 @@ const Budget = ({ user }) => {
       } else {
         currentMonth = dateToday.getMonth().toString();
       }
+      if (currentMonth === "02" && todaysDate[2] > 28) todaysDate[2] = 28;
       startingDate = `${todaysDate[3]}-${currentMonth}-01`;
       endingDate = `${todaysDate[3]}-${currentMonth}-${todaysDate[2]}`;
 
@@ -237,22 +238,31 @@ const Budget = ({ user }) => {
 
     // handle last three months
     else if (timeRange === "last three months") {
-      if ((dateToday.getMonth() + 1).toString().length === 1) {
-        currentMonth = `0${(dateToday.getMonth() + 1).toString()}`;
+      if (dateToday.getMonth().toString().length === 1) {
+        currentMonth = `0${dateToday.getMonth().toString()}`;
       } else {
-        currentMonth = (dateToday.getMonth() + 1).toString();
+        currentMonth = dateToday.getMonth().toString();
       }
 
       let startingMonth = "";
-      if ((dateToday.getMonth() - 1).toString().length === 1) {
-        startingMonth = `0${(dateToday.getMonth() - 1).toString()}`;
+      if ((dateToday.getMonth() - 2).toString().length === 1) {
+        startingMonth = `0${(dateToday.getMonth() - 2).toString()}`;
       } else {
-        startingMonth = (dateToday.getMonth() - 1).toString();
+        startingMonth = (dateToday.getMonth() - 2).toString();
       }
-      startingDate = `${todaysDate[3]}-${startingMonth}-01`;
-      endingDate = `${todaysDate[3]}-${currentMonth}-${todaysDate[2]}`;
+      let currYear = todaysDate[3];
+      let startingYear = todaysDate[3];
+      if (startingMonth === "00") {
+        startingMonth = "12";
+        startingYear = parseInt(todaysDate[3]) - 1;
+      }
+
+      if (currentMonth === "02" && todaysDate[2] > 28) todaysDate[2] = 28;
+      startingDate = `${startingYear}-${startingMonth}-01`;
+      endingDate = `${currYear}-${currentMonth}-${todaysDate[2]}`;
 
       let lastThreeMonths = [];
+      // indexOfCurrMonth = indexOfCurrMonth - 1
       if (indexOfCurrMonth <= 2) {
         for (let i = indexOfCurrMonth - 1; i >= 0; i--) {
           lastThreeMonths.push(MONTHS[i]);
@@ -279,17 +289,28 @@ const Budget = ({ user }) => {
         divToSelect.classList.add("selected-month");
       }
 
-      let monthToDisplay = MONTHS[dateToday.getMonth() - 2];
+      let indexOfMonthToDisplay = dateToday.getMonth() - 3;
       let yearToDisplay = todaysDate[3];
 
-      if (indexOfCurrMonth === 1) monthToDisplay = MONTHS[MONTHS.length - 1];
-      if (indexOfCurrMonth === 0) monthToDisplay = MONTHS[MONTHS.length - 2];
-      if (indexOfCurrMonth <= 1) yearToDisplay = parseInt(todaysDate[3]) - 1;
+      let monthToDisplay = MONTHS[indexOfMonthToDisplay];
+
+      if (indexOfCurrMonth === 2) monthToDisplay = MONTHS[MONTHS.length - 1];
+      if (indexOfCurrMonth === 1) monthToDisplay = MONTHS[MONTHS.length - 2];
+      if (indexOfCurrMonth === 0) monthToDisplay = MONTHS[MONTHS.length - 3];
+      if (indexOfCurrMonth <= 2) yearToDisplay = parseInt(todaysDate[3]) - 1;
+
+      let lastMonthToDisplay = MONTHS[indexOfCurrMonth - 1];
+      let yearOfLastMonth = new Date().toString().split(" ")[3];
+      if (indexOfCurrMonth === 0) {
+        lastMonthToDisplay = MONTHS[MONTHS.length - 1];
+        yearOfLastMonth = parseInt(yearOfLastMonth) - 1;
+
+      }
 
       setTitleDate(
-        `${monthToDisplay} ${yearToDisplay} - ${
-          new Date().toString().split(" ")[1]
-        } ${new Date().toString().split(" ")[3]}`
+        `${monthToDisplay} ${yearToDisplay} - ${lastMonthToDisplay} ${
+          yearOfLastMonth
+        }`
       );
     }
 

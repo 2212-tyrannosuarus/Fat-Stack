@@ -106,13 +106,6 @@ const AllTransactions = ({ user }) => {
     setFromDate(newFromDate);
     let newToDate = formatDateObjects(selectedDates)[1];
     setToDate(newToDate);
-    console.log(
-      "userId, fromDate, toDate, TWO",
-      user.id,
-      newFromDate,
-      "|",
-      newToDate
-    );
     dispatch(
       fetchTransactionsFromDateToDate({
         userId: userId,
@@ -120,28 +113,38 @@ const AllTransactions = ({ user }) => {
         toDate: newToDate,
       })
     );
+    console.log("transactions after dispatch", allTransactions);
   }, [dispatch, newGoal, deletedTransaction, postedTransaction, selectedDates]);
 
   useEffect(() => {
-    console.log(allTransactions);
-    setFilteredTransactions(
-      allTransactions
-        .filter((transaction) => {
-          if (
-            (selectedAccount === "all" ||
-              transaction.bankaccountId === Number(selectedAccount)) &&
-            (selectedCategory === "None" ||
-              Number(selectedCategory) === Number(transaction.subcategoryId))
-          ) {
-            return true;
-          } else {
-            return false;
-          }
-        })
-        .sort((a, b) => {
-          //compare the dates and arrange them in order
-        })
-    );
+    const filterTransactions = async () => {
+      const transactionsToFilter = allTransactions;
+      console.log("before filter", transactionsToFilter);
+      await setFilteredTransactions(
+        transactionsToFilter
+          .filter((transaction) => {
+            if (
+              (selectedAccount === "all" ||
+                transaction.bankaccountId === Number(selectedAccount)) &&
+              (selectedCategory === "None" ||
+                Number(selectedCategory) === Number(transaction.subcategoryId))
+            ) {
+              return true;
+            } else {
+              return false;
+            }
+          })
+          .sort((a, b) => {
+            console.log(a.createdAt);
+            console.log(a.createdAt.substring(0));
+            return a.createdAt > b.createdAt;
+          })
+      );
+    };
+    filterTransactions();
+    const testFilteredTransactions = filteredTransactions;
+
+    console.log("after filter", testFilteredTransactions);
   }, [
     allTransactions,
     selectedAccount,
@@ -182,7 +185,6 @@ const AllTransactions = ({ user }) => {
   };
 
   const handleGoalSubmit = (goalTransaction) => {
-    console.log("setting new goal", goalTransaction);
     setNewGoal(goalTransaction);
   };
 
@@ -236,12 +238,6 @@ const AllTransactions = ({ user }) => {
       amount: newTransactionAmount,
       credit_debit: newTransactionCreditDebit,
     };
-    console.log(
-      "test",
-      userId,
-      newTransactionAccountId,
-      newTransactionSubCategory
-    );
     const newPostedTransaction = await axios.post(
       `/api/allTransactions/${userId}/${newTransactionAccountId}/${newTransactionSubCategory}`,
       newTransaction
@@ -252,9 +248,8 @@ const AllTransactions = ({ user }) => {
 
     // const connectTransactionToTables = async () => {
     //   const user = await User.findByPk(userId);
-    //   console.log("new transac sub cat", newTransactionSubCategory);
     // };
-    setPostedTransaction(newPostedTransaction);
+    await setPostedTransaction(newPostedTransaction);
 
     // now update the bank account balance
     let avaialableBalanceDifferential = 0;
@@ -300,7 +295,7 @@ const AllTransactions = ({ user }) => {
           selectedAccount={selectedAccount}
         />
       </Flex>
-      <Flex direction={"column"}>
+      <Flex direction={"column"} alignItems={"center"}>
         <TransactionList
           allTransactions={filteredTransactions}
           selectedAccount={selectedAccount}
@@ -325,11 +320,8 @@ const AllTransactions = ({ user }) => {
           handleNewDateChange={handleNewDateChange}
           handleClear={handleClear}
           setNewTransactionAmount={setNewTransactionAmount}
-        />
-        <Paginator
-          currentPage={currentPage}
+          //props for paginator
           setCurrentPage={setCurrentPage}
-          totalPageCount={totalPageCount}
         />
       </Flex>
     </Flex>

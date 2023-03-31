@@ -79,6 +79,7 @@ const ChartForOVerview = ({ user }) => {
             x: date.getDate(),
             y: parseInt(chartDataArr[i].transactionAmount),
           });
+
           newMonthStarted = true;
         } else {
           let date = new Date();
@@ -93,173 +94,182 @@ const ChartForOVerview = ({ user }) => {
       }
     }
 
-    lastMonthArr = [];
-    thisMonthArr = [];
+    if (chartdataLastMonth.length && chartdataThisMonth.length) {
+      lastMonthArr = [];
+      thisMonthArr = [];
 
-    let pointerlastMonth = 0;
-    let pointerThisMonth = 0;
-    let lastElementIndex = 0;
+      let pointerlastMonth = 0;
+      let pointerThisMonth = 0;
+      let lastElementIndex = 0;
 
-    // calculations for lastMonthArr - adding interpolation points that exist in this month arr but not in last month arr
-    for (let i = 0; i < chartdataLastMonth.length; i++) {
-      let alreadyexists = false;
-      if (chartdataLastMonth[i].x === chartdataThisMonth[pointerThisMonth].x) {
-        lastMonthArr.push({
-          x: chartdataLastMonth[i].x,
-          y: chartdataLastMonth[i].y,
-        });
-        pointerThisMonth++;
-      } else if (
-        chartdataLastMonth[i].x < chartdataThisMonth[pointerThisMonth].x
-      ) {
-        lastMonthArr.push({
-          x: chartdataLastMonth[i].x,
-          y: chartdataLastMonth[i].y,
-        });
-      } else {
-        for (let j = 0; j < lastMonthArr.length; j++) {
-          if (lastMonthArr[j].x === chartdataThisMonth[pointerThisMonth].x)
-            alreadyexists = true;
-        }
-        if (!alreadyexists) {
-          if (i === 0) {
-            lastMonthArr.push({
-              x: chartdataThisMonth[pointerThisMonth].x,
-              y: chartdataLastMonth[i].y,
-            });
-            lastMonthArr.push({
-              x: chartdataLastMonth[i].x,
-              y: chartdataLastMonth[i].y,
-            });
-            pointerThisMonth++;
+      // calculations for lastMonthArr - adding interpolation points that exist in this month arr but not in last month arr
+      for (let i = 0; i < chartdataLastMonth.length; i++) {
+        let alreadyexists = false;
+        if (
+          chartdataLastMonth[i].x === chartdataThisMonth[pointerThisMonth].x
+        ) {
+          lastMonthArr.push({
+            x: chartdataLastMonth[i].x,
+            y: chartdataLastMonth[i].y,
+          });
+          pointerThisMonth++;
+        } else if (
+          chartdataLastMonth[i].x < chartdataThisMonth[pointerThisMonth].x
+        ) {
+          lastMonthArr.push({
+            x: chartdataLastMonth[i].x,
+            y: chartdataLastMonth[i].y,
+          });
+        } else {
+          for (let j = 0; j < lastMonthArr.length; j++) {
+            if (lastMonthArr[j].x === chartdataThisMonth[pointerThisMonth].x)
+              alreadyexists = true;
+          }
+          if (!alreadyexists) {
+            if (i === 0) {
+              lastMonthArr.push({
+                x: chartdataThisMonth[pointerThisMonth].x,
+                y: chartdataLastMonth[i].y,
+              });
+              lastMonthArr.push({
+                x: chartdataLastMonth[i].x,
+                y: chartdataLastMonth[i].y,
+              });
+              pointerThisMonth++;
+            } else {
+              lastMonthArr.push({
+                x: chartdataThisMonth[pointerThisMonth].x,
+                y: chartdataLastMonth[i - 1].y,
+              });
+              lastMonthArr.push({
+                x: chartdataLastMonth[i].x,
+                y: chartdataLastMonth[i].y,
+              });
+              pointerThisMonth++;
+            }
           } else {
             lastMonthArr.push({
-              x: chartdataThisMonth[pointerThisMonth].x,
-              y: chartdataLastMonth[i - 1].y,
-            });
-            lastMonthArr.push({
               x: chartdataLastMonth[i].x,
               y: chartdataLastMonth[i].y,
             });
-            pointerThisMonth++;
           }
-        } else {
+        }
+        if (pointerThisMonth === chartdataThisMonth.length - 1) {
+          lastElementIndex = i;
+          break;
+        }
+      }
+
+      if (lastElementIndex > 0) {
+        for (let i = lastElementIndex + 1; i < chartdataLastMonth.length; i++) {
           lastMonthArr.push({
             x: chartdataLastMonth[i].x,
             y: chartdataLastMonth[i].y,
           });
         }
       }
-      if (pointerThisMonth === chartdataThisMonth.length - 1) {
-        lastElementIndex = i;
-        break;
-      }
-    }
 
-    if (lastElementIndex > 0) {
-      for (let i = lastElementIndex + 1; i < chartdataLastMonth.length; i++) {
-        lastMonthArr.push({
-          x: chartdataLastMonth[i].x,
-          y: chartdataLastMonth[i].y,
-        });
-      }
-    }
-
-    if (pointerThisMonth < chartdataThisMonth.length) {
-      for (let i = pointerThisMonth + 1; i < chartdataThisMonth.length; i++) {
-        let alreadyexists = false;
-        for (let j = 0; j < lastMonthArr.length; j++) {
-          if (lastMonthArr[j].x === chartdataThisMonth[i].x)
-            alreadyexists = true;
-        }
-        if (!alreadyexists) {
-          let indexOfLastMonth = 0;
+      if (pointerThisMonth < chartdataThisMonth.length) {
+        for (let i = pointerThisMonth + 1; i < chartdataThisMonth.length; i++) {
+          let alreadyexists = false;
           for (let j = 0; j < lastMonthArr.length; j++) {
-            if (lastMonthArr[j].x > chartdataThisMonth[i].x) {
-              indexOfLastMonth = j - 1;
-              break;
-            }
+            if (lastMonthArr[j].x === chartdataThisMonth[i].x)
+              alreadyexists = true;
           }
-          lastMonthArr.push({
-            x: chartdataThisMonth[i].x,
-            y: lastMonthArr[indexOfLastMonth].y,
-          });
+          if (!alreadyexists) {
+            let indexOfLastMonth = 0;
+            for (let j = 0; j < lastMonthArr.length; j++) {
+              if (lastMonthArr[j].x > chartdataThisMonth[i].x) {
+                indexOfLastMonth = j - 1;
+                break;
+              }
+            }
+
+            if (indexOfLastMonth === 0)
+              indexOfLastMonth = lastMonthArr.length - 1;
+            lastMonthArr.push({
+              x: chartdataThisMonth[i].x,
+              y: lastMonthArr[indexOfLastMonth].y,
+            });
+          }
         }
       }
-    }
 
-    let lastElement = 0;
-    // calculations for thisMonthArr - adding interpolation points that exist in last month arr but not in this month arr
-    for (let i = 0; i < chartdataThisMonth.length; i++) {
-      let alreadyexists = false;
-      if (chartdataThisMonth[i].x === chartdataLastMonth[pointerlastMonth].x) {
-        thisMonthArr.push({
-          x: chartdataThisMonth[i].x,
-          y: chartdataThisMonth[i].y,
-        });
-        pointerlastMonth++;
-      } else if (
-        chartdataThisMonth[i].x < chartdataLastMonth[pointerlastMonth].x
-      ) {
-        thisMonthArr.push({
-          x: chartdataThisMonth[i].x,
-          y: chartdataThisMonth[i].y,
-        });
-      } else {
-        for (let j = 0; j < thisMonthArr.length; j++) {
-          if (thisMonthArr[j].x === chartdataLastMonth[pointerlastMonth].x)
-            alreadyexists = true;
-        }
-        if (!alreadyexists) {
-          thisMonthArr.push({
-            x: chartdataLastMonth[pointerlastMonth].x,
-            y: chartdataThisMonth[i - 1].y,
-          });
+      let lastElement = 0;
+      // calculations for thisMonthArr - adding interpolation points that exist in last month arr but not in this month arr
+      for (let i = 0; i < chartdataThisMonth.length; i++) {
+        let alreadyexists = false;
+        if (
+          chartdataThisMonth[i].x === chartdataLastMonth[pointerlastMonth].x
+        ) {
           thisMonthArr.push({
             x: chartdataThisMonth[i].x,
             y: chartdataThisMonth[i].y,
           });
           pointerlastMonth++;
-        } else {
+        } else if (
+          chartdataThisMonth[i].x < chartdataLastMonth[pointerlastMonth].x
+        ) {
           thisMonthArr.push({
             x: chartdataThisMonth[i].x,
             y: chartdataThisMonth[i].y,
           });
-        }
-      }
-      lastElement = thisMonthArr[thisMonthArr.length - 1].x;
-    }
-
-    for (let i = pointerlastMonth + 1; i < chartdataLastMonth.length; i++) {
-      let alreadyexists = false;
-
-      if (chartdataLastMonth[i].x < lastElement) {
-        for (let j = 0; j < thisMonthArr.length; j++) {
-          if (thisMonthArr[j].x === chartdataLastMonth[i].x)
-            alreadyexists = true;
-        }
-
-        if (!alreadyexists) {
-          let indexInThisMonth = 0;
+        } else {
           for (let j = 0; j < thisMonthArr.length; j++) {
-            if (chartdataLastMonth[i].x < thisMonthArr[j].x) {
-              indexInThisMonth = j - 1;
-              break;
-            }
+            if (thisMonthArr[j].x === chartdataLastMonth[pointerlastMonth].x)
+              alreadyexists = true;
           }
-          thisMonthArr.push({
-            x: chartdataLastMonth[i].x,
-            y: thisMonthArr[indexInThisMonth].y,
-          });
+          if (!alreadyexists) {
+            thisMonthArr.push({
+              x: chartdataLastMonth[pointerlastMonth].x,
+              y: chartdataThisMonth[i - 1].y,
+            });
+            thisMonthArr.push({
+              x: chartdataThisMonth[i].x,
+              y: chartdataThisMonth[i].y,
+            });
+            pointerlastMonth++;
+          } else {
+            thisMonthArr.push({
+              x: chartdataThisMonth[i].x,
+              y: chartdataThisMonth[i].y,
+            });
+          }
+        }
+        lastElement = thisMonthArr[thisMonthArr.length - 1].x;
+      }
+
+      for (let i = pointerlastMonth + 1; i < chartdataLastMonth.length; i++) {
+        let alreadyexists = false;
+
+        if (chartdataLastMonth[i].x < lastElement) {
+          for (let j = 0; j < thisMonthArr.length; j++) {
+            if (thisMonthArr[j].x === chartdataLastMonth[i].x)
+              alreadyexists = true;
+          }
+
+          if (!alreadyexists) {
+            let indexInThisMonth = 0;
+            for (let j = 0; j < thisMonthArr.length; j++) {
+              if (chartdataLastMonth[i].x < thisMonthArr[j].x) {
+                indexInThisMonth = j - 1;
+                break;
+              }
+            }
+            thisMonthArr.push({
+              x: chartdataLastMonth[i].x,
+              y: thisMonthArr[indexInThisMonth].y,
+            });
+          }
         }
       }
+
+      thisMonthArr.sort((a, b) => a.x - b.x);
+      lastMonthArr.sort((a, b) => a.x - b.x);
+
+      // slicing data set for laxt month to match this month arr length to be able to show data uptil the current date.
+      lastMonthArr = lastMonthArr.slice(0, thisMonthArr.length);
     }
-
-    thisMonthArr.sort((a, b) => a.x - b.x);
-    lastMonthArr.sort((a, b) => a.x - b.x);
-
-    // slicing data set for laxt month to match this month arr length to be able to show data uptil the current date.
-    lastMonthArr = lastMonthArr.slice(0, thisMonthArr.length);
   }
 
   useEffect(() => {
@@ -295,7 +305,12 @@ const ChartForOVerview = ({ user }) => {
 
   return (
     <>
-      {overviewChartData && overviewChartData.flat().slice(0, -1).length ? (
+      {overviewChartData &&
+      overviewChartData.flat().slice(0, -1).length &&
+      chartdataLastMonth &&
+      chartdataLastMonth.length &&
+      chartdataThisMonth &&
+      chartdataThisMonth.length ? (
         <VictoryChart width={800} height={500}>
           <VictoryLegend
             x={125}
@@ -357,9 +372,14 @@ const ChartForOVerview = ({ user }) => {
           />
         </VictoryChart>
       ) : (
-        <Text color={"lightgrey"} fontWeight={"bold"}>
-          Please add a Bank Account or Transaction for data to show
-        </Text>
+        <>
+          Not enough data to display
+          <img
+            src="./assets/overviewPlaceholder.jpeg"
+            alt=""
+            className="mt-4 pt-4"
+          />
+        </>
       )}
     </>
   );

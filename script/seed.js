@@ -147,8 +147,8 @@ async function seed() {
 
   // creating user for csv transaction data
   const userTasneem = await User.create({
-    username: "tasneemp",
-    password: "tasneemPass",
+    username: "Chance",
+    password: "chancePass",
     email: "tasneem@gmail.com",
     phone_number: "1234561234",
   });
