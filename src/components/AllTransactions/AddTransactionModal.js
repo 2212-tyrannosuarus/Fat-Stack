@@ -178,7 +178,14 @@ const AddTransactionModal = (props) => {
               </FormControl>
             </form>
           </ModalBody>
-          <Button onClick={handleNewTransactionSubmit}>Submit</Button>
+          <Button
+            onClick={() => {
+              onClose();
+              handleNewTransactionSubmit();
+            }}
+          >
+            Submit
+          </Button>
           <ModalFooter>
             <Button onClick={handleClear}>Clear</Button>
           </ModalFooter>
