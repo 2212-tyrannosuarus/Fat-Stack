@@ -38,6 +38,7 @@ const ChartForOVerview = ({ user }) => {
   const [dateToday, setDateToday] = useState(new Date());
   let [chartdataLastMonth, setChartDataLastMonth] = useState([]);
   let [chartdataThisMonth, setChartDataThisMonth] = useState([]);
+  console.log(' overviewChartData ', overviewChartData);
 
   let lastMonthArr = [];
   let thisMonthArr = [];
@@ -103,8 +104,13 @@ const ChartForOVerview = ({ user }) => {
       let lastElementIndex = 0;
 
       // calculations for lastMonthArr - adding interpolation points that exist in this month arr but not in last month arr
-      for (let i = 0; i < chartdataLastMonth.length; i++) {
+      let lengthToLoop = chartdataLastMonth.length;
+      if (chartdataThisMonth.length < chartdataLastMonth.length) {
+        lengthToLoop = chartdataThisMonth.length;
+      }
+      for (let i = 0; i < lengthToLoop; i++) {
         let alreadyexists = false;
+        console.log('pointerThisMonth ', pointerThisMonth);
         if (
           chartdataLastMonth[i].x === chartdataThisMonth[pointerThisMonth].x
         ) {
@@ -269,6 +275,8 @@ const ChartForOVerview = ({ user }) => {
 
       // slicing data set for laxt month to match this month arr length to be able to show data uptil the current date.
       lastMonthArr = lastMonthArr.slice(0, thisMonthArr.length);
+      console.log(' thisMonthArr ', thisMonthArr);
+      console.log(' lastMonthArr ', lastMonthArr);
     }
   }
 
@@ -282,7 +290,14 @@ const ChartForOVerview = ({ user }) => {
     } else {
       currentMonth = (dateToday.getMonth() + 1).toString();
     }
-    let startingDate = `2023-02-01`;
+    let lastMonth = "";
+    if ((dateToday.getMonth()).toString().length === 1) {
+      lastMonth = `0${(dateToday.getMonth()).toString()}`;
+    } else {
+      lastMonth = (dateToday.getMonth()).toString();
+    }
+
+    let startingDate = `${todaysDate[3]}-${lastMonth}-01`;
     let endingDate = `${todaysDate[3]}-${currentMonth}-${todaysDate[2]}`;
 
     async function getOverviewChartData() {
@@ -311,7 +326,9 @@ const ChartForOVerview = ({ user }) => {
       chartdataLastMonth.length &&
       chartdataThisMonth &&
       chartdataThisMonth.length ? (
-        <VictoryChart width={800} height={500}>
+        <VictoryChart width={800} height={500}
+        domain={{x: [0,31]}}
+        >
           <VictoryLegend
             x={125}
             y={10}
