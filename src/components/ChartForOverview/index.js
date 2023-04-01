@@ -42,6 +42,8 @@ const ChartForOVerview = ({ user }) => {
 
   let lastMonthArr = [];
   let thisMonthArr = [];
+  let xDomainMax = 31;
+  let yDomainMax = 7000;
 
   if (overviewChartData.flat().slice(0, -1).length > 0) {
     let chartDataArr = overviewChartData.flat().slice(0, -1);
@@ -277,6 +279,11 @@ const ChartForOVerview = ({ user }) => {
       lastMonthArr = lastMonthArr.slice(0, thisMonthArr.length);
       console.log(' thisMonthArr ', thisMonthArr);
       console.log(' lastMonthArr ', lastMonthArr);
+
+      xDomainMax = parseInt(thisMonthArr[thisMonthArr.length - 1].x) < 9 ? 9 : parseInt(thisMonthArr[thisMonthArr.length - 1].x);
+
+      yDomainMax = parseInt(thisMonthArr[thisMonthArr.length - 1].y) >= parseInt(lastMonthArr[lastMonthArr.length - 1].y) ? 
+        parseInt(thisMonthArr[thisMonthArr.length - 1].y) + 1000 : parseInt(lastMonthArr[lastMonthArr.length - 1].y) + 1000;
     }
   }
 
@@ -299,6 +306,9 @@ const ChartForOVerview = ({ user }) => {
 
     let startingDate = `${todaysDate[3]}-${lastMonth}-01`;
     let endingDate = `${todaysDate[3]}-${currentMonth}-${todaysDate[2]}`;
+
+    //  let startingDate = `2023-03-01`;
+    // let endingDate = `2023-04-07`;
 
     async function getOverviewChartData() {
       await dispatch(
@@ -327,7 +337,7 @@ const ChartForOVerview = ({ user }) => {
       chartdataThisMonth &&
       chartdataThisMonth.length ? (
         <VictoryChart width={800} height={500}
-        domain={{x: [0,31]}}
+        domain={{x: [1,xDomainMax], y: [0,yDomainMax]}}
         >
           <VictoryLegend
             x={125}
