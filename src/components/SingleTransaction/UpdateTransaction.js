@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import {
   updateSingleTransaction,
   selectAllSubCat,
@@ -29,6 +29,7 @@ import {
 } from "@chakra-ui/react";
 
 export default function UpdateTransaction() {
+  const navigate = useNavigate();
   const [merchant, setMerchant] = useState("");
   const [date, setDate] = useState("");
   const [amount, setAmount] = useState(0);
@@ -60,17 +61,19 @@ export default function UpdateTransaction() {
         updateAllTransactionCat({
           name: transaction.merchant,
           body: {
-            merchant,
-            date,
-            amount,
+            // merchant,
+            // date,
+            // amount,
             hide_from_budget: hideFromBudget,
             subcategoryId,
           },
         })
       );
+
       await dispatch(
         redoContribution({ name: merchant, contributedamount: newAmount })
       );
+      navigate(`/transactions/${transaction.id}`);
     }
     await dispatch(
       updateSingleTransaction({

@@ -67,7 +67,7 @@ export function PageWithGoals({ user }) {
           ) : (
             <>
               <Flex>
-                <Box mt="3rem" mb="4rem" width="100%" pl="3rem" mr={2}>
+                <Box mt="3rem" mb="4rem" width="100%" pl="0rem" mr={2}>
                   <Box width="100%">
                     <Flex justifyContent="space-between">
                       <Box>
@@ -109,7 +109,7 @@ export function PageWithGoals({ user }) {
                   </Box>
                 </Box>
                 <Spacer />
-                <Box width="20%">
+                <Box width="20%" ml="2rem">
                   <Heading size="md" mb="3rem" mt="3rem">
                     Building goals
                   </Heading>
