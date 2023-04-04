@@ -49,8 +49,9 @@ const BarChart = (props) => {
         });
       }
     }
-    setBarChartCredit(barChartCredit.slice(6));
-    setBarChartDebit(barChartDebit.slice(6));
+    let numToSlice = barChartCredit.length - 6;
+    setBarChartCredit(barChartCredit.slice(numToSlice));
+    setBarChartDebit(barChartDebit.slice(numToSlice));
   }, [setBarChartCredit, setBarChartDebit, chartData]);
 
   return (
