@@ -4,7 +4,8 @@ By:
 <a href="https://www.linkedin.com/in/miro-malebranche/">Miro Malebranche</a> |
 <a href="https://www.linkedin.com/in/tasneem-patrawala/">Tasneem Patrawala</a> |
 <a href="https://www.linkedin.com/in/cshemerda/">Chance Hemerda</a>
-   <img src="https://i.imgur.com/vad5L2s.png" alt="logo" width="10%" height="10%" />
+<p><img src="https://i.imgur.com/vad5L2s.png" alt="logo" width="10%" height="10%" /> </p>
+   
   <h1>Welcome to Fat Stack!</h1>
   
   <p>
@@ -29,7 +30,34 @@ By:
 ### :camera: Screenshots
 
 <div> 
+  <img src="https://i.imgur.com/LQZj9cz.png alt="homepage screenshot" width="700" height="auto"" />
+</div>
+<div> 
+  <img src="https://i.imgur.com/dFEp9QM.png alt="homepage screenshot" width="700" height="auto"" />
+</div>
+<div> 
+  <img src="https://i.imgur.com/WZCZDyY.png alt="homepage screenshot" width="700" height="auto"" />
+</div>
+<div> 
+  <img src="https://i.imgur.com/yqlGQAW.png alt="homepage screenshot" width="700" height="auto"" />
+</div>
+<div> 
+  <img src="https://i.imgur.com/jhe7x9k.png alt="homepage screenshot" width="700" height="auto"" />
+</div>
+<div> 
+  <img src="https://i.imgur.com/ilCHrVz.png alt="homepage screenshot" width="700" height="auto"" />
+</div>
+<div> 
   <img src="https://i.imgur.com/KWG4Kan.png alt="homepage screenshot" width="700" height="auto"" />
+</div>
+<div> 
+  <img src="https://i.imgur.com/6tC1ZPW.png alt="homepage screenshot" width="700" height="auto"" />
+</div>
+<div> 
+  <img src="https://i.imgur.com/1CsLCff.png alt="homepage screenshot" width="700" height="auto"" />
+</div>
+<div> 
+  <img src="https://i.imgur.com/p4vqHX6.png alt="homepage screenshot" width="700" height="auto"" />
 </div>
 
 <!-- TechStack -->
