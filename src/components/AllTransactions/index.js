@@ -136,7 +136,7 @@ const AllTransactions = ({ user }) => {
           })
           .sort((a, b) => {
             console.log(a.createdAt);
-            console.log(a.createdAt.substring(0));
+            console.log(a.createdAt.substring());
             return a.createdAt > b.createdAt;
           })
       );

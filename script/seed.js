@@ -121,7 +121,7 @@ async function seed() {
     available_balance: 20000.0,
     account_number: "55224476",
     account_type: "Credit",
-    account_name: "Platiunum Card",
+    account_name: "Platinum Card",
   });
   const bankAccountThree = await Bank_Account.create({
     account_id: "D4M21L8KADVDLHTR7M3YV3FP4V2IFZ0N15A3P",
