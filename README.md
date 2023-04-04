@@ -1,70 +1,98 @@
-# Getting Started with Create React App
+<div align="center">
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+   <img src="https://i.imgur.com/vad5L2s.png" alt="logo" width="10%" height="10%" />
+  <h1>Welcome to Fat Stack!</h1>
+  
+  <p>
+        A personal finance app that helps track your Accounts, Transactions, Budgets, Trends, and Goals all in one place.
+  </p>
+   
+<h4>
+    <a href="https://fat-stack.onrender.com/"> View Demo </a>
+  <span> · </span>
+    <a href="https://github.com/2212-tyrannosuarus/capstone"> Code </a>
+  </h4>
+</div>
 
-## Available Scripts
+<br />
 
-In the project directory, you can run:
+<!-- About the Project -->
+## :star2: About the Project
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+<!-- Screenshots -->
+### :camera: Screenshots
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+<div> 
+  <img src="https://i.imgur.com/KWG4Kan.png alt="homepage screenshot" width="700" height="auto"" />
+</div>
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<!-- TechStack -->
+### :space_invader: Tech Stack
 
-### `npm run build`
+<details>
+  <summary>Client</summary>
+  <ul>
+    <li><a href="https://reactjs.org/">React.js</a></li>
+    <li><a href="https://chakra-ui.com/">Chakra UI</a></li>
+    <li><a href="https://formidable.com/open-source/victory/docs/victory-chart/">Victory Charts</a></li>
+  </ul>
+</details>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<details>
+  <summary>Server</summary>
+  <ul>
+    <li><a href="https://nodejs.org/en">Node</a></li>
+    <li><a href="https://expressjs.com/">Express.js</a></li>
+    <li><a href="https://redux.js.org/">Redux</a></li>
+    <li><a href="https://plaid.com/docs/api/">Plaid</a></li>    
+    <li><a href="https://openai.com/">OpenAI</a></li>
+  </ul>
+</details>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+<details>
+<summary>Database</summary>
+  <ul>
+    <li><a href="https://www.postgresql.org/">PostgreSQL</a></li>
+    <li><a href="https://sequelize.org/">Sequelize</a></li>
+  </ul>
+</details>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+<!-- Features -->
+### :dart: Features
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- Feature 1
+- Feature 2
+- Feature 3
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+<!-- Run Locally -->
+## :running: Run Locally
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
+To run this project, you will need to add the following environment variables to your .env file
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+  API_KEY
+  ANOTHER_API_KEY
+```
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```bash
+  git clone https://github.com/2212-tyrannosuarus/capstone.git
+  cd my-project
+  npm install
+  npm run start:dev
+```
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+<!-- Contact -->
+## :handshake: Contact
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Yao Guan - Linkedin
+Miro Malebranche
+Tasneem Patrawala
+Chance Hemerda
