@@ -33,8 +33,8 @@ const AllTransactions = ({ user }) => {
     };
   });
 
-  const sixMonthsAgo = new Date();
-  sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
+  const oneMonthAgo = new Date();
+  oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
 
   const [selectedAccount, setSelectedAccount] = useState("all");
   const [selectedCategory, setSelectedCategory] = useState("None");
@@ -53,10 +53,7 @@ const AllTransactions = ({ user }) => {
   const [toDate, setToDate] = useState("");
   const [fromDate, setFromDate] = useState("");
   const [newGoal, setNewGoal] = useState({});
-  const [selectedDates, setSelectedDates] = useState([
-    sixMonthsAgo,
-    new Date(),
-  ]);
+  const [selectedDates, setSelectedDates] = useState([oneMonthAgo, new Date()]);
   const [datesFiltered, setDatesFiltered] = useState(false);
   const [filteredTransactions, setFilteredTransactions] = useState(
     allTransactions || []
@@ -174,6 +171,23 @@ const AllTransactions = ({ user }) => {
       setCurrentPage(1);
     }
   }, [selectedAccount, selectedCategory, selectedDates, totalPageCount]);
+
+  useEffect(() => {
+    const createAndDestroyBlankTransaction = async () => {
+      let newTransaction = {
+        account_id: "1",
+        merchant: "null",
+        date: "date",
+        amount: "0",
+        credit_debit: debit,
+      };
+      const newPostedTransaction = await axios.post(
+        `/api/allTransactions/${userId}/${newTransactionAccountId}/${newTransactionSubCategory}`,
+        newTransaction
+      );
+      deleteSingleTransaction(newPostedTransaction.id);
+    };
+  }, []);
 
   let totalAccountBalance = bankAccounts.reduce((accum, account) => {
     accum += Number(account.available_balance);
